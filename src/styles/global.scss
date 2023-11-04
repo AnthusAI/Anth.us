@@ -9,13 +9,10 @@ h1, h2, h3 {
   font-weight: 600;
 }
 
-body {
-
-}
-
 header {
+  width: 100%;
   margin: 0 auto;
-  padding: var(--space-1) var(--size-gutter);
+  padding: 1ex var(--size-gutter) 1ex var(--size-gutter);
   display: flex;
   align-items: center;
   background: rgb(187,187,255);
@@ -129,6 +126,43 @@ header {
         transparent 60%, transparent 80%, 
         #3D0E61 80%, #3D0E61 100%
       );
+    }
+  }
+}
+
+footer {
+  width: 100%;
+  margin: auto;
+  margin-top: 2em;
+  padding: 1ex 0;
+  font-size: var(--font-sm);
+  background: rgb(187,187,255);
+  background: linear-gradient(151deg, rgba(187,187,255,1) 0%, rgba(255,187,255,1) 100%);
+
+  .contents {
+    margin: 0 auto;
+    max-width: var(--size-content);
+    padding: 0 var(--size-gutter) 0 var(--size-gutter);
+
+    display: flex;
+    div {
+      flex: 1 0 auto;
+    }
+    div.logo {
+      text-align: center;
+      .logo {
+        .gatsby-image-wrapper {
+          transform: translateY(-50%); /* Center vertically */
+        }
+        img {
+          height: 4em;
+          display: block;
+          width: auto;
+        }
+      }
+    }
+    div:last-child {
+      text-align: right;
     }
   }
 }

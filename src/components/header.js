@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import priorityPlus from 'priority-plus';
+import { StaticImage } from 'gatsby-plugin-image'
 
 const Header = ({ siteTitle, menuLinks }) => {
   // Using useEffect to call the priorityPlus function after the component mounts
@@ -26,7 +27,11 @@ const Header = ({ siteTitle, menuLinks }) => {
         to="/"
       >
         <div className="logo">
-          <img src={'/icon.png'} alt="Anthus" />
+          <StaticImage
+            alt="Anthus?"
+            src="../../static/icon.png"
+            placeholder="BLURRED"
+          />
         </div>
         {siteTitle}&nbsp;
       </Link>
