@@ -26,6 +26,10 @@ header {
   line-height: 1em;
   position: relative;
 
+  .p-plus {
+    z-index: 1;
+  }
+
   // Target the Link component representing the site title
   > a {
     text-decoration: none;
@@ -59,32 +63,49 @@ header {
   // Target the div wrapping the navigation
   .menu {
     flex-grow: 1;
+    height: var(--font-md);
+    line-height: var(--font-md);
 
     nav {
-      ul {
+      ul.js-p-target {
+        display: flex;
+        flex: 1 0 auto;
+        margin: 0;
+        padding: 0;
         
         li {
+          display: list-item;
+          list-style-type: none;
+          line-height: var(--font-md);
           flex: 0 0 auto;
           padding: 0 1.5em 0 0;
           margin: 0;
           text-align: right;
-
-          // Target the Link component within each list item
-          a {
-            font-weight: 600;
-            color: var(--color-text);
-            text-decoration: none;
-            &:hover,
-            &:active,
-            &:visited {
-              color: var(--color-text);
-            }
-          }
         }
         li:last-child {
           padding-right: 0;
         }
       }
+      ul.p-plus__overflow {
+        background: rgb(187,187,255);
+        background: linear-gradient(151deg, rgba(187,187,255,1) 0%, rgba(255,187,255,1) 100%);
+        margin: 0;
+        padding: 1.5em 1.5em 1.5em 1.5em;
+        list-style-type: none;
+      }
+
+      // Target the Link component within each list item
+      a {
+        font-weight: 600;
+        color: var(--color-text);
+        text-decoration: none;
+        &:hover,
+        &:active,
+        &:visited {
+          color: var(--color-text);
+        }
+      }
+      
     }
   }
 
