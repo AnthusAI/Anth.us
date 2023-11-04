@@ -1,0 +1,113 @@
+@import "node_modules/priority-plus/dist/priority-plus";
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+}
+
+body {
+
+}
+
+header {
+  margin: 0 auto;
+  padding: var(--space-1) var(--size-gutter);
+  display: flex;
+  align-items: center;
+  background: rgb(187,187,255);
+  background: linear-gradient(151deg, rgba(187,187,255,1) 0%, rgba(255,187,255,1) 100%);
+  color: var(--color-text);
+  font-family: 'Cinzel', serif;
+  font-size: var(--font-md);
+  line-height: 1em;
+  position: relative;
+
+  // Target the Link component representing the site title
+  > a {
+    text-decoration: none;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+
+    &:hover,
+    &:active,
+    &:visited {
+      color: var(--color-text);
+    }
+
+    .logo {
+      position: absolute; /* Absolutely position our image container */
+      top: 50%; /* Position at the half of the parent's height */
+      left: -1px; /* Align to the left edge of the container */
+      transform: translateY(-50%); /* Center vertically */
+      height: 2em; /* Twice the font size */
+      width: auto; /* Maintain aspect ratio of the image */
+
+      img {
+        height: 2em;
+        display: block;
+        width: auto;
+      }
+    }
+  }
+
+  // Target the div wrapping the navigation
+  .menu {
+    flex-grow: 1;
+
+    nav {
+      ul {
+        
+        li {
+          flex: 0 0 auto;
+          padding: 0 1.5em 0 0;
+          margin: 0;
+          text-align: right;
+
+          // Target the Link component within each list item
+          a {
+            font-weight: 600;
+            color: var(--color-text);
+            text-decoration: none;
+            &:hover,
+            &:active,
+            &:visited {
+              color: var(--color-text);
+            }
+          }
+        }
+        li:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 1em;
+    .hamburger {
+      width: 1em;
+      height: 1em;
+      display: block;
+      border: none;
+      background: linear-gradient(
+        to bottom, 
+        #3D0E61, #3D0E61 20%, 
+        transparent 20%, transparent 40%, 
+        #3D0E61 40%, #3D0E61 60%, 
+        transparent 60%, transparent 80%, 
+        #3D0E61 80%, #3D0E61 100%
+      );
+    }
+  }
+}
