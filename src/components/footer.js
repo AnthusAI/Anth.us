@@ -45,7 +45,7 @@ const Footer = () => {
           <StaticImage
             className="logo"
             alt="Anthus?"
-            src="../../static/icon.png"
+            src="../images/icon.png"
             placeholder="BLURRED"
           />
         </div>

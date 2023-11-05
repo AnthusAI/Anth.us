@@ -42,8 +42,8 @@ const IndexPage = () => (
       <Hero>
         <StaticImage
           className="hero-image"
-          src="../../static/serverless-ai-software-solutions.png"
-          alt="Anthus?"
+          src="../images/serverless-ai-software-solutions.png"
+          alt="Anthus"
           layout="fullWidth"
           placeholder="BLURRED"
         />

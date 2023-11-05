@@ -29,7 +29,7 @@ const Header = ({ siteTitle, menuLinks }) => {
         <div className="logo">
           <StaticImage
             alt="Anthus?"
-            src="../../static/icon.png"
+            src="../images/icon.png"
             placeholder="BLURRED"
           />
         </div>
