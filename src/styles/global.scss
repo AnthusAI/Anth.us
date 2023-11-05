@@ -130,6 +130,17 @@ header {
   }
 }
 
+@media (max-width: 400px) {
+  header {
+    font-size: var(--font-sm);
+  }
+}
+@media (min-width: 800px) {
+  header {
+    font-size: var(--font-lg);
+  }
+}
+
 .hero {
   position: relative;
 
@@ -151,6 +162,46 @@ header {
     word-break: keep-all;
     overflow-wrap: normal;
     margin: 0 0 0.5em 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 60% 0;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 800px) {
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 0 90%;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 1200px) {
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 0 50%;
+        }
+      }
+    }
   }
 }
 
