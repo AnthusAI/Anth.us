@@ -26,13 +26,6 @@ const Header = ({ siteTitle, menuLinks }) => {
       <Link
         to="/"
       >
-        <div className="logo">
-          <StaticImage
-            alt="Anthus?"
-            src="../images/icon.png"
-            placeholder="BLURRED"
-          />
-        </div>
         {siteTitle}&nbsp;
       </Link>
   

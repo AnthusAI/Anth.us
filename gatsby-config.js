@@ -42,8 +42,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Anth.us AI Solutions`,
+        short_name: `Anth.us`,
         start_url: `/`,
         background_color: `#663399`,
         // This will impact how browsers show your PWA/website
@@ -64,5 +64,25 @@ module.exports = {
         display: 'swap',
       },
     },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        // Your options here (if any)
+      },
+    },
+    {
+      resolve: `gatsby-plugin-page-creator`,
+      options: {
+        path: `${__dirname}/src/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/src/blog`,
+      },
+    },
+    `gatsby-transformer-remark`,
   ],
 }
