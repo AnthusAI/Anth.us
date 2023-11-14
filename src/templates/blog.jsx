@@ -13,9 +13,12 @@ const CollectionTemplate = ({ data }) => {
         <h1>Blog articles</h1>
         <ul>
           {posts.map(({ node }) => (
-            <li key={node.id}>
-              <Link to={`/blog/` + node.frontmatter.slug}>{node.frontmatter.title}</Link>
-            </li>
+            <div className='blog-post-preview'>
+              <li key={node.id}>
+                <Link to={`/blog/` + node.frontmatter.slug}>{node.frontmatter.title}</Link>
+              </li>
+              <p>{node.frontmatter.date}</p>
+            </div>
           ))}
         </ul>
       </div>
@@ -31,6 +34,7 @@ export const pageQuery = graphql`
           id
           frontmatter {
             title
+            date(formatString: "MMMM DD, YYYY")
             slug
             excerpt
           }
