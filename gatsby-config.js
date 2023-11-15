@@ -61,7 +61,7 @@ module.exports = {
           `Cinzel:600,900`,
           `Montserrat`,
         ],
-        display: 'swap',
+        display: 'block',
       },
     },
     {
@@ -83,6 +83,7 @@ module.exports = {
         path: `${__dirname}/src/blog`,
       },
     },
-    `gatsby-transformer-remark`,
+    `gatsby-transformer-remark`
+    
   ],
 }

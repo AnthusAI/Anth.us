@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import { MDXProvider } from "@mdx-js/react"
+import Markdown from 'markdown-to-jsx';
 
 const BlogPostTemplate = ({ data, children }) => {
   console.log("Data:", data);
@@ -18,8 +19,24 @@ const BlogPostTemplate = ({ data, children }) => {
   return (
     <Layout>
       <article>
-        <h1>{post.frontmatter.title}</h1>
-        <p>{post.frontmatter.date}</p>
+        <div className='heading'>
+          <h1>{post.frontmatter.title}</h1>
+          <div className='date'>{post.frontmatter.date}</div>
+          <div className='authors'>
+            <div className='byline'>by</div>
+            <ul className='authors'>
+              {post.frontmatter.authors.map((author) => (
+                <li key={author.author}>
+                  <div class="author">
+                    <Markdown>
+                      {author.author}
+                    </Markdown>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
         <MDXProvider components={shortcodes}>
           {children}
         </MDXProvider>
@@ -35,6 +52,9 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        authors {
+          author
+        }
       }
     }
   }

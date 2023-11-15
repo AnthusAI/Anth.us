@@ -15,9 +15,10 @@ const CollectionTemplate = ({ data }) => {
           {posts.map(({ node }) => (
             <div className='blog-post-preview'>
               <li key={node.id}>
-                <Link to={`/blog/` + node.frontmatter.slug}>{node.frontmatter.title}</Link>
+                <Link to={`/blog/` + node.frontmatter.slug}><h3>{node.frontmatter.title}</h3></Link>
+                <div className='date'>{node.frontmatter.date}</div>
+                <p>{node.frontmatter.excerpt}</p>
               </li>
-              <p>{node.frontmatter.date}</p>
             </div>
           ))}
         </ul>
