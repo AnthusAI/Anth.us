@@ -23,24 +23,26 @@ const Header = ({ siteTitle, menuLinks }) => {
 
   return (
     <header>
-      <Link
-        to="/"
-      >
-        {siteTitle}&nbsp;
-      </Link>
-  
-      <div className="menu">
-        <nav>
-          <ul className="js-p-target">
-            {menuLinks.map(link => (
-              <li key={link.name}>
-                <Link to={link.link}>
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <div className="content">
+        <Link
+          to="/"
+        >
+          {siteTitle}&nbsp;
+        </Link>
+    
+        <div className="menu">
+          <nav>
+            <ul className="js-p-target">
+              {menuLinks.map(link => (
+                <li key={link.name}>
+                  <Link to={link.link}>
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
     </header>
   );

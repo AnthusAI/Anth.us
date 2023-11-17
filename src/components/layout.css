@@ -23,7 +23,7 @@
   --space-4: 24px;
   --space-5: 32px;
   --space-6: 64px;
-  --size-content: 54rem;
+  --size-content: 940px;
   --size-gutter: var(--space-5);
   --size-gap: var(--space-6);
 }
@@ -81,7 +81,7 @@ h1 {
 }
 h1, h2, h3, h4, h5, h6 {
   text-align: left;
-  max-width: 680px;
+  max-width: 940px;
 }
 h1 > b {
   color: var(--color-primary);
@@ -183,7 +183,7 @@ li > p {
   margin-bottom: calc(var(--space-4) / 2);
 }
 p {
-  max-width: 680px;
+  max-width: 940xpx;
 }
 code {
   font-size: 0.875rem;

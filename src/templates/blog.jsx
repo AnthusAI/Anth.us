@@ -29,7 +29,9 @@ const CollectionTemplate = ({ data }) => {
 
 export const pageQuery = graphql`
   query CollectionPageQuery {
-    allMdx {
+    allMdx(
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
       edges {
         node {
           id
