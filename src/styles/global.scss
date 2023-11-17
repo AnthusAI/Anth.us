@@ -33,9 +33,9 @@ header {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  background: rgb(187,187,255);
-  background: linear-gradient(151deg, rgba(187,187,255,1) 0%, rgba(255,187,255,1) 100%);
-  color: var(--color-text);
+  background: rgb(208,51,130);
+  background: linear-gradient(171deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 42%, rgba(0,0,0,1) 84%, rgba(208,51,130,1) 100%);
+  color: white;
   font-family: 'Cinzel', serif;
   font-size: var(--font-lg);
   line-height: 1em;
@@ -57,12 +57,6 @@ header {
     flex-shrink: 0;
     font-family: 'Cinzel', serif;
     font-weight: 900;
-    
-    &:hover,
-    &:active,
-    &:visited {
-      color: var(--color-text);
-    }
     
     .logo {
       position: absolute; /* Absolutely position our image container */
@@ -122,39 +116,51 @@ header {
     // Target the Link component within each list item
     a {
       font-weight: 600;
-      color: var(--color-text);
+      color: white;
       text-decoration: none;
       &:hover,
       &:active,
       &:visited {
-        color: var(--color-text);
+        color: white;
       }
     }
   }
-}
 
-button {
-  background-color: transparent;
-  border: none;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-left: 1em;
-  .hamburger {
-    width: 1em;
-    height: 1em;
-    display: block;
+  button {
+    background-color: transparent;
     border: none;
-    background: linear-gradient(
-      to bottom, 
-      #3D0E61, #3D0E61 20%, 
-      transparent 20%, transparent 40%, 
-      #3D0E61 40%, #3D0E61 60%, 
-      transparent 60%, transparent 80%, 
-      #3D0E61 80%, #3D0E61 100%
-    );
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 1em;
+    .hamburger {
+      width: 1em;
+      height: 1em;
+      display: block;
+      border: none;
+      background: linear-gradient(
+        to bottom, 
+        #ff87c3, #ff87c3 20%, 
+        transparent 20%, transparent 40%, 
+        #ff87c3 40%, #ff87c3 60%, 
+        transparent 60%, transparent 80%, 
+        #ff87c3 80%, #ff87c3 100%
+      );
+    }
+  }
   }
 }
+
+header, footer {
+  a {
+    color: white;
+    text-decoration: none;
+    &:hover,
+    &:active,
+    &:visited {
+      color: white;
+    }
+  }
 }
 
 @media (max-width: 400px) {
@@ -271,8 +277,8 @@ footer {
   margin-top: 2em;
   padding: 1ex 0;
   font-size: var(--font-sm);
-  background: rgb(187,187,255);
-  background: linear-gradient(151deg, rgba(187,187,255,1) 0%, rgba(255,187,255,1) 100%);
+  background: rgba(208,51,130,1);
+  color: white;
 
   .links {
     width: 100%;
