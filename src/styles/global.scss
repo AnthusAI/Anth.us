@@ -356,6 +356,7 @@ mark {
   width: 40%;
   height: auto;
   margin-left: 1em;
+  margin-bottom: 1em;
 }
 
 ul.blog {
@@ -407,6 +408,10 @@ ul.blog {
       }
     }
   }
+}
+
+.clear-float {
+  clear: both;
 }
 
 /* For portrait tablets */
