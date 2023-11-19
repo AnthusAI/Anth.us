@@ -326,7 +326,6 @@ article {
     margin-bottom: 0;
   }
 
-  text-align: justify;
   text-justify: inter-word;
 }
 
@@ -407,6 +406,9 @@ ul.blog {
         }
       }
     }
+  }
+  article {
+    text-align: justify;
   }
 }
 
