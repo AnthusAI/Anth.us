@@ -29,22 +29,11 @@ const Layout = ({ children, hero }) => {
 
   return (
     <div
-      style={{
-        display: `flex`,
-        flexDirection: `column`,
-        minHeight: `100vh`,
-      }}
+      className={`layout ${hero ? 'hero' : 'page'}`}
     >
       <Header menuLinks={data.site.siteMetadata.menuLinks} siteTitle={data.site.siteMetadata.title} />
       {hero && <>{hero}</>}
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: `var(--size-content)`,
-          padding: `0 var(--size-gutter) 0 var(--size-gutter)`,
-          flex: 1,
-        }}
-      >
+      <div className="wrapper">
         <main>{children}</main>
       </div>
       <Footer />

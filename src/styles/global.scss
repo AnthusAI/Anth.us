@@ -25,7 +25,6 @@ header {
   .content {
     margin: 0 auto;
     padding: 1ex var(--size-gutter) 1ex var(--size-gutter);
-    max-width: 940px;
     display: flex;
     flex: 1 0 auto;
     align-items: center;
@@ -135,6 +134,13 @@ header, footer {
     position: relative;    
   }
 }
+.layout.page {
+  header, footer {
+    .content {
+      max-width: var(--size-content);
+    }
+  }
+}
 
 // Assuming var(--color-active) holds the desired active color for the button
 $button-active-color: var(--color-active);
@@ -187,27 +193,6 @@ header .content {
   }
 }
 
-@media (max-width: 400px) {
-  header {
-    font-size: var(--font-sm);
-    a {
-      .logo {
-        left: 2px;
-      }
-    }
-  }
-}
-@media (min-width: 800px) {
-  header {
-    font-size: var(--font-lg);
-    a {
-      .logo {
-        left: -6px;
-      }
-    }
-  }
-}
-
 .hero {
   position: relative;
 
@@ -229,46 +214,6 @@ header .content {
     word-break: keep-all;
     overflow-wrap: normal;
     margin: 0;
-  }
-}
-
-@media (max-width: 500px) {
-  .hero {
-    .hero-image {
-      height: 400px;
-      
-      picture {
-        img {
-          object-position: 60% 0;
-        }
-      }
-    }
-  }
-}
-@media (min-width: 800px) {
-  .hero {
-    .hero-image {
-      height: 400px;
-      
-      picture {
-        img {
-          object-position: 0 90%;
-        }
-      }
-    }
-  }
-}
-@media (min-width: 1200px) {
-  .hero {
-    .hero-image {
-      height: 400px;
-      
-      picture {
-        img {
-          object-position: 0 50%;
-        }
-      }
-    }
   }
 }
 
@@ -307,7 +252,8 @@ footer {
   margin-top: 2em;
   padding: 1ex 0;
   font-size: var(--font-sm);
-  background: rgba(208,51,130,1);
+  background: rgb(208,51,130);
+  background: linear-gradient(160deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 32%, rgba(0,0,0,1) 64%, rgba(208,51,130,1) 100%);
   color: white;
 
   .links {
@@ -319,12 +265,11 @@ footer {
 
   .fullWidth {
     margin: 0 auto;
-    max-width: 940px;
+    max-width: var(--size-content);
   }
   
   .contents {
     margin: 0 auto;
-    max-width: var(--size-content);
     padding: 0 var(--size-gutter) 0 var(--size-gutter);
 
     display: flex;
@@ -403,5 +348,74 @@ mark {
 @keyframes highlight {
   to {
     background-position: 0 0;
+  }
+}
+
+/* For mobile phones */
+@media only screen and (max-width: 600px) {
+  header {
+    font-size: var(--font-sm);
+    a {
+      .logo {
+        left: 2px;
+      }
+    }
+  }
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 60% 0;
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 601px) {
+  header {
+    font-size: var(--font-lg);
+    a {
+      .logo {
+        left: -6px;
+      }
+    }
+  }
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 0 90%;
+        }
+      }
+    }
+  }  
+}
+
+/* For portrait tablets */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  /* Styles */
+}
+
+/* For wide tablets and small desktops */
+@media only screen and (min-width: 901px) and (max-width: 1200px) {
+  /* Styles */
+}
+
+/* For super-wide desktops */
+@media only screen and (min-width: 1201px) {
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 0 50%;
+        }
+      }
+    }
   }
 }
