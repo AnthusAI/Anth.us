@@ -1,24 +1,5 @@
 @import "node_modules/priority-plus/dist/priority-plus";
 
-$background-color: #eeeeee !default;
-$text-color: #222831 !default;
-$muted-text-color: #393e46 !default;
-$primary-color: #DE62B2 !default;
-$border-color: mix(#fff, #393e46, 75%) !default;
-$footer-background-color: $primary-color !default;
-$link-color: #393e46 !default;
-$masthead-link-color: $text-color !default;
-$masthead-link-color-hover: $text-color !default;
-$navicon-link-color-hover: mix(#fff, $text-color, 80%) !default;
-
-$serif: 'Cinzel', serif !default;
-$sans-serif: 'Montserrat', sans-serif !default;
-$sans-serif-narrow: 'Cinzel', sans-serif !default;
-
-$global-font-family: 'Montserrat', sans-serif !default;
-$header-font-family: 'Cinzel', sans-serif !default;
-$caption-font-family: 'Montserrat', serif !default;
-
 body {
   font-family: 'Montserrat', sans-serif;
 }
@@ -50,32 +31,23 @@ header {
     align-items: center;
     justify-content: space-between;
 
-    // Target the Link component representing the site title
     > a {
-    text-decoration: none;
-    flex-grow: 0;
-    flex-shrink: 0;
-    font-family: 'Cinzel', serif;
-    font-weight: 900;
-    
-    .logo {
-      position: absolute; /* Absolutely position our image container */
-      top: 50%; /* Position at the half of the parent's height */
-      left: -1px; /* Align to the left edge of the container */
-      transform: translateY(-50%); /* Center vertically */
-      height: 2em; /* Twice the font size */
-      width: auto; /* Maintain aspect ratio of the image */
-    
-      img {
-        height: 2em;
-        display: block;
-        width: auto;
+      text-decoration: none;
+      flex-grow: 0;
+      flex-shrink: 0;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+
+      .logo {
+        display: inline-block;
+        position: relative;
+        z-index: 1;        
       }
     }
-  }
 
-  .p-plus {
-    z-index: 1;
+    .p-plus {
+      z-index: 1;
+    }
   }
 }
 
@@ -148,7 +120,6 @@ header {
       );
     }
   }
-  }
 }
 
 header, footer {
@@ -159,6 +130,59 @@ header, footer {
     &:active,
     &:visited {
       color: white;
+    }
+    display: inline-block; // Allows the element to wrap the text properly
+    position: relative;    
+  }
+}
+
+// Assuming var(--color-active) holds the desired active color for the button
+$button-active-color: var(--color-active);
+
+// Modify the a tag inside the header to include the hover effect
+header .content {
+  
+  a {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+
+    &:hover::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $button-active-color; // Use the button active color
+      border-radius: 10px;
+      z-index: -1;
+    }
+  }
+
+  a.active {
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px; // Adjust this to change the thickness of the underline
+      background-color: fuchsia;
+      z-index: 1;
+    }
+
+    &:hover::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: unset;
+      background-color: $button-active-color;
+      border-radius: 10px;
+      z-index: -1;
     }
   }
 }
@@ -259,6 +283,12 @@ a.button {
   border-radius: 1em;
   font-weight: 700;
   white-space: nowrap;
+
+  &:active {
+    box-shadow: none;
+    top: 5px;
+    background-color: $button-active-color; // Define this color
+  }
 }
 
 a.button:hover {

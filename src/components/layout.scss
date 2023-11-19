@@ -1,32 +1,5 @@
-:root {
-  --border-radius: 4px;
-  --color-text: #333;
-  --color-primary: #dc5497;
-  --color-primary-shadow: #620e32;
-  --color-active: #ff57b4;
-  --color-code-bg: #fff4db;
-  --color-code: #8a6534;
-  --font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  --font-lg: 18px;
-  --font-md: 16px;
-  --font-sm: 14px;
-  --font-sx: 12px;
-  --line-height-loose: 1.75;
-  --line-height-normal: 1.5;
-  --line-height-dense: 1.1;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 64px;
-  --size-content: 940px;
-  --size-gutter: var(--space-5);
-  --size-gap: var(--space-6);
-}
+@import "../styles/variables.scss";
+
 html {
   -webkit-text-size-adjust: 100%;
   box-sizing: border-box;
@@ -182,7 +155,7 @@ li > p {
   margin-bottom: calc(var(--space-4) / 2);
 }
 p {
-  max-width: 940xpx;
+  max-width: 940px;
 }
 code {
   font-size: 0.875rem;

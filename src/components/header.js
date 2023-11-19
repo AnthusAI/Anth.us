@@ -26,6 +26,8 @@ const Header = ({ siteTitle, menuLinks }) => {
       <div className="content">
         <Link
           to="/"
+          className="logo"
+          activeClassName="active"
         >
           {siteTitle}&nbsp;
         </Link>
@@ -35,7 +37,7 @@ const Header = ({ siteTitle, menuLinks }) => {
             <ul className="js-p-target">
               {menuLinks.map(link => (
                 <li key={link.name}>
-                  <Link to={link.link}>
+                  <Link to={link.link} activeClassName="active">
                     {link.name}
                   </Link>
                 </li>
