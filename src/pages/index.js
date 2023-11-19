@@ -7,6 +7,45 @@ import Seo from "../components/seo"
 import Hero from "../components/hero"
 import * as styles from "../components/index.module.css"
 
+const mission = {
+  description: "Amplify human potential through generative AI, focusing on efficiency and creative solutions."
+}
+
+const values = [
+  {
+    text: "Prioritize Solutions Over Tools",
+    description: "Emphasize practical, effective solutions."
+  },
+  {
+    text: "Design for Users",
+    description: "Create solutions that prioritize user experiences."
+  },
+  {
+    text: "Focus on Business Logic",
+    description: "Do minimal engineering that matters instead of reinventing wheels."
+  },
+  {
+    text: "Continuously Improve",
+    description: "Enable iterative change through agile software development."
+  },
+  {
+    text: "Collaborate with AI Humanely",
+    description: "Engage AI with understanding and partnership."
+  },
+  {
+    text: "Implement Infrastructure as Code",
+    description: "Establish repeatable, efficient infrastructure processes."
+  },
+  {
+    text: "Commodify AI Models",
+    description: "Treat AI models as replaceable, not magic black boxes."
+  },
+  {
+    text: "Optimize Resource Usage",
+    description: "Balance efficiency with cost-effectiveness."
+  }
+];
+
 const links = [
   {
     text: "Tutorial",
@@ -59,6 +98,29 @@ const IndexPage = () => (
       </Hero>
     }
   >
+
+    <p className={styles.intro}>
+      Anthus represents a legacy of reliable innovation.
+      Our team excels in both developing and operating efficient, high-availability systems.
+      Our track record stands for itself, demonstrating enduring solutions with business value.
+      Partner with us for a journey marked by excellence and dependability.
+    </p>
+
+    <h2>Our Mission</h2>
+    <p>{mission.description}</p>
+
+    <h2>Our Values</h2>
+    <ul className={`${styles.list} ${styles.tight}`}>
+      {values.map(value => (
+        <li className={styles.listItem}>
+          <p className={styles.listItemTitle}>{value.text}</p>
+          <p className={styles.listItemDescription}>
+            {value.description}
+          </p>
+        </li>
+      ))}
+    </ul>
+
     <ul className={styles.list}>
       {links.map(link => (
         <li key={link.url} className={styles.listItem}>

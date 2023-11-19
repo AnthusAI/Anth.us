@@ -45,15 +45,17 @@ dfn {
   font-style: italic;
 }
 h1 {
-  margin: 0;
-  margin-bottom: 3rem;
   padding: 0;
   line-height: var(--line-height-dense);
   letter-spacing: -0.01em;
 }
 h1, h2, h3, h4, h5, h6 {
   text-align: left;
-  max-width: 940px;
+}
+.layout.page {
+  h1, h2, h3, h4, h5, h6 {
+    max-width: 940px;
+  }
 }
 h1 > b {
   color: var(--color-primary);
@@ -154,8 +156,10 @@ p *:last-child {
 li > p {
   margin-bottom: calc(var(--space-4) / 2);
 }
-p {
-  max-width: 940px;
+.layout.page {
+  p {
+    max-width: 940px;
+  }
 }
 code {
   font-size: 0.875rem;
@@ -199,4 +203,21 @@ pre code:after,
 pre tt:before,
 pre tt:after {
   content: none;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .wrapper {
+    flex: 1;
+    padding: 0 var(--size-gutter) 0 var(--size-gutter);
+  }
+}
+.layout.page {
+  .wrapper {
+    margin: 0 auto;
+    max-width: var(--size-content);
+  }
 }
