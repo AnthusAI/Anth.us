@@ -11,7 +11,7 @@ const CollectionTemplate = ({ data }) => {
     <Layout>
       <div>
         <h1>Blog articles</h1>
-        <ul>
+        <ul className='blog'>
           {posts.map(({ node }) => (
             <div className='blog-post-preview'>
               <li key={node.id}>

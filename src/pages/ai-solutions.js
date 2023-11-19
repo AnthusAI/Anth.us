@@ -11,7 +11,7 @@ const AISolutionsPage = () => {
       <div>
         <h2>Solving Problems With AI</h2>
         <p>
-          <img src="/assets/images/ai-software-solutions.png" alt="image-right" className="align-right" />
+          <img src="/assets/images/ai-software-solutions.png" alt="image-right" className="responsive-float-right-image" />
           You're under pressure to <mark>drive business efficiencies</mark> through artificial intelligence and we know how.  Our methods are rooted in industry best-practices and <mark>decades of professional experience</mark>.  We build solutions that are reliable and affordable to operate over time and we stand behind them.
         </p>
         <p>Please get in touch and let's talk about what we can do for you.</p>

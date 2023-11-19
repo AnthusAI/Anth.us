@@ -351,6 +351,20 @@ mark {
   }
 }
 
+.responsive-float-right-image {
+  float: right;
+  width: 40%;
+  height: auto;
+  margin-left: 1em;
+}
+
+ul.blog {
+  margin-left: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
 /* For mobile phones */
 @media only screen and (max-width: 600px) {
   header {
@@ -392,7 +406,7 @@ mark {
         }
       }
     }
-  }  
+  }
 }
 
 /* For portrait tablets */
