@@ -48,28 +48,28 @@ const values = [
 
 const links = [
   {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial",
+    text: "Smart Process Automation",
+    url: "/ai-solutions/#smart-process-automation",
     description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
+      "<mark>Delegate routine tasks</mark> to intelligent systems, freeing your team for higher-impact initiatives.",
   },
   {
-    text: "Examples",
-    url: "https://github.com/gatsbyjs/gatsby/tree/master/examples",
+    text: "Conversational AI Agents",
+    url: "/ai-solutions/#conversational-ai-agents",
     description:
-      "A collection of websites ranging from very basic to complex/complete that illustrate how to accomplish specific tasks within your Gatsby sites.",
+      "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
   },
   {
-    text: "Plugin Library",
+    text: "AI-powered software features.",
     url: "https://www.gatsbyjs.com/plugins",
     description:
-      "Learn how to add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
+      "Infuse <mark>AI-driven capabilities</mark> into your cloud-based apps, mobile applications, or existing systems.",
   },
   {
-    text: "Build and Host",
+    text: "Severless software solutions.",
     url: "https://www.gatsbyjs.com/cloud",
     description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
+      "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <mark>serverless architectures that  deliver business value.</mark>",
   },
 ]
 
@@ -121,6 +121,8 @@ const IndexPage = () => (
       ))}
     </ul>
 
+    <h2>Our Capabilities</h2>
+
     <ul className={styles.list}>
       {links.map(link => (
         <li key={link.url} className={styles.listItem}>
@@ -128,9 +130,9 @@ const IndexPage = () => (
             className={styles.listItemLink}
             href={`${link.url}${utmParameters}`}
           >
-            {link.text} ↗
+            {link.text}
           </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
+          <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: link.description }}></p>
         </li>
       ))}
     </ul>

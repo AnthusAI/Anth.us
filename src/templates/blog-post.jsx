@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
+import Seo from '../components/Seo'
 import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
 
@@ -18,6 +19,7 @@ const BlogPostTemplate = ({ data, children }) => {
 
   return (
     <Layout>
+      <Seo title={post.frontmatter.title} />
       <article>
         <div className='heading'>
           <h1>{post.frontmatter.title}</h1>
