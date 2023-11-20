@@ -67,7 +67,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        // Your options here (if any)
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 940,
+            },
+          },
+        ],
       },
     },
     {
@@ -83,6 +90,18 @@ module.exports = {
         path: `${__dirname}/src/blog`,
       },
     },
-    `gatsby-transformer-remark`
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 940,
+            },
+          }
+        ],
+      },
+    },
   ],
 }

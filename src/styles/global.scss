@@ -161,7 +161,7 @@ header .content {
       right: 0;
       bottom: 0;
       background-color: $button-active-color; // Use the button active color
-      border-radius: 10px;
+      border-radius: 2px;
       z-index: -1;
     }
   }
@@ -327,6 +327,15 @@ article {
   }
 
   text-justify: inter-word;
+
+  img[src*="square"] {
+    border: 4px dashed fuchsia;
+    float: right;
+    width: 40%;
+    height: auto;
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
 }
 
 mark {
