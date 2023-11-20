@@ -425,18 +425,20 @@ ul.blog {
 @media only screen and (min-width: 901px) and (max-width: 1200px) {
   /* Styles */
 }
-
-/* For super-wide desktops */
-@media only screen and (min-width: 1201px) {
+@media only screen and (min-width: 901px) {
   .hero {
     .hero-image {
-      height: 400px;
+      height: 600px;
       
       picture {
         img {
-          object-position: 0 50%;
+          object-position: 0 90%;
         }
       }
     }
   }
+}
+
+/* For super-wide desktops */
+@media only screen and (min-width: 1201px) {
 }
