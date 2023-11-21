@@ -15,7 +15,7 @@ const mission = {
 const values = [
   {
     text: "Prioritize Solutions Over Tools",
-    description: "Investing in products and services only delivers business value if you're in the business of products and services.  We're in the business of solutions."
+    description: "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>."
   },
   {
     text: "Design for Humans",
@@ -86,25 +86,25 @@ const IndexPage = () => {
         "<mark>Delegate routine tasks</mark> to intelligent systems, freeing your team for higher-impact initiatives.",
     },
     {
-      text: "Conversational AI Agents",
-      url: "/ai-solutions#conversational-ai-agents",
-      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
-      description:
-        "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
-    },
-    {
       text: "AI-powered software features.",
       url: "/ai-solutions#ai-software-features",
       image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       description:
-        "Infuse <mark>AI-driven capabilities</mark> into your cloud-based apps, mobile applications, or existing systems.",
+        "Infuse AI-driven capabilities into your cloud-based apps, mobile applications, or existing systems.",
     },
     {
       text: "Serverless software solutions.",
       url: "/ai-solutions#ai-enabled-projects",
       image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
       description:
-        "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <mark>serverless architectures that  deliver business value.</mark>",
+        "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <serverless architectures that  deliver business value.",
+    },
+    {
+      text: "Conversational AI Agents",
+      url: "/ai-solutions#conversational-ai-agents",
+      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      description:
+        "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
     },
   ]
 
@@ -147,8 +147,8 @@ const IndexPage = () => {
         {values.map(value => (
           <li className={styles.listItem}>
             <p className={styles.listItemTitle}>{value.text}</p>
-            <p className={styles.listItemDescription}>
-              {value.description}
+            <p className={styles.listItemDescription}
+            dangerouslySetInnerHTML={{ __html: value.description }}>
             </p>
           </li>
         ))}
