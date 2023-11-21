@@ -1,8 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from "../components/layout"
-import Seo from '../components/Seo'
-
+// import Seo from '../components/seo'
 
 console.log("CollectionTemplate");
 
@@ -11,7 +10,7 @@ const CollectionTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title='Blog' />
+      {/* <Seo title='Blog' /> */}
       <div>
         <h1>Blog articles</h1>
         <ul className='blog'>

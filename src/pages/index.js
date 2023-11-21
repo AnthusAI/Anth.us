@@ -9,95 +9,95 @@ import Hero from "../components/hero"
 import * as styles from "../components/index.module.css"
 
 const mission = {
-  description: "Amplify human potential through generative AI, focusing on efficiency and creative solutions."
+  description: "Deliver <mark>serverless business solutions</mark> using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>."
 }
 
 const values = [
   {
     text: "Prioritize Solutions Over Tools",
-    description: "Emphasize practical, effective solutions."
+    description: "Investing in products and services only delivers business value if you're in the business of products and services.  We're in the business of solutions."
   },
   {
-    text: "Design for Users",
-    description: "Create solutions that prioritize user experiences."
+    text: "Design for Humans",
+    description: "Computers exist to help humans accomplish things.  Not the other way around.  Make it easy for the human, not the computer."
   },
   {
     text: "Focus on Business Logic",
-    description: "Do minimal engineering that matters instead of reinventing wheels."
+    description: "The only code you should be writing is the business logic that solves real problems.  Don't waste time reinventing wheels."
   },
   {
     text: "Continuously Improve",
-    description: "Enable iterative change through agile software development."
+    description: "Enable rapid, iterative change through agile software development.  Mitigate the risk of change by making lots of small, verifiable changes."
   },
   {
     text: "Collaborate with AI Humanely",
-    description: "Engage AI with understanding and partnership."
+    description: "People skills are vital for leveraging artificial people.  You can get a lot more out of AI tools if you know how to collaborate with people."
   },
   {
     text: "Implement Infrastructure as Code",
-    description: "Establish repeatable, efficient infrastructure processes."
+    description: "Every aspect of a production system should be created and configured by code so that it's reprooducible, not manually."
   },
   {
     text: "Commodify AI Models",
-    description: "Treat AI models as replaceable, not magic black boxes."
+    description: "Treat AI models as replaceable, not magic black boxes.  In a world with no moats, don't invest too much in any given castle."
   },
   {
     text: "Optimize Resource Usage",
-    description: "Balance efficiency with cost-effectiveness."
+    description: "Balance efficiency with cost-effectiveness so that your idea will be sustainable and so that it can scale."
   }
 ];
 
-const utmParameters = `?utm_source=anthus&utm_medium=footer`
+// const utmParameters = `?utm_source=anthus&utm_medium=footer`
 
 const IndexPage = () => {
 
-  const data = useStaticQuery(graphql`
-    query {
-      smartProcessAutomation: file(relativePath: { eq: "smart-process-automation.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
-        }
-      }
-      aiSoftwareFeature: file(relativePath: { eq: "ai-software-feature.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
-        }
-      }
-      conversationalAIAgent: file(relativePath: { eq: "conversational-ai-agent.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
-        }
-      }
+  // const data = useStaticQuery(graphql`
+  //   query {
+  //     smartProcessAutomation: file(relativePath: { eq: "smart-process-automation.png" }) {
+  //       childImageSharp {
+  //         gatsbyImageData(layout: FULL_WIDTH)
+  //       }
+  //     }
+  //     aiSoftwareFeature: file(relativePath: { eq: "ai-software-feature.png" }) {
+  //       childImageSharp {
+  //         gatsbyImageData(layout: FULL_WIDTH)
+  //       }
+  //     }
+  //     conversationalAIAgent: file(relativePath: { eq: "conversational-ai-agent.png" }) {
+  //       childImageSharp {
+  //         gatsbyImageData(layout: FULL_WIDTH)
+  //       }
+  //     }
 
-    }
-  `);
+  //   }
+  // `);
 
   const links = [
     {
       text: "Smart Process Automation",
-      url: "/ai-solutions/#smart-process-automation",
-      image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
+      url: "/ai-solutions#smart-process-automation",
+      // image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
       description:
         "<mark>Delegate routine tasks</mark> to intelligent systems, freeing your team for higher-impact initiatives.",
     },
     {
       text: "Conversational AI Agents",
-      url: "/ai-solutions/#conversational-ai-agents",
-      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      url: "/ai-solutions#conversational-ai-agents",
+      // image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
       description:
         "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
     },
     {
       text: "AI-powered software features.",
-      url: "https://www.gatsbyjs.com/plugins",
-      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
+      url: "/ai-solutions#ai-software-features",
+      // image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       description:
         "Infuse <mark>AI-driven capabilities</mark> into your cloud-based apps, mobile applications, or existing systems.",
     },
     {
-      text: "Severless software solutions.",
-      url: "https://www.gatsbyjs.com/cloud",
-      image: "../images/smart-process-automation.png",
+      text: "Serverless software solutions.",
+      url: "/ai-solutions#ai-enabled-projects",
+      // image: "../images/smart-process-automation.png",
       description:
         "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <mark>serverless architectures that  deliver business value.</mark>",
     },
@@ -134,10 +134,10 @@ const IndexPage = () => {
         Partner with us for a journey marked by excellence and dependability.
       </p>
 
-      <h2>Our Mission</h2>
-      <p>{mission.description}</p>
+      <h2 style={{ marginBottom: '1em' }}>Our Mission</h2>
+      <p style={{ textAlign: 'center', marginBottom: '20px' }} dangerouslySetInnerHTML={{ __html: mission.description }}></p>
 
-      <h2>Our Values</h2>
+      <h2 style={{ marginBottom: '1em' }}>Our Values</h2>
       <ul className={`${styles.list} ${styles.tight}`}>
         {values.map(value => (
           <li className={styles.listItem}>
@@ -154,10 +154,10 @@ const IndexPage = () => {
       <ul className={styles.list}>
         {links.map(link => (
           <li key={link.url} className={styles.listItem}>
-            <GatsbyImage image={link.image} alt="Smart Process Automation" />
+            {/* <GatsbyImage image={link.image} alt="Smart Process Automation" /> */}
             <a
               className={styles.listItemLink}
-              href={`${link.url}${utmParameters}`}
+              href={`${link.url}`}
             >
               {link.text}
             </a>

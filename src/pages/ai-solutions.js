@@ -9,7 +9,7 @@ const AISolutionsPage = () => {
   return (
     <Layout>
       <div>
-        <h2>Solving Problems With AI</h2>
+        <h2>Solving Problems Using AI</h2>
         <p>
           <img src="/assets/images/ai-software-solutions.png" alt="image-right" className="responsive-float-right-image" />
           You're under pressure to <mark>drive business efficiencies</mark> through artificial intelligence and we know how.  Our methods are rooted in industry best-practices and <mark>decades of professional experience</mark>.  We build solutions that are reliable and affordable to operate over time and we stand behind them.
@@ -29,11 +29,11 @@ const AISolutionsPage = () => {
         <p>Copilot agents offer 24/7 availability and can save precious minutes during an operations crisis by helping operators to quickly diagnose problems. This constant support equips human operations teams with real-time information when needed, fostering a culture of agile and informed decision-making. Copilots can deliver cost-efficiency by automating routine tasks and reallocating resources towards more strategic, growth-focused activities.</p>
         <p>Ready to elevate your operational efficiency with tailored Conversational AI solutions? We know how to <mark>connect the dots</mark> between the agents and your systems. Contact us to explore how our custom AI co-pilot integration can drive value for your business.</p>
 
-        <h3>Tailored AI Features</h3>
+        <h3 id="ai-software-features">Tailored AI Features</h3>
         <p>Artificial intelligence can be <mark>nearly invisible, but crucial</mark>. We faced a challenge recently in generating web restaurant menus because the system that stored the menu data didn't tag it with a language. How do you handle things like right-to-left languages on the web if you don't know what language you're displaying? How can we handle restaurant menus in Arabic?</p>
         <p>Since the language of the restaurant menus was not and could not be tagged, we used AI to infer the language of each menu using <a href="https://aws.amazon.com/rekognition/">Amazon Rekognition</a>. AI made the system possible. It has performed flawlessly in production over time. It's not even fooled by "a la carte" on English menus.</p>
 
-        <h3>AI-Enabled Projects</h3>
+        <h3 id="ai-enabled-projects">AI-Enabled Projects</h3>
         <p>Driving business efficiencies through artificial intelligence doesn't always require running AI models in production. <mark>AI makes hard things easy</mark>, and your business can benefit from bringing new capabilities within reach.</p>
 
         <h2>The Process</h2>
