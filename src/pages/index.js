@@ -97,7 +97,7 @@ const IndexPage = () => {
       url: "/ai-solutions#ai-enabled-projects",
       image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
       description:
-        "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <serverless architectures that  deliver business value.",
+        "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building serverless architectures that deliver business value.",
     },
     {
       text: "Conversational AI Agents",
