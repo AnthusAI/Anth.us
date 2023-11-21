@@ -51,53 +51,53 @@ const values = [
 
 const IndexPage = () => {
 
-  // const data = useStaticQuery(graphql`
-  //   query {
-  //     smartProcessAutomation: file(relativePath: { eq: "smart-process-automation.png" }) {
-  //       childImageSharp {
-  //         gatsbyImageData(layout: FULL_WIDTH)
-  //       }
-  //     }
-  //     aiSoftwareFeature: file(relativePath: { eq: "ai-software-feature.png" }) {
-  //       childImageSharp {
-  //         gatsbyImageData(layout: FULL_WIDTH)
-  //       }
-  //     }
-  //     conversationalAIAgent: file(relativePath: { eq: "conversational-ai-agent.png" }) {
-  //       childImageSharp {
-  //         gatsbyImageData(layout: FULL_WIDTH)
-  //       }
-  //     }
+  const data = useStaticQuery(graphql`
+    query {
+      smartProcessAutomation: file(relativePath: { eq: "smart-process-automation.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+      aiSoftwareFeature: file(relativePath: { eq: "ai-software-feature.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+      conversationalAIAgent: file(relativePath: { eq: "conversational-ai-agent.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
 
-  //   }
-  // `);
+    }
+  `);
 
   const links = [
     {
       text: "Smart Process Automation",
       url: "/ai-solutions#smart-process-automation",
-      // image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
+      image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
       description:
         "<mark>Delegate routine tasks</mark> to intelligent systems, freeing your team for higher-impact initiatives.",
     },
     {
       text: "Conversational AI Agents",
       url: "/ai-solutions#conversational-ai-agents",
-      // image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
       description:
         "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
     },
     {
       text: "AI-powered software features.",
       url: "/ai-solutions#ai-software-features",
-      // image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
+      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       description:
         "Infuse <mark>AI-driven capabilities</mark> into your cloud-based apps, mobile applications, or existing systems.",
     },
     {
       text: "Serverless software solutions.",
       url: "/ai-solutions#ai-enabled-projects",
-      // image: "../images/smart-process-automation.png",
+      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       description:
         "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <mark>serverless architectures that  deliver business value.</mark>",
     },
@@ -154,7 +154,7 @@ const IndexPage = () => {
       <ul className={styles.list}>
         {links.map(link => (
           <li key={link.url} className={styles.listItem}>
-            {/* <GatsbyImage image={link.image} alt="Smart Process Automation" /> */}
+            <GatsbyImage image={link.image} alt="Smart Process Automation" />
             <a
               className={styles.listItemLink}
               href={`${link.url}`}
