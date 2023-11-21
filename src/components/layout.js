@@ -29,7 +29,7 @@ const Layout = ({ children, hero }) => {
 
   return (
     <div
-      className={`layout ${hero ? 'hero' : 'page'}`}
+      className={`layout`}
     >
       <Header menuLinks={data.site.siteMetadata.menuLinks} siteTitle={data.site.siteMetadata.title} />
       {hero && <>{hero}</>}

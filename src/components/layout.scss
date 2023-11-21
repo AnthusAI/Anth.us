@@ -52,7 +52,7 @@ h1 {
 h1, h2, h3, h4, h5, h6 {
   text-align: left;
 }
-.layout.page {
+.layout {
   h1, h2, h3, h4, h5, h6 {
     max-width: 940px;
   }
@@ -156,7 +156,7 @@ li *:last-child {
 li > p {
   margin-bottom: calc(var(--space-4) / 2);
 }
-.layout.page {
+.layout {
   p {
     max-width: 940px;
   }
@@ -215,7 +215,7 @@ pre tt:after {
     padding: 0 var(--size-gutter) 0 var(--size-gutter);
   }
 }
-.layout.page {
+.layout {
   .wrapper {
     margin: 0 auto;
     max-width: var(--size-content);

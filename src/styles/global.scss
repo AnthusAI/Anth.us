@@ -134,7 +134,7 @@ header, footer {
     position: relative;    
   }
 }
-.layout.page {
+.layout {
   header, footer {
     .content {
       max-width: var(--size-content);
@@ -195,10 +195,14 @@ header .content {
 
 .hero {
   position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+
 
   .hero-image {
     width: 100%;
-    max-width: 100%;
+    max-width: 940px;
     height: auto;
   }
 
@@ -427,7 +431,6 @@ ul.blog {
 
 /* For portrait tablets */
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-  /* Styles */
 }
 
 /* For wide tablets and small desktops */
@@ -436,6 +439,7 @@ ul.blog {
 }
 @media only screen and (min-width: 901px) {
   .hero {
+    width: 940px;
     .hero-image {
       height: 600px;
       
