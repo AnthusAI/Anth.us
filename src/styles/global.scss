@@ -15,7 +15,7 @@ header {
   display: flex;
   align-items: center;
   background: rgb(208,51,130);
-  background: linear-gradient(171deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 42%, rgba(0,0,0,1) 84%, rgba(208,51,130,1) 100%);
+  background: linear-gradient(171deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 42%, rgba(0,0,0,1) 84%, rgba(3,162,254) 100%);
   color: white;
   font-family: 'Cinzel', serif;
   font-size: var(--font-lg);
@@ -257,7 +257,7 @@ footer {
   padding: 1ex 0;
   font-size: var(--font-sm);
   background: rgb(208,51,130);
-  background: linear-gradient(160deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 32%, rgba(0,0,0,1) 64%, rgba(208,51,130,1) 100%);
+  background: linear-gradient(160deg, rgba(3,162,254) 0%, rgba(3,162,254) 4%, rgba(0,0,0,1) 64%, rgba(208,51,130,1) 100%);
   color: white;
 
   .links {
@@ -332,8 +332,7 @@ article {
 
   text-justify: inter-word;
 
-  img[src*="square"] {
-    border: 4px dashed fuchsia;
+  .gatsby-image-wrapper.right {
     float: right;
     width: 40%;
     height: auto;

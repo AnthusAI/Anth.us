@@ -1,9 +1,10 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql, useStaticQuery, Link } from 'gatsby';
 import Layout from '../components/layout';
 // import Seo from '../components/seo'
 import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 const BlogPostTemplate = ({ data, children }) => {
   console.log("Data:", data);
@@ -15,12 +16,25 @@ const BlogPostTemplate = ({ data, children }) => {
 
   const post = data.mdx;
 
-  const shortcodes = { Link }
+  const image = getImage(data.mdx.frontmatter.preview_image)
+
+  const images = post.frontmatter.images.map((image, index) => {
+    return getImage(image)
+  })
+  const CustomGatsbyImage = ({ images, index, className, alt }) => {
+    console.log('Images:', images);
+    console.log('Index:', index);
+    const imageData = images[index]
+    return <GatsbyImage  className={className} image={imageData} alt={alt} />
+  }
+
+  const shortcodes = { Link, CustomGatsbyImage: props => <CustomGatsbyImage images={images} {...props} /> }
 
   return (
     <Layout>
       {/* <Seo title={post.frontmatter.title} /> */}
       <article>
+
         <div className='heading'>
           <h1>{post.frontmatter.title}</h1>
           <div className='date'>{post.frontmatter.date}</div>
@@ -29,7 +43,7 @@ const BlogPostTemplate = ({ data, children }) => {
             <ul className='authors'>
               {post.frontmatter.authors.map((author) => (
                 <li key={author.author}>
-                  <div class="author">
+                  <div className="author">
                     <Markdown>
                       {author.author}
                     </Markdown>
@@ -56,6 +70,16 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         authors {
           author
+        }
+        preview_image {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
+        images {
+          childImageSharp {
+            gatsbyImageData
+          }
         }
       }
     }
