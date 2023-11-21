@@ -68,6 +68,11 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
+      aiEnabledProjects: file(relativePath: { eq: "ai-enabled-projects.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
 
     }
   `);
@@ -97,7 +102,7 @@ const IndexPage = () => {
     {
       text: "Serverless software solutions.",
       url: "/ai-solutions#ai-enabled-projects",
-      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
+      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
       description:
         "Not all AI-enabled solutions use AI at runtime.  We have a long and proven history of building <mark>serverless architectures that  deliver business value.</mark>",
     },
