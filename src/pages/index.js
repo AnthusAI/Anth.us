@@ -39,7 +39,7 @@ const values = [
   },
   {
     text: "Commodify AI Models",
-    description: "Treat AI models as replaceable, not magic black boxes.  In a world with no moats, don't invest too much in any given castle."
+    description: "Treat AI models as replaceable, not magic black boxes.  <a href=\"/blog/a-world-with-no-moats/\">In a world with no moats</a>, don't invest too much in any given castle."
   },
   {
     text: "Optimize Resource Usage",
