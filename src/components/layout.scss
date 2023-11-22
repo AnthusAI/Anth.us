@@ -212,7 +212,7 @@ pre tt:after {
 
   .wrapper {
     flex: 1;
-    padding: 0 var(--size-gutter) 0 var(--size-gutter);
+    padding: 0 var(--size-gutter) var(--size-gutter) var(--size-gutter);
   }
 }
 .layout {
