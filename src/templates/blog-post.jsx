@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import CustomGatsbyImage from '../components/custom-gatsby-image';
 
 const BlogPostTemplate = ({ data, children }) => {
   console.log("Data:", data);
@@ -21,14 +22,14 @@ const BlogPostTemplate = ({ data, children }) => {
   const images = post.frontmatter.images.map((image, index) => {
     return getImage(image)
   })
-  const CustomGatsbyImage = ({ images, index, className, alt }) => {
-    console.log('Images:', images);
-    console.log('Index:', index);
-    const imageData = images[index]
-    return <GatsbyImage  className={className} image={imageData} alt={alt} />
-  }
+  console.log('Images in BlogPostTemplate:', images);
 
-  const shortcodes = { Link, CustomGatsbyImage: props => <CustomGatsbyImage images={images} {...props} /> }
+  const shortcodes = { 
+    Link, 
+    CustomGatsbyImage: ({ index, className, alt }) => (
+      <CustomGatsbyImage images={post.frontmatter.images} index={index} className={className} alt={alt} />
+    )
+  }
 
   return (
     <Layout>
