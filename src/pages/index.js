@@ -132,7 +132,7 @@ const IndexPage = () => {
       }
     >
 
-      <p className={styles.intro}>
+      <p className={styles.intro} id="our-values">
         Anthus represents a legacy of reliable innovation.
         Our team excels in both developing and operating efficient, high-availability systems.
         Our track record stands for itself, demonstrating enduring solutions with business value.
