@@ -60,16 +60,16 @@ const BlogPostTemplate = ({ data, children }) => {
 };
 
 export const Head = ({ location, params, data, pageContext }) => {
-  console.log("Data (Head):", data);
   const post = data.mdx;
-  console.log("Title: ", post.frontmatter.title)
-  console.log("Excerpt: ", post.frontmatter.excerpt)
   
+  const siteUrl = data.site.siteMetadata.siteUrl;
+  const imageUrl = `${siteUrl}${post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}`;
+
   return (
     <Seo
       title={post.frontmatter.title}
       description={post.frontmatter.excerpt}
-      image={post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}
+      image={imageUrl}
     />
   )
 } 
@@ -77,6 +77,11 @@ export const Head = ({ location, params, data, pageContext }) => {
 
 export const pageQuery = graphql`
   query BlogPostByID($id: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     mdx(id: { eq: $id }) {
       body
       frontmatter {

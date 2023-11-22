@@ -12,7 +12,7 @@ module.exports = {
     title: `Anthus`,
     description: `Depend on veteran DevOps experts for your bespoke AI workloads.`,
     author: `Ryan Alyn Porter`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://anth.us`,
     menuLinks:[
       {
         name:'AI Solutions',
