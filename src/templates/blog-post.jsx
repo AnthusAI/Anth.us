@@ -1,15 +1,13 @@
 import React from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 import Layout from '../components/layout';
-// import Seo from '../components/seo'
 import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import Seo from "../components/seo"
 import BlogImage from '../components/blog-image';
 
 const BlogPostTemplate = ({ data, children }) => {
-  console.log("Data:", data);
-  console.log("Children:", children);
 
   if (!data || !data.mdx) {
     return <div>No data found for this post!</div>;
@@ -33,7 +31,6 @@ const BlogPostTemplate = ({ data, children }) => {
 
   return (
     <Layout>
-      {/* <Seo title={post.frontmatter.title} /> */}
       <article>
 
         <div className='heading'>
@@ -62,12 +59,29 @@ const BlogPostTemplate = ({ data, children }) => {
   );
 };
 
+export const Head = ({ location, params, data, pageContext }) => {
+  console.log("Data (Head):", data);
+  const post = data.mdx;
+  console.log("Title: ", post.frontmatter.title)
+  console.log("Excerpt: ", post.frontmatter.excerpt)
+  
+  return (
+    <Seo
+      title={post.frontmatter.title}
+      description={post.frontmatter.excerpt}
+      image={post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}
+    />
+  )
+} 
+
+
 export const pageQuery = graphql`
   query BlogPostByID($id: String!) {
     mdx(id: { eq: $id }) {
       body
       frontmatter {
         title
+        excerpt
         date(formatString: "MMMM DD, YYYY")
         authors {
           author
