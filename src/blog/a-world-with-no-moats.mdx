@@ -4,7 +4,7 @@ slug: "a-world-with-no-moats"
 date: "2023-11-20"
 authors:
   - author: <a href="/ryan">Ryan Alyn Porter</a>
-  - author: and the <a href="https://chat.openai.com/g/g-V7g8vq1hb-vonnegut"><i>Vonnegut</i></a> GPT
+  - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
 tags: ["AI commodification"]
 excerpt: In a world with no moats, don't get too invested in any given castle.
 preview_image: "./images/the-revolution-will-be-commodifiied.png"
@@ -15,41 +15,49 @@ import BlogImage from '../components/blog-image';
 
 <BlogImage images={props.pageContext.frontmatter.images} index={0} className="right" alt="THE REVOLUTION WILL BE COMMODIFIED" />
 
-In the late 1980s and early 1990s, Microsoft's dominance in personal computing was unquestioned. The company's operating systems were seen as gateways to the digital world, their mystique unchallenged. Then, Linus Torvalds, a college student with a vision, introduced Linux. This open-source operating system broke the spell, showing that Microsoft’s control was more about perception than technical superiority.
+In the late 1980s and early 1990s, Microsoft's operating systems, wrapped in a mystique of secrecy, stood unchallenged. The company’s 'Fear, Uncertainty, and Doubt' marketing strategy played a crucial role, implying that Windows had exclusive, magical capabilities necessary for computing, casting doubt on other technologies.
+
+A revelation came from a college student half a world away who introduced Linux after reading the classic university textbook on operating systems. This open-source operating system peeled back the layers of secrecy.  Anyone could read the Linux source code to see how it worked, challenging the perception that Windows was doing something magical under the hood.  The openness revealed that Microsoft kept its operating system closed to maintain fear, uncertainty, and doubt rather than to preserve trade secrets.
+
+Microsoft felt profound effects from losing its aura: The startup community embraced Linux, which became the basis for the cloud computing revolution.  Microsoft is still trying to catch up—even their own cloud computing service [runs more](https://w3techs.com/technologies/comparison/os-linux,os-windows) Linux virtual computers than Windows.
 
 ## OpenAI's illusory mystique
 
-The OpenAI saga, marked by dramatic leadership changes and Microsoft's overnight recruitment of key personnel, has raised serious questions about governance and reliability. Initially, OpenAI's unique governance structure added to its mystique, making it an attractive partner for technology leaders. This allure led many to overlook potential risks of vendor lock-in, as they aligned closely with OpenAI's evolving product suite.
+Like Microsoft in the early days of personal computing, OpenAI initially led the way in generative AI with releases like ChatGPT and GPT-4, quickly becoming a dominant force. Part of their allure was their unique governance model, where a non-profit ostensibly guided their path, lending an aura of altruism and innovation. This mystique encouraged customers to accept a degree of vendor lock-in, bypassing the AI applications industry's best-practice recommendation of thoroughly evaluating AI options before committing.
 
-The recent turmoil, however, has cast a shadow of uncertainty. Murati's revelation about the board's stance – that the company's demise would be consistent with its mission – has particularly rattled the tech community. This stance, while aligning with OpenAI's altruistic mission, introduces an element of unpredictability for those relying on OpenAI's services. Technology leaders are now grappling with the fallout, reassessing their dependence on OpenAI amid concerns about its long-term viability and commitment to reliable service delivery.
+However, the recent upheaval at OpenAI abruptly vaporized this mystique within one bizarre hour. The dramatic leadership changes and board decisions have exposed that their unique governance structure is a liability rather than a strength, introducing instability and unpredictability.
 
-In an industry where stability and trust are paramount, this episode serves as a cautionary tale. It highlights the need for diversification and a critical examination of governance structures, especially when mission-critical systems are at stake. The swift changes at OpenAI, and the board's controversial statements, have not only dissolved the company's mystique but have also ignited a broader discussion about the future direction of AI development and its implications for the tech industry.
+Mira Murati's [employee letter](https://www.nytimes.com/interactive/2023/11/20/technology/letter-to-the-open-ai-board.html) to OpenAI's board included a jarring accusation: "You also informed the leadership team that allowing the company to be destroyed 'would be consistent with the mission.'" This stark statement reveals a willingness by the board to potentially sacrifice the company's existence in pursuit of their broader mission, raising serious doubts about OpenAI's commitment to stability and ongoing service reliability for its users.
+
+For OpenAI customers like Anthus, this situation creates profound uncertainty. The board's willingness to jeopardize the company's future cast doubt on the long-term viability of solutions dependent on the OpenAI API. The realization that OpenAI's mission might supersede the sustainability of its services forces a re-evaluation of our reliance on their technologies.
 
 ## The 'no moats' revelation
 
-The anonymous Google researcher's memo titled *[We Have No Moat, And Neither Does OpenAI](https://www.semianalysis.com/p/google-we-have-no-moat-and-neither)* foresaw the current volatility in the AI industry. It argued that real innovation was thriving in the open-source realm, outpacing giants like Google and OpenAI. This prediction of the AI landscape’s fluidity, where no single player could maintain dominance, has been borne out in recent events.
+The leaked memo *[We Have No Moat, And Neither Does OpenAI](https://www.semianalysis.com/p/google-we-have-no-moat-and-neither)* from an anonymous Google researcher insightfully predicted the volatility and shifting dominance in the AI industry, emphasizing the rapid advancements in the open-source sector. This scenario mirrors the earlier computing era when Linus Torvalds' Linux challenged Microsoft's dominance by demystifying operating systems, akin to how open-source AI is currently reshaping generative AI.
 
-Microsoft's recent ascendancy in AI, previously thought to be lagging, mirrors this prediction. The company has leveraged the open-source approach, capitalizing on the rapid changes that have left established players like OpenAI grappling with internal turmoil and loss of trust.
-
-Ironically, this situation echoes Microsoft's own past struggles with mystique and dominance. In the 90s, Microsoft's perceived invulnerability was challenged by the rise of open-source alternatives like Linux. Now, as OpenAI's mystique diminishes amidst governance crises, Microsoft benefits from the shift, underscoring the transient nature of dominance in the tech world and highlighting the need for adaptability and diversification in AI strategies.
+Ironically, Microsoft, once the victim of mystique vaporization, now stood to benefit from the dissolution of OpenAI's aura.  The pieces and players shift in this game, making today's underdog tomorrow's contender.
 
 ## Implications for the future of AI
 
-The Linux story teaches us that transparency, democratization, and community-driven development can lead to robust, versatile technologies. Applying these principles to AI promises a future where AI models are not tightly controlled by a few, but are a collaborative, evolving tool accessible to all. This open ecosystem could lead to more secure, diverse, and innovative AI applications, much like how Linux transformed the software industry.
+The Linux story teaches us that transparency, democratization, and community-driven development can lead to robust, versatile technologies.  Applying these principles to AI promises a future where the field is collaborative, evolving, and accessible to all.  This open ecosystem could lead to more secure, diverse, and innovative AI applications, like how Linux transformed the software industry.
 
 ## How should we respond?
 
-The OpenAI debacle was a wake-up call for everyone who depends on AI to reassess their strategies, not just who they trust.
+The OpenAI debacle was a wake-up call for everyone who depends on AI to reassess their strategies, not just who to trust.
 
-## As an individual
+### As an individual
 
 Our emphasis on prioritizing solutions over tools means continuously exploring and understanding a broad range of AI technologies and approaches. It's about being agile and adaptable, ready to adopt the most effective solutions as the AI landscape evolves.
 
-## Our plan: Commodify AI services
+### As an organization
+
+Organizations must foster a culture of flexibility and innovation, adopting AI governance policies emphasizing the importance of evaluating alternative AI solutions regularly and continuously.  This approach ensures that your organization remains adaptable and ready to embrace the constantly evolving AI landscape.
+
+### Our plan: Commodify AI services
 
 Our initial experience with generative AI via OpenAI was exhilarating. Quickly, their API services became our go-to solution. However, this led us to inadvertently create a dependency, neglecting the importance of constantly evaluating alternatives.
 
-We're a lot more aware now of whether specific tasks require an AI API service or if we could do it better with open-source models and tools like HuggingFace libraries.  If we want to deliver an affordable, secure, and dependable system for some business automation like spotting GDPR forget-me requests in emails then we could use the OpenAI API.  It would be easy and it would work. But why would we want to pay to send thousands of requests to any third party if we could do it ourselves?  Much less a third party like OpenAI that seems conflicted about its own values?
+We're a lot more aware now of whether specific tasks require an AI API service or if we could do it better with open-source models and tools like HuggingFace libraries.  If we want to deliver an affordable, secure, and dependable system for business automation, like spotting GDPR forget-me requests in emails, then we could use the OpenAI API.  It would be easy, and it would work.  But why would we want to pay to send thousands of requests to any third party if we could do it ourselves?  Much less a third party like OpenAI that seems conflicted about its own values?
 
 The OpenAI debacle has solidified one of our core values: to commodify AI models and services, treating them as interchangeable tools rather than proprietary solutions. This shift towards a more independent and versatile approach is not merely about cost-savings or information security: It's about staying ahead in a quickly-changing game, where choosing sides among the giants is not the path to stability. In a world with no moats, don't get too invested in any given castle.
 
