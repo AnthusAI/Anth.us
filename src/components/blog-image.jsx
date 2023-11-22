@@ -2,7 +2,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 
-const CustomGatsbyImage = ({ images, index, className, alt }) => {
+const BlogImage = ({ images, index, className, alt }) => {
   const data = useStaticQuery(graphql`
     query {
       allFile {
@@ -16,7 +16,7 @@ const CustomGatsbyImage = ({ images, index, className, alt }) => {
     }
   `);
 
-  console.log('Images in CustomGatsbyImage:', images);
+  console.log('Images in BlogImage:', images);
 
   if (!Array.isArray(images)) {
     console.error('Invalid images prop:', images);
@@ -33,4 +33,4 @@ const CustomGatsbyImage = ({ images, index, className, alt }) => {
   );
 };
 
-export default CustomGatsbyImage;
+export default BlogImage;
