@@ -31,7 +31,7 @@ const values = [
   },
   {
     text: "Collaborate with AI Humanely",
-    description: "People skills are vital for leveraging artificial people.  You can get a lot more out of AI tools if you know how to collaborate with people."
+    description: "<a href=\"/blog/people-skills-are-vital-for-leveraging-artificial-people/\">People skills are vital for leveraging artificial people.</a>  You can get a lot more out of AI tools if you know how to collaborate with people."
   },
   {
     text: "Implement Infrastructure as Code",
