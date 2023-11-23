@@ -9,7 +9,7 @@
     auto-fit,
     minmax(max(var(--w), 100%/ (var(--n) + 1) + 0.1%), 1fr)
   );
-  margin-top: var(--size-gap);
+  /* margin-top: var(--size-gap); */
   margin-bottom: var(--size-gap);
 }
 .tight {
