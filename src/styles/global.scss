@@ -26,7 +26,7 @@ header {
   display: flex;
   align-items: center;
   background: rgb(208,51,130);
-  background: linear-gradient(171deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 42%, rgba(0,0,0,1) 80%, rgba(3,162,254) 100%);
+  background: linear-gradient(171deg, rgba(208,51,130,1) 0%, rgba(208,51,130,1) 42%, rgba(155,22,93,1) 80%, rgba(3,162,254) 100%);
   color: white;
   font-family: 'Cinzel', serif;
   font-size: var(--font-lg);
@@ -267,7 +267,7 @@ footer {
   padding: 1ex 0;
   font-size: var(--font-sm);
   background: rgb(208,51,130);
-  background: linear-gradient(170deg, rgba(3,162,254) 0%, rgba(0,0,0,1) 20%, rgba(208,51,130,1) 64%, rgba(208,51,130,1) 100%);
+  background: linear-gradient(170deg, rgba(3,162,254) 0%, rgba(155,22,93,1) 20%, rgba(208,51,130,1) 64%, rgba(208,51,130,1) 100%);
   color: white;
 
   .links {
@@ -348,6 +348,32 @@ article {
     height: auto;
     margin-left: 2em;
     margin-bottom: 1em;
+  }
+
+  table.data {
+    margin-bottom: var(--space-4);
+    margin: 0 auto;
+
+    th {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    tr:nth-child(odd) {
+      background-color: rgba(3, 162, 254, 0.1);
+    }
+    th, td {
+      padding-left: 1ex;
+      padding-right: 1ex;
+    }
+    tr.etc {
+      background-color: white;
+    }
+    td.number {
+      text-align: right;
+    }
+  }
+  table.overflow {
+    overflow: hidden;
   }
 }
 
@@ -431,6 +457,12 @@ ul.blog {
   }
   article {
     text-align: justify;
+
+    table.data {
+      th, td {
+        letter-spacing: 0.1ex;
+      }
+    }
   }
 }
 
