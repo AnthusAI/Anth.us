@@ -23,8 +23,14 @@ const BlogImage = ({ images, index, className, alt }) => {
     return null;
   }
 
-  const imageNode = data.allFile.nodes.find(node => node.relativePath === images[index]);
+  console.log("data.allFile.nodes:", data.allFile.nodes)
+  console.log("images[index]:", images[index])
+  const imageNode = data.allFile.nodes.find(
+    node => node.relativePath === images[index].replace(/^\.\//, '')
+  );
+  console.log('imageNode:', imageNode);
   const imageData = imageNode ? imageNode.childImageSharp.gatsbyImageData : null;
+  console.log('imageData:', imageData);
 
   return imageData ? (
     <GatsbyImage className={className} image={imageData} alt={alt} />

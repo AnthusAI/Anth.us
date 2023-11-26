@@ -1,0 +1,281 @@
+---
+title: "The Dominance of Ones: A Handy Quirk of Numbers"
+slug: "the-dominance-of-ones"
+date: "2023-11-22"
+authors:
+  - author: <a href="/ryan">Ryan Alyn Porter</a>
+  - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
+tags: ["mathematics", "statistical phenomena", "simulation theory"]
+excerpt: Dive into the intriguing world of Benford's Law, a statistical enigma that challenges our understanding of randomness in numbers. From forensic accounting to hypothetical musings of a simulated universe, explore how this numerical pattern subtly shapes our perception of data and reality.
+preview_image: "./images/benfords-law/border-crossing-counts.png"
+images:
+  - ./images/benfords-law/border-crossing-counts.png
+  - ./images/benfords-law/connecticut-real-estate-sales.png
+  - ./images/benfords-law/new-york-baby-names.png
+  - ./images/benfords-law/nyc_covid19_cases.png
+  - ./images/benfords-law/connecticut-school-attendance.png
+  - ./images/benfords-law/linear-and-compound-interest-growth-curves.png
+  - ./images/benfords-law/compound_lead_digits.png
+  - ./images/benfords-law/linear_lead_digits.png
+  - ./images/benfords-law/simulated-bank-account-deposits---individual-transactions-.png
+  - ./images/benfords-law/simulated-bank-account-deposits---daily-sums.png
+  - ./images/benfords-law/simulated-1%-structured-deposits---individual-transactions-.png
+  - ./images/benfords-law/simulated-1%-structured-deposits---daily-sums.png
+  - ./images/benfords-law/chi-square-statistic-comparison.png
+  - ./images/benfords-law/ks-statistic-for-benford's-law.png
+  - ./images/benfords-law/kl-divergence-comparison.png
+---
+
+import BlogImage from '../components/blog-image';
+
+Want to see something weird about numbers?  There's a useful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
+
+There are a lot of open datasets out there.  I went surfing around on [Data.gov](https://data.gov) and picked one mostly at random.  [This dataset](https://catalog.data.gov/dataset/border-crossing-entry-data-683ae) is from the federal government, and it's a count of the number of border crossings there were for different time periods, broken down by port of entry and by category, like "trains", "trucks", "bus passengers", "pedestrians."  Here's what the raw data looks like:
+
+<table className='data'>
+  <thead>
+    <tr>
+      <th>Port</th>
+      <th>Date</th>
+      <th>Measure</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Roma, Texas</td>
+      <td>May 2017</td>
+      <td>Trucks</td>
+      <td className='number'>760</td>
+    </tr>
+    <tr>
+      <td>Roma, Texas</td>
+      <td>May 2012</td>
+      <td>Trains</td>
+      <td className='number'>0</td>
+    </tr>
+    <tr>
+      <td>Piegan, Montana</td>
+      <td>Mar 2020</td>
+      <td>Trucks</td>
+      <td className='number'>168</td>
+    </tr>
+    <tr>
+      <td>Roma, Texas</td>
+      <td>Dec 2021</td>
+      <td>Bus Passengers</td>
+      <td className='number'>128</td>
+    </tr>
+    <tr>
+      <td>Roma, Texas</td>
+      <td>Mar 2021</td>
+      <td>Trucks</td>
+      <td className='number'>2661</td>
+    </tr>
+    <tr>
+      <td>Roma, Texas</td>
+      <td>Aug 2021</td>
+      <td>Buses</td>
+      <td className='number'>14</td>
+    </tr>
+    <tr>
+      <td>Westhope, North Dakota</td>
+      <td>Jul 2023</td>
+      <td>Trucks</td>
+      <td className='number'>105</td>
+    </tr>
+    <tr>
+      <td>Warroad, Minnesota</td>
+      <td>Jun 2022</td>
+      <td>Trucks</td>
+      <td className='number'>401</td>
+    </tr>
+    <tr>
+      <td>Richford, Vermont</td>
+      <td>May 2021</td>
+      <td>Train Passengers</td>
+      <td className='number'>24</td>
+    </tr>
+    <tr>
+      <td>Sasabe, Arizona</td>
+      <td>Mar 2023</td>
+      <td>Pedestrians</td>
+      <td className='number'>45</td>
+    </tr>
+    <tr className='etc'>
+      <td>...</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+Let's look at the first digit of each of those counts.  See that "760" for the first count?  The lead digit is "7".  Here's the lead digit for each of the above counts:
+
+<table className='data'>
+  <thead>
+    <tr>
+      <th>Border Crossings Count</th>
+      <th>Lead Digit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td className='number'>760</td>
+      <td className='number'>7</td>
+    </tr>
+    <tr>
+      <td className='number'>0</td>
+      <td className='number'>0</td>
+    </tr>
+    <tr>
+      <td className='number'>168</td>
+      <td className='number'>1</td>
+    </tr>
+    <tr>
+      <td className='number'>128</td>
+      <td className='number'>1</td>
+    </tr>
+    <tr>
+      <td className='number'>2661</td>
+      <td className='number'>2</td>
+    </tr>
+    <tr>
+      <td className='number'>14</td>
+      <td className='number'>1</td>
+    </tr>
+    <tr>
+      <td className='number'>105</td>
+      <td className='number'>1</td>
+    </tr>
+    <tr>
+      <td className='number'>401</td>
+      <td className='number'>4</td>
+    </tr>
+    <tr>
+      <td className='number'>24</td>
+      <td className='number'>2</td>
+    </tr>
+    <tr>
+      <td className='number'>45</td>
+      <td className='number'>4</td>
+    </tr>
+    <tr className='etc'>
+      <td className='number'>...</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+Now, think about the whole dataset.  This one has 38,549 entries.  Each of those entries has a lead digit.  Let's filter out the "0" counts and ignore those.  What percentage of those entries would you expect have "1" for a lead digit?
+
+There are nine possible digits if we exclude "0" as an option.  So, would you think that "1" would occur as the lead digit about one ninth of the time?
+
+I would imagine that if we were to count all the measurements where the first digit was "1", and then count all the measurements where the first digit is "2", and so on, that we would find about the same number of "1"s and "5"s.  After all, this data is as random as it gets.  So, the lead digit should be essentially random, right?
+
+Let's confirm that assumption...
+
+I made a Python notebook that you can run yourself that counts the number of measurements in the border-crossing dataset that start with "1", and with "2", and so on.  Here's the distribution:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={0} className="" alt="The distribution of lead digits from federal border crossing counts." />
+
+Well...  <mark>Okay, that's weird.</mark>
+
+There are a lot more 1s.  Shouldn't they all be even?  Shouldn't there be as many counts starting with a 5 as with a 1?  What's going on?
+
+## Benford's Law: Expect a lot of ones as leading digits in some data
+
+This phenomenon is known as Benford's Law, and it's more common than you might think. Benford's Law states that <mark>in many naturally occurring datasets, the first digit is more likely to be lower than higher.</mark> Specifically, '1' appears as the first digit about 30% of the time, while '9' appears as the first digit only about 5% of the time.
+
+It's a pattern that emerges naturally in a wide range of data. From financial records to geographical data, Benford's Law often holds true.  Here are some other datasets that I found on Data.gov where you can easily see it:
+
+Here's the lead-digit breakdown from about a million real estate [sale prices](https://catalog.data.gov/dataset/?q=&sort=views_recent+desc):
+
+<BlogImage images={props.pageContext.frontmatter.images} index={1} className="" alt="The distribution of lead digits from real estate sale prices." />
+
+The dots superimposed over the bars show the proportions predicted by Benford's Law.  They don't match exactly, but <mark>they do match the overall pattern</mark>.
+
+Here's a list of [baby names](https://catalog.data.gov/dataset/popular-baby-names), ranked by popularity, based on civil birth registrations.  Each name has a count: How many registrations there were for each name.
+
+<BlogImage images={props.pageContext.frontmatter.images} index={2} className="" alt="The distribution of lead digits from real estate sale prices." />
+
+We all remember the daily counts of COVID-19 cases.  Here's the lead-digit breakdown on the daily [New York City case counts]():
+
+<BlogImage images={props.pageContext.frontmatter.images} index={3} className="" alt="The distribution of lead digits from NYC daily COVID-19 case counts." />
+
+And here's the lead-digit breakdown from a bunch of different [school attendance counts](https://catalog.data.gov/dataset/school-attendance-by-student-group-and-district-2021-2022):
+
+<BlogImage images={props.pageContext.frontmatter.images} index={4} className="" alt="The distribution of lead digits from school attendance counts." />
+
+## Okay, "some data"?
+
+Let's look at a dataset where it doesn't happen.  Here are two charts of two different bank account balances.  Both grew over ten years from a principal of USD $10,000 to a final amount of USD $1,000,000.  One of them grew as a result of compounded interest on the principal.  The other grew in simple linear steps each month so that it ended up at the same point.
+
+<BlogImage images={props.pageContext.frontmatter.images} index={5} className="" alt="A linear growth rate and a compound-interest growth rate." />
+
+If we do the same kind of analysis where we look at the breakdown of the first digits of the monthly bank balances in both bank accounts, we see Benford's Law reflected in the distribution for the compound interest, like in the natural datasets that we saw:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={6} className="" alt="The lead-digit breakdown for a simulated compound interest growth rate." />
+
+But, look at the lead-digit distribution for the bank account balances in the account that grew linearly over time:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={7} className="" alt="The lead-digit breakdown for a simulated linear growth rate." />
+
+One kind of growth rate shows the kind of distribution described by Benford's Law, and the other doesn't.  <mark>Something that grows like an investment</mark>, exponentially, will show that kind of distribution.  Someone regularly transferring money looks different.
+
+Well gosh, that sounds useful.
+
+## Applications
+
+Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, and that gives us a way to spot numbers that someone manipulated.
+
+For example, money launderers trying to move money from one point to another without being detected will send money below certain amounts that trigger extra scrutiny.  A common scenario might be a money launderer with $35,000 to transfer who wants to avoid a $10,000 limit that will trigger additional reporting.  They might break up their transactions into smaller chunks, like $9,500, $9,000, $8,500, and $8,000.  Benford's Law can spot that in the deposit records if you have enough data and it's happening often enough.
+
+In other words, money laundering looks different than legitimate transactions.  It's like the numbers come with a built-in lie detector.  Handy!
+
+## Let's simulate money laundering!
+
+Imagine that you're a financial regulator and you're monitoring two banks.  You only have access to the total amount of deposits for each day from each bank.  There are a thousand deposits each day at each bank that are below the $10,000 reporting threshold, but someone is slipping structured transactions through one of the banks.  Your job is to figure out which bank.
+
+I made a Python notebook that simulates that.  It randomly generates a thousand transactions for each of 365 days, and then it adds up the transactions for each day.  We get a list that contains the total sums of deposits for each of the 365 days.  Here's the lead digit breakdown for that list of simulated daily desposit totals:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={9} className="" alt="The lead-digit breakdown for the natural transactions scenario." />
+
+Now, we simulate a second scenario: One where someone is making structured deposits.  In the second scenario, we replace 1% of the natural transaction amounts with simulated structured transaction amounts.  Our simulation is simple, they all randomly range from $9,500 to $9,999.  We get another 365 daily sums, and here's the lead digit breakdown for that scenario:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={11} className="" alt="The lead-digit breakdown for the structured transactions scenario." />
+
+Does one of those distributions look "closer" to the distribution predicted by Benford's Law?  Well, I don't know, they look abou the same to me.  Is there some way to measure it?
+
+Yes!  There are a few common ways to measure the difference that are used in things like financial forensics.  There's also one used a lot in AI.
+
+### Chi-Square Statistic
+
+The Chi-Square statistic is a measure used to determine how well an observed distribution of data fits an expected distribution. In our case, we use it to compare the distribution of the first digits of our transaction data against the expected Benford's Law distribution.  We expect this number to be higher if the distribution varies more from the distribution predicted by Benford's Law.  Let's look at this statistic for both the simulated 'natural' transactions and the scenario with structured transactions buried inside:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={12} className="" alt="The Chi-Square Statistic for both scenarios." />
+
+Wow, neat,  It is higher for the structured transactions.
+
+### Kolmogorov-Smirnov (KS) Statistic
+
+The Kolmogorov-Smirnov (KS) statistic is another metric that measures the difference between two distributions.  Here's how the two scenarios compare:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={13} className="" alt="Kolmogorov-Smirnov (KS) Statistic for both scenarios." />
+
+### Kullback-Leibler (KL) Divergence
+
+This loss measure is used a lot in AI, so why not...
+
+<BlogImage images={props.pageContext.frontmatter.images} index={14} className="" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
+
+Cool, right?  For all three of those measures, the scenario where just 1% of the transactions buried within an aggregate sum scored higher than the simulated natural number dataset.  We can see that there are structure transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
+
+## But why does Benford's Law work?
+
+A number like "2024" is a representation of a value, and it's just one possible representation: the [decimal](https://en.wikipedia.org/wiki/Decimal) representation.  If we use a different [number system based on 8](https://en.wikipedia.org/wiki/Octal) instead of 10 ("octal") where there are only eight possible digits, then that same number is represented as "3150".  The same number represented in a number system with only four digits is "12602".  In binary, where there are only two possible digits, it's "11111111000".
+
+The number of digits represents the order of magnitude of the number, and that's why you can glance at a number like "53,248" and instantly see about how big it is, without even looking at the digits.  In decimal, any number that's two digits is in the range of ten times as large as any number with one digit.  Any number with three digits is in the range of a hundred times as large.  A number must grow by an order of magnitude to gain an extra digit.
+
+That means that when the number grows linearly, the number of digits doesn't grow linearly.  The number of digits grows at a logarithmic rate.
