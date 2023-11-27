@@ -32,6 +32,8 @@ import BlogImage from '../components/blog-image';
 
 Want to see something weird about numbers?  There's a useful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
 
+## Lead digit analysis
+
 There are a lot of open datasets out there.  I went surfing around on [Data.gov](https://data.gov) and picked one mostly at random.  [This dataset](https://catalog.data.gov/dataset/border-crossing-entry-data-683ae) is from the federal government, and it's a count of the number of border crossings there were for different time periods, broken down by port of entry and by category, like "trains", "trucks", "bus passengers", "pedestrians."  Here's what the raw data looks like:
 
 <table className='data'>
@@ -113,7 +115,7 @@ There are a lot of open datasets out there.  I went surfing around on [Data.gov]
   </tbody>
 </table>
 
-Let's look at the first digit of each of those counts.  See that "760" for the first count?  The lead digit is "7".  Here's the lead digit for each of the above counts:
+Let's look at <mark>the first digit of each of those counts.</mark>  See that "760" for the first count?  The lead digit is "7".  Here's the lead digit for each of the above counts:
 
 <table className='data'>
   <thead>
@@ -174,7 +176,7 @@ Now, think about the whole dataset.  This one has 38,549 entries.  Each of those
 
 There are nine possible digits if we exclude "0" as an option.  So, would you think that "1" would occur as the lead digit about one ninth of the time?
 
-I would imagine that if we were to count all the measurements where the first digit was "1", and then count all the measurements where the first digit is "2", and so on, that we would find about the same number of "1"s and "5"s.  After all, this data is as random as it gets.  So, the lead digit should be essentially random, right?
+<mark>I would imagine</mark> that if we were to count all the measurements where the first digit was "1", and then count all the measurements where the first digit is "2", and so on, that we would find about the same number of "1"s and "5"s.  After all, this data is as random as it gets.  So, the lead digit should be essentially random, right?
 
 Let's confirm that assumption...
 

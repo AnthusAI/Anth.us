@@ -351,8 +351,7 @@ article {
   }
 
   table.data {
-    margin-bottom: var(--space-4);
-    margin: 0 auto;
+    margin: 0 auto var(--space-4) auto;
 
     th {
       background-color: var(--color-primary);
