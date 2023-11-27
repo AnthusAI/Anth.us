@@ -1,7 +1,7 @@
 ---
 title: "The Dominance of Ones: A Handy Quirk of Numbers"
 slug: "the-dominance-of-ones"
-date: "2023-11-22"
+date: "2023-11-26"
 authors:
   - author: <a href="/ryan">Ryan Alyn Porter</a>
   - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
@@ -254,7 +254,7 @@ Yes!  There are a few common ways to measure the difference that are used in thi
 
 ### Chi-Square Statistic
 
-The Chi-Square statistic is a measure used to determine how well an observed distribution of data fits an expected distribution. In our case, we use it to compare the distribution of the first digits of our transaction data against the expected Benford's Law distribution.  We expect this number to be higher if the distribution varies more from the distribution predicted by Benford's Law.  Let's look at this statistic for both the simulated 'natural' transactions and the scenario with structured transactions buried inside:
+The [Chi-Square](https://en.wikipedia.org/wiki/Chi-squared_test) statistic is a measure used to determine how well an observed distribution of data fits an expected distribution. In our case, we use it to compare the distribution of the first digits of our transaction data against the expected Benford's Law distribution.  We expect this number to be higher if the distribution varies more from the distribution predicted by Benford's Law.  Let's look at this statistic for both the simulated 'natural' transactions and the scenario with structured transactions buried inside:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={12} className="" alt="The Chi-Square Statistic for both scenarios." />
 
@@ -262,17 +262,17 @@ Wow, neat,  It is higher for the structured transactions.
 
 ### Kolmogorov-Smirnov (KS) Statistic
 
-The Kolmogorov-Smirnov (KS) statistic is another metric that measures the difference between two distributions.  Here's how the two scenarios compare:
+The [Kolmogorov-Smirnov](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test) (KS) statistic is another metric that measures the difference between two distributions.  Here's how the two scenarios compare:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={13} className="" alt="Kolmogorov-Smirnov (KS) Statistic for both scenarios." />
 
 ### Kullback-Leibler (KL) Divergence
 
-This loss measure is used a lot in AI, so why not...
+[Kullback-Leibler](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) is a loss measure is used a lot in AI for things like RLHF evaluation, so why not...
 
 <BlogImage images={props.pageContext.frontmatter.images} index={14} className="" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
 
-Cool, right?  For all three of those measures, the scenario where just 1% of the transactions buried within an aggregate sum scored higher than the simulated natural number dataset.  We can see that there are structure transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
+Cool, right?  For all three of those measures, the scenario where just 1% of the transactions buried within an aggregate sum scored higher than the simulated natural number dataset.  We can see that there are structured transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
 
 ## But why does Benford's Law work?
 
