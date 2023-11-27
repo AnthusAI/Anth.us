@@ -26,6 +26,7 @@ images:
   - ./images/benfords-law/kl-divergence-comparison.png
   - ./images/benfords-law/linear_increase_plot.png
   - ./images/benfords-law/logarithmic_increase_plot.png
+  - ./images/benfords-law/log-tables.jpg
 ---
 
 import BlogImage from '../components/blog-image';
@@ -211,6 +212,18 @@ We all remember the daily counts of COVID-19 cases.  Here's the lead-digit break
 And here's the lead-digit breakdown from a bunch of different [school attendance counts](https://catalog.data.gov/dataset/school-attendance-by-student-group-and-district-2021-2022):
 
 <BlogImage images={props.pageContext.frontmatter.images} index={4} className="" alt="The distribution of lead digits from school attendance counts." />
+
+## An astronomer makes a discovery.  About numbers.
+
+Back in 1881, when the closest thing to a pocket calculator was a quick-witted accountant with a pencil, Simon Newcomb, an astronomer by trade, made a discovery that had nothing to do with stars but everything to do with digits. Newcomb's lightbulb moment didn't strike while stargazing or deep in complex calculations. Instead, it happened as he leafed through a well-thumbed logarithmic table book. In the days before digital convenience, these tables were the bread and butter of calculation, sort of like an ancient Excel spreadsheet but without the fun of accidental cell misformatting.
+
+<BlogImage images={props.pageContext.frontmatter.images} index={17} className="" alt="Worn pages in a logarith table book." />
+
+What caught Newcomb's eye was the curious case of the weary pages. The early sections of the logarithm book, <mark>the pages with numbers starting with '1', showed signs of significant wear and tear</mark>. It was as if these pages had run a marathon, while the latter ones looked barely out of the starting blocks. This wasn't just a case of page discrimination; it hinted at a numerical pattern. Newcomb theorized that numbers starting with '1' were not just the wallflowers of the numerical dance but were, in fact, the belle of the ball, getting picked far more often than their higher-digit counterparts.
+
+Forming his hypothesis from this observation, Newcomb proposed that the first significant digit in many datasets is more likely to be '1' than any other number, with the chances diminishing as you count up to '9'.
+
+It wasn't until 1938 that the idea gained widespread recognition, thanks to physicist Frank Benford. Benford expanded on Newcomb's observation, conducting a more thorough and extensive study that covered a diverse range of datasets. He demonstrated that the first-digit distribution he observed closely matched Newcomb's earlier findings. Despite Newcomb's precedence, the law came to be known as Benford's Law due to his role in popularizing and formally documenting the phenomenon. 
 
 ## Okay, "some data"?
 
