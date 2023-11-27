@@ -234,7 +234,7 @@ Benford's Law's predictions have powerful applications in financial forensics.  
 
 For example, money launderers trying to move money from one point to another without being detected will send money below certain amounts that trigger extra scrutiny.  A common scenario might be a money launderer with $35,000 to transfer who wants to avoid a $10,000 limit that will trigger additional reporting.  They might break up their transactions into smaller chunks, like $9,500, $9,000, $8,500, and $8,000.  Benford's Law can spot that in the deposit records if you have enough data and it's happening often enough.
 
-In other words, money laundering looks different than legitimate transactions.  It's like the numbers come with a built-in lie detector.  Handy!
+In other words, money laundering looks different than legitimate transactions.  It's like the numbers come with a <mark>built-in lie detector</mark>.  Handy!
 
 ## Let's simulate money laundering!
 
@@ -260,11 +260,15 @@ The [Chi-Square](https://en.wikipedia.org/wiki/Chi-squared_test) statistic is a 
 
 Wow, neat,  It is higher for the structured transactions.
 
+We can see which bank has money launderers for customers!  They might not even know, but we can see it <mark>just from looking at the daily sums of deposits</mark>, without being able to see the individual transactions.  How cool!
+
 ### Kolmogorov-Smirnov (KS) Statistic
 
 The [Kolmogorov-Smirnov](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test) (KS) statistic is another metric that measures the difference between two distributions.  Here's how the two scenarios compare:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={13} className="" alt="Kolmogorov-Smirnov (KS) Statistic for both scenarios." />
+
+That one <mark>also shows</mark> the money launderers varying significantly from the normal transactions!
 
 ### Kullback-Leibler (KL) Divergence
 
@@ -272,7 +276,7 @@ The [Kolmogorov-Smirnov](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test
 
 <BlogImage images={props.pageContext.frontmatter.images} index={14} className="" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
 
-Cool, right?  For all three of those measures, the scenario where just 1% of the transactions buried within an aggregate sum scored higher than the simulated natural number dataset.  We can see that there are structured transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
+Cool, right?  For all three of those measures, the scenario where <mark>just 1% of the transactions buried within an aggregate sum</mark> scored higher than the simulated natural number dataset.  We can see that there are structured transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
 
 ## But why does Benford's Law work?
 
@@ -286,12 +290,14 @@ By Generation 6, the population hits 192, marking our first transition to a thre
 
 Let's take a look at the relationship between the population value and the <mark>number of digits</mark> in the population count, all the way up to 2 billion:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={15} className="" alt="The Chi-Square Statistic for both scenarios." />
-<BlogImage images={props.pageContext.frontmatter.images} index={16} className="" alt="The Chi-Square Statistic for both scenarios." />
+<BlogImage images={props.pageContext.frontmatter.images} index={15} className="" alt="Linear growth to two billion." />
+<BlogImage images={props.pageContext.frontmatter.images} index={16} className="" alt="Logarithmic growth in number of digits to two billion." />
 
 The first chart illustrates the linear growth in population value, while the second chart illustrates the stepwise logarithmic growth pattern in the number of digits, contrasting the linear population increase against the more gradual digit count rise.
 
-These visualizations demonstrate the essence of Benford's Law: <mark>in a logarithmic scale, lower digits dominate because each digit covers a wider range before the next takes over.</mark>
+These visualizations demonstrate the essence of Benford's Law: in a logarithmic scale, lower digits dominate because <mark>each digit covers a wider range before the next takes over.</mark>
+
+Another interesting thing about Benford's Law: You <mark>don't really have to understand why it happens</mark> to understand how to use it.
 
 ## Conclusion
 
