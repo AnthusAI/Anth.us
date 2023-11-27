@@ -226,7 +226,7 @@ But, look at the lead-digit distribution for the bank account balances in the ac
 
 One kind of growth rate shows the kind of distribution described by Benford's Law, and the other doesn't.  <mark>Something that grows like an investment</mark>, exponentially, will show that kind of distribution.  Someone regularly transferring money looks different.
 
-Well gosh, that sounds useful.
+Well gosh, <mark>that sounds useful.</mark>
 
 ## Applications
 
@@ -295,24 +295,24 @@ These visualizations demonstrate the essence of Benford's Law: <mark>in a logari
 
 ## Conclusion
 
-Benford's Law, with its unique insight into aggregate data, already plays a role in various applications, from fraud detection to financial analysis. However, its potential extends further, particularly in shaping the future of AI.
+Benford's Law, with its <mark>unique insight into aggregate data</mark>, already plays a role in various applications, from fraud detection to financial analysis. However, its potential extends further, particularly in shaping the future of AI.
 
 One intriguing application lies in crafting datasets for training AI models. By ensuring these datasets adhere to Benford's Law, we could enhance the realism and reliability of the training process, leading to more robust and accurate AI models. Benford's Law could be used in areas like evaluation metrics in AI, offering a novel lens to assess the authenticity and accuracy of AI-generated data.
 
-While its current applications are well-established, the future might see Benford's Law becoming a part of the AI toolkit, guiding both the development and evaluation of AI models in a variety of fields. This exploration could pave the way for AI systems that resonate more deeply with the patterns found in natural data.
+While its current applications are well-established, the future might see Benford's Law becoming a <mark>part of the AI toolkit</mark>, guiding both the development and evaluation of AI models in a variety of fields. This exploration could pave the way for AI systems that resonate more deeply with the patterns found in natural data.
 
 ## Lab
 
-Don't take my word for it.  You can reproduce all of my findings and visuals from this article with Python notebooks on Google Collab.
+Don't take my word for it.  <mark>You can reproduce all of my findings and visuals</mark> from this article with Python notebooks on Google Collab.
 
 ### Data.gov datasets
 
 You can download datasets from [Data.gov](https://data.gov) to Collab and do your own lead-digit analysis with this notebook: [Benford's Law Demo](https://colab.research.google.com/drive/1NnENSOTvp-7ts_f2Oj9AwUEYummD--YD?usp=sharing)
 
-Play with it: Find your own datasets and try it.  Find any dataset that you think might work and copy the CSV download link to the notebook.  Download the file yourself ahd look at it to find the column name of the column that you think might demonstrate a distribution that follows the prediction from Benford's Law.
+<mark>Play with it</mark>: Find your own datasets and try it.  Find any dataset that you think might work and copy the CSV download link to the notebook.  Download the file yourself ahd look at it to find the column name of the column that you think might demonstrate a distribution that follows the prediction from Benford's Law.
 
 ### Money laundering simulation
 
-You can use the notebook for the [structured-transaction simulation](https://colab.research.google.com/drive/1MV45hNw86qe6GUnTtCsnKxcXMwocsTfg?usp=sharing) to reproduce my findings.  Run the simulation a few times and look at the different values that you get for the three different measures of how the actual distribution varies from the Benford's Law predicted distribution for the two different scenarios.
+You can use the notebook for the [structured-transaction simulation](https://colab.research.google.com/drive/1MV45hNw86qe6GUnTtCsnKxcXMwocsTfg?usp=sharing) to reproduce my findings.  Run the simulation a few times and look at the different values that you get for the three different measures of how the actual distribution varies from the Benford's Law predicted distribution for the two different scenarios.  <mark>Random numbers are random</mark>: The statistics won't always magically detect every money launderer.  Sometimes they'll even go backwards.  Random!
 
-Then, change the parameters.  Instead of a thousand transactions per day, lower it to 100.  Lower the percentage of structured transactions.  How low can you go before the differing lead-digit distributions are imperceptible in terms of how they correspond with the Benford's Law predictions?  If you increase the number of structured transactions then does it enhance the distinction?
+Then, <mark>change the parameters</mark>.  Instead of a thousand transactions per day, lower it to 100.  Lower the percentage of structured transactions.  How low can you go before the differing lead-digit distributions are imperceptible in terms of how they correspond with the Benford's Law predictions?  If you increase the number of structured transactions then does it enhance the distinction?
