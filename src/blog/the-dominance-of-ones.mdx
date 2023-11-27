@@ -6,7 +6,7 @@ authors:
   - author: <a href="/ryan">Ryan Alyn Porter</a>
   - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
 tags: ["mathematics", "statistical phenomena", "simulation theory"]
-excerpt: Dive into the intriguing world of Benford's Law, a statistical enigma that challenges our understanding of randomness in numbers. From forensic accounting to hypothetical musings of a simulated universe, explore how this numerical pattern subtly shapes our perception of data and reality.
+excerpt: From money launderers to breeding rabbits, this facsinating quirk of numbers is lurking on the sidelines, ready to surprise us.
 preview_image: "./images/benfords-law/border-crossing-counts.png"
 images:
   - ./images/benfords-law/border-crossing-counts.png
@@ -300,3 +300,19 @@ Benford's Law, with its unique insight into aggregate data, already plays a role
 One intriguing application lies in crafting datasets for training AI models. By ensuring these datasets adhere to Benford's Law, we could enhance the realism and reliability of the training process, leading to more robust and accurate AI models. Benford's Law could be used in areas like evaluation metrics in AI, offering a novel lens to assess the authenticity and accuracy of AI-generated data.
 
 While its current applications are well-established, the future might see Benford's Law becoming a part of the AI toolkit, guiding both the development and evaluation of AI models in a variety of fields. This exploration could pave the way for AI systems that resonate more deeply with the patterns found in natural data.
+
+## Lab
+
+Don't take my word for it.  You can reproduce all of my findings and visuals from this article with Python notebooks on Google Collab.
+
+### Data.gov datasets
+
+You can download datasets from [Data.gov](https://data.gov) to Collab and do your own lead-digit analysis with this notebook: [Benford's Law Demo](https://colab.research.google.com/drive/1NnENSOTvp-7ts_f2Oj9AwUEYummD--YD?usp=sharing)
+
+Play with it: Find your own datasets and try it.  Find any dataset that you think might work and copy the CSV download link to the notebook.  Download the file yourself ahd look at it to find the column name of the column that you think might demonstrate a distribution that follows the prediction from Benford's Law.
+
+### Money laundering simulation
+
+You can use the notebook for the [structured-transaction simulation](https://colab.research.google.com/drive/1MV45hNw86qe6GUnTtCsnKxcXMwocsTfg?usp=sharing) to reproduce my findings.  Run the simulation a few times and look at the different values that you get for the three different measures of how the actual distribution varies from the Benford's Law predicted distribution for the two different scenarios.
+
+Then, change the parameters.  Instead of a thousand transactions per day, lower it to 100.  Lower the percentage of structured transactions.  How low can you go before the differing lead-digit distributions are imperceptible in terms of how they correspond with the Benford's Law predictions?  If you increase the number of structured transactions then does it enhance the distinction?
