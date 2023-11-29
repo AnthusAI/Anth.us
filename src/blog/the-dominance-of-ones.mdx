@@ -27,6 +27,7 @@ images:
   - ./images/benfords-law/linear_increase_plot.png
   - ./images/benfords-law/logarithmic_increase_plot.png
   - ./images/benfords-law/log-tables.jpg
+  - ./images/benfords-law/handwritten-general-ledger.jpg
 ---
 
 import BlogImage from '../components/blog-image';
@@ -201,7 +202,7 @@ Let's confirm that assumption...
 
 I made a Python notebook that you can run yourself that counts the number of measurements in the border-crossing dataset that start with "1", and with "2", and so on.  Here's the distribution:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={0} className="" alt="The distribution of lead digits from federal border crossing counts." />
+<BlogImage images={props.pageContext.frontmatter.images} index={0} className="full" alt="The distribution of lead digits from federal border crossing counts." />
 
 Well...  <mark>Okay, that's weird.</mark>
 
@@ -224,7 +225,7 @@ Here's the lead-digit breakdown from about a million real estate sale prices:<Ci
   }}
 />
 
-<BlogImage images={props.pageContext.frontmatter.images} index={1} className="" alt="The distribution of lead digits from real estate sale prices." />
+<BlogImage images={props.pageContext.frontmatter.images} index={1} className="full" alt="The distribution of lead digits from real estate sale prices." />
 
 The dots superimposed over the bars show the proportions predicted by Benford's Law.  They don't match exactly, but <mark>they do match the overall pattern</mark>.
 
@@ -239,7 +240,7 @@ Here's a list of baby names, ranked by popularity, based on civil birth registra
   }}
 />  Each name has a count: How many registrations there were for each name.
 
-<BlogImage images={props.pageContext.frontmatter.images} index={2} className="" alt="The distribution of lead digits from real estate sale prices." />
+<BlogImage images={props.pageContext.frontmatter.images} index={2} className="full" alt="The distribution of lead digits from real estate sale prices." />
 
 We all remember the daily counts of COVID-19 cases.  Here's the lead-digit breakdown on the daily New York City case counts:<Citation
   data={{
@@ -252,7 +253,7 @@ We all remember the daily counts of COVID-19 cases.  Here's the lead-digit break
   }}
 />
 
-<BlogImage images={props.pageContext.frontmatter.images} index={3} className="" alt="The distribution of lead digits from NYC daily COVID-19 case counts." />
+<BlogImage images={props.pageContext.frontmatter.images} index={3} className="full" alt="The distribution of lead digits from NYC daily COVID-19 case counts." />
 
 And here's the lead-digit breakdown from a bunch of different school attendance counts:<Citation
   data={{
@@ -265,7 +266,7 @@ And here's the lead-digit breakdown from a bunch of different school attendance 
   }}
 />
 
-<BlogImage images={props.pageContext.frontmatter.images} index={4} className="" alt="The distribution of lead digits from school attendance counts." />
+<BlogImage images={props.pageContext.frontmatter.images} index={4} className="full" alt="The distribution of lead digits from school attendance counts." />
 
 ## An astronomer makes a discovery.  About numbers.
 
@@ -274,13 +275,14 @@ Back in 1881, when the closest thing to a pocket calculator was a quick-witted a
     type: "webpage",
     "container-title": "Scientific American",
     title: "What Is Benford’s Law? Why This Unexpected Pattern of Numbers Is Everywhere",
+    author: "Jack Murtagh",
     URL: "https://www.scientificamerican.com/article/what-is-benfords-law-why-this-unexpected-pattern-of-numbers-is-everywhere/",
     accessed: { 'date-parts': [[2023, 11, 28]] },
     issued: { 'date-parts': [[2023, 5, 8]] }
   }}
 /> Newcomb's lightbulb moment didn't strike while stargazing or deep in complex calculations. Instead, it happened as he leafed through a well-thumbed logarithmic table book. In the days before digital convenience, these tables were the bread and butter of calculation, sort of like an ancient Excel spreadsheet but without the fun of accidental cell misformatting.
 
-<BlogImage images={props.pageContext.frontmatter.images} index={17} className="" alt="Worn pages in a logarith table book." />
+<BlogImage images={props.pageContext.frontmatter.images} index={17} className="full" alt="Worn pages in a logarith table book." />
 
 What caught Newcomb's eye was the curious case of the weary pages. The early sections of the logarithm book, <mark>the pages with numbers starting with '1', showed signs of significant wear and tear</mark>. It was as if these pages had run a marathon, while the latter ones looked barely out of the starting blocks. This wasn't just a case of page discrimination; it hinted at a numerical pattern. Newcomb theorized that numbers starting with '1' were not just the wallflowers of the numerical dance but were, in fact, the belle of the ball, getting picked far more often than their higher-digit counterparts.
 
@@ -292,15 +294,15 @@ It wasn't until 1938 that the idea gained widespread recognition, thanks to phys
 
 Let's look at a dataset where it doesn't happen.  Here are two charts of two different bank account balances.  Both grew over ten years from a principal of USD $10,000 to a final amount of USD $1,000,000.  One of them grew as a result of compounded interest on the principal.  The other grew in simple linear steps each month so that it ended up at the same point.
 
-<BlogImage images={props.pageContext.frontmatter.images} index={5} className="" alt="A linear growth rate and a compound-interest growth rate." />
+<BlogImage images={props.pageContext.frontmatter.images} index={5} className="full" alt="A linear growth rate and a compound-interest growth rate." />
 
 If we do the same kind of analysis where we look at the breakdown of the first digits of the monthly bank balances in both bank accounts, we see Benford's Law reflected in the distribution for the compound interest, like in the natural datasets that we saw:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={6} className="" alt="The lead-digit breakdown for a simulated compound interest growth rate." />
+<BlogImage images={props.pageContext.frontmatter.images} index={6} className="full" alt="The lead-digit breakdown for a simulated compound interest growth rate." />
 
 But, look at the lead-digit distribution for the bank account balances in the account that grew linearly over time:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={7} className="" alt="The lead-digit breakdown for a simulated linear growth rate." />
+<BlogImage images={props.pageContext.frontmatter.images} index={7} className="full" alt="The lead-digit breakdown for a simulated linear growth rate." />
 
 One kind of growth rate shows the kind of distribution described by Benford's Law, and the other doesn't.  <mark>Something that grows like an investment</mark>, exponentially, will show that kind of distribution.  Someone regularly transferring money looks different.
 
@@ -308,7 +310,37 @@ Well gosh, <mark>that sounds useful.</mark>
 
 ## Applications
 
-Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, and that gives us a way to spot numbers that someone manipulated.
+### AI training
+
+Training data is increasingly important, and a lot of it lately is fake.  We use AI to generate training data for AI models.  The training data needs to be realistic, right?
+
+<BlogImage images={props.pageContext.frontmatter.images} index={18} className="full" alt="A handwritten general ledger." />
+
+Researchers at Columbia University confirmed that if you train a handwriting recognition model using numbers that correspond to Benford's Law's predictions, then the model will perform better at recognizing real-world handwritten financial numbers.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "LinkedIn",
+    author: "Jose Manuel Peña Mendez, CFA.",
+    title: "Follow the Leader: Using Benford’s Law on First and Second Digits to Train a Handwriting Recognition Neural Network",
+    URL: "https://www.linkedin.com/pulse/follow-leader-using-benfords-law-first-second-digits-jose-manuel/",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2017, 7, 17]] }
+  }}
+/>
+
+### Financial auditing
+
+Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, and that gives us a way to spot numbers that someone manipulated.  It gives financial auditors a tool to identify general ledger irregularities.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Journal of Accountancy",
+    author: "Mark J. Nigrini, Ph.D.",
+    title: "Using Benford’s Law to reveal journal entry irregularities",
+    URL: "https://www.journalofaccountancy.com/issues/2022/sep/using-benfords-law-reveal-journal-entry-irregularities.html",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2022, 9, 1]] }
+  }}
+/>  Not all irregularities indicate fraud, but some do.
 
 For example, money launderers trying to move money from one point to another without being detected will send money below certain amounts that trigger extra scrutiny.  A common scenario might be a money launderer with $35,000 to transfer who wants to avoid a $10,000 limit that will trigger additional reporting.  They might break up their transactions into smaller chunks, like $9,500, $9,000, $8,500, and $8,000.  Benford's Law can spot that in the deposit records if you have enough data and it's happening often enough.
 
@@ -320,11 +352,11 @@ Imagine that you're a financial regulator and you're monitoring two banks.  You 
 
 I made a Python notebook that simulates that.  It randomly generates a thousand transactions for each of 365 days, and then it adds up the transactions for each day.  We get a list that contains the total sums of deposits for each of the 365 days.  Here's the lead digit breakdown for that list of simulated daily desposit totals:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={9} className="" alt="The lead-digit breakdown for the natural transactions scenario." />
+<BlogImage images={props.pageContext.frontmatter.images} index={9} className="full" alt="The lead-digit breakdown for the natural transactions scenario." />
 
 Now, we simulate a second scenario: One where someone is making structured deposits.  In the second scenario, we replace 1% of the natural transaction amounts with simulated structured transaction amounts.  Our simulation is simple, they all randomly range from $9,500 to $9,999.  We get another 365 daily sums, and here's the lead digit breakdown for that scenario:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={11} className="" alt="The lead-digit breakdown for the structured transactions scenario." />
+<BlogImage images={props.pageContext.frontmatter.images} index={11} className="full" alt="The lead-digit breakdown for the structured transactions scenario." />
 
 Does one of those distributions look "closer" to the distribution predicted by Benford's Law?  Well, I don't know, they look abou the same to me.  Is there some way to measure it?
 
@@ -343,7 +375,7 @@ The [Chi-Square test is a measure used to determine how well an observed distrib
   }}
 /> In our case, we use it to compare the distribution of the first digits of our transaction data against the expected Benford's Law distribution.  We expect this number to be higher if the distribution varies more from the distribution predicted by Benford's Law.  Let's look at this statistic for both the simulated 'natural' transactions and the scenario with structured transactions buried inside:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={12} className="" alt="The Chi-Square Statistic for both scenarios." />
+<BlogImage images={props.pageContext.frontmatter.images} index={12} className="full" alt="The Chi-Square Statistic for both scenarios." />
 
 Wow, neat,  It is higher for the structured transactions.
 
@@ -362,7 +394,7 @@ The Kolmogorov-Smirnov (KS) test is another metric that measures the difference 
   }}
 />  Here's how the two scenarios compare:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={13} className="" alt="Kolmogorov-Smirnov (KS) Statistic for both scenarios." />
+<BlogImage images={props.pageContext.frontmatter.images} index={13} className="full" alt="Kolmogorov-Smirnov (KS) Statistic for both scenarios." />
 
 That one <mark>also shows</mark> the money launderers varying significantly from the normal transactions!
 
@@ -379,7 +411,7 @@ Kullback-Leibler is a loss measure is used a lot in AI for things like RLHF eval
   }}
 /> so why not...
 
-<BlogImage images={props.pageContext.frontmatter.images} index={14} className="" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
+<BlogImage images={props.pageContext.frontmatter.images} index={14} className="full" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
 
 Cool, right?  For all three of those measures, the scenario where <mark>just 1% of the transactions buried within an aggregate sum</mark> scored higher than the simulated natural number dataset.  We can see that there are structured transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
 
@@ -395,8 +427,8 @@ By Generation 6, the population hits 192, marking our first transition to a thre
 
 Let's take a look at the relationship between the population value and the <mark>number of digits</mark> in the population count, all the way up to 2 billion:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={15} className="" alt="Linear growth to two billion." />
-<BlogImage images={props.pageContext.frontmatter.images} index={16} className="" alt="Logarithmic growth in number of digits to two billion." />
+<BlogImage images={props.pageContext.frontmatter.images} index={15} className="full" alt="Linear growth to two billion." />
+<BlogImage images={props.pageContext.frontmatter.images} index={16} className="full" alt="Logarithmic growth in number of digits to two billion." />
 
 The first chart illustrates the linear growth in population value, while the second chart illustrates the stepwise logarithmic growth pattern in the number of digits, contrasting the linear population increase against the more gradual digit count rise.
 
