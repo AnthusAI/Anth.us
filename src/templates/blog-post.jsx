@@ -6,6 +6,7 @@ import Markdown from 'markdown-to-jsx';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Seo from "../components/seo"
 import BlogImage from '../components/blog-image';
+import { CitationsProvider, Citation, CitationsList } from 'gatsby-citation-manager';
 
 const BlogPostTemplate = ({ data, children }) => {
 
@@ -52,7 +53,9 @@ const BlogPostTemplate = ({ data, children }) => {
           </div>
         </div>
         <MDXProvider components={shortcodes}>
-          {children}
+          <CitationsProvider>
+            {children}
+          </CitationsProvider>
         </MDXProvider>
       </article>
     </Layout>

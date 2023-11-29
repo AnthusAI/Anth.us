@@ -112,5 +112,6 @@ module.exports = {
         ],
       },
     },
+    'gatsby-citation-manager'
   ],
 }

@@ -30,12 +30,30 @@ images:
 ---
 
 import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 Want to see something weird about numbers?  There's a useful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
 
 ## Lead digit analysis
 
-There are a lot of open datasets out there.  I went surfing around on [Data.gov](https://data.gov) and picked one mostly at random.  [This dataset](https://catalog.data.gov/dataset/border-crossing-entry-data-683ae) is from the federal government, and it's a count of the number of border crossings there were for different time periods, broken down by port of entry and by category, like "trains", "trucks", "bus passengers", "pedestrians."  Here's what the raw data looks like:
+There are a lot of open datasets out there.  I went surfing around on the government's open data site<Citation
+  data={{
+    type: "webpage",
+    title: "Data.gov Home",
+    URL: "https://data.gov",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 11, 28]] }
+  }}
+/> and picked one mostly at random.  It's a count of the number of border crossings there were for different time periods, broken down by port of entry and by category, like "trains", "trucks", "bus passengers", "pedestrians."<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Data.gov",
+    title: "Border Crossing Entry Data",
+    URL: "https://catalog.data.gov/dataset/border-crossing-entry-data-683ae",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 11, 15]] }
+  }}
+/>  Here's what the raw data looks like:
 
 <table className='data'>
   <thead>
@@ -195,27 +213,72 @@ This phenomenon is known as Benford's Law, and it's more common than you might t
 
 It's a pattern that emerges naturally in a <mark>wide range of data</mark>. From financial records to geographical data, Benford's Law often holds true.  Here are some other datasets that I found on Data.gov where you can easily see it:
 
-Here's the lead-digit breakdown from about a million real estate [sale prices](https://catalog.data.gov/dataset/?q=&sort=views_recent+desc):
+Here's the lead-digit breakdown from about a million real estate sale prices:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Data.gov",
+    title: "Real Estate Sales 2001-2020 GL",
+    URL: "https://catalog.data.gov/dataset/real-estate-sales-2001-2018",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 8, 12]] }
+  }}
+/>
 
 <BlogImage images={props.pageContext.frontmatter.images} index={1} className="" alt="The distribution of lead digits from real estate sale prices." />
 
 The dots superimposed over the bars show the proportions predicted by Benford's Law.  They don't match exactly, but <mark>they do match the overall pattern</mark>.
 
-Here's a list of [baby names](https://catalog.data.gov/dataset/popular-baby-names), ranked by popularity, based on civil birth registrations.  Each name has a count: How many registrations there were for each name.
+Here's a list of baby names, ranked by popularity, based on civil birth registrations.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Data.gov",
+    title: "Popular Baby Names",
+    URL: "https://catalog.data.gov/dataset/popular-baby-names",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 9, 2]] }
+  }}
+/>  Each name has a count: How many registrations there were for each name.
 
 <BlogImage images={props.pageContext.frontmatter.images} index={2} className="" alt="The distribution of lead digits from real estate sale prices." />
 
-We all remember the daily counts of COVID-19 cases.  Here's the lead-digit breakdown on the daily [New York City case counts]():
+We all remember the daily counts of COVID-19 cases.  Here's the lead-digit breakdown on the daily New York City case counts:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Data.gov",
+    title: "COVID-19 Daily Counts of Cases, Hospitalizations, and Deaths",
+    URL: "https://catalog.data.gov/dataset/covid-19-daily-counts-of-cases-hospitalizations-and-deaths",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 9, 2]] }
+  }}
+/>
 
 <BlogImage images={props.pageContext.frontmatter.images} index={3} className="" alt="The distribution of lead digits from NYC daily COVID-19 case counts." />
 
-And here's the lead-digit breakdown from a bunch of different [school attendance counts](https://catalog.data.gov/dataset/school-attendance-by-student-group-and-district-2021-2022):
+And here's the lead-digit breakdown from a bunch of different school attendance counts:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Data.gov",
+    title: "School Attendance by Student Group and District, 2021-2022",
+    URL: "https://catalog.data.gov/dataset/school-attendance-by-student-group-and-district-2021-2022",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 8, 19]] }
+  }}
+/>
 
 <BlogImage images={props.pageContext.frontmatter.images} index={4} className="" alt="The distribution of lead digits from school attendance counts." />
 
 ## An astronomer makes a discovery.  About numbers.
 
-Back in 1881, when the closest thing to a pocket calculator was a quick-witted accountant with a pencil, Simon Newcomb, an astronomer by trade, made a discovery that had nothing to do with stars but everything to do with digits. Newcomb's lightbulb moment didn't strike while stargazing or deep in complex calculations. Instead, it happened as he leafed through a well-thumbed logarithmic table book. In the days before digital convenience, these tables were the bread and butter of calculation, sort of like an ancient Excel spreadsheet but without the fun of accidental cell misformatting.
+Back in 1881, when the closest thing to a pocket calculator was a quick-witted accountant with a pencil, Simon Newcomb, an astronomer by trade, made a discovery that had nothing to do with stars but everything to do with digits.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Scientific American",
+    title: "What Is Benford’s Law? Why This Unexpected Pattern of Numbers Is Everywhere",
+    URL: "https://www.scientificamerican.com/article/what-is-benfords-law-why-this-unexpected-pattern-of-numbers-is-everywhere/",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 5, 8]] }
+  }}
+/> Newcomb's lightbulb moment didn't strike while stargazing or deep in complex calculations. Instead, it happened as he leafed through a well-thumbed logarithmic table book. In the days before digital convenience, these tables were the bread and butter of calculation, sort of like an ancient Excel spreadsheet but without the fun of accidental cell misformatting.
 
 <BlogImage images={props.pageContext.frontmatter.images} index={17} className="" alt="Worn pages in a logarith table book." />
 
@@ -269,7 +332,16 @@ Yes!  There are a few common ways to measure the difference that are used in thi
 
 ### Chi-Square Statistic
 
-The [Chi-Square](https://en.wikipedia.org/wiki/Chi-squared_test) statistic is a measure used to determine how well an observed distribution of data fits an expected distribution. In our case, we use it to compare the distribution of the first digits of our transaction data against the expected Benford's Law distribution.  We expect this number to be higher if the distribution varies more from the distribution predicted by Benford's Law.  Let's look at this statistic for both the simulated 'natural' transactions and the scenario with structured transactions buried inside:
+The [Chi-Square test is a measure used to determine how well an observed distribution of data fits an expected distribution.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Wikipedia",
+    title: "Chi-Squared Test",
+    URL: "https://en.wikipedia.org/wiki/Chi-squared_test",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 8, 18]] }
+  }}
+/> In our case, we use it to compare the distribution of the first digits of our transaction data against the expected Benford's Law distribution.  We expect this number to be higher if the distribution varies more from the distribution predicted by Benford's Law.  Let's look at this statistic for both the simulated 'natural' transactions and the scenario with structured transactions buried inside:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={12} className="" alt="The Chi-Square Statistic for both scenarios." />
 
@@ -279,7 +351,16 @@ We can see which bank has money launderers for customers!  They might not even k
 
 ### Kolmogorov-Smirnov (KS) Statistic
 
-The [Kolmogorov-Smirnov](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test) (KS) statistic is another metric that measures the difference between two distributions.  Here's how the two scenarios compare:
+The Kolmogorov-Smirnov (KS) test is another metric that measures the difference between two distributions.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Wikipedia",
+    title: "Kolmogorov–Smirnov test",
+    URL: "https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 11, 8]] }
+  }}
+/>  Here's how the two scenarios compare:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={13} className="" alt="Kolmogorov-Smirnov (KS) Statistic for both scenarios." />
 
@@ -287,7 +368,16 @@ That one <mark>also shows</mark> the money launderers varying significantly from
 
 ### Kullback-Leibler (KL) Divergence
 
-[Kullback-Leibler](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) is a loss measure is used a lot in AI for things like RLHF evaluation, so why not...
+Kullback-Leibler is a loss measure is used a lot in AI for things like RLHF evaluation,<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Wikipedia",
+    title: "Kullback–Leibler divergence",
+    URL: "https://en.wikipedia.org/wiki/Kullback–Leibler_divergence",
+    accessed: { 'date-parts': [[2023, 11, 28]] },
+    issued: { 'date-parts': [[2023, 11, 28]] }
+  }}
+/> so why not...
 
 <BlogImage images={props.pageContext.frontmatter.images} index={14} className="" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
 
@@ -337,3 +427,7 @@ You can download datasets from [Data.gov](https://data.gov) to Collab and do you
 You can use the notebook for the [structured-transaction simulation](https://colab.research.google.com/drive/1MV45hNw86qe6GUnTtCsnKxcXMwocsTfg?usp=sharing) to reproduce my findings.  Run the simulation a few times and look at the different values that you get for the three different measures of how the actual distribution varies from the Benford's Law predicted distribution for the two different scenarios.  <mark>Random numbers are random</mark>: The statistics won't always magically detect every money launderer.  Sometimes they'll even go backwards.  Random!
 
 Then, <mark>change the parameters</mark>.  Instead of a thousand transactions per day, lower it to 100.  Lower the percentage of structured transactions.  How low can you go before the differing lead-digit distributions are imperceptible in terms of how they correspond with the Benford's Law predictions?  If you increase the number of structured transactions then does it enhance the distinction?
+
+## References
+
+<CitationsList citationFormat="bibtex" />

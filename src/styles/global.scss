@@ -374,6 +374,18 @@ article {
   table.overflow {
     overflow: hidden;
   }
+
+  .citation {
+    a {
+      text-decoration: none;
+      padding-left: 0.25ex;
+      padding-right: 0.5ex;
+      color: var(--color-text)
+    }
+  }
+  .citationslist {
+    text-align: left;
+  }
 }
 
 mark {
