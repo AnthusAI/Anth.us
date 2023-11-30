@@ -7,7 +7,7 @@ authors:
   - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
 tags: ["mathematics", "statistical phenomena", "simulation theory"]
 excerpt: From money launderers to breeding rabbits, this fascinating quirk of numbers is lurking on the sidelines, ready to surprise us.
-preview_image: "./images/benfords-law/border-crossing-counts.png"
+preview_image: "./images/benfords-law/benford-distribution.png"
 images:
   - ./images/benfords-law/border-crossing-counts.png
   - ./images/benfords-law/connecticut-real-estate-sales.png
@@ -26,15 +26,17 @@ images:
   - ./images/benfords-law/kl-divergence-comparison.png
   - ./images/benfords-law/linear_increase_plot.png
   - ./images/benfords-law/logarithmic_increase_plot.png
-  - ./images/benfords-law/log-tables.jpg
-  - ./images/benfords-law/handwritten-general-ledger.jpg
+  - ./images/benfords-law/logarithm-table-book.png
+  - ./images/benfords-law/ciphering-numbers-2961283828065RtvT.jpg
+  - ./images/benfords-law/tyler-easton-faixctm2YRQ-unsplash.png
+  - ./images/benfords-law/benford-distribution.png
 state: published
 ---
 
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-Want to see something weird about numbers?  There's a useful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
+<BlogImage images={props.pageContext.frontmatter.images} index={20} className="right" alt="The distribution of lead digits in natural numbers according to Benford's Law." />Want to see something weird about numbers?  There's a useful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
 
 ## Lead digit analysis
 
@@ -283,7 +285,7 @@ Back in 1881, when the closest thing to a pocket calculator was a quick-witted a
   }}
 /> Newcomb's lightbulb moment didn't strike while stargazing or deep in complex calculations. Instead, it happened as he leafed through a well-thumbed logarithmic table book. In the days before digital convenience, these tables were the bread and butter of calculation, sort of like an ancient Excel spreadsheet but without the fun of accidental cell misformatting.
 
-<BlogImage images={props.pageContext.frontmatter.images} index={17} className="full" alt="Worn pages in a logarith table book." />
+<BlogImage images={props.pageContext.frontmatter.images} index={17} className="right" alt="Worn pages in a logarith table book." />
 
 What caught Newcomb's eye was the curious case of the weary pages. The early sections of the logarithm book, <mark>the pages with numbers starting with '1', showed signs of significant wear and tear</mark>. It was as if these pages had run a marathon, while the latter ones looked barely out of the starting blocks. This wasn't just a case of page discrimination; it hinted at a numerical pattern. Newcomb theorized that numbers starting with '1' were not just the wallflowers of the numerical dance but were, in fact, the belle of the ball, getting picked far more often than their higher-digit counterparts.
 
@@ -311,7 +313,7 @@ Well gosh, <mark>that sounds useful.</mark>
 
 ## Applications
 
-Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, and that gives us a way to spot numbers that someone manipulated.  It gives financial auditors a tool to identify general ledger irregularities.<Citation
+<BlogImage images={props.pageContext.frontmatter.images} index={19} className="right" alt="Financial figures." />Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, and that gives us a way to spot numbers that someone manipulated.  It gives financial auditors a tool to identify general ledger irregularities.<Citation
   data={{
     type: "webpage",
     "container-title": "Journal of Accountancy",
@@ -396,13 +398,29 @@ Kullback-Leibler is a loss measure is used a lot in AI for things like RLHF eval
 
 Cool, right?  For all three of those measures, the scenario where <mark>just 1% of the transactions buried within an aggregate sum</mark> scored higher than the simulated natural number dataset.  We can see that there are structured transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
 
+## Other applications
+
+Catching financial fraudsters is cool, but there are lots of other applications.  Benford's Law can be used to detect the JPEG quality setting that was used to encode an image, for example.  Using the JPEG coefficients from the luminance channel of already compressed JPEG images, and without using any machine learning, an algorithm can predict the quality setting used to encode the image nearly 90% of the time.<Citation
+  data={{
+    type: "webpage",
+    "container-title": " Applied Sciences",
+    author: ['Diana Crișan', 'Alexandru Irimia', 'Dan Gota', 'Liviu Miclea', 'Adela Puscasiu', 'Ovidiu Stan', 'Honoriu Valean'],
+    title: "Analyzing Benford’s Law’s Powerful Applications in Image Forensics",
+    URL: "https://www.mdpi.com/2076-3417/11/23/11482",
+    accessed: { 'date-parts': [[2023, 11, 30]] },
+    issued: { 'date-parts': [[2021, 12, 3]] }
+  }}
+/>
+
 ## AI applications
 
 AI is all about statistics, and so a quirk of statistics where natural data looks different from fake data is obviously relevant.
 
 Training data is increasingly important, and a lot of it lately is fake.  We use AI to generate training data for AI models because we don't want to build lots of real personally-identifying information and real financial data into the models.  So, we make up fake names and fake numbers when necessary.  The training data needs to be realistic, right?
 
-<BlogImage images={props.pageContext.frontmatter.images} index={18} className="full" alt="A handwritten general ledger." />Researchers at Columbia University confirmed that if you train a handwriting recognition model using numbers that correspond to Benford's Law's predictions, then the model will perform better at recognizing real-world handwritten financial numbers.<Citation
+<BlogImage images={props.pageContext.frontmatter.images} index={18} className="right" alt="Handwritten financial figures." />Researchers at Columbia University confirmed that if you train a handwriting recognition model using numbers that correspond to Benford's Law's predictions, then the model will perform better at recognizing real-world handwritten financial numbers.
+
+The researchers trained image-recognition models using training sets of handwritten numbers that were truly random, and others that expressed the distribution predicted by Benford's Law.  As hypothesized, the models trained on numbers where lower digits were more common lead digits were better at recognizing handwritten financial figures than the models trained on random handwritten numbers.<Citation
   data={{
     type: "webpage",
     "container-title": "LinkedIn",
@@ -412,7 +430,18 @@ Training data is increasingly important, and a lot of it lately is fake.  We use
     accessed: { 'date-parts': [[2023, 11, 28]] },
     issued: { 'date-parts': [[2017, 7, 17]] }
   }}
-/>
+/>  Conversely, when the numbers were not financial figures, the models trained numbers with lower lead digits performed worse than the models trained on truly random strings of digits.
+
+Benford's Law can also be applied to detecting AI-generated content. Researchers have explored the use of Benford's Law to detect GAN-generated images, which are often used to create deepfakes. By analyzing the distribution of the most significant digit for quantized Discrete Cosine Transform (DCT) coefficients, researchers can extract a compact feature vector from an image. If the distribution of these features deviates significantly from Benford's Law, it could indicate that the image is a deepfake. <Citation
+  data={{
+    type: "webpage",
+    author: ['Nicolò Bonettini', 'Paolo Bestagini', 'Simone Milani', 'Stefano Tubaro'],
+    title: "On the use of Benford's law to detect GAN-generated images",
+    URL: "https://arxiv.org/abs/2004.07682",
+    accessed: { 'date-parts': [[2023, 11, 30]] },
+    issued: { 'date-parts': [[2020, 4, 16]] }
+  }}
+/>  In this case, Benford's Law can be a useful tool for detecting manipulated images and preventing the spread of misinformation.
 
 We can imagine more applications in AI in the future.
 
