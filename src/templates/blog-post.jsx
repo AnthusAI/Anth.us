@@ -31,34 +31,33 @@ const BlogPostTemplate = ({ data, children }) => {
   }
 
   return (
-    <Layout>
-      <article>
-
-        <div className='heading'>
-          <h1>{post.frontmatter.title}</h1>
-          <div className='date'>{post.frontmatter.date}</div>
-          <div className='authors'>
-            <div className='byline'>by</div>
-            <ul className='authors'>
-              {post.frontmatter.authors.map((author) => (
-                <li key={author.author}>
-                  <div className="author">
-                    <Markdown>
-                      {author.author}
-                    </Markdown>
-                  </div>
-                </li>
-              ))}
-            </ul>
+    <CitationsProvider>
+      <Layout>
+        <article>
+          <div className='heading'>
+            <h1>{post.frontmatter.title}</h1>
+            <div className='date'>{post.frontmatter.date}</div>
+            <div className='authors'>
+              <div className='byline'>by</div>
+              <ul className='authors'>
+                {post.frontmatter.authors.map((author) => (
+                  <li key={author.author}>
+                    <div className="author">
+                      <Markdown>
+                        {author.author}
+                      </Markdown>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <MDXProvider components={shortcodes}>
-          <CitationsProvider>
+          <MDXProvider components={shortcodes}>
             {children}
-          </CitationsProvider>
-        </MDXProvider>
-      </article>
-    </Layout>
+          </MDXProvider>
+        </article>
+      </Layout>
+    </CitationsProvider>
   );
 };
 
