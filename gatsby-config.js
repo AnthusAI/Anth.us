@@ -68,7 +68,7 @@ module.exports = {
       options: {
         fonts: [
           `Cinzel:600,900`,
-          `Montserrat`,
+          `Montserrat:400,500,600,900`,
         ],
         display: 'block',
       },

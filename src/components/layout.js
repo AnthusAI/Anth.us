@@ -32,7 +32,6 @@ const Layout = ({ children, hero }) => {
       className={`layout`}
     >
       <Header menuLinks={data.site.siteMetadata.menuLinks} siteTitle={data.site.siteMetadata.title} />
-      {hero && <>{hero}</>}
       <div className="wrapper">
         <main>{children}</main>
       </div>

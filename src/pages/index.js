@@ -74,6 +74,29 @@ const IndexPage = () => {
         }
       }
 
+      recentPosts: allMdx(
+        filter: { frontmatter: { state: { eq: "published" } } }
+        sort: { fields: [frontmatter___date], order: DESC }
+        limit: 4
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              date(formatString: "MMMM DD, YYYY")
+              slug
+              excerpt
+              state
+              preview_image {
+                childImageSharp {
+                  gatsbyImageData(layout: CONSTRAINED)
+                }
+              }
+            }
+          }
+        }
+      }
     }
   `);
 
@@ -109,8 +132,8 @@ const IndexPage = () => {
   ]
 
   return (
-  <Layout
-    hero={
+    <Layout>
+
       <Hero>
         <StaticImage
           className="hero-image"
@@ -122,15 +145,13 @@ const IndexPage = () => {
         <div className="hero-overlay">
           <h1>
             Depend on proven experts
-            </h1>
-            <p>
-              We make it easy to leverage the power of AI to solve your business problems.
-            </p>
-            <Link to="/ai-solutions" className="button">Learn More</Link>
-          </div>
-        </Hero>
-      }
-    >
+          </h1>
+          <p>
+            We make it easy to leverage the power of AI to solve your business problems.
+          </p>
+          <Link to="/ai-solutions" className="button">Learn More</Link>
+        </div>
+      </Hero>
 
       <p className={styles.intro} id="our-values">
         Anthus represents a legacy of reliable innovation.
@@ -164,12 +185,30 @@ const IndexPage = () => {
               className={styles.listItemLink}
               href={`${link.url}`}
             >
-              {link.text}
+              <h3>{link.text}</h3>
             </a>
             <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: link.description }}></p>
           </li>
         ))}
       </ul>
+
+      <h2>Recent Articles</h2>
+      <ul className='blog'>
+        {data.recentPosts.edges.map(({ node }) => {
+          const previewImage = getImage(node.frontmatter.preview_image);
+          return (
+            <div className='blog-post-preview' key={node.id}>
+              <li className="clear-float">
+                <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
+                <Link to={`/blog/` + node.frontmatter.slug}><h3>{node.frontmatter.title}</h3></Link>
+                <div className='date'>{node.frontmatter.date}</div>
+                <p>{node.frontmatter.excerpt}</p>
+              </li>
+            </div>
+          );
+        })}
+      </ul>
+
     </Layout>
   )
 };

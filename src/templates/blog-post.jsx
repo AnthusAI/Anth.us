@@ -34,6 +34,11 @@ const BlogPostTemplate = ({ data, children }) => {
     <CitationsProvider>
       <Layout>
         <article>
+          {post.frontmatter.state !== 'published' && (
+            <div className="draft-overlay">
+              <h1 className="draft-overlay-text">DRAFT</h1>
+            </div>
+          )}
           <div className='heading'>
             <h1>{post.frontmatter.title}</h1>
             <div className='date'>{post.frontmatter.date}</div>
@@ -89,6 +94,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         excerpt
+        state
         date(formatString: "MMMM DD, YYYY")
         authors {
           author

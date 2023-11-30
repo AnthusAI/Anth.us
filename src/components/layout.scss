@@ -28,6 +28,14 @@
   }
 }
 @media only screen and (min-width: 601px) {
+  :root {
+    --base-line-height: calc(7 * var(--base-unit));
+    --font-size: calc(5 * var(--base-unit));
+    --font-md: calc(5 * var(--base-unit));
+    --font-lg: calc(8 * var(--base-unit));
+    --font-xl: calc(9 * var(--base-unit));
+  }
+
   header {
     a {
       .logo {
@@ -71,7 +79,6 @@
 }
 @media only screen and (min-width: 901px) {
   .hero {
-    width: 940px;
     .hero-image {
       height: 600px;
       
@@ -145,7 +152,7 @@ abbr[title] {
 b,
 strong {
   font-weight: inherit;
-  font-weight: bolder;
+  font-weight: 600;
 }
 dfn {
   font-style: italic;
@@ -163,6 +170,7 @@ h1 {
 }
 h1, h2 {
   padding: calc(0.5 * var(--base-line-height)) 0;
+  font-family: var(--font-serif);
 }
 h2 {
   font-size: var(--font-lg);
@@ -171,10 +179,11 @@ h2 {
 }
 h3, h4, h5, h6 {
   padding: 0;
+  font-family: var(--font-sans);
 }
 h1, h2, h3, h4, h5, h6 {
   text-align: left;
-  font-family: 'Cinzel', serif;
+  
   font-weight: 600;
 }
 .layout {
@@ -253,7 +262,7 @@ b,
 strong,
 dt,
 th {
-  font-weight: bold;
+  font-weight: 600;
 }
 li {
 }
@@ -372,7 +381,6 @@ header {
   background: linear-gradient(171deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 42%, var(--color-gradient-mid) 80%, var(--color-gradient-end) 100%);
   color: var(--color-inverted-text);
   font-family: 'Cinzel', serif;
-  // font-size: var(--font-lg);
   position: relative;
 
   .content {
@@ -436,7 +444,7 @@ header {
       }
 
       a {
-        font-weight: 600;
+        font-weight: 500;
         color: white;
         text-decoration: none;
         &:hover,
@@ -524,7 +532,7 @@ a.button {
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 1em;
-  font-weight: 700;
+  font-weight: 500;
   white-space: nowrap;
 
   &:active {
@@ -548,6 +556,8 @@ a.button:active {
   position: relative;
   margin: 0 auto;
   padding: 0;
+  width: calc(100% + 2 * var(--size-gutter));
+  margin-left: calc(-1 * var(--size-gutter));
 
   .hero-image {
     width: 100%;
@@ -570,6 +580,38 @@ a.button:active {
 }
 
 article {
+  position: relative;
+
+  .draft-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-mark-end),
+      var(--color-mark-end) 10%,
+      transparent 10%,
+      transparent 20%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+  }
+
+  .draft-overlay-text {
+    font-size: 10em;
+    color: var(--color-mark-start);
+    transform: rotate(-45deg);
+    font-weight: 900;
+    font-family: var(--font-sans);
+    text-align: center;
+    width: 150%;
+    margin-top: 100%;
+  }
+
   .heading {
     .date {
       margin: 0;
@@ -601,17 +643,6 @@ article {
   }
 
   text-justify: inter-word;
-
-  .gatsby-image-wrapper.right {
-    float: right;
-    width: 40%;
-    height: auto;
-    margin-left: 2em;
-    margin-bottom: 1em;
-  }
-  .gatsby-image-wrapper.full {
-    margin-bottom: 1em;
-  }
 
   table.data {
     border-collapse: collapse;
@@ -658,7 +689,21 @@ article {
   .citationslist {
     text-align: left;
     word-break: break-all;
+    li {
+      margin-bottom: var(--base-line-height);
+    }
   }
+}
+
+.gatsby-image-wrapper.right {
+  float: right;
+  width: 40%;
+  height: auto;
+  margin-left: calc(2 * var(--base-line-height));
+  margin-bottom: var(--base-line-height);
+}
+.gatsby-image-wrapper.full {
+  margin-bottom: 1em;
 }
 
 mark {
@@ -699,6 +744,10 @@ ul.blog {
     .date {
       font-style: italic;
     }
+
+    .gatsby-image-wrapper.right {
+      width: 30%;
+    }  
   }
 }
 
