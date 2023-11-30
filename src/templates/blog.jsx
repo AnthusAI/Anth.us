@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from "../components/layout"
 import Seo from '../components/seo'
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 console.log("CollectionTemplate");
 
@@ -15,15 +16,19 @@ const CollectionTemplate = ({ data }) => {
         <div>
           <h1>Blog articles</h1>
           <ul className='blog'>
-            {posts.map(({ node }) => (
-              <div className='blog-post-preview'>
-                <li key={node.id}>
-                  <Link to={`/blog/` + node.frontmatter.slug}><h3>{node.frontmatter.title}</h3></Link>
-                  <div className='date'>{node.frontmatter.date}</div>
-                  <p>{node.frontmatter.excerpt}</p>
-                </li>
-              </div>
-            ))}
+            {posts.map(({ node }) => {
+              const previewImage = getImage(node.frontmatter.preview_image);
+              return (
+                <div className='blog-post-preview' key={node.id}>
+                  <li>
+                    <Link to={`/blog/` + node.frontmatter.slug}><h2>{node.frontmatter.title}</h2></Link>
+                    <GatsbyImage image={previewImage} alt={node.frontmatter.title} />
+                    <div className='date'>{node.frontmatter.date}</div>
+                    <p>{node.frontmatter.excerpt}</p>
+                  </li>
+                </div>
+              );
+            })}
           </ul>
         </div>
       </article>
@@ -44,6 +49,11 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             slug
             excerpt
+            preview_image {
+              childImageSharp {
+                gatsbyImageData(layout: CONSTRAINED)
+              }
+            }
           }
         }
       }

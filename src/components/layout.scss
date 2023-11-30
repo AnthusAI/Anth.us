@@ -166,6 +166,8 @@ h1, h2 {
 }
 h2 {
   font-size: var(--font-lg);
+  line-height: calc(1.5 * var(--base-line-height));
+  min-height: calc(2 * var(--base-line-height));
 }
 h3, h4, h5, h6 {
   padding: 0;
@@ -692,6 +694,11 @@ ul.blog {
   margin-left: 0;
   li {
     list-style-type: none;
+    margin-bottom: var(--base-line-height);
+
+    .date {
+      font-style: italic;
+    }
   }
 }
 
