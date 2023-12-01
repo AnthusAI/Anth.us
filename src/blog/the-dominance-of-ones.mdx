@@ -31,6 +31,8 @@ images:
   - ./images/benfords-law/tyler-easton-faixctm2YRQ-unsplash.png
   - ./images/benfords-law/benford-distribution.png
   - ./images/benfords-law/Google-Collab-lab.png
+  - ./images/benfords-law/linear_increase_plot_to_20.png
+  - ./images/benfords-law/logarithmic_increase_plot_to_20.png
 state: published
 ---
 
@@ -450,13 +452,25 @@ Let's see if we can find the answer in Rabbit Utopia, a safe and cozy place wher
 
 We start with six rabbits in Generation 1, a simple one-digit figure. As we observe their growth, doubling each generation, the change in the number of digits tells a story.
 
-By Generation 2, we've reached 12 rabbits, now a two-digit number.  But it's on the low side of the two-digit numbers.  Why?  As we cross into the next order of magnitude, the bucket of numbers that start with "1" is as big as the bucket of all the numbers that came before it.  If you were jogging along at a steady pace, then you would be cranking up in digits as you went from 70 to 80 to 90, but then you would be stuck in the 100s for as long as it took you to get here.  But fortunately, rabbits don't breed at a steady pace, they breed at an exponential rate.
+By Generation 2, we've reached 12 rabbits, now a two-digit number.  This chart shows the number rising in value:
+
+<BlogImage images={props.pageContext.frontmatter.images} index={22} className="full" alt="Linear growth to 20." />
+
+As we cross into the next order of magnitude, the bucket of numbers that start with "1" is as big as the bucket of all the numbers that came before it.  If you were jogging along at a steady pace, then you would be cranking up in lead digits as you went from 7 to 8 to 9, but then you would be stuck in the 10s for as long as it took you to get here.
+
+In terms of lead digits, the left side of this chart increases linearly: 1, 2, 3, 4, 5, 6...
+
+But the right side of the chart is all "1" for a lead digit.  It doesn't change.
+
+If you were counting up one by one then you would cover all of the lead digits.  But rabbits don't breed at a steady pace, they breed at an exponential rate.  Their population size jumps up at a rate that mirrors the logarithmic increase in the number of digits of the population count number.
+
+<BlogImage images={props.pageContext.frontmatter.images} index={23} className="full" alt="Exponential growth to 20." />
 
 By Generation 6, the population hits 192, marking our first transition to a three-digit number. We skipped a lot of lead digits in the two-digit numbers, but yet again, we're stuck in the low-lead-digit numbers since there are as many three-digit numbers starting with "1" as there were numbers before us.  When we cross to this next order of magnitude, we're still at the lower end of it.  Since the bucket of three-digit numbers that starts with "1" is as big as the bucket of all the numbers that came before it.
 
 Let's take a look at the relationship between the population value and the <mark>number of digits</mark> in the population count, all the way up to 2,000, a four-digit number:
 
-<BlogImage images={props.pageContext.frontmatter.images} index={15} className="full" alt="Linear growth to 200,000." />
+<BlogImage images={props.pageContext.frontmatter.images} index={15} className="full" alt="Linear growth to 2,000." />
 
 The chart shows the numbers increasing linearly: 1, 2, 3, 4, 5, etc.  That's the blue line.  The dots represent the rabbit population counts at each generation: 6, 12, 48, 96, 192...
 
