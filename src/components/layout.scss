@@ -412,7 +412,7 @@ header .content {
       right: 0;
       bottom: 0;
       height: 4px;
-      background-color: fuchsia;
+      background-color: var(--color-gradient-end);
       z-index: 1;
     }
 
@@ -683,10 +683,12 @@ footer {
   .contents {
     margin: 0 auto;
     padding: 0 var(--size-gutter) 0 var(--size-gutter);
+    display: flex;
+    justify-content: space-between;
 
     display: flex;
     div {
-      flex: 1 0 auto;
+      flex: 1;
     }
     div.logo {
       text-align: center;

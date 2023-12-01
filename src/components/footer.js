@@ -2,7 +2,8 @@ import * as React from "react";
 import { StaticImage } from 'gatsby-plugin-image'
 
 const moreLinks = [
-  { text: "Join us on Discord", url: "https://discord.gg/U5Qz6xEb" }
+  { text: "Join us on Discord", url: "https://discord.gg/f2TtbVx5" },
+  { text: "Follow us on GitHub", url: "https://github.com/Anth-us" }
 ]
 
 const utmParameters = `?utm_source=anthus&utm_medium=footer`
@@ -23,7 +24,7 @@ const Footer = () => {
         
         <div className="contents">
           <div>
-            © {new Date().getFullYear()} Anthus
+            © {new Date().getFullYear()} Anthus AI&nbsp;Solutions
           </div>
           <div className="logo">
             <StaticImage
@@ -34,9 +35,7 @@ const Footer = () => {
             />
           </div>
           <div>
-            Built with
-            {` `}
-            <a href="https://www.gatsbyjs.com">Gatsby</a>
+            Contact Us [coming&nbsp;soon]
           </div>
         </div>
       </div>
