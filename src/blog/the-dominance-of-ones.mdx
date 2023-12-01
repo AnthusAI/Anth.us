@@ -37,11 +37,11 @@ state: published
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-<BlogImage images={props.pageContext.frontmatter.images} index={20} className="right" alt="The distribution of lead digits in natural numbers according to Benford's Law." />Want to see something weird about numbers?  There's a useful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
+<BlogImage images={props.pageContext.frontmatter.images} index={20} className="right" alt="The distribution of lead digits in natural numbers according to Benford's Law." />Want to see something weird about numbers?  There's a helpful quirk about how numbers from natural datasets look that's easy to see.  Hold onto your calculators!  This is going to get a little strange.
 
 ## Lead digit analysis
 
-There are a lot of open datasets out there.  I went surfing around on the government's open data site<Citation
+There are a lot of open datasets out there.  I surfed around on the government's open data site<Citation
   data={{
     type: "webpage",
     title: "Data.gov Home",
@@ -49,7 +49,7 @@ There are a lot of open datasets out there.  I went surfing around on the govern
     accessed: { 'date-parts': [[2023, 11, 28]] },
     issued: { 'date-parts': [[2023, 11, 28]] }
   }}
-/> and picked one mostly at random.  It's a count of the number of border crossings there were for different time periods, broken down by port of entry and by category, like "trains", "trucks", "bus passengers", "pedestrians."<Citation
+/> and picked one mostly randomly.  It's a count of the number of border crossings there were for different periods, broken down by port of entry and by category, like "trains", "trucks", "bus passengers", and "pedestrians."<Citation
   data={{
     type: "webpage",
     "container-title": "Data.gov",
@@ -196,27 +196,25 @@ Let's look at <mark>the first digit of each of those counts.</mark>  See that "7
   </tbody>
 </table>
 
-Now, think about the whole dataset.  This one has 38,549 entries.  Each of those entries has a lead digit.  Let's filter out the "0" counts and ignore those.  What percentage of those entries would you expect have "1" for a lead digit?
+Now, think about the whole dataset.  This one has 38,549 entries.  Each of those entries has a lead digit.  Let's filter out the "0" counts and ignore those.  What percentage of those entries would you expect to have "1" for a lead digit?
 
-There are nine possible digits if we exclude "0" as an option.  So, would you think that "1" would occur as the lead digit about one ninth of the time?
+There are nine possible digits if we exclude "0" as an option.  So, would you think "1" would occur as the lead digit about one-ninth of the time?
 
-<mark>I would imagine</mark> that if we were to count all the measurements where the first digit was "1", and then count all the measurements where the first digit is "2", and so on, that we would find about the same number of "1"s and "5"s.  After all, this data is as random as it gets.  So, the lead digit should be essentially random, right?
+<mark>I would imagine</mark> that if we were to count all the measurements where the first digit was "1" and then count all the measurements where the first digit is "2" and so on, we would find about the same number of "1"s and "5"s.  After all, this data is as random as it gets.  So, shouldn't the lead digit should be essentially random?  Let's confirm that assumption.
 
-Let's confirm that assumption...
-
-I made a Python notebook that you can run yourself that counts the number of measurements in the border-crossing dataset that start with "1", and with "2", and so on.  Here's the distribution:
+I made a Python notebook that you can run yourself that counts the number of measurements in the border-crossing dataset that start with "1" and with "2" and so on.  Here's the distribution:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={0} className="full" alt="The distribution of lead digits from federal border crossing counts." />
 
 Well...  <mark>Okay, that's weird.</mark>
 
-There are a lot more 1s.  Shouldn't they all be even?  Shouldn't there be as many counts starting with a 5 as with a 1?  What's going on?
+There are a lot more "1"s.  Shouldn't they all be even?  Shouldn't there be as many counts starting with a "5" as a "1"?  What's going on?
 
 ## Benford's Law: Expect a lot of ones as leading digits in some data
 
-This phenomenon is known as Benford's Law, and it's more common than you might think. Benford's Law states that <mark>in many naturally occurring datasets, the first digit is more likely to be lower than higher.</mark> Specifically, '1' appears as the first digit about 30% of the time, while '9' appears as the first digit only about 5% of the time.
+This phenomenon is known as Benford's Law and is more common than you might think. Benford's Law states that the first digit is more likely to be lower than higher in many naturally occurring datasets. Specifically, "1" appears as the first digit about 30% of the time, while "9" appears as the first digit only about 5%.
 
-It's a pattern that emerges naturally in a <mark>wide range of data</mark>. From financial records to geographical data, Benford's Law often holds true.  Here are some other datasets that I found on Data.gov where you can easily see it:
+It's a pattern that emerges naturally in a wide range of data. From financial records to geographical data, Benford's Law often holds.  Here are some other datasets that I found on Data.gov where you can easily see it:
 
 Here's the lead-digit breakdown from about a million real estate sale prices:<Citation
   data={{
@@ -231,7 +229,7 @@ Here's the lead-digit breakdown from about a million real estate sale prices:<Ci
 
 <BlogImage images={props.pageContext.frontmatter.images} index={1} className="full" alt="The distribution of lead digits from real estate sale prices." />
 
-The dots superimposed over the bars show the proportions predicted by Benford's Law.  They don't match exactly, but <mark>they do match the overall pattern</mark>.
+The dots superimposed over the bars show the proportions predicted by Benford's Law.  They don't match exactly, but <mark>they do fit the overall pattern</mark>.
 
 Here's a list of baby names, ranked by popularity, based on civil birth registrations.<Citation
   data={{
@@ -242,7 +240,7 @@ Here's a list of baby names, ranked by popularity, based on civil birth registra
     accessed: { 'date-parts': [[2023, 11, 28]] },
     issued: { 'date-parts': [[2023, 9, 2]] }
   }}
-/>  Each name has a count: How many registrations there were for each name.
+/>  Each name has a count: How many registrations were there for each name?
 
 <BlogImage images={props.pageContext.frontmatter.images} index={2} className="full" alt="The distribution of lead digits from real estate sale prices." />
 
@@ -288,19 +286,19 @@ Back in 1881, when the closest thing to a pocket calculator was a quick-witted a
 
 <BlogImage images={props.pageContext.frontmatter.images} index={17} className="right" alt="Worn pages in a logarith table book." />
 
-What caught Newcomb's eye was the curious case of the weary pages. The early sections of the logarithm book, <mark>the pages with numbers starting with '1', showed signs of significant wear and tear</mark>. It was as if these pages had run a marathon, while the latter ones looked barely out of the starting blocks. This wasn't just a case of page discrimination; it hinted at a numerical pattern. Newcomb theorized that numbers starting with '1' were not just the wallflowers of the numerical dance but were, in fact, the belle of the ball, getting picked far more often than their higher-digit counterparts.
+What caught Newcomb's eye was the curious case of the weary pages. The early sections of the logarithm book, <mark>the pages with numbers starting with '1', showed signs of significant wear and tear</mark>. It was as if these pages had run a marathon, while the latter pages looked barely out of the starting blocks. This wasn't just a case of page discrimination; it hinted at a numerical pattern. Newcomb theorized that numbers starting with '1' were not just the wallflowers of the numerical dance but were, in fact, the belle of the ball, getting picked far more often than their higher-digit counterparts.
 
 Forming his hypothesis from this observation, Newcomb proposed that the first significant digit in many datasets is more likely to be '1' than any other number, with the chances diminishing as you count up to '9'.
 
-It wasn't until 1938 that the idea gained widespread recognition, thanks to physicist Frank Benford. Benford expanded on Newcomb's observation, conducting a more thorough and extensive study that covered a diverse range of datasets. He demonstrated that the first-digit distribution he observed closely matched Newcomb's earlier findings. Despite Newcomb's precedence, the law came to be known as Benford's Law due to his role in popularizing and formally documenting the phenomenon. 
+It wasn't until 1938 that the idea gained widespread recognition, thanks to physicist Frank Benford. Benford expanded on Newcomb's observation, conducting a more thorough and extensive study covering a diverse range of datasets. He demonstrated that the first-digit distribution he observed closely matched Newcomb's earlier findings. Despite Newcomb's precedence, the law became known as Benford's Law due to his role in popularizing and formally documenting the phenomenon. 
 
 ## Okay, "some data"?
 
-Let's look at a dataset where it doesn't happen.  Here are two charts of two different bank account balances.  Both grew over ten years from a principal of USD $10,000 to a final amount of USD $1,000,000.  One of them grew as a result of compounded interest on the principal.  The other grew in simple linear steps each month so that it ended up at the same point.
+Let's look at a dataset where it doesn't happen.  Here are two charts of two different bank account balances.  Both grew over ten years from a principal of $10,000 to a final amount of $1,000,000.  One of them grew as a result of compounded interest on the principal.  The other grew in simple linear steps each month, ending up at the same point.
 
 <BlogImage images={props.pageContext.frontmatter.images} index={5} className="full" alt="A linear growth rate and a compound-interest growth rate." />
 
-If we do the same kind of analysis where we look at the breakdown of the first digits of the monthly bank balances in both bank accounts, we see Benford's Law reflected in the distribution for the compound interest, like in the natural datasets that we saw:
+Suppose we do the same kind of analysis where we look at the breakdown of the first digits of the monthly bank balances in both accounts. In that case, we see Benford's Law reflected in the distribution of the compound interest, like in the natural datasets that we saw:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={6} className="full" alt="The lead-digit breakdown for a simulated compound interest growth rate." />
 
@@ -308,13 +306,13 @@ But, look at the lead-digit distribution for the bank account balances in the ac
 
 <BlogImage images={props.pageContext.frontmatter.images} index={7} className="full" alt="The lead-digit breakdown for a simulated linear growth rate." />
 
-One kind of growth rate shows the kind of distribution described by Benford's Law, and the other doesn't.  <mark>Something that grows like an investment</mark>, exponentially, will show that kind of distribution.  Someone regularly transferring money looks different.
+One kind of growth rate shows the distribution described by Benford's Law, and the other doesn't.  Something that exponentially grows like an investment will show that kind of distribution. Someone regularly transferring money looks different.
 
-Well gosh, <mark>that sounds useful.</mark>
+Well, gosh, <mark>that sounds useful.</mark>
 
 ## Applications
 
-<BlogImage images={props.pageContext.frontmatter.images} index={19} className="right" alt="Financial figures." />Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, and that gives us a way to spot numbers that someone manipulated.  It gives financial auditors a tool to identify general ledger irregularities.<Citation
+<BlogImage images={props.pageContext.frontmatter.images} index={19} className="right" alt="Financial figures." />Benford's Law's predictions have powerful applications in financial forensics.  It predicts what financial numbers should 'naturally' look like, giving us a way to spot numbers that someone manipulated.  It gives financial auditors a tool to identify general ledger irregularities.<Citation
   data={{
     type: "webpage",
     "container-title": "Journal of Accountancy",
@@ -326,27 +324,27 @@ Well gosh, <mark>that sounds useful.</mark>
   }}
 />  Not all irregularities indicate fraud, but some do.
 
-For example, money launderers trying to move money from one point to another without being detected will send money below certain amounts that trigger extra scrutiny.  A common scenario might be a money launderer with $35,000 to transfer who wants to avoid a $10,000 limit that will trigger additional reporting.  They might break up their transactions into smaller chunks, like $9,500, $9,000, $8,500, and $8,000.  Benford's Law can spot that in the deposit records if you have enough data and it's happening often enough.
+For example, money launderers trying to move money from one point to another without being detected will send money below specific amounts that trigger extra scrutiny.  A typical scenario might be a money launderer with $35,000 to transfer who wants to avoid a $10,000 limit that will trigger additional reporting.  They might break up their transactions into smaller chunks, like $9,500, $9,000, $8,500, and $8,000.  Benford's Law can spot that in the deposit records if you have enough data and it's happening often enough.
 
 In other words, money laundering looks different than legitimate transactions.  It's like the numbers come with a <mark>built-in lie detector</mark>.  Handy!
 
 ## Let's simulate money laundering!
 
-Imagine that you're a financial regulator and you're monitoring two banks.  You only have access to the total amount of deposits for each day from each bank.  There are a thousand deposits each day at each bank that are below the $10,000 reporting threshold, but someone is slipping structured transactions through one of the banks.  Your job is to figure out which bank.
+Imagine that you're a financial regulator, and you're monitoring two banks.  You only have access to the total deposit amount for each day from each bank.  There are a thousand deposits daily at each bank that are below the $10,000 reporting threshold, but someone is slipping structured transactions through one of the banks.  Your job is to figure out which bank.
 
-I made a Python notebook that simulates that.  It randomly generates a thousand transactions for each of 365 days, and then it adds up the transactions for each day.  We get a list that contains the total sums of deposits for each of the 365 days.  Here's the lead digit breakdown for that list of simulated daily desposit totals:
+I made a Python notebook that simulates that.  It randomly generates a thousand transactions for each of 365 days, and then it adds up the transactions for each day.  We get a list that contains the total sums of deposits for each of the 365 days.  Here's the lead digit breakdown for that list of simulated daily deposit totals:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={9} className="full" alt="The lead-digit breakdown for the natural transactions scenario." />
 
-Now, we simulate a second scenario: One where someone is making structured deposits.  In the second scenario, we replace 1% of the natural transaction amounts with simulated structured transaction amounts.  Our simulation is simple, they all randomly range from $9,500 to $9,999.  We get another 365 daily sums, and here's the lead digit breakdown for that scenario:
+Now, we simulate a second scenario: One where someone makes structured deposits.  In the second scenario, we replace 1% of the natural transaction amounts with simulated structured transaction amounts.  Our simulation is simple: They all randomly range from $9,500 to $9,999.  We get another 365 daily sums, and here's the lead digit breakdown for that scenario:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={11} className="full" alt="The lead-digit breakdown for the structured transactions scenario." />
 
-Does one of those distributions look "closer" to the distribution predicted by Benford's Law?  Well, I don't know, they look abou the same to me.  Is there some way to measure it?
+Does one of those distributions look "closer" to the distribution predicted by Benford's Law?  Well, I don't know, they look about the same to me.  Is there some way to measure it?
 
-Yes!  There are a few common ways to measure the difference that are used in things like financial forensics.  There's also one used a lot in AI.
+Yes!  Financial forensics commonly uses a few ways to measure the differences.  There's also one used a lot in AI.
 
-### Chi-Square Statistic
+### Chi-Square Test
 
 The Chi-Square test is a measure used to determine how well an observed distribution of data fits an expected distribution.<Citation
   data={{
@@ -361,11 +359,11 @@ The Chi-Square test is a measure used to determine how well an observed distribu
 
 <BlogImage images={props.pageContext.frontmatter.images} index={12} className="full" alt="The Chi-Square Statistic for both scenarios." />
 
-Wow, neat,  It is higher for the structured transactions.
+Wow, neat.  It is higher for the structured transactions.
 
-We can see which bank has money launderers for customers!  They might not even know, but we can see it <mark>just from looking at the daily sums of deposits</mark>, without being able to see the individual transactions.  How cool!
+We can see which bank has money launderers for customers!  They might not even know, but we can see it <mark>just by looking at the daily sums of deposits</mark>, without seeing the individual transactions.  How cool!
 
-### Kolmogorov-Smirnov (KS) Statistic
+### Kolmogorov-Smirnov (KS) Test
 
 The Kolmogorov-Smirnov (KS) test is another metric that measures the difference between two distributions.<Citation
   data={{
@@ -384,7 +382,7 @@ That one <mark>also shows</mark> the money launderers varying significantly from
 
 ### Kullback-Leibler (KL) Divergence
 
-Kullback-Leibler is a loss measure is used a lot in AI for things like RLHF evaluation,<Citation
+Kullback-Leibler is a loss measure that is used a lot in AI for things like RLHF evaluation,<Citation
   data={{
     type: "webpage",
     "container-title": "Wikipedia",
@@ -397,11 +395,11 @@ Kullback-Leibler is a loss measure is used a lot in AI for things like RLHF eval
 
 <BlogImage images={props.pageContext.frontmatter.images} index={14} className="full" alt="Kullback-Leibler (KL) Divergence for both scenarios." />
 
-Cool, right?  For all three of those measures, the scenario where <mark>just 1% of the transactions buried within an aggregate sum</mark> scored higher than the simulated natural number dataset.  We can see that there are structured transactions buried in that data without being able to see the indivdual transactions, only the daily summaries.
+Cool, right?  For all three measures, the scenario where <mark>just 1% of the transactions buried within an aggregate sum</mark> scored higher than the simulated natural number dataset.  We can see that someone buried structured transactions in the data without seeing the individual transactions, only the daily summaries.
 
 ## Other applications
 
-Catching financial fraudsters is cool, but there are lots of other applications.  Benford's Law can be used to detect the JPEG quality setting that was used to encode an image, for example.  Using the JPEG coefficients from the luminance channel of already compressed JPEG images, and without using any machine learning, an algorithm can predict the quality setting used to encode the image nearly 90% of the time.<Citation
+Catching financial fraudsters is cool, but there are lots of other applications.  You can use Benford's Law to detect the JPEG quality setting that was used to encode an image, for example.  Using the JPEG coefficients from the luminance channel of already compressed JPEG images, and without using any machine learning, an algorithm can predict the quality setting used to encode the image nearly 90% of the time.<Citation
   data={{
     type: "webpage",
     "container-title": " Applied Sciences",
@@ -415,11 +413,11 @@ Catching financial fraudsters is cool, but there are lots of other applications.
 
 ## AI applications
 
-AI is all about statistics, and so a quirk of statistics where natural data looks different from fake data is obviously relevant.
+AI is all about statistics, so it's relevant that there's a quirk of statistics where natural data looks different from fake data.
 
-Training data is increasingly important, and a lot of it lately is fake.  We use AI to generate training data for AI models because we don't want to build lots of real personally-identifying information and real financial data into the models.  So, we make up fake names and fake numbers when necessary.  The training data needs to be realistic, right?
+Data for training AI models is increasingly critical, and much of it lately is fake.  We use AI to generate training data for AI models because we don't want to feed real personally-identifying information and real financial data into the models.  So, we make up fake names and fake numbers when necessary.  The training data needs to be realistic.
 
-<BlogImage images={props.pageContext.frontmatter.images} index={18} className="right" alt="Handwritten financial figures." />Researchers at Columbia University confirmed that if you train a handwriting recognition model using numbers that correspond to Benford's Law's predictions, then the model will perform better at recognizing real-world handwritten financial numbers.
+<BlogImage images={props.pageContext.frontmatter.images} index={18} className="right" alt="Handwritten financial figures." />Researchers at Columbia University confirmed that if you train a handwriting recognition model using numbers corresponding to Benford's Law's predictions, the model will perform better at recognizing real-world handwritten financial numbers.
 
 The researchers trained image-recognition models using training sets of handwritten numbers that were truly random, and others that expressed the distribution predicted by Benford's Law.  As hypothesized, the models trained on numbers where lower digits were more common lead digits were better at recognizing handwritten financial figures than the models trained on random handwritten numbers.<Citation
   data={{
@@ -433,7 +431,7 @@ The researchers trained image-recognition models using training sets of handwrit
   }}
 />  Conversely, when the numbers were not financial figures, the models trained numbers with lower lead digits performed worse than the models trained on truly random strings of digits.
 
-Benford's Law can also be applied to detecting AI-generated content. Researchers have explored the use of Benford's Law to detect GAN-generated images, which are often used to create deepfakes. By analyzing the distribution of the most significant digit for quantized Discrete Cosine Transform (DCT) coefficients, researchers can extract a compact feature vector from an image. If the distribution of these features deviates significantly from Benford's Law, it could indicate that the image is a deepfake. <Citation
+You can also apply Benford's Law to detecting AI-generated content. Researchers have explored using Benford's Law to detect GAN-generated images, which are often used to create deepfakes. By analyzing the distribution of the most significant digit for quantized Discrete Cosine Transform (DCT) coefficients, researchers can extract a compact feature vector from an image. If the distribution of these features deviates significantly from Benford's Law, it could indicate that the image is a deepfake. <Citation
   data={{
     type: "webpage",
     author: ['Nicolò Bonettini', 'Paolo Bestagini', 'Simone Milani', 'Stefano Tubaro'],
@@ -442,7 +440,7 @@ Benford's Law can also be applied to detecting AI-generated content. Researchers
     accessed: { 'date-parts': [[2023, 11, 30]] },
     issued: { 'date-parts': [[2020, 4, 16]] }
   }}
-/>  In this case, Benford's Law can be a useful tool for detecting manipulated images and preventing the spread of misinformation.
+/>  In this case, Benford's Law can be a valuable tool for detecting manipulated images and preventing the spread of misinformation.
 
 We can imagine more applications in AI in the future.
 
@@ -452,20 +450,27 @@ Let's see if we can find the answer in Rabbit Utopia, a safe and cozy place wher
 
 We start with six rabbits in Generation 1, a simple one-digit figure. As we observe their growth, doubling each generation, the change in the number of digits tells a story.
 
-By Generation 2, we reach 12 rabbits, now a two-digit number.  But it's on the low side of the two-digit numbers.  Why?  It's because as we cross into the next order of magnitude, the bucket of numbers that start with "1" is as big as the bucket of all the numbers that came before it.  If you were jogging along at a steady pace then you would be cranking up in digits as you went from 70 to 80 to 90 but then you would be stuck in the 100s for as long as it took you to get here.  But fortunately, rabbits don't breed at a steady pace, they breed at an exponential rate.
+By Generation 2, we've reached 12 rabbits, now a two-digit number.  But it's on the low side of the two-digit numbers.  Why?  As we cross into the next order of magnitude, the bucket of numbers that start with "1" is as big as the bucket of all the numbers that came before it.  If you were jogging along at a steady pace, then you would be cranking up in digits as you went from 70 to 80 to 90, but then you would be stuck in the 100s for as long as it took you to get here.  But fortunately, rabbits don't breed at a steady pace, they breed at an exponential rate.
 
-By Generation 6, the population hits 192, marking our first transition to a three-digit number.  We skipped a lot of lead digits in the two-digit numbers, but yet again we're stuck in the low-lead-digit numbers, since there are as many three-digit numbers starting with 1 as there were numbers before us.  When we cross to this next order of magnitude, we're still at the lower end of it.  Since, the bucket of three-digit numbers that starts with "1" is as big as the bucket of all the numbers that came before it.
+By Generation 6, the population hits 192, marking our first transition to a three-digit number. We skipped a lot of lead digits in the two-digit numbers, but yet again, we're stuck in the low-lead-digit numbers since there are as many three-digit numbers starting with "1" as there were numbers before us.  When we cross to this next order of magnitude, we're still at the lower end of it.  Since the bucket of three-digit numbers that starts with "1" is as big as the bucket of all the numbers that came before it.
 
-Let's take a look at the relationship between the population value and the <mark>number of digits</mark> in the population count, all the way up to 200,000, a six-digit number:
+Let's take a look at the relationship between the population value and the <mark>number of digits</mark> in the population count, all the way up to 2,000, a four-digit number:
 
 <BlogImage images={props.pageContext.frontmatter.images} index={15} className="full" alt="Linear growth to 200,000." />
-<BlogImage images={props.pageContext.frontmatter.images} index={16} className="full" alt="Logarithmic growth in number of digits to 200,000." />
 
-The first chart illustrates the linear growth in population value, while the second chart illustrates the stepwise logarithmic growth pattern in the number of digits, contrasting the linear population increase against the more gradual digit count rise.
+The chart shows the numbers increasing linearly: 1, 2, 3, 4, 5, etc.  That's the blue line.  The dots represent the rabbit population counts at each generation: 6, 12, 48, 96, 192...
 
-These visualizations demonstrate the essence of Benford's Law: in a logarithmic scale, lower digits dominate because <mark>each digit covers a wider range before the next takes over.</mark>
+Notice how the dots are packed together on the left side but then they spread out.  They don't follow the linear increase of simply counting up from 1.  The rabbit population counts increase in a different way: Each new number depends on the previous number.  That's the special factor that has to be present for Benford's Law to apply.
 
-Another interesting thing about Benford's Law: You <mark>don't really have to understand why it happens</mark> to understand how to use it.
+Now, instead of looking at the actual values of the numbers as we count up from 1 to 2,000, let's look at the number of digits in the number.  At first, you're at one-digit numbers.  At 10, you have hit two-digit numbers.  That digit count is the Y axis on this chart, going up to 4 for 2,000, which is a four-digit number.
+
+<BlogImage images={props.pageContext.frontmatter.images} index={16} className="full" alt="Logarithmic growth in number of digits to 2,000." />
+
+See the point where the rabbit population goes from 768 to 1,536?  That's an order-of magnitude jump in population, meaning that the population count has gained a digit.  But look at what happens to the lead digit when that happens: From 100 to 1000, the lead digit was going up and up.  But there's as much space on the right side of that chart, above 1000, where the lead digit is a "1" as in the entire left side of the chart, when the lead digit was increasing.  Suddenly, the lead digit is thrown back down to the low digits.  And because everything is at a greater scale now at this new four-digit magnitude, there's a lot more horizontal space between lead digit changes now.
+
+That's the essence of Benford's Law: Exponential growth patterns increase in a way that tracks the way that the number of digits increases.  Types of growth that don't build on the previous value don't.  Natural processes like investments and rabbit populations grow in ways that depend on the previous value.
+
+Another interesting thing about Benford's Law: You <mark>don't really have to understand why it happens</mark> to understand how to use it.  So, don't worry too much if you didn't follow the math.
 
 ## Conclusion
 
@@ -473,7 +478,7 @@ Benford's Law, with its <mark>unique insight into aggregate data</mark>, already
 
 One intriguing application lies in crafting datasets for training AI models. By ensuring these datasets adhere to Benford's Law, we could enhance the realism and reliability of the training process, leading to more robust and accurate AI models. Benford's Law could be used in areas like evaluation metrics in AI, offering a novel lens to assess the authenticity and accuracy of AI-generated data.
 
-While its current applications are well-established, the future might see Benford's Law becoming a <mark>part of the AI toolkit</mark>, guiding both the development and evaluation of AI models in a variety of fields. This exploration could pave the way for AI systems that resonate more deeply with the patterns found in natural data.
+While its current applications are well-established, the future might see Benford's Law becoming a <mark>part of the AI toolkit</mark>, guiding both the development and evaluation of AI models in various fields. This exploration could pave the way for AI systems that resonate more deeply with the patterns found in natural data.
 
 ## Lab
 

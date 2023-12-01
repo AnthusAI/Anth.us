@@ -20,8 +20,10 @@ const CollectionTemplate = ({ data }) => {
               return (
                 <div className='blog-post-preview' key={node.id}>
                   <li className="clear-float">
-                    <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
-                    <Link to={`/blog/` + node.frontmatter.slug}><h3>{node.frontmatter.title}</h3></Link>
+                    <Link to={`/blog/` + node.frontmatter.slug}>
+                      <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
+                      <h3>{node.frontmatter.title}</h3>
+                    </Link>
                     <div className='date'>{node.frontmatter.date}</div>
                     <p>{node.frontmatter.excerpt}</p>
                   </li>
@@ -37,8 +39,10 @@ const CollectionTemplate = ({ data }) => {
               return (
                 <div className='blog-post-preview' key={node.id}>
                   <li className="clear-float">
-                    <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
-                    <Link to={`/blog/` + node.frontmatter.slug}><h3>{node.frontmatter.title}</h3></Link>
+                    <Link to={`/blog/` + node.frontmatter.slug}>
+                      <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
+                      <h3>{node.frontmatter.title}</h3>
+                    </Link>
                     <div className='date'>{node.frontmatter.date}</div>
                     <p>{node.frontmatter.excerpt}</p>
                   </li>
