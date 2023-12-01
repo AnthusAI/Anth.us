@@ -23,9 +23,6 @@ const Footer = () => {
         </div>
         
         <div className="contents">
-          <div>
-            © {new Date().getFullYear()} Anthus AI&nbsp;Solutions
-          </div>
           <div className="logo">
             <StaticImage
               className="logo"
@@ -33,9 +30,6 @@ const Footer = () => {
               src="../images/icon.png"
               placeholder="BLURRED"
             />
-          </div>
-          <div>
-            Contact Us [coming&nbsp;soon]
           </div>
         </div>
       </div>

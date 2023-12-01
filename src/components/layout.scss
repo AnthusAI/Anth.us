@@ -683,28 +683,11 @@ footer {
   .contents {
     margin: 0 auto;
     padding: 0 var(--size-gutter) 0 var(--size-gutter);
-    display: flex;
-    justify-content: space-between;
 
-    display: flex;
-    div {
-      flex: 1;
-    }
     div.logo {
       text-align: center;
-      .logo {
-        .gatsby-image-wrapper {
-          transform: translateY(-50%); /* Center vertically */
-        }
-        img {
-          height: 4em;
-          display: block;
-          width: auto;
-        }
-      }
-    }
-    div:last-child {
-      text-align: right;
+      max-width: 4em;
+      margin: 0 auto;
     }
   }
 }
