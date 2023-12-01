@@ -378,7 +378,7 @@ header {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  background: linear-gradient(171deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 42%, var(--color-gradient-mid) 80%, var(--color-gradient-end) 100%);
+  background: linear-gradient(174deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 65%, var(--color-gradient-end) 100%);
   color: var(--color-inverted-text);
   font-family: 'Cinzel', serif;
   position: relative;
@@ -412,8 +412,6 @@ header {
 
   .menu {
     flex-grow: 1;
-    height: var(--font-md);
-    line-height: var(--font-md);
   
     nav {
       ul.js-p-target {
@@ -425,7 +423,6 @@ header {
         li {
           display: list-item;
           list-style-type: none;
-          line-height: var(--font-md);
           flex: 0 0 auto;
           padding: 0 1.5em 0 0;
           margin: 0;
@@ -491,7 +488,7 @@ header .content {
       right: 0;
       bottom: 0;
       background-color: var(--color-active);
-      border-radius: 2px;
+      border-radius: 8px;
       z-index: -1;
     }
   }
@@ -503,7 +500,7 @@ header .content {
       left: 0;
       right: 0;
       bottom: 0;
-      height: 1px;
+      height: 4px;
       background-color: fuchsia;
       z-index: 1;
     }
@@ -517,7 +514,7 @@ header .content {
       bottom: 0;
       height: unset;
       background-color: var(--color-active);
-      border-radius: 10px;
+      border-radius: 8px;
       z-index: -1;
     }
   }
@@ -757,7 +754,7 @@ footer {
   padding: 1ex 0;
   font-size: var(--font-md);
   background: rgb(208,51,130);
-  background: linear-gradient(170deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 20%, var(--color-gradient-start) 64%, var(--color-gradient-end) 100%);
+  background: linear-gradient(172deg, var(--color-gradient-end) 0%, var(--color-gradient-start) 64%, var(--color-gradient-start) 100%);
   color: var(--color-inverted-text);
 
   .links {
