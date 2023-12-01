@@ -1,98 +1,8 @@
 @import "../styles/variables.scss";
 @import "node_modules/priority-plus/dist/priority-plus";
 
-
-@media only screen and (max-width: 400px) {
-  :root {
-    --font-sm: calc(2 * var(--base-unit));
-  }
-}
-@media only screen and (max-width: 600px) {
-  header {
-    a {
-      .logo {
-        left: 2px;
-      }
-    }
-  }
-  .hero {
-    .hero-image {
-      height: 400px;
-      
-      picture {
-        img {
-          object-position: 60% 0;
-        }
-      }
-    }
-  }
-}
-@media only screen and (min-width: 601px) {
-  :root {
-    --base-line-height: calc(7 * var(--base-unit));
-    --font-size: calc(5 * var(--base-unit));
-    --font-md: calc(5 * var(--base-unit));
-    --font-lg: calc(8 * var(--base-unit));
-    --font-xl: calc(9 * var(--base-unit));
-  }
-
-  header {
-    a {
-      .logo {
-        left: -6px;
-      }
-    }
-  }
-  .hero {
-    .hero-image {
-      height: 400px;
-      
-      picture {
-        img {
-          object-position: 0 90%;
-        }
-      }
-    }
-  }
-  article {
-    text-align: justify;
-
-    table.data {
-      th, td {
-        letter-spacing: 0.1ex;
-      }
-    }
-  }
-}
-
 .clear-float {
   clear: both;
-}
-
-/* For portrait tablets */
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-}
-
-/* For wide tablets and small desktops */
-@media only screen and (min-width: 901px) and (max-width: 1200px) {
-  /* Styles */
-}
-@media only screen and (min-width: 901px) {
-  .hero {
-    .hero-image {
-      height: 600px;
-      
-      picture {
-        img {
-          object-position: 0 90%;
-        }
-      }
-    }
-  }
-}
-
-/* For super-wide desktops */
-@media only screen and (min-width: 1201px) {
 }
 
 html {
@@ -378,7 +288,7 @@ header {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  background: linear-gradient(174deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 65%, var(--color-gradient-end) 100%);
+  background: linear-gradient(174deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 45%, var(--color-gradient-end) 100%);
   color: var(--color-inverted-text);
   font-family: 'Cinzel', serif;
   position: relative;
@@ -433,8 +343,9 @@ header {
         }
       }
       ul.p-plus__overflow {
-        background: rgb(187,187,255);
-        background: linear-gradient(151deg, rgba(187,187,255,1) 0%, rgba(255,187,255,1) 100%);
+        position: fixed;
+        top: calc(2 * var(--base-line-height));
+        background: linear-gradient(174deg, var(--color-gradient-end) 0%, var(--color-gradient-end) 50%, var(--color-gradient-start) 85%, var(--color-gradient-mid) 100%);
         margin: 0;
         padding: 1.5em 1.5em 1.5em 1.5em;
         list-style-type: none;
@@ -465,8 +376,8 @@ header {
         display: block;
         border: none;
         background: linear-gradient(
-          to bottom, 
-          var(--color-button), var(--color-button) 20%, transparent 20%, transparent 40%, var(--color-button) 40%, var(--color-button) 60%, transparent 60%, transparent 80%, var(--color-button) 80%, var(--color-button) 100%
+          to bottom,
+          var(--color-hamburger), var(--color-hamburger) 20%, transparent 20%, transparent 40%, var(--color-hamburger) 40%, var(--color-hamburger) 60%, transparent 60%, transparent 80%, var(--color-hamburger) 80%, var(--color-hamburger) 100%
         );
       }
     }
@@ -794,4 +705,106 @@ footer {
       text-align: right;
     }
   }
+}
+
+
+@media only screen and (max-width: 600px) {
+  header {
+    a {
+      .logo {
+        left: 2px;
+      }
+    }
+  }
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 60% 0;
+        }
+      }
+    }
+  }
+  article {
+    .draft-overlay-text {
+      font-size: 8em;
+    }  
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  :root {
+    --font-sm: calc(2 * var(--base-unit));
+  }
+  article {
+    .draft-overlay-text {
+      font-size: 5em;
+    }  
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  :root {
+    --base-line-height: calc(7 * var(--base-unit));
+    --font-size: calc(5 * var(--base-unit));
+    --font-md: calc(5 * var(--base-unit));
+    --font-lg: calc(8 * var(--base-unit));
+    --font-xl: calc(9 * var(--base-unit));
+  }
+
+  header {
+    a {
+      .logo {
+        left: -6px;
+      }
+    }
+  }
+  .hero {
+    .hero-image {
+      height: 400px;
+      
+      picture {
+        img {
+          object-position: 0 90%;
+        }
+      }
+    }
+  }
+  article {
+    text-align: justify;
+
+    table.data {
+      th, td {
+        letter-spacing: 0.1ex;
+      }
+    }
+  }
+}
+
+/* For portrait tablets */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+}
+
+/* For wide tablets and small desktops */
+@media only screen and (min-width: 901px) and (max-width: 1200px) {
+  /* Styles */
+}
+@media only screen and (min-width: 901px) {
+  .hero {
+    .hero-image {
+      height: 600px;
+      
+      picture {
+        img {
+          object-position: 0 90%;
+        }
+      }
+    }
+  }
+}
+
+/* For super-wide desktops */
+@media only screen and (min-width: 1201px) {
 }
