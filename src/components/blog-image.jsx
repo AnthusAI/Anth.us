@@ -2,7 +2,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 
-const BlogImage = ({ images, index, className, alt }) => {
+const BlogImage = ({ images, name, className, alt }) => {
   const data = useStaticQuery(graphql`
     query {
       allFile {
@@ -22,7 +22,7 @@ const BlogImage = ({ images, index, className, alt }) => {
   }
 
   const imageNode = data.allFile.nodes.find(
-    node => node.relativePath === images[index].replace(/^\.\//, '')
+    node => node.relativePath.endsWith(name)
   );
   const imageData = imageNode ? imageNode.childImageSharp.gatsbyImageData : null;
 

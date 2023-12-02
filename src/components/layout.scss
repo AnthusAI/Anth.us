@@ -507,6 +507,7 @@ article {
     justify-content: center;
     align-items: flex-start;
     overflow: hidden;
+    pointer-events: none;
   }
 
   .draft-overlay-text {
