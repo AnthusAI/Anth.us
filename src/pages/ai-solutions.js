@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Layout from "../components/layout"
+import Seo from "../components/seo"
 
 const AISolutionsPage = () => {
   useEffect(() => {
@@ -49,5 +50,20 @@ const AISolutionsPage = () => {
     </Layout>
   );
 };
+
+/**
+ * Head export to define metadata for the page
+ *
+ * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+ */
+export const Head = () => {
+  return (
+    <Seo
+      title="Home"
+      description="Explore efficient AI solutions for business: smart automation, conversational agents, and bespoke AI features, all integrated seamlessly with AWS. Discover how AI drives value and compliance in your operations."
+      image="serverless-ai-software-solutions.png"
+    />
+  )
+}
 
 export default AISolutionsPage;

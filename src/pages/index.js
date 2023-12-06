@@ -53,6 +53,12 @@ const IndexPage = () => {
 
   const data = useStaticQuery(graphql`
     query {
+      heroImage: file(relativePath: { eq: "serverless-ai-software-solutions.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
+
       smartProcessAutomation: file(relativePath: { eq: "smart-process-automation.png" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
@@ -222,6 +228,14 @@ const IndexPage = () => {
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="Home" />
+export const Head = () => {
+  return (
+    <Seo
+      title="Home"
+      description="Depend on proven experts With a history of powering a multi-million dollar ticketing system and seamless integrations across platforms for reliable serverless AI solutions on AWS. "
+      image="serverless-ai-software-solutions.png"
+    />
+  )
+}
 
 export default IndexPage

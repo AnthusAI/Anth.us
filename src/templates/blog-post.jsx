@@ -76,7 +76,7 @@ export const Head = ({ location, params, data, pageContext }) => {
     <Seo
       title={post.frontmatter.title}
       description={post.frontmatter.excerpt}
-      image={imageUrl}
+      imageURL={imageUrl}
     />
   )
 } 

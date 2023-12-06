@@ -1,0 +1,143 @@
+---
+title: "Few-Shot \"Learning\" Isn't Real"
+slug: "few-shot-learning-isnt-real"
+date: "2023-12-05"
+authors:
+  - author: <a href="/ryan">Ryan Alyn Porter</a>
+  - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
+tags: ["mathematics", "statistical phenomena", "simulation theory"]
+excerpt: It doesn't help prompt engineers to imagine that language models are learning things from the prompt.  Understanding what's really happening can help you write better prompts.
+preview_image: "./images/ai-model-that-learns.png"
+images:
+  - ./images/ai-model-that-learns.png
+state: draft
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-model-that-learns.png" className="right" alt="Do AI models learn from examples you give them in the prompt?" />
+
+One of the wonders of large language models, according to some people, is that they're so good at understanding the questions we ask them that they can learn from examples that we give them in a well-engineered prompt, so that the final answer will be more accurate.
+
+Is that really what's happening?  Let's question our assumptions.
+
+Every lesson on prompt engineering talks about few-shot learning.  Here's an example:
+
+```
+Task: Classify the following animals based on their typical habitat: Land or Water.
+
+1. Animal: Elephant - Habitat: Land
+2. Animal: Dolphin - Habitat: Water
+3. Animal: Lion - Habitat: Land
+
+Animal: Shark - Habitat: ?
+```
+
+I sent that to GPT 3.5 with a system prompt that said, "Answer according to the pattern and nothing more."
+
+As expected, it told me:
+
+```
+Animal: Shark - Habitat: Water
+```
+
+As the legend goes, the model can learn new 'skills' in this way.  It just learned how to do a classification task based on land or water that nobody ever could have pre-trained it to do!
+
+Really, though?  Let's flip the Land/Water values in the few-shot examples in that prompt:
+
+```
+Task: Classify the following animals based on their typical habitat: Land or Water.
+
+1. Animal: Elephant - Habitat: Water
+2. Animal: Dolphin - Habitat: Land
+3. Animal: Lion - Habitat: Water
+
+Animal: Shark - Habitat: ?
+```
+
+The completion:
+
+```
+Animal: Shark - Habitat: Water
+```
+
+If the model "learns" what you want it to do for this new skill that you're teaching it from the few examples in the prompt, then why did such a smart model fail to learn the rules of the game I wanted it to play?
+
+It's because language models don't learn anything new from you giving it a few examples in a prompt.
+
+## What's really going on in few-shot learning?
+
+It's really using the pattern of the examples to locate existing concepts in its pre-training.  The effect that you get from few-shot learning is similar to the effect that you get from fine-tuning a model: It affects the format of the completions.
+
+Quantitative research into prompt engineering has suggested that language models are not actually learning the task during run time from few-shot examples, but are rather locating tasks in the model's existing space of learned tasks.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "arxiv",
+    author: ['Laria Reynolds', 'Kyle McDonell'],
+    title: "Prompt Programming for Large Language Models: Beyond the Few-Shot Paradigm",
+    URL: "https://arxiv.org/abs/2102.07350",
+    accessed: { 'date-parts': [[2023, 12, 5]] },
+    issued: { 'date-parts': [[2021, 2, 15]] }
+  }}
+/>  One explanation for how that happens is that models do learn the technique of iteratively improving a prediction given new information, a process known as Bayesian inference, and that they use this process to better "locate" or "infer" these latent concepts during the few-shot learning phase.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "The Stanford AI Lab Blog",
+    author: ['Sang Michael Xie', 'Sewon Min'],
+    title: "How does in-context learning work? A framework for understanding the differences from traditional supervised learning",
+    URL: "https://ai.stanford.edu/blog/understanding-incontext/",
+    accessed: { 'date-parts': [[2023, 12, 5]] },
+    issued: { 'date-parts': [[2022, 8, 1]] }
+  }}
+/>
+
+In the land shark example here, the model's pre-training is familiar with the task of classification.  My examples didn't teach it a new game to play, they conditioned it to recognize a classification task.  Then, when faced with the task of classifying a shark as a land animal or a water animal, it knew how to do that.
+
+## Who cares?
+
+You do if you're a prompt engineer, since you can get better results from understanding what few-shot learning is doing and leveraging it.  Rather than wasting input tokens on a mistaken concept.
+
+A recent study on engineering prompts to achieve different "styles" in the completions introduced a concept that uses examples in the prompt, similar to few-shot learning.  But without the expectation that the model is "learning" a new task from the examples.  Rather, the goal is to show the model the pattern for the completion.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "arxiv",
+    author: 'Emily Reif, et al',
+    title: "A Recipe For Arbitrary Text Style Transfer with Large Language Models",
+    URL: "https://ai.stanford.edu/blog/understanding-incontext/",
+    accessed: { 'date-parts': [[2023, 12, 5]] },
+    issued: { 'date-parts': [[2022, 3, 21]] }
+  }}
+/>
+
+For example:
+
+```
+Here is some text: {When the doctor asked Linda to
+take the medicine, he smiled and gave her a
+lollipop}.
+
+Here is a rewrite of the text, which is
+more scary: {When the doctor told Linda to take the
+medicine, there had been a malicious gleam in her
+eye that Linda didn't like at all}
+
+Here is some text: {They asked loudly, over the
+sound of the train}.
+
+Here is a rewrite of the text, which is more intense: {{ }
+```
+
+The example completion from the paper is:
+
+```
+They yelled aggressively, over the clanging of the train
+```
+
+The rewrite demonstration at the beginning of the prompt wasn't aimed at teaching the model the nuances of "scary" or "intense", and so it didn't waste any input tokens on the idea that it needed to do that.
+
+But why include the demonstration at all?  Because it helps, as that research shows.  The one-shot prompts that were "augmented" with examples improved the quality of the completions, even when they didn't relate directly to the task in the prompt.  Just like few-shot prompting can demonstrably improve the quality of completions.
+
+## References
+
+<CitationsList citationFormat="apa" />

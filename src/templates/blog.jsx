@@ -10,7 +10,6 @@ const CollectionTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title='Blog' />
       <article>
         <div>
           <h1>Blog articles</h1>
@@ -104,5 +103,20 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+/**
+ * Head export to define metadata for the page
+ *
+ * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+ */
+export const Head = () => {
+  return (
+    <Seo
+      title="Home"
+      description="Depend on proven experts With a history of powering a multi-million dollar ticketing system and seamless integrations across platforms for reliable serverless AI solutions on AWS. "
+      image="serverless-ai-software-solutions.png"
+    />
+  )
+}
 
 export default CollectionTemplate;

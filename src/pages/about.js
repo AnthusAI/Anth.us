@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Layout from "../components/layout"
+import Seo from "../components/seo"
 
 const AboutPage = () => {
   useEffect(() => {
@@ -36,5 +37,20 @@ const AboutPage = () => {
     </Layout>
   );
 };
+
+/**
+ * Head export to define metadata for the page
+ *
+ * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+ */
+export const Head = () => {
+  return (
+    <Seo
+      title="About Us"
+      description="With a history of powering a multi-million dollar ticketing system and seamless integrations across platforms like Salesforce and Mailchimp, we bring unparalleled expertise in serverless architectures and AI to your projects."
+      image="serverless-ai-software-solutions.png"
+    />
+  )
+}
 
 export default AboutPage;
