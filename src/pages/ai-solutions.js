@@ -1,11 +1,16 @@
+import { graphql } from 'gatsby';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, { useEffect } from 'react';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import * as styles from "../components/index.module.css"
 
-const AISolutionsPage = () => {
+const AISolutionsPage = ({ data }) => {
   useEffect(() => {
     document.title = "AI Solutions";
   }, []);
+
+  console.log('Data:', data)
 
   return (
     <Layout>
@@ -18,9 +23,27 @@ const AISolutionsPage = () => {
           </p>
           <p>Please get in touch and let's talk about what we can do for you.</p>
 
-          <h2>Types of solutions</h2>
+          <h2>Examples</h2>
 
-          <p>Here are some recent examples of our AI-powered solutions.</p>
+          <p>Here are some of our software solutions over the years, increasingly using and focusing on artificial intelligence:</p>
+
+          <ul className={styles.list}>
+            {data.solutions.edges.map(({ node }) => {
+              const image = getImage(node.frontmatter.preview_image);
+              return (
+                <li key={node.id} className={styles.listItem}>
+                  <GatsbyImage image={image} alt={node.frontmatter.title} />
+                  <a className={styles.listItemLink} href={`${node.frontmatter.slug}`}>
+                    <h3>{node.frontmatter.title}</h3>
+                  </a>
+                  <p className={styles.listItemDescription}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
+                  <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
+                </li>
+              );
+            })}
+          </ul>
+
+          <h2>Types of solutions</h2>
 
           <h3 name="smart-process-automation">Smart Process Automation</h3>
           <p>Your team of humans are expensive and you need them to spend their time <mark>driving business value</mark>. Everything about the calculus of what things are worth automating suddenly changed in 2023, and it's time to re-evaluate what menial tasks you can eliminate.</p>
@@ -65,5 +88,32 @@ export const Head = () => {
     />
   )
 }
+
+export const query = graphql`
+  query {
+    solutions: allMdx(
+      filter: { frontmatter: { tags: { in: ["solutions"] } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date(formatString: "MMMM DD, YYYY")
+            slug
+            excerpt
+            state
+            preview_image {
+              childImageSharp {
+                gatsbyImageData(layout: CONSTRAINED)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default AISolutionsPage;

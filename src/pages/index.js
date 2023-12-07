@@ -69,7 +69,7 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      conversationalAIAgent: file(relativePath: { eq: "conversational-ai-agent.png" }) {
+      conversationalAIAgent: file(relativePath: { eq: "ai-agent.png" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
         }

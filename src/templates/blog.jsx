@@ -31,7 +31,7 @@ const CollectionTemplate = ({ data }) => {
             })}
           </ul>
 
-          <h2>Draft articles</h2>
+          {/* <h2>Draft articles</h2>
           <ul className='blog'>
             {draftPosts.map(({ node }) => {
               const previewImage = getImage(node.frontmatter.preview_image);
@@ -48,7 +48,7 @@ const CollectionTemplate = ({ data }) => {
                 </div>
               );
             })}
-          </ul>
+          </ul> */}
         </div>
       </article>
     </Layout>

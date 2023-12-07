@@ -3,6 +3,7 @@ import { StaticImage } from 'gatsby-plugin-image'
 
 const moreLinks = [
   { text: "Join us on Discord", url: "https://discord.gg/f2TtbVx5" },
+  { text: "Connect on LinkedIn", url: "https://www.linkedin.com/in/ryanalynporter/" },
   { text: "Follow us on GitHub", url: "https://github.com/Anth-us" }
 ]
 

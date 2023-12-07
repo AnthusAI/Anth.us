@@ -288,7 +288,7 @@ header {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  background: linear-gradient(174deg, #A62150 0%, #E43384 20%, var(--color-gradient-start) 5%, var(--color-gradient-start) 45%, var(--color-gradient-end) 88%, #85CEFA 97%, #fff 100%);
+  background: linear-gradient(174deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 45%, var(--color-gradient-end) 88%, #85CEFA 97%, #fff 100%);
   color: var(--color-inverted-text);
   font-family: 'Cinzel', serif;
   position: relative;

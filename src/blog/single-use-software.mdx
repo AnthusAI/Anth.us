@@ -7,12 +7,16 @@ authors:
   - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
 tags: ["ephemeral software"]
 excerpt: An AI-driven transformation is reshaping software development by solving individual problems with software solutions built just-in-time for a single purpose, in contrast with the traditional model of solving problems using general-purpose software applications built in advance.
-preview_image: "./images/ephemeral-software-solutions.png"
-images: ["images/ephemeral-software-solutions.png"]
+preview_image: "./images/under-pressure.png"
+images:
+  - images/under-pressure.png
+  - images/ephemeral-software-solutions.png
 state: published
 ---
 
 import BlogImage from '../components/blog-image';
+
+<BlogImage images={props.pageContext.frontmatter.images} name="under-pressure.png" className="right" alt="Under pressure!" />
 
 It was one of those late nights where everything seemed under control until it wasn't. Our order-processing system, vital for night-time nightclub ticket sales, hit an unexpected snag. I had tools at my disposal. But this problem was unique, demanding a solution our pre-built tools couldn't immediately provide.
 
