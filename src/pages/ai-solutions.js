@@ -41,7 +41,7 @@ const AISolutionsPage = ({ data }) => {
                   <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
                     <h3>{node.frontmatter.title}</h3>
                   </a>
-                  <p className={styles.listItemDescription}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
+                  <p className={`${styles.listItemDescription} date`}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
                   <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
                 </li>
               );
@@ -60,7 +60,7 @@ const AISolutionsPage = ({ data }) => {
                   <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
                     <h3>{node.frontmatter.title}</h3>
                   </a>
-                  <p className={styles.listItemDescription}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
+                  <p className={`${styles.listItemDescription} date`}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
                   <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
                 </li>
               );

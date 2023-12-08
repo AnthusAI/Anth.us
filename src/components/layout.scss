@@ -650,13 +650,15 @@ ul.blog {
     list-style-type: none;
     margin-bottom: var(--base-line-height);
 
-    .date {
-      font-style: italic;
-    }
-
     .gatsby-image-wrapper.right {
       width: 30%;
     }  
+  }
+}
+
+ul {
+  .date {
+    font-style: italic;
   }
 }
 
@@ -677,7 +679,7 @@ footer {
   padding: 1ex 0;
   font-size: var(--font-md);
   background: rgb(208,51,130);
-  background: linear-gradient(172deg, var(--color-gradient-end) 0%, var(--color-gradient-start) 64%, var(--color-gradient-start) 100%);
+  background: linear-gradient(172deg, #85CEFA 0%, #fff 3%, var(--color-gradient-end) 10%, var(--color-gradient-start) 64%, var(--color-gradient-start) 100%);
   color: var(--color-inverted-text);
 
   .links {

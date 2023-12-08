@@ -23,7 +23,7 @@ const CollectionTemplate = ({ data }) => {
                       <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
-                    <div className='date'>{node.frontmatter.date}</div>
+                    <div className='date'>{formatDate(node.frontmatter.date)}</div>
                     <p>{node.frontmatter.excerpt}</p>
                   </li>
                 </div>
@@ -120,3 +120,8 @@ export const Head = () => {
 }
 
 export default CollectionTemplate;
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}
