@@ -660,6 +660,17 @@ ul.blog {
   }
 }
 
+.smallImageList {
+  li {
+    .gatsby-image-wrapper {
+      width: 6em;
+      float: right;
+      margin-left: 2ex;
+      margin-bottom: 1ex;
+    }
+  }
+}
+
 footer {
   width: 100%;
   margin: auto;

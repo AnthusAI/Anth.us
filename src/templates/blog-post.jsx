@@ -95,7 +95,7 @@ export const pageQuery = graphql`
         title
         excerpt
         state
-        date(formatString: "MMMM DD, YYYY")
+        date
         authors {
           author
         }

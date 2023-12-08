@@ -4,13 +4,15 @@ import React, { useEffect } from 'react';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
+import { format, isValid } from 'date-fns';
 
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
     document.title = "AI Solutions";
   }, []);
 
-  console.log('Data:', data)
+  const featuredSolutions = data.solutions.edges.filter(({ node }) => node.frontmatter.tags.includes('featured'));
+  const nonFeaturedSolutions = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured'));
 
   return (
     <Layout>
@@ -27,9 +29,31 @@ const AISolutionsPage = ({ data }) => {
 
           <p>Here are some of our software solutions over the years, increasingly using and focusing on artificial intelligence:</p>
 
-          <ul className={styles.list}>
-            {data.solutions.edges.map(({ node }) => {
+          <ul className={`${styles.list} smallImageList`}>
+            {featuredSolutions.map(({ node }) => {
+              console.log("Date: ", node.frontmatter.date);
               const image = getImage(node.frontmatter.preview_image);
+              const date = new Date(node.frontmatter.date);
+              const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
+              return (
+                <li key={node.id} className={styles.listItem}>
+                  <GatsbyImage image={image} alt={node.frontmatter.title} />
+                  <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
+                    <h3>{node.frontmatter.title}</h3>
+                  </a>
+                  <p className={styles.listItemDescription}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
+                  <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
+                </li>
+              );
+            })}
+          </ul>
+
+          <ul className={styles.list}>
+            {nonFeaturedSolutions.map(({ node }) => {
+              console.log("Date: ", node.frontmatter.date);
+              const image = getImage(node.frontmatter.preview_image);
+              const date = new Date(node.frontmatter.date);
+              const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
               return (
                 <li key={node.id} className={styles.listItem}>
                   {/* <GatsbyImage image={image} alt={node.frontmatter.title} /> */}
@@ -82,7 +106,7 @@ const AISolutionsPage = ({ data }) => {
 export const Head = () => {
   return (
     <Seo
-      title="Home"
+      title="AI Solutions"
       description="Explore efficient AI solutions for business: smart automation, conversational agents, and bespoke AI features, all integrated seamlessly with AWS. Discover how AI drives value and compliance in your operations."
       image="serverless-ai-software-solutions.png"
     />
@@ -100,7 +124,7 @@ export const query = graphql`
           id
           frontmatter {
             title
-            date(formatString: "MMMM DD, YYYY")
+            date
             slug
             excerpt
             state
@@ -109,6 +133,7 @@ export const query = graphql`
                 gatsbyImageData(layout: CONSTRAINED)
               }
             }
+            tags
           }
         }
       }

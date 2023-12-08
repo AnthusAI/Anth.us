@@ -90,7 +90,7 @@ const IndexPage = () => {
             id
             frontmatter {
               title
-              date(formatString: "MMMM DD, YYYY")
+              date
               slug
               excerpt
               state
@@ -186,13 +186,13 @@ const IndexPage = () => {
       <ul className={styles.list}>
         {links.map(link => (
           <li key={link.url} className={styles.listItem}>
-            <GatsbyImage image={link.image} alt="Smart Process Automation" />
-            <a
+            <Link
               className={styles.listItemLink}
-              href={`${link.url}`}
+              to={`${link.url}`}
             >
+              <GatsbyImage image={link.image} alt="Smart Process Automation" />
               <h3>{link.text}</h3>
-            </a>
+            </Link>
             <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: link.description }}></p>
           </li>
         ))}
