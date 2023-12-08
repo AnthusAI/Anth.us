@@ -58,7 +58,7 @@ const CollectionTemplate = ({ data }) => {
 export const pageQuery = graphql`
   query CollectionPageQuery {
     publishedPosts: allMdx(
-      filter: { frontmatter: { state: { eq: "published" } } }
+      filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions"] } } }
       sort: { fields: [frontmatter___date], order: DESC }
     ) {
       edges {
