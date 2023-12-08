@@ -32,8 +32,8 @@ const AISolutionsPage = ({ data }) => {
               const image = getImage(node.frontmatter.preview_image);
               return (
                 <li key={node.id} className={styles.listItem}>
-                  <GatsbyImage image={image} alt={node.frontmatter.title} />
-                  <a className={styles.listItemLink} href={`${node.frontmatter.slug}`}>
+                  {/* <GatsbyImage image={image} alt={node.frontmatter.title} /> */}
+                  <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
                     <h3>{node.frontmatter.title}</h3>
                   </a>
                   <p className={styles.listItemDescription}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
