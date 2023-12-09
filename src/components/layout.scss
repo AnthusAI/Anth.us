@@ -679,7 +679,7 @@ footer {
   padding: 1ex 0;
   font-size: var(--font-md);
   background: rgb(208,51,130);
-  background: linear-gradient(172deg, #85CEFA 0%, #fff 3%, var(--color-gradient-end) 10%, var(--color-gradient-start) 64%, var(--color-gradient-start) 100%);
+  background: linear-gradient(172deg, #fff 0%, #85CEFA 3%, var(--color-gradient-end) 10%, var(--color-gradient-start) 64%, var(--color-gradient-start) 100%);
   color: var(--color-inverted-text);
 
   .links {
