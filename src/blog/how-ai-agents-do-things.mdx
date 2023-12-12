@@ -41,9 +41,9 @@ When I wrote this in December 2023, the free ChatGPT's knowledge cutoff date was
 
 But some AI agents can tell you about things that happened after the knowledge cutoff date.  They can somehow do web searches and look up stuff in databases.  So, how does that work?  How can an AI agent look up the status of an order if AI model’s pre-training didn't include that?
 
-Some AI agents can do more than look up stuff, they can do things for you.  When you ask ChatGPT to make an image with Dall-E, how does that work?  Is the AI model somehow deeply integrated with the image-generation model so that it returns images along with its text completions?
+Some AI agents can do more than look up stuff, they can do things for you.  When you ask ChatGPT to make an image with Dall-E, how do they do it?  Is the AI model somehow deeply integrated with the image-generation model so that it returns images along with its text completions?
 
-Not really.  The answer is simpler, and it's a preview of a new type of software solution.
+Not really.  The answer is simpler, and it's a preview of <mark>a new type of software solution.</mark>
 
 ## Give tools to the AI model
 
@@ -53,7 +53,7 @@ Imagine you’re conversing with an airline assistant who can type on their term
 
 This scenario is akin to how it works when we speak with an AI agent that can look up facts or draw pictures.  Imagine the agent pausing the conversation to use a tool to look up the latest data or perform a quick calculation.  Or maybe it uses a different tool to draw something, or send a message, or create an order. Perhaps it sets some long-running process in motion.
 
-These tools that the model can use are the "functions": A computer program that you give to the agent that it can use when necessary.  Functions are how you integrate existing systems with AI language models to create AI agents.
+These tools that the model can use are the "functions": <mark>A computer program that you give to the agent</mark> that it can use when necessary.  Functions are how you integrate existing systems with AI language models to create AI agents.
 
 ## How does the AI model use the tools?
 
@@ -325,17 +325,19 @@ The full application stack for an AI agent looks like this:
   </div>
 
   <div className="container technologyStack">
-    Large Language Model
+    AI agent application
   </div>
-  <div className="container technologyStack">
-    AI agent application code
-  </div>
-  <div className="container technologyStack">
-    existing software system
+  <div className="row">
+    <div className="container technologyStack">
+      existing business system
+    </div>
+    <div className="container technologyStack">
+      Large Language Model
+    </div>
   </div>
 </div>
 
-In this diagram, an existing system now supports a new AI agent user interface.  The AI agent code runs separately from the business system and integrates with it through API calls, database queries, or whatever makes sense.  The large language model (LLM) serves as a front-end to the user by generating the text for the conversation, using function calling to access the existing software system.
+In this diagram, an existing business system (bottom left) now supports a new AI agent user interface, managed by the AI agent application.  The AI agent code runs separately from the business system and integrates with it through API calls, database queries, or whatever makes sense.  The agent uses the large language model (LLM) to generate text for the conversation, using function calling to access the existing software system.
 
 ## See it for yourself
 
