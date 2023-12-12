@@ -34,8 +34,6 @@ But how does that work?  How does the AI model run the function for you?  If you
 
 The answer to all these questions is simple and elegant: <mark>You run the function yourself.</mark>  The OpenAI model doesn't directly run the function, it just tells you to do it, and how.  It tells you the name of the function to run and it gives you the parameters to use.  You do it yourself and you report back to OpenAI once you have results.  You end up calling the API two times instead of once.  You “augment” the second API request with the results of the function call.
 
-Magic!
-
 ## A basic request and response
 
 Let's see at what it looks like.  Here's a simple request from an agent application to the OpenAI API:
@@ -255,14 +253,18 @@ We're doing all the real work ourselves when we use function calling, but we're 
 <div class="comparisonChart">
   <div class="left-side">
     <h4>Application</h4>
-    <div class="item">Manage conversation history</div>
-    <div class="item">Execute functions</div>
+    <ul style={{listStylePosition: `outside`}}>
+      <li>Manage conversation history</li>
+      <li>Execute functions</li>
+    </ul>
   </div>
   <div class="separator"></div>
   <div class="right-side">
     <h4>AI Model</h4>
-    <div class="item">Generate text</div>
-    <div class="item">Decide what tools to use, when and how</div>
+    <ul style={{listStylePosition: `outside`}}>
+      <li>Generate text</li>
+      <li>Decide what tools to use, when and how</li>
+    </ul>
   </div>
 </div>
 
@@ -270,7 +272,7 @@ We're doing all the real work ourselves when we use function calling, but we're 
 
 Go and create an OpenAI secret key and open this Colab notebook, where you can see this for yourself.
 
-...
+[coding in progress]
 
 ## Not just a pleasant conversationalist
 
