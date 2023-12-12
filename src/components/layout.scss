@@ -592,13 +592,20 @@ article {
     font-size: smaller;
   }
   .citation {
+    &::before {
+      content: "[";
+    }
+  
+    &::after {
+      content: "]";
+    }
+  
     a {
       text-decoration: none;
-      padding-left: 0.25ex;
-      padding-right: 0.5ex;
       color: var(--color-text)
     }
   }
+
   .citationslist {
     text-align: left;
     word-break: break-all;
@@ -618,7 +625,9 @@ article {
 .gatsby-image-wrapper.full {
   margin-bottom: 1em;
 }
-
+.center-full-image {
+  text-align: center;
+}
 mark {
   -webkit-animation: 12s highlight 0s 1 normal forwards;
           animation: 12s highlight 0s 1 normal forwards;
@@ -743,6 +752,7 @@ ul {
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 0 var(--space-4);
 
     h4 {
       margin-bottom: 1em;

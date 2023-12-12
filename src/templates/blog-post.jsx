@@ -41,7 +41,7 @@ const BlogPostTemplate = ({ data, children }) => {
           )}
           <div className='heading'>
             <h1>{post.frontmatter.title}</h1>
-            <div className='date'>{post.frontmatter.date}</div>
+            <div className='date'>{formatDate(post.frontmatter.date)}</div>
             <div className='authors'>
               <div className='byline'>by</div>
               <ul className='authors'>
@@ -115,3 +115,8 @@ export const pageQuery = graphql`
 `;
 
 export default BlogPostTemplate;
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}

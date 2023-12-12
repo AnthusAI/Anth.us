@@ -1,0 +1,24 @@
+@startuml
+hide footbox
+skinparam defaultFontColor #333333
+skinparam sequenceArrowColor #333333
+skinparam sequenceParticipantBorderColor #333333
+
+actor User
+participant "AI Agent" as agent #85CEFA
+participant "AI Model" as model #ffa5d2
+participant "Business System" as system #85CEFA
+
+User -> agent : "Hello."
+activate agent #85CEFA
+
+agent -> model : user message: "Hello."
+activate model #ffa5d2
+
+model --> agent : "Hello, how can I help you?"
+deactivate model
+
+agent --> User : "Hello, how can I help you?"
+deactivate agent
+
+@enduml

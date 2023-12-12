@@ -1,0 +1,36 @@
+@startuml
+hide footbox
+skinparam defaultFontColor #333333
+skinparam sequenceArrowColor #333333
+skinparam sequenceParticipantBorderColor #333333
+
+actor User
+participant "AI Agent" as agent #85CEFA
+participant "AI Model" as model #ffa5d2
+participant "Business System" as system #85CEFA
+
+User -> agent : "What's the status of order #123456789?"
+activate agent #85CEFA
+
+agent -> model : user message: "What's the status of order #123456789?"
+activate model #ffa5d2
+
+model --> agent : call the function "check order status" with order ID: 123456789
+deactivate model
+
+agent -> system : check order 123456789
+activate system #85CEFA
+
+system --> agent : order status information
+deactivate system
+
+agent -> model : message history, plus order status information
+activate model #ffa5d2
+
+model --> agent : "Your order is in transit and is currently located in..."
+deactivate model
+
+agent --> User : "Your order is in transit and is currently located in..."
+deactivate agent
+
+@enduml

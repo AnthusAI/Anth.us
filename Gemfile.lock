@@ -1,0 +1,29 @@
+GIT
+  remote: https://github.com/VenueDriver/plantuml_diagrams
+  revision: 403633b5cea4c516487811063a2f53bb26ff1f10
+  branch: main
+  specs:
+    plantuml_diagrams (0.1.0)
+      fileutils (~> 1.5)
+      filewatcher (~> 1.0)
+      pil (~> 0.1)
+      thor (~> 1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    fileutils (1.7.2)
+    filewatcher (1.1.1)
+      optimist (~> 3.0)
+    optimist (3.1.0)
+    pil (0.4.0)
+    thor (1.3.0)
+
+PLATFORMS
+  x86_64-darwin-22
+
+DEPENDENCIES
+  plantuml_diagrams!
+
+BUNDLED WITH
+   2.4.20

@@ -2,12 +2,10 @@ import * as React from "react";
 import { StaticImage } from 'gatsby-plugin-image'
 
 const moreLinks = [
-  { text: "Join us on Discord", url: "https://discord.gg/f2TtbVx5" },
+  { text: "Follow us on GitHub", url: "https://github.com/Anth-us" },
   { text: "Connect on LinkedIn", url: "https://www.linkedin.com/in/ryanalynporter/" },
-  { text: "Follow us on GitHub", url: "https://github.com/Anth-us" }
+  { text: "Join us on Discord", url: "https://discord.gg/f2TtbVx5" }
 ]
-
-const utmParameters = `?utm_source=anthus&utm_medium=footer`
 
 const Footer = () => {
 
@@ -17,7 +15,7 @@ const Footer = () => {
         <div className="links">
           {moreLinks.map((link, i) => (
             <React.Fragment key={link.url}>
-              <a href={`${link.url}${utmParameters}`}>{link.text}</a>
+              <a href={`${link.url}`}>{link.text}</a>
               {i !== moreLinks.length - 1 && <> · </>}
             </React.Fragment>
           ))}

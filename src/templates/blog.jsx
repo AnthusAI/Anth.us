@@ -42,13 +42,14 @@ const CollectionTemplate = ({ data }) => {
                       <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
-                    <div className='date'>{node.frontmatter.date}</div>
+                    <div className='date'>{formatDate(node.frontmatter.date)}</div>
                     <p>{node.frontmatter.excerpt}</p>
                   </li>
                 </div>
               );
             })}
           </ul> */}
+
         </div>
       </article>
     </Layout>
@@ -80,7 +81,8 @@ export const pageQuery = graphql`
       }
     }
     draftPosts: allMdx(
-      filter: { frontmatter: { state: { eq: "draft" } } }
+      # filter: { frontmatter: { state: { eq: "draft" } } }
+      filter: { frontmatter: { state: { ne: "published" }, tags: { nin: ["solutions"] } } }
       sort: { fields: [frontmatter___date], order: DESC }
     ) {
       edges {
