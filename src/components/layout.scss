@@ -682,7 +682,7 @@ ul {
   display: flex;
   flex-direction: column;
   padding: 0 var(--space-2) var(--space-2) var(--space-2);
-  margin-bottom: 1em;
+  margin-bottom: var(--space-4);
   .title {
     width: 100%;
     text-align: center;
@@ -717,15 +717,19 @@ ul {
       }
     }
   }
+  .container.technologyStack {
+    text-align: center;
+    p {
+      margin-bottom: 0;
+    }
+  }
 }
 .blockDiagram.request {
-  color: #FFF;
-  padding: var(--space-4);
+  color: var(--color-layout-bg);
   background-color: var(--color-gradient-end);
 }
 .blockDiagram.response {
-  color: #FFF;
-  padding: var(--space-4);
+  color: var(--color-layout-bg);
   background-color: var(--color-gradient-start);
 }
 
@@ -733,24 +737,24 @@ ul {
   display: flex;
   align-items: stretch;
   text-align: left;
+  margin-bottom: var(--space-4);
 
   .left-side, .right-side {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: var(--space-4);
 
     h4 {
-      margin-bottom: 10px;
+      margin-bottom: 1em;
     }
 
     .item {
-      margin-bottom: 10px;
+      margin-bottom: 1em;
     }
   }
 
   .separator {
-    width: 3px;
+    width: 0.25ex;
     background-color: var(--color-gradient-start);
     margin: 0 2em;
   }
@@ -813,6 +817,21 @@ footer {
     .draft-overlay-text {
       font-size: 8em;
     }  
+  }
+  .blockDiagram {
+    font-size: var(--font-sm);
+    padding: 0 var(--space-1) var(--space-1) var(--space-1);
+    .container {
+      padding: var(--space-1);
+      .messages {
+        .role {
+          padding: 1ex var(--space-2);
+        }
+        .content {
+          padding: 1ex var(--space-2);
+        }
+      }
+    }
   }
 }
 
