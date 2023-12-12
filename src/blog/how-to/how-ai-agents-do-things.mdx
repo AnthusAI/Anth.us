@@ -1,0 +1,277 @@
+---
+title: "How AI Agents Do Things"
+slug: "how-ai-agents-do-things"
+date: "2007-09-15"
+authors:
+  - author: <a href="/ryan">Ryan Alyn Porter</a>
+  - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
+tags: ["solutions", "featured"]
+excerpt: You can use function-calling to bring live, dynamic information into your agent conversations.  And you can enable your agents to take action on your behalf by giving them tools they can use.  Here's how it works, with a working code example that you can run yourself.
+preview_image: "./images/ai-agent-uses-tools.png"
+images: ["./images/ai-agent-uses-tools.png"]
+state: draft
+---
+
+import BlogImage from '../../components/blog-image';
+
+When I wrote this in December, ChatGPT's knowledge cutoff date was months before in March.  It doesn't know about any news that happened after March.
+
+But some AI agents can tell you about things that happened after the knowledge cutoff date.  So, how does that work?  How can an AI agent look up the status of an order if information about that order wasn’t included in the AI model’s pre-training?
+
+## Give tools to the AI model
+
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-uses-tools.png" className="right" alt="An AI agent with a collection of tools." />
+
+Imagine you’re having a conversation with an assistant at an airline who can type on their airline terminal at superhuman speeds to fetch the latest information to answer your questions.
+
+This is akin to what happens when we interact with an agent based on OpenAI technology that can look up facts.  Imagine the assistant pausing the conversation to use a tool to look up the latest data or perform a quick calculation.  Or maybe it uses the tool to change something.  Maybe it sends a message or starts some process.
+
+These tools that the model can use are the "functions": A computer program that you give to the agent that it can use when necessary.
+
+## How does the AI model use the tools?
+
+But how does that work?  How does the AI model run the function for you?  If you're building an AI agent and you want to use functions, then do you upload your function code to OpenAI for them to run when the model needs to call your function, like when you upload your function code to AWS Lambda?  How do you provide it with the credentials for accessing your private information when it runs in OpenAI's cloud servers?  What programming languages can you use?  How fast or slow will it run, and how can you adjust that?
+
+The answer to all these questions is simple and elegant: <mark>You run the function yourself.</mark>  The OpenAI model doesn't directly run the function, it just tells you to do it, and how.  It tells you the name of the function to run and it gives you the parameters to use.  You do it yourself and you report back to OpenAI once you have results.  You end up calling the API two times instead of once.  You “augment” the second API request with the results of the function call.
+
+Magic!
+
+## A basic request and response
+
+Let's see at what it looks like.  Here's a simple request from an agent application to the OpenAI API:
+
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to OpenAI
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      conversation history
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">system</td>
+        <td className="content">You are a helpful agent for an online store.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Hello.</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+The OpenAI API send a response that includes the next message in the conversation history, from the AI agent.  Those are labeled with the role "agent".
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from OpenAI to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Hello, how can I help you?</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+## Now let's give it tools
+
+As the application, we're responsible for managing the conversation history.  OpenAI doesn't maintain any sort of session state on their side.  Every time we send the next request in a conversation to the OpenAI API, we must provide the conversation history.  We do that by taking the previous conversation history and adding the latest response from the AI, and the latest message from the user.
+
+This time, we'll also give it a couple of functions that it could call if it decides that it should.  We add a list of those functions to the request along with the conversation history.  Each function is a description to the AI model that tells it the name of the function, what it's for, and how to call it.  Different functions require different parameters, and you use this description to tell it that when it wants to look up an order ID, it needs to provide an order ID.  Or that when it wants to create a new order, it needs to provide the customer information and the order items.
+
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to OpenAI
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      conversation history
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">system</td>
+        <td className="content">You are a helpful agent for an online store.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Hello.</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Hello, how can I help you?</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">What's the status of order 123456789?</td>
+      </tr>
+    </table>
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      functions
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">check order status</td>
+        <td className="content">Call this function with the order ID and it will give you the status of that order.</td>
+      </tr>
+      <tr>
+        <td className="role">create order</td>
+        <td className="content">Call this function with the items that the customer wants to order and the customer's information, and it will create a new order.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+When the OpenAI API gets that request, what's in the request is the only thing that it knows about the conversation history, or about what functions are available, or anything.
+
+## The agent asks you to call a function
+
+So, it looks at the situation and it concludes that the user is asking it for the status of order ID 123456789.  It looks at its list of functions available, and it sees that there's a function called "check order status" that requires an order ID.  Hey, look!  We have an order ID!  The planets are aligning!
+
+The AI model will check on that order ID by responding like this:
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from OpenAI to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">function</td>
+        <td className="content">Call the "check order status" function for order ID 123456789.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+As the application, it is now your job to do that thing, whatever it's called in your programming language.  Your code queries your system to get raw order details:
+
+<pre>
+<code>
+orderId: 123456789
+status: 046-IN-TRANSIT
+lastUpdate: 1648762800000
+location: OAKLAND, CA
+</code>
+</pre>
+
+Great, you have some raw data but you can't show that ugly stuff to the user.
+
+## Use the AI to describe the results
+
+To generate an AI response to the user, you send a second API request to the OpenAI API.  It's just like before, you're sending a conversation history with the request, and that's the only way that the AI model knows anything about what's going on.  In that history, it sees that the user asked a question, it decided to call a function, and it sees the results of the function call.
+
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to OpenAI
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      conversation history
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">system</td>
+        <td className="content">You are a helpful agent for an online store.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Hello.</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Hello, how can I help you?</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">What's the status of order 123456789?</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Call the "check order status" function for order ID 123456789.</td>
+      </tr>
+      <tr>
+        <td className="role">function</td>
+        <td className="content">Name: "check order status"  Results: orderId: 123456789, status: 046-IN-TRANSIT, lastUpdate: 1648762800000, location: OAKLAND, CA</td>
+      </tr>
+
+    </table>
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      functions
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">check order status</td>
+        <td className="content">Call this function with the order ID and it will give you the status of that order.</td>
+      </tr>
+      <tr>
+        <td className="role">create order</td>
+        <td className="content">Call this function with the items that the customer wants to order and the customer's information, and it will create a new order.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+The AI model will take the value that you gave it and use that to generate the next message in the conversation:
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from OpenAI to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Order ID 123456789 is in transit, in Oakland, California.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+## Division of responsibilities
+
+Managing the conversation history is our prerogative as the application, which gives us an Orwellian control over the past and the present.  We can use that to insert things like the status information for an order, or proprietary facts, or anything that might be useful to the model.
+
+We're also executing the functions, which eliminates any concerns about the complexities of deploying your code into the OpenAI API to run it.
+
+We're doing all the real work ourselves when we use function calling, but we're using the reasoning ability of the AI model to decide what tools to use, when to use them, and how to use them.
+
+<div class="comparisonChart">
+  <div class="left-side">
+    <h4>Application</h4>
+    <div class="item">Manage conversation history</div>
+    <div class="item">Execute functions</div>
+  </div>
+  <div class="separator"></div>
+  <div class="right-side">
+    <h4>AI Model</h4>
+    <div class="item">Generate text</div>
+    <div class="item">Decide what tools to use, when and how</div>
+  </div>
+</div>
+
+## See it for yourself
+
+Go and create an OpenAI secret key and open this Colab notebook, where you can see this for yourself.
+
+...
+
+## Not just a pleasant conversationalist
+
+To wrap it up, think of the AI agent as a super-helpful airline desk assistant, but with some extra tricks up its sleeve. It's not just there for a chat – it can quickly handle tasks like making bookings or finding out flight details. And it does all this quicker than even the fastest-typing airline staff. While this method requires an additional step, the payoff is substantial: a live connection to the real world.  AI models that can do things for you, which is the definition of an AI agent.

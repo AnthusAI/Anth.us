@@ -229,17 +229,20 @@ code {
   padding-bottom: 0.25em;
   padding-top: 0.25em;
   word-break: normal;
+  p {
+    margin-bottom: 0;
+  }
 }
 pre code {
   background: none;
 }
-code:before,
-code:after,
-tt:before,
-tt:after {
-  content: "\00a0";
-  letter-spacing: -0.2em;
-}
+// code:before,
+// code:after,
+// tt:before,
+// tt:after {
+//   content: "\00a0";
+//   letter-spacing: -0.2em;
+// }
 pre code:before,
 pre code:after,
 pre tt:before,
@@ -508,6 +511,7 @@ article {
     align-items: flex-start;
     overflow: hidden;
     pointer-events: none;
+    z-index: 1;
   }
 
   .draft-overlay-text {
@@ -670,6 +674,85 @@ ul {
       margin-left: 2ex;
       margin-bottom: 1ex;
     }
+  }
+}
+
+.blockDiagram {
+  border-radius: 1ex;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-2) var(--space-2) var(--space-2);
+  margin-bottom: 1em;
+  .title {
+    width: 100%;
+    text-align: center;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .container {
+    padding: var(--space-2);
+    background-color: var(--color-layout-bg);
+    color: var(--color-text);
+    border-radius: 1ex;
+    &:not(:first-of-type) {
+      margin-top: 1em;
+    }
+    .messages {
+      width: 100%;
+      border-collapse: separate; 
+      border-spacing: 0 8px;
+      tr {
+        background-color: #EEE;
+      }
+      .role {
+        font-family: var(--font-mono);
+        padding: 1ex var(--space-4);
+        border-radius: 1ex 0 0 1ex;
+      }
+      .content {
+        width: 100%;
+        padding: 1ex var(--space-4);
+        border-radius: 0 1ex 1ex 0;
+      }
+    }
+  }
+}
+.blockDiagram.request {
+  color: #FFF;
+  padding: var(--space-4);
+  background-color: var(--color-gradient-end);
+}
+.blockDiagram.response {
+  color: #FFF;
+  padding: var(--space-4);
+  background-color: var(--color-gradient-start);
+}
+
+.comparisonChart {
+  display: flex;
+  align-items: stretch;
+  text-align: left;
+
+  .left-side, .right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4);
+
+    h4 {
+      margin-bottom: 10px;
+    }
+
+    .item {
+      margin-bottom: 10px;
+    }
+  }
+
+  .separator {
+    width: 3px;
+    background-color: var(--color-gradient-start);
+    margin: 0 2em;
   }
 }
 
