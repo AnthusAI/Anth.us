@@ -160,9 +160,7 @@ pre {
   margin-right: 0;
   margin-top: 0;
   margin-bottom: var(--space-4);
-  font-size: 0.875rem;
-  line-height: var(--line-height-normal);
-  background: hsla(0, 0%, 0%, 0.04);
+  background: #9B165D10;
   border-radius: var(--border-radius);
   overflow: auto;
   word-wrap: normal;
@@ -841,7 +839,7 @@ footer {
     }  
   }
   .blockDiagram {
-    font-size: var(--font-sm);
+    // font-size: var(--font-sm);
     padding: 0 var(--space-1) var(--space-1) var(--space-1);
     .container {
       padding: var(--space-1);
@@ -865,6 +863,11 @@ footer {
     .draft-overlay-text {
       font-size: 5em;
     }  
+  }
+  .layout {
+    .wrapper {
+      max-width: calc(100vw - (2 * var(--size-gutter)));
+    }
   }
 }
 
