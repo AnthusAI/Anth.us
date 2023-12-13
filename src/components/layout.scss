@@ -674,11 +674,12 @@ ul {
   }
 }
 
-ul {
+ul.branded {
   list-style: none; /* Remove default bullets */
+  list-style-position: outside;
 }
 
-ul li::before {
+ul.branded li::before {
   content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
   color: #ffa5d2; /* Change the color */
   font-weight: bold; /* If you want it to be bold */
@@ -790,6 +791,38 @@ ul li::before {
     background-color: #ffa5d2;
     margin: 0 2em;
   }
+}
+
+.job-entry {
+  display: flex;
+  flex-direction: column;
+  .company-name {
+    font-family: var(--font-serif);
+    font-size: var(--font-lg);
+  }
+  .job-title {
+    font-weight: 600;
+  }
+  .date-range {
+    margin-top: var(--space-2);
+    font-weight: 400;
+    font-style: italic;
+  }
+  .location {
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: var(--space-2);
+  }
+  p {
+    margin-bottom: var(--space-2);
+  }
+  ul {
+    list-style-type: none;
+    li {
+      margin-bottom: var(--space-2);
+    }
+  }
+  margin-bottom: var(--space-4);
 }
 
 footer {
