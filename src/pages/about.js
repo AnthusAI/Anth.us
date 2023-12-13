@@ -14,7 +14,7 @@ const AboutPage = () => {
           <h1>About us</h1>
           <p>
             <img src="/assets/images/ryan-porter.png" alt="About Anthus" className="responsive-float-right-image" />
-            In 2009, <a>Ryan Porter</a> developed an innovative event ticket sales system for
+            In 2009, <a href="/ryan">Ryan Porter</a> developed an innovative event ticket sales system for
             a <a href="https://en.wikipedia.org/wiki/Kaleidoscope_World_Tour">Tiësto world tour</a>, 
             sparking a business that generated up to $64 million annually
             for <mark>over fourteen years.</mark> We came together as a team as the business expanded, 
