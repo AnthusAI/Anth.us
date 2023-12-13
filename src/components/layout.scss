@@ -902,15 +902,7 @@ footer {
   }
 }
 
-/* For portrait tablets */
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-}
-
-/* For wide tablets and small desktops */
-@media only screen and (min-width: 901px) and (max-width: 1200px) {
-  /* Styles */
-}
-@media only screen and (min-width: 901px) {
+@media only screen and (min-width: 941px) {
   .hero {
     .hero-image {
       height: 600px;
@@ -920,6 +912,11 @@ footer {
           object-position: 0 90%;
         }
       }
+    }
+  }
+  .layout {
+    .wrapper {
+      max-width: 940px;
     }
   }
 }
