@@ -259,7 +259,7 @@ pre tt:after {
     flex: 1;
     padding: 0 var(--size-gutter) var(--size-gutter) var(--size-gutter);
     margin: 0 auto;
-    max-width: calc(100vw - (2 * var(--size-gutter)));
+    max-width: calc(100vw);
     background-color: var(--color-wrapper-bg);
   }
 
@@ -950,6 +950,11 @@ footer {
 }
 
 @media only screen and (min-width: 941px) {
+  .layout {
+    .wrapper {
+      max-width: calc(100vw - (2 * var(--size-gutter)));
+    }
+  }
   .hero {
     .hero-image {
       height: 600px;
