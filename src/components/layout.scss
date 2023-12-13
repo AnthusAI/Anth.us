@@ -258,7 +258,7 @@ pre tt:after {
     flex: 1;
     padding: 0 var(--size-gutter) var(--size-gutter) var(--size-gutter);
     margin: 0 auto;
-    max-width: var(--size-content);
+    max-width: calc(100vw - (2 * var(--size-gutter)));
     background-color: var(--color-wrapper-bg);
   }
 
@@ -744,12 +744,10 @@ ul {
   }  
 }
 .blockDiagram.request {
-  color: var(--color-layout-bg);
-  background-color: var(--color-gradient-end);
+  background-color: #85CEFA;
 }
 .blockDiagram.response {
-  color: var(--color-layout-bg);
-  background-color: var(--color-gradient-start);
+  background-color: #ffa5d2;
 }
 
 .comparisonChart {
@@ -863,11 +861,6 @@ footer {
     .draft-overlay-text {
       font-size: 5em;
     }  
-  }
-  .layout {
-    .wrapper {
-      max-width: calc(100vw - (2 * var(--size-gutter)));
-    }
   }
 }
 
