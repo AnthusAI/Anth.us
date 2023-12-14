@@ -11,7 +11,7 @@ module.exports = {
   siteMetadata: {
     title: `Anthus`,
     description: `Depend on veteran DevOps experts for your bespoke AI workloads.`,
-    author: `Ryan Alyn Porter`,
+    author: `Ryan Porter`,
     siteUrl: `https://anth.us`,
     menuLinks:[
       {

@@ -151,7 +151,7 @@ const RyansPage = ({ data }) => {
 export const Head = () => {
   return (
     <Seo
-      title="Ryan Alyn Porter"
+      title="Ryan Porter"
       description=""
       image="serverless-ai-software-solutions.png"
     />

@@ -24,7 +24,7 @@ const CollectionTemplate = ({ data }) => {
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
                     <div className='date'>{formatDate(node.frontmatter.date)}</div>
-                    <p>{node.frontmatter.excerpt}</p>
+                    <p dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
                   </li>
                 </div>
               );
