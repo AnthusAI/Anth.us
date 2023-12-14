@@ -12,7 +12,8 @@ const AISolutionsPage = ({ data }) => {
   }, []);
 
   const featuredSolutions = data.solutions.edges.filter(({ node }) => node.frontmatter.tags.includes('featured'));
-  const nonFeaturedSolutions = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured'));
+  const nonFeaturedSolutions = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured') && !node.frontmatter.tags.includes('integrations'));
+  const nonFeaturedIntegrations = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured') && node.frontmatter.tags.includes('integrations'));
 
   return (
     <Layout>
@@ -50,6 +51,27 @@ const AISolutionsPage = ({ data }) => {
 
           <ul className={styles.list}>
             {nonFeaturedSolutions.map(({ node }) => {
+              console.log("Date: ", node.frontmatter.date);
+              const image = getImage(node.frontmatter.preview_image);
+              const date = new Date(node.frontmatter.date);
+              const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
+              return (
+                <li key={node.id} className={styles.listItem}>
+                  {/* <GatsbyImage image={image} alt={node.frontmatter.title} /> */}
+                  <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
+                    <h3>{node.frontmatter.title}</h3>
+                  </a>
+                  <p className={`${styles.listItemDescription} date`}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
+                  <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
+                </li>
+              );
+            })}
+          </ul>
+
+          <h2>Integrations</h2>
+
+          <ul className={styles.list}>
+            {nonFeaturedIntegrations.map(({ node }) => {
               console.log("Date: ", node.frontmatter.date);
               const image = getImage(node.frontmatter.preview_image);
               const date = new Date(node.frontmatter.date);
