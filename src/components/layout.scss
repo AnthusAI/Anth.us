@@ -793,25 +793,26 @@ ul.branded li::before {
   }
 }
 
-.job-entry {
+.experience {
   display: flex;
   flex-direction: column;
   .company-name {
     font-family: var(--font-serif);
     font-size: var(--font-lg);
   }
-  .job-title {
+  .subtitle {
     font-weight: 600;
   }
+  .info {
+    margin: var(--space-2) 0;
+  }
   .date-range {
-    margin-top: var(--space-2);
     font-weight: 400;
     font-style: italic;
   }
   .location {
     font-weight: 400;
     font-style: italic;
-    margin-bottom: var(--space-2);
   }
   p {
     margin-bottom: var(--space-2);

@@ -1,10 +1,8 @@
 import { graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import React, { useEffect } from 'react';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "../components/index.module.css"
-import { format, isValid } from 'date-fns';
+import Solutions from "../components/solutions"
 
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
@@ -30,64 +28,26 @@ const AISolutionsPage = ({ data }) => {
 
           <p>Here are some of our software solutions over the years, increasingly using and focusing on artificial intelligence:</p>
 
-          <ul className={`${styles.list} smallImageList`}>
-            {featuredSolutions.map(({ node }) => {
-              console.log("Date: ", node.frontmatter.date);
-              const image = getImage(node.frontmatter.preview_image);
-              const date = new Date(node.frontmatter.date);
-              const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
-              return (
-                <li key={node.id} className={styles.listItem}>
-                  <GatsbyImage image={image} alt={node.frontmatter.title} />
-                  <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
-                    <h3>{node.frontmatter.title}</h3>
-                  </a>
-                  <p className={`${styles.listItemDescription} date`}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
-                  <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
-                </li>
-              );
-            })}
-          </ul>
+          <Solutions
+            className="smallImageList"
+            solutions={featuredSolutions}
+            showPreviewImage={true}
+            linkToPage={false}
+          />
 
-          <ul className={styles.list}>
-            {nonFeaturedSolutions.map(({ node }) => {
-              console.log("Date: ", node.frontmatter.date);
-              const image = getImage(node.frontmatter.preview_image);
-              const date = new Date(node.frontmatter.date);
-              const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
-              return (
-                <li key={node.id} className={styles.listItem}>
-                  {/* <GatsbyImage image={image} alt={node.frontmatter.title} /> */}
-                  <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
-                    <h3>{node.frontmatter.title}</h3>
-                  </a>
-                  <p className={`${styles.listItemDescription} date`}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
-                  <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
-                </li>
-              );
-            })}
-          </ul>
+          <Solutions
+            solutions={nonFeaturedSolutions}
+            showPreviewImage={false}
+            linkToPage={false}
+          />
 
           <h2>Integrations</h2>
 
-          <ul className={styles.list}>
-            {nonFeaturedIntegrations.map(({ node }) => {
-              console.log("Date: ", node.frontmatter.date);
-              const image = getImage(node.frontmatter.preview_image);
-              const date = new Date(node.frontmatter.date);
-              const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
-              return (
-                <li key={node.id} className={styles.listItem}>
-                  {/* <GatsbyImage image={image} alt={node.frontmatter.title} /> */}
-                  <a className={styles.listItemLink} href={`/blog/${node.frontmatter.slug}`}>
-                    <h3>{node.frontmatter.title}</h3>
-                  </a>
-                  <p className={`${styles.listItemDescription} date`}>{new Date(node.frontmatter.date).toLocaleString('en-US', { year: 'numeric', month: 'long' })}</p>
-                  <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
-                </li>
-              );
-            })}
-          </ul>
+          <Solutions
+            solutions={nonFeaturedIntegrations}
+            showPreviewImage={false}
+            linkToPage={false}
+          />
 
           <h2>Types of solutions</h2>
 
