@@ -27,7 +27,7 @@ When I wrote this in December 2023, the free ChatGPT's knowledge cutoff date was
     accessed: { 'date-parts': [[2023, 12, 12]] },
     issued: { 'date-parts': [[2023, 9, 27]] }
   }}
-/>  It doesn't know about any news that happened after that, which can cause big problems if you ask it factual questions without understanding how the knowledge cutoff works.  If you're like me then you probably have a few friends and relatives who have mentioned using the free ChatGPT for things like medical advice, which is a pretty bad idea.<Citation
+/>  It doesn't know about any news that happened after that, which can cause big problems if you ask it factual questions without understanding how the knowledge cutoff works.  If you're like me, then you probably have a few friends and relatives who have mentioned using the free ChatGPT for things like medical advice, which is a pretty bad idea.<Citation
   data={{
     type: "webpage",
     "container-title": "CNBC",
@@ -179,11 +179,11 @@ There's a structured format (JSON) for describing the functions, but let's skip 
   </div>
 </div>
 
-When the OpenAI API gets that request, what's in the request is the <mark>only thing it knows about the conversation history</mark>, what functions are available, or anything.
+When the OpenAI API gets that request, what's in the request is the <mark>only thing it knows about the conversation history</mark>.
 
 ## The agent asks you to call a function
 
-So, it looks at the situation and it concludes that the user is asking for the status of order ID 123456789.  It looks at its list of available functions and sees a function called "check order status" that requires an order ID.  Hey, look!  We have an order ID!  The planets are aligning!
+So, it looks at the situation and concludes that the user is asking for the status of order ID 123456789.  It looks at its list of available functions and sees a function called "check order status" that requires an order ID.  Hey, look!  We have an order ID!  The planets are aligning!
 
 The AI model will check on that order ID by responding like this:
 
@@ -202,7 +202,7 @@ The AI model will check on that order ID by responding like this:
   </div>
 </div>
 
-As the agent application, performing the task is now your job.  To execute that function.  Your code queries your business system to get raw order details:
+As the agent application, performing the task is now your job.  You must execute that function.  Your code then queries your business system to get raw order details:
 
 <pre>
 <code>
@@ -285,7 +285,7 @@ The AI model will take the value that you gave it and use that to generate the n
     <table className="messages">
       <tr>
         <td className="role">assistant</td>
-        <td className="content">Order ID 123456789 is in transit, in Oakland, California.</td>
+        <td className="content">Order ID 123456789 is in transit in Oakland, California.</td>
       </tr>
     </table>
   </div>
