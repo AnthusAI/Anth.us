@@ -6,9 +6,10 @@ authors:
   - author: <a href="/ryan">Ryan Porter</a>
   - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
 tags: ['explainer', 'how-to']
-excerpt: If you ask an agent to draw a cute kitten and it draws a cute kitten, then has the AI model somehow been equipped with drawing abilities?  How does that work?  Do AI researchers somehow upload new skills into the model like Neo in <i>The Matrix</i>?
+excerpt: How does it work when you ask an AI agent to draw a cute kitten and it draws a cute kitten?  How did it learn to draw?  Do AI researchers somehow upload new skills into the model like Neo in <i>The Matrix</i>?
 preview_image: "./images/ai-agent-uses-tools.png"
-images: 
+images:
+  - ./images/a-cute-kitten.png
   - ./images/ai-agent-uses-tools.png
   - ./diagrams/ai-agent-function-calling-with-no-function.png
   - ./diagrams/ai-agent-function-calling-sequence-diagram.png
@@ -20,7 +21,9 @@ import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 I needed a picture of a cute kitten to post on the Internet, since we all have to do our part or else there would be a shortage.  I asked ChatGPT to make a picture of a cute kitten.  And it made one.
 
-Does the AI model know how to make a picture of a cute kitten?  Did the researchers at OpenAI somehow 'upload' the kitten-drawing skill set into GPT-4, like Neo learning Kung Fu in <i>The Matrix</i> by plugging a cable into the back of his head?
+<BlogImage images={props.pageContext.frontmatter.images} name="a-cute-kitten.png" className="full" alt="A cute kitten." />
+
+How does the AI model know how to make a picture of a cute kitten?  Did the researchers at OpenAI somehow 'upload' the kitten-drawing skill set into GPT-4, like Neo learning Kung Fu in <i>The Matrix</i> by plugging a cable into the back of his head?
 
 Not really.  The answer is simpler, and it's a preview of <mark>a new type of software solution.</mark>
 
