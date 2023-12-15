@@ -796,7 +796,7 @@ ul.branded li::before {
 .experience {
   display: flex;
   flex-direction: column;
-  .company-name {
+  .title {
     font-family: var(--font-serif);
     font-size: var(--font-lg);
   }
@@ -822,6 +822,7 @@ ul.branded li::before {
     li {
       margin-bottom: var(--space-2);
     }
+    margin-bottom: 0;
   }
   margin-bottom: var(--space-4);
 }
