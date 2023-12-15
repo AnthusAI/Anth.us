@@ -21,9 +21,9 @@ import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 I needed a picture of a cute kitten to post on the Internet, since we all have to do our part or else there would be a shortage.  I asked ChatGPT to make a picture of a cute kitten.  And it made one.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="a-cute-kitten.png" className="full" alt="A cute kitten." />
+<BlogImage images={props.pageContext.frontmatter.images} name="a-cute-kitten.png" className="centered" alt="A cute kitten." />
 
-How does the AI model know how to make a picture of a cute kitten?  Did the researchers at OpenAI somehow 'upload' the kitten-drawing skill set into GPT-4, like Neo learning Kung Fu in <i>The Matrix</i> by plugging a cable into the back of his head?
+How did this AI model somehow learn to make a picture of a cute kitten?  Did the researchers at OpenAI somehow 'upload' the kitten-drawing skill set into GPT-4, like Neo learning Kung Fu in <i>The Matrix</i> by plugging a cable into the back of his head?
 
 Not really.  The answer is simpler, and it's a preview of <mark>a new type of software solution.</mark>
 
@@ -35,20 +35,22 @@ Imagine you’re conversing with an airline assistant who can type on their term
 
 This scenario is akin to how it works when we speak with an AI agent that can look up facts or draw pictures.  Imagine the agent pausing the conversation to use a tool to look up the latest data or perform a quick calculation.  Or maybe it uses a different tool to draw something, or send a message, or create an order. Perhaps it sets some long-running process in motion.
 
-These tools that the model can use are the "functions": <mark>A computer program that you give to the agent</mark> that it can use when necessary.  Functions are how you integrate existing systems with AI language models to create AI agents.
+These tools that the model can use are called "actions" in general for AI agents.  <mark>Actions are computer programs that you give to the agent</mark> that it can use when necessary.  In the OpenAI API, "functions" are the basic building block for actions.  In other systems like AWS Lex, you implement actions as Lambda functions.  But it always follows the same basic model of the agent application giving tools to the AI model.
 
 ## How does the AI model use the tools?
 
-But how does that work?  How does the AI model run the function for you?  Do you upload your function code to OpenAI for them to run when the model needs to do things, like when a cloud computing developer uploads their function code to AWS Lambda?  How do you provide it with the credentials for accessing your private information when it runs in OpenAI's cloud servers?  What programming languages can you use?  How fast or slow will it run, and how can you adjust that?  How much memory does it have available?  How much does it cost to run the functions?
+But how does that work?  How does the AI model execute the action for you?  It must be complicated to somehow teach an AI model how to draw a picture or look up an order in a database?  Do you have to re-train the entire AI model every time you plug in some new action?
 
-The answer to all these questions is simple and elegant: <mark>You run the function yourself.</mark>  The OpenAI model doesn't directly run the function, it asks you to do it and report back.  That means that your function can access anything you can, using whatever programming language you want, and you can give it whatever resources it needs.
+The answer to all these questions is simple and elegant: <mark>You perform the actions yourself.</mark>  The AI model doesn't directly run any computer program, it asks you to do it and report back.  That means that your action can access anything you can, using whatever programming language you want, and you can give it whatever resources it needs.
+
+The key concept is that you tell the AI model that the tools are available and how to use them, and it makes decisions about what tools to use and when and how.  But the AI model doesn't do things directly.  If the user asks the AI agent to make a picture of the kitten, then the AI model is responsible for deciding that this would be a good time to draw a kitten.  It will respond to the AI agent application: It's time to draw a kitten, so pull out that "make  image" tool that you told me about and use it to make a picture with the prompt, "A kitten."  The AI agent application is then responsible for using some tool to draw a kitten.  That tool happens to be an AI model also, but the point here is that the large language model that you're conversing with through the AI agent application does not directly make the image itself.  <mark>It orchestrates.</mark>
 
 ## The sequence
 
 Here's what the process looks like.  Normally, a question and answer would look like this:
 
 <div className="center-full-image">
-<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-function-calling-with-no-function.png" className="full" alt="The sequence for reqeust processing for AI agents when there is no function call." />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-function-calling-with-no-function.png" className="full" alt="The sequence for request processing for AI agents when there is no function call." />
 </div>
 
 The agent relays the user's "Hello" message to the model, the model responds, and the agent displays the message for the user in whatever chat UI they're using.  The business system is not involved.
@@ -65,7 +67,9 @@ You end up calling the API two times instead of once.  You “augment” the sec
 
 ## A basic request and response
 
-Let's see what the API requests and responses look like, without any code.  Here's what the simple request from the agent application to the OpenAI API looks like in the first sequence above:
+Let's see what the API requests and responses look like, without any code.  We'll assume that we're working with an OpenAI-style API where the actions are handled through "function-calling".
+
+Here's what the simple request from the agent application to the OpenAI API looks like in the first sequence above:
 
 <div className="blockDiagram request">
   <div className="title">
@@ -151,21 +155,102 @@ There's a structured format (JSON) for describing the functions, but let's skip 
     <table className="messages">
       <tr>
         <td className="role">check order status</td>
-        <td className="content">Call this function with the order ID and it will give you the status of that order.</td>
+        <td className="content">Call this function with the order ID and it will give you the status of that order.  Required: Order ID.</td>
       </tr>
       <tr>
         <td className="role">create order</td>
-        <td className="content">Call this function with the items that the customer wants to order and the customer's information, and it will create a new order.</td>
+        <td className="content">Call this function with the items that the customer wants to order and the customer's information, and it will create a new order. Required: List of items, customer's information.</td>
       </tr>
     </table>
   </div>
 </div>
 
-When the OpenAI API gets that request, what's in the request is the <mark>only thing it knows about the conversation history</mark>.
+When the AI API gets that request, what's in the request is the <mark>only thing it knows about the conversation history</mark>.
 
-## The agent asks you to call a function
+The AI model can see that it has some tools.  Should it use one?  Remember that the model's job is to make decisions about when to use the tools but not to use them directly.  In this case, the user is asking a question about looking up an order.  The model can see that it has a tool for doing that.  Should it do that now?
 
-So, it looks at the situation and concludes that the user is asking for the status of order ID 123456789.  It looks at its list of available functions and sees a function called "check order status" that requires an order ID.  Hey, look!  We have an order ID!  The planets are aligning!
+It can also see that the "check order status" tool says that it requires an order ID.  But, the conversation doesn't include any order ID.
+
+So, instead of using the "check order status" tool, the model asks for the information that it would need to use that tool:
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from OpenAI to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, I can look up an order for you.  What's the order ID?</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+The user then responds with the order ID:
+
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to OpenAI
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      conversation history
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">system</td>
+        <td className="content">You are a helpful agent for an online store.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Hello.</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Hello, how can I help you?</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Can you look up an order for me?</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, I can look up an order for you.  What's the order ID?</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">The order ID is 123456789.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div className="container conversationHistory">
+    <div className="title">
+      functions
+    </div>
+    <table className="messages">
+      <tr>
+        <td className="role">check order status</td>
+        <td className="content">Call this function with the order ID and it will give you the status of that order.  Required: Order ID.</td>
+      </tr>
+      <tr>
+        <td className="role">create order</td>
+        <td className="content">Call this function with the items that the customer wants to order and the customer's information, and it will create a new order. Required: List of items, customer's information.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+Now the model looks at the situation and concludes that the user is asking for the status of order ID `123456789`.  It looks at its list of available functions and sees a function called "check order status" that requires an order ID.  Hey, look!  We have an order ID!  <b>The planets are aligning!</b>
+
+This is the critical part that the AI model plays in taking action on behalf of the user: <mark>It reasons about what actions to take, when to take action, and how to take action.</mark>
+
+In this case, it can see that the user made a request that an available function can satisfy, and it sees that it has the required parameters.  And so, it <mark>makes the decision to take action.</mark>
+
+## The agent asks you to take an action
 
 The AI model will check on that order ID by responding like this:
 
@@ -225,7 +310,15 @@ To generate an AI response to the user, you send a second API request to the Ope
       </tr>
       <tr>
         <td className="role">user</td>
-        <td className="content">What's the status of order 123456789?</td>
+        <td className="content">Can you look up an order for me?</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, I can look up an order for you.  What's the order ID?</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">The order ID is 123456789.</td>
       </tr>
       <tr>
         <td className="role">assistant</td>
@@ -277,7 +370,7 @@ The AI model will take the value that you gave it and use that to generate the n
 
 Managing the conversation history is our prerogative as the application, which gives us Orwellian control over the past and the present.  We can use that to insert things like the status information for an order, proprietary facts, or anything potentially useful for the model as it generates responses.
 
-We're also executing the functions, eliminating concerns about the complexities of deploying code into the OpenAI API to run it.
+We're also executing the functions, eliminating concerns about the complexities of deploying code into the AI API to run it.
 
 We're doing all the real work ourselves when we use function calling, but we're using the reasoning ability of the AI model to decide what tools to use, when to use them, and how to use them.
 

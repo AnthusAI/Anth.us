@@ -622,7 +622,12 @@ article {
   margin-bottom: var(--base-line-height);
 }
 .gatsby-image-wrapper.full {
-  margin-bottom: 1em;
+  margin-bottom: var(--base-line-height);
+}
+.gatsby-image-wrapper.centered {
+  display: block;
+  width: 66%;
+  margin: 0 auto var(--base-line-height) auto;
 }
 .center-full-image {
   text-align: center;
