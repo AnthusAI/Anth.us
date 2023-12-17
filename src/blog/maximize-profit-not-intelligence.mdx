@@ -21,7 +21,11 @@ state: published
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4. But there's a catch - the cost. It's the story of 2023 in AI, where brilliance comes with a hefty price tag. Now, as 2024 unfolds, the narrative shifts from mere intelligence to profitability.
+Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4. But there's a catch - the cost.  You struggle to reach profitability because of astronomical OpenAI bills.  Those output tokens add up!  It's the story of AI applications in 2023.
+
+The progress in AI intelligence is remarkable, but it comes with rising costs. For startups and businesses with innovative ideas, the financial burden of using state-of-the-art models like GPT 4 can be overwhelming. Balancing the cutting-edge capabilities of these models with sustainable, cost-effective solutions is becoming a critical aspect of AI strategy in the business world.
+
+Now, as 2024 unfolds, the narrative shifts from mere intelligence to profitability.  Once you find a use case with business value and prove the concept, you can maximize profit by reducing your costs, by finding the least-sophisticated model that will suit your task.  It's kind of like how you set the optimal price: It's the maximum price that the market will bear.  In AI applications, the path to profitability is to use the <mark>dumbest model that the problem will bear.</mark>
 
 ## Experiment: Let's make a text classifier
 
@@ -82,7 +86,9 @@ Each sentence in our experiment was transformed into a numerical pattern, an 'em
 
 #### The Challenge of Similarity
 
-Here's where it gets tricky. Although we can quantify similarity, it's not initially clear what level of similarity indicates a sentence is indeed about Spanish immigration law. This uncertainty lays the groundwork for phase two.
+Here's where it gets tricky. Although we can quantify similarity, it's not initially clear what level of similarity indicates a sentence is indeed about Spanish immigration law.  What's the threshold of similarity where you say, "Yes, <i>that</i> sentence is about Spanish immigration law"?
+
+What you need is some way to do some kind of statistical analysis so that you know that threshold.  And that's <mark>exactly what machine learning is for!</mark>
 
 ### Phase Two: The Learning Machine
 
@@ -105,7 +111,7 @@ In essence, our approach combined the art of numerical translation of language w
 
 ## Method
 
-We generated a list of 1,500 fake sentences using GPT 3.5, where each is labeled yes or no: Does the sentence represent a question about Spanish immigration law?  We asked for sentences in English, Spanish and Spanglish.  You can see those in the [`data/labeled.csv`](https://github.com/Anth-us/semantic-text-classification/blob/main/data/labeled.csv) file in the GitHub repository for the experiment.
+We <mark>generated a list of 1,500 fake sentences using GPT 3.5</mark>, where each is labeled yes or no: Does the sentence represent a question about Spanish immigration law?  We asked for sentences in English, Spanish and Spanglish.  You can see those in the [`data/labeled.csv`](https://github.com/Anth-us/semantic-text-classification/blob/main/data/labeled.csv) file in the GitHub repository for the experiment.
 
 We used the [Python notebook](https://github.com/Anth-us/semantic-text-classification/blob/main/Custom_Classifier.ipynb) in the repository to load that data and generate an embedding for each sentence in the file in three different ways:
 
@@ -238,7 +244,7 @@ The way forward in AI isn't just about intellectual prowess. It's about smart ap
 
 ### Maximizing Value, Not Just Intelligence
 
-As we tread into 2024, the focus shifts to maximizing business value. It's about leveraging AI not just for its intelligence but for its <mark>contribution to the bottom line.</mark> It's an era where the economic viability of AI solutions becomes as crucial as their technical brilliance.  Always remember that <mark>your goal in business is to maximize profit</mark>, not intelligence.
+As we move into 2024, the focus shifts to maximizing business value. It's about leveraging AI not just for its intelligence but for its <mark>contribution to the bottom line.</mark> It's an era where the economic viability of AI solutions becomes as crucial as their technical brilliance.  Always remember that <mark>your goal in business is to maximize profit</mark>, not intelligence.
 
 ## References
 
