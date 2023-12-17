@@ -149,6 +149,24 @@ Ada 2 is an embedding model from OpenAI which utilizes transformers like BERT bu
   }}
 /> It's part of the GPT (Generative Pretrained Transformer) family of models known for their effectiveness in language understanding and generation.
 
+Once we had three different files containing the labeled sentences with the embeddings appended, we split each file into a training and an evaluation data set.  We trained a simple machine learning model as a classifier based on that data.
+
+### Logistic regression
+For that, we used logistic regression, a statistical method that's like a skilled goldsmith, discerning which nuggets of text match our sought-after criteria. It operates on a simple yet powerful principle: calculating the likelihood that a new sentence belongs to one of two categories – a binary decision of 'yes' or 'no'.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Statology",
+    title: "Introduction to Logistic Regression",
+    author: "Zach",
+    URL: "https://www.statology.org/logistic-regression/",
+    issued: { 'date-parts': [[2020, 10, 27]] },
+  }}
+/>
+
+Picture logistic regression as a finely-tuned scale. It weighs the unique numerical fingerprints of words – our carefully crafted vector embeddings – and decides how 'heavy' they are in terms of relevance to our categories. By adjusting this scale, logistic regression finds the precise balance point, the exact threshold of similarity, that tips the scale towards a 'yes' or a 'no'. This isn't just a guessing game; it's a calculated decision based on the distinct patterns and relationships our embeddings reveal.
+
+After training the machine-learning models, then we evaluated all three classifiers with our evaluation metrics.
+
 ## Try it yourself
 
 Don't take our word for it: you can try it for yourself for free.  It's amazing that you can train and run the classifiers from a [free Google Colab notebook](https://colab.research.google.com/drive/1THEqXHIvy1IEAzVLvB0rVwwSW30jZ5Ku?usp=sharing).  To use it, just go there and set up two things:
