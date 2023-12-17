@@ -81,7 +81,7 @@ const IndexPage = () => {
       }
 
       recentPosts: allMdx(
-        filter: { frontmatter: { state: { eq: "published" } } }
+        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions"] } } }
         sort: { fields: [frontmatter___date], order: DESC }
         limit: 4
       ) {
