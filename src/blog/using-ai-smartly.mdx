@@ -1,0 +1,227 @@
+---
+title: "Maximize Profit, Not Intelligence"
+slug: "maximize-profit-not-intelligence"
+date: "2023-12-17"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+  - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
+tags: ['explainer', 'how-to']
+excerpt: 2024 won't just be about ever-smarter artificial intelligence.  It will be about intelligently using artificial intelligence.  Unless you're an AI researcher, your goal is to maximize profit.  Not intelligence.
+preview_image: "./images/classifiers/confusion-BERT.png"
+images:
+  - ./images/classifiers/accuracy.png
+  - ./images/classifiers/precision-and-recall.png
+  - ./images/classifiers/ROC-curve.png
+  - ./images/classifiers/confusion-word2vec.png
+  - ./images/classifiers/confusion-BERT.png
+  - ./images/classifiers/confusion-ada-2.png
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4. But there's a catch - the cost. It's the story of 2023 in AI, where brilliance comes with a hefty price tag. Now, as 2024 unfolds, the narrative shifts from mere intelligence to profitability.
+
+## Experiment: Let's make a text classifier
+
+As an example of a use case with business value, we set out to build a machine that can tell if a sentence is asking about Spanish immigration law. It's the kind of thing you might use to route customers in a phone maze, route emails to support agents, classify transcripts of call center recordings, etc.  Sounds straightforward, but it's tricky. Language is complex.
+
+This kind of algorithm is called a "classifier", and there are a lot of ways to make them,<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Levity",
+    title: "Text classifiers in Machine Learning: A practical guide",
+    author: 'Patricia Orza',
+    URL: "https://levity.ai/blog/text-classifiers-in-machine-learning-a-practical-guide",
+    accessed: { 'date-parts': [[2023, 12, 17]] },
+    issued: { 'date-parts': [[2022, 11, 16]] }
+  }}
+/> including some that leverage the latest and greatest language models from companies like OpenAI<Citation
+  data={{
+    type: "webpage",
+    "container-title": "OpenAI",
+    title: "New and improved embedding model",
+    author: ['Ryan Greene','Ted Sanders','Lilian Weng','Arvind Neelakantan'],
+    URL: "https://openai.com/blog/new-and-improved-embedding-model",
+    accessed: { 'date-parts': [[2023, 12, 12]] },
+    issued: { 'date-parts': [[2022, 12, 15]] }
+  }}
+/> and AWS<Citation
+  data={{
+    type: "webpage",
+    "container-title": "AWS",
+    title: "Amazon Titan Embeddings is now generally available",
+    URL: "https://aws.amazon.com/about-aws/whats-new/2023/09/amazon-titan-embeddings-generally-available/",
+    accessed: { 'date-parts': [[2023, 12, 17]] },
+    issued: { 'date-parts': [[2023, 9, 18]] }
+  }}
+/>.  We looked a three different variants on one common way to do it.
+
+### Phase One: Crafting Numerical Fingerprints
+
+Each sentence in our experiment was transformed into a numerical pattern, an 'embedding'. Imagine these embeddings as secret codes that capture the essence of each sentence numerically.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Pinecone",
+    title: "What are Vector Embeddings",
+    author: "Rajat Tripathi",
+    URL: "https://www.pinecone.io/learn/vector-embeddings/",
+    accessed: { 'date-parts': [[2023, 12, 17]] },
+  }}
+/> We have tools that measure how 'similar' these embeddings are, assigning a number to represent the degree of resemblance between any two sentences.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Build In",
+    title: "Understanding Cosine Similarity and Its Applications",
+    author: "Richmond Alake",
+    URL: "https://builtin.com/machine-learning/cosine-similarity",
+    accessed: { 'date-parts': [[2023, 1, 19]] },
+  }}
+/>
+
+#### The Challenge of Similarity
+
+Here's where it gets tricky. Although we can quantify similarity, it's not initially clear what level of similarity indicates a sentence is indeed about Spanish immigration law. This uncertainty lays the groundwork for phase two.
+
+### Phase Two: The Learning Machine
+
+Enter the machine learning model. Its job is to learn from examples - to recognize which numerical patterns correspond to our topic of interest. By examining known questions about immigration law and comparing them to unrelated sentences, the model learns to identify a benchmark for similarity. It's akin to teaching someone to recognize a specific tune among various songs.
+
+#### Beyond Numbers: The Role of a Classifier
+
+While embeddings offer rich, condensed representations of text, they don't inherently categorize sentences. That's where a logistic regression model steps in.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Spot Intelligence",
+    title: "How To Implement Logistic Regression Text Classification In Python With Scikit-learn and PyTorch",
+    author: "Neri Van Otten",
+    URL: "https://spotintelligence.com/2023/02/22/logistic-regression-text-classification-python/",
+    accessed: { 'date-parts': [[2023, 2, 22]] },
+  }}
+/> It's a simple yet effective tool in our arsenal, designed to predict whether a given embedding represents a sentence about Spanish immigration law. The model takes these embeddings and calculates the likelihood of each belonging to our category of interest.
+
+In essence, our approach combined the art of numerical translation of language with the science of pattern recognition, aiming to navigate the subtleties of human language through the lens of AI.
+
+## Method
+
+We generated a list of 1,500 fake sentences using GPT 3.5, where each is labeled yes or no: Does the sentence represent a question about Spanish immigration law?  We asked for sentences in English, Spanish and Spanglish.  You can see those in the [`data/labeled.csv`](https://github.com/Anth-us/semantic-text-classification/blob/main/data/labeled.csv) file in the GitHub repository for the experiment.
+
+We used the [Python notebook](https://github.com/Anth-us/semantic-text-classification/blob/main/Custom_Classifier.ipynb) in the repository to load that data and generate an embedding for each sentence in the file in three different ways:
+
+### Word2Vec
+Word2Vec is a group of models that produce word embeddings by capturing the context of a word in a document.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "Word2Vec Explained",
+    author: "Vatsal",
+    URL: "https://towardsdatascience.com/word2vec-explained-49c52b4ccb71",
+    issued: { 'date-parts': [[2021, 7, 29]] },
+  }}
+/> It leverages neural networks and operates on the principle that words appearing in similar contexts have similar meanings.
+
+### BERT
+BERT stands for Bidirectional Encoder Representations from Transformers. It revolutionized the understanding of context in language models by reading the text in both directions and building a deep context understanding.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "BERT Explained: State of the art language model for NLP",
+    author: "Rani Horev",
+    URL: "https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270",
+    issued: { 'date-parts': [[2018, 11, 10]] },
+  }}
+/> BERT processes words in relation to all the other words in a sentence, rather than one-by-one in order.
+
+### OpenAI's Ada 2
+Ada 2 is an embedding model from OpenAI which utilizes transformers like BERT but is fine-tuned with a diverse set of data and tasks, making it versatile for various NLP applications.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "OpenAI",
+    title: "Embeddings: Use Cases",
+    URL: "https://platform.openai.com/docs/guides/embeddings/use-cases",
+  }}
+/> It's part of the GPT (Generative Pretrained Transformer) family of models known for their effectiveness in language understanding and generation.
+
+## Evaluation metrics
+
+We want to see how well the three different embeddings techniques work for our classifier.  We used these metrics:
+
+**Accuracy**: This is the simplest measure, telling us the proportion of total predictions our model got right.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "Metrics to Evaluate your Machine Learning Algorithm",
+    author: "Aditya Mishra",
+    URL: "https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234",
+    issued: { 'date-parts': [[2018, 2, 24]] },
+  }}
+/> It's a quick way to gauge overall effectiveness.
+
+**Precision and Recall**: These metrics offer a more nuanced view. Precision shows us how many of the sentences identified as questions about Spanish immigration law were actually so. Recall, on the other hand, tells us how many of the actual legal questions our model successfully identified.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Iguazio",
+    title: "What is Recall in Machine Learning?",
+    URL: "https://www.iguazio.com/glossary/recall/",
+    accessed: { 'date-parts': [[2018, 2, 24]] },
+  }}
+/>
+
+**ROC-AUC Score**: This metric helps us understand the trade-offs between true positive rate and false positive rate.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "How to Calculate & Use the AUC Score",
+    author: "Nadim Kawwa",
+    URL: "https://towardsdatascience.com/how-to-calculate-use-the-auc-score-1fc85c9a8430",
+    issued: { 'date-parts': [[2020, 2, 9]] },
+  }}
+/> The AUC (Area Under the Curve) quantifies the model's ability to distinguish between classes - a higher AUC means better discrimination.
+
+**Confusion Matrices**: These are tables that lay out the successes and failures of our predictions in detail. They show four types of outcomes - true positives (correctly identified legal questions), false positives (non-legal questions wrongly identified as legal), true negatives (correctly identified non-legal questions), and false negatives (legal questions missed by the model).<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "Taking the Confusion Out of Confusion Matrices",
+    author: "Allison Ragan",
+    URL: "https://towardsdatascience.com/taking-the-confusion-out-of-confusion-matrices-c1ce054b3d3e",
+    issued: { 'date-parts': [[2018, 10, 10]] },
+  }}
+/> This matrix helps us pinpoint areas where our model might be overconfident or too cautious, guiding us in fine-tuning its performance.
+
+## The Unveiling: Results and Reflections
+
+The models, especially BERT and Ada 2, demonstrated remarkable accuracy and precision. However, Word2Vec, the less sophisticated tool, wasn't far behind.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="accuracy.png" className="centered" alt="Comparison of Model Accuracy Across Different Embeddings" />
+
+The classifier based on BERT encodings performed just as well in terms of accuracy as the classifier based on OpenAI embeddings.  That's interesting since you have to pay OpenAI for embeddings from Ada 2.  But BERT is a widely-available open algorithm that's so cheap and easy to run that you can compute 1,500 sentence embeddings from a free Google Colab notebook in a minute or two.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="precision-and-recall.png" className="centered" alt="Comparison of Precision and Recall Across Different Embeddings" />
+
+As with accuracy, BERT performs just as well as the OpenAI embeddings that you have to pay for.  Word2Vec embeddings, even cheaper to compute since the process is less computationally intense, also perform really well.  But not as well as BERT.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="ROC-curve.png" className="centered" alt="ROC Curve Comparison for Different Embeddings" />
+
+We can see from both the ROC-AUC curve and the confusion matrices that the Word2Vec classifier had some problems with a few false negatives.  But even that simple technique worked really well.  <mark>Maybe well enough for business use.</mark>
+
+<BlogImage images={props.pageContext.frontmatter.images} name="confusion-word2vec.png" className="centered" alt="Confusion matrix for Word2Vec" />
+
+<BlogImage images={props.pageContext.frontmatter.images} name="confusion-BERT.png" className="centered" alt="Confusion matrix for BERT" />
+
+<BlogImage images={props.pageContext.frontmatter.images} name="confusion-ada-2.png" className="centered" alt="Confusion matrix for OpenAI Ada 2" />
+
+As we analyze these results, a broader business lesson emerges. In the AI arena, <mark>more powerful doesn't always mean more valuable.</mark> Just like our experiment, where Word2Vec held its ground against mightier models, businesses need to gauge the cost-effectiveness of AI solutions.
+
+## 2024: The Year of Profitable AI
+
+The way forward in AI isn't just about intellectual prowess. It's about smart application. For startups and established businesses alike, the goal is to align AI investments with financial prudence.
+
+### Maximizing Value, Not Just Intelligence
+
+As we tread into 2024, the focus shifts to maximizing business value. It's about leveraging AI not just for its intelligence but for its <mark>contribution to the bottom line.</mark> It's an era where the economic viability of AI solutions becomes as crucial as their technical brilliance.  Always remember that <mark>your goal in business is to maximize profit</mark>, not intelligence.
+
+## References
+
+<CitationsList citationFormat="apa" />
