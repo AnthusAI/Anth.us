@@ -591,6 +591,11 @@ article {
     font-size: smaller;
   }
   .citation {
+    position: relative;
+    bottom: 0.25em;
+    font-size: var(--font-sm);
+    opacity: 0.75;
+
     &::before {
       content: "[";
     }

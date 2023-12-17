@@ -143,6 +143,24 @@ Ada 2 is an embedding model from OpenAI which utilizes transformers like BERT bu
   }}
 /> It's part of the GPT (Generative Pretrained Transformer) family of models known for their effectiveness in language understanding and generation.
 
+## Try it yourself
+
+Don't take our word for it: you can try it for yourself for free.  It's amazing that you can train and run the classifiers from a [free Google Colab notebook](https://colab.research.google.com/drive/1THEqXHIvy1IEAzVLvB0rVwwSW30jZ5Ku?usp=sharing).  To use it, just go there and set up two things:
+
+1. Use the "Download raw file" feature in GitHub to get the [data file](https://github.com/Anth-us/semantic-text-classification/blob/main/data/labeled.csv) and then upload that as `labeled.csv` to the Colab environment.
+2. Set a secret<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium",
+    title: "How to use Secrets in Google Colab",
+    author: "Parth Dasawant",
+    URL: "https://medium.com/@parthdasawant/how-to-use-secrets-in-google-colab-450c38e3ec75",
+    issued: { 'date-parts': [[2023, 11, 2]] }
+  }}
+/> called `openai` and set the value to your OpenAI API token.  For calling the Ada 2 API.
+
+You can also clone the [GitHub repository](https://github.com/Anth-us/semantic-text-classification) if you want to run it in Sagemaker or on your own machine or whatever.  It should run just about anywhere, with no special GPU power or anything.
+
 ## Evaluation metrics
 
 We want to see how well the three different embeddings techniques work for our classifier.  We used these metrics:
