@@ -591,10 +591,8 @@ article {
     font-size: smaller;
   }
   .citation {
-    position: relative;
-    bottom: 0.25em;
+    height: 100%;
     font-size: var(--font-sm);
-    opacity: 0.75;
 
     &::before {
       content: "[";
@@ -641,7 +639,7 @@ mark {
   -webkit-animation: 12s highlight 0s 1 normal forwards;
           animation: 12s highlight 0s 1 normal forwards;
   background-color: none;
-  background: linear-gradient(90deg, var(--color-mark-start) 25%, var(--color-mark-end) 50%);
+  background: linear-gradient(90deg, var(--color-mark-start) 5%, var(--color-mark-end) 20%);
   background-size: 200% 100%;
   background-position: 100% 0;
 }
