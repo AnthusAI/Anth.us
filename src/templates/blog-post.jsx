@@ -66,21 +66,27 @@ const BlogPostTemplate = ({ data, children }) => {
   );
 };
 
+const removeHTMLTags = (str) => {
+  if (str === null || str === '') return false;
+  else str = str.toString();
+  return str.replace(/<[^>]*>/g, '');
+};
+
 export const Head = ({ location, params, data, pageContext }) => {
   const post = data.mdx;
-  
+
   const siteUrl = data.site.siteMetadata.siteUrl;
   const imageUrl = `${siteUrl}${post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}`;
+  const cleanExcerpt = removeHTMLTags(post.frontmatter.excerpt);
 
   return (
     <Seo
       title={post.frontmatter.title}
-      description={post.frontmatter.excerpt}
+      description={cleanExcerpt}
       imageURL={imageUrl}
     />
   )
-} 
-
+}
 
 export const pageQuery = graphql`
   query BlogPostByID($id: String!) {

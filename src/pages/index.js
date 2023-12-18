@@ -126,7 +126,7 @@ const IndexPage = () => {
       url: "/ai-solutions#ai-enabled-projects",
       image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
       description:
-        "Not all AI-enabled solutions use AI at runtime.  We have a <a href=\"/ai-solutions\">long and <mark>proven history</mark></a> of building serverless architectures that deliver business value.",
+        "Not all AI-enabled solutions use AI at runtime.  We have a <a href=\"/ai-solutions\">long and proven history</a> of building serverless architectures that deliver business value.",
     },
     {
       text: "Conversational AI Agents",
@@ -210,7 +210,7 @@ const IndexPage = () => {
                   <h3>{node.frontmatter.title}</h3>
                 </Link>
                 <div className='date'>{node.frontmatter.date}</div>
-                <p>{node.frontmatter.excerpt}</p>
+                <div dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></div>
               </li>
             </div>
           );
