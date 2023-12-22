@@ -919,6 +919,10 @@ footer {
       font-size: 5em;
     }  
   }
+
+  .gatsby-image-wrapper.centered {
+    width: 100%;
+  }  
 }
 
 @media only screen and (min-width: 601px) {
@@ -981,6 +985,10 @@ footer {
       max-width: 940px;
     }
   }
+
+  .gatsby-image-wrapper.centered {
+    width: 50%;
+  }  
 }
 
 /* For super-wide desktops */
