@@ -15,23 +15,55 @@ images:
   - ./images/classifiers/confusion-word2vec.png
   - ./images/classifiers/confusion-BERT.png
   - ./images/classifiers/confusion-ada-2.png
+  - ./images/classifiers/cost_GPT-4_GPT-3.5.png
+  - ./images/classifiers/cost_per_million_GPT-4_GPT-3.5.png
+  - ./images/classifiers/accuracy_GPT-4_GPT-3.5.png
+  - ./images/classifiers/precision_recall_GPT-4_GPT-3.5.png
+  - ./images/classifiers/accuracy_GPT-4_GPT-3.5_Ada_2.png
+  - ./images/classifiers/cost_GPT-4_GPT-3.5_Ada_2.png
 state: published
 ---
 
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4. But there's a catch - the cost.  You struggle to reach profitability because of astronomical OpenAI bills.  Those output tokens add up!  It's the story of AI applications in 2023.
+Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4.  And you worked out a deal!  You can make a profitable venture if you can make an automation that can sentences as being about Spanish immigration law or not about Spanish immigration law, with at least a 95% accuracy, at a price of less than $200 per million classifications.
 
-The progress in AI intelligence is remarkable, but it comes with rising costs. For startups and businesses with innovative ideas, the financial burden of using state-of-the-art models like GPT 4 can be overwhelming. Balancing the cutting-edge capabilities of these models with sustainable, cost-effective solutions is becoming a critical aspect of AI strategy in the business world.
+No problem!  GPT 4's <a href="/blog/how-ai-agents-do-things/">function-calling</a> feature can generate structure responses!  You use GPT 4 in GitHub Copilot to craft a text classifier based on GPT 4, and it's 97% accurate when you evaluate it.  <i>AWESOME</i>, it works!
 
-Now, as 2024 unfolds, the narrative shifts from mere intelligence to profitability.  Once you find a use case with business value and prove the concept, you can maximize profit by reducing your costs, by finding the least-sophisticated model that will suit your task.  It's kind of like how you set the optimal price: It's the maximum price that the market will bear.  In AI applications, the path to profitability is to use the <mark>dumbest model that the problem will bear.</mark>
+But there's a problem: You check the costs on your evaluation run, and the GPT 4 tokens are expensive!  It cost just over $0.40 to do 240 classifications, which means that it would cost... almost 1,700 dollars per million classifications!  Argh!
 
-## Experiment: Let's make a text classifier
+This is the story of 2023: We have amazing new tools, but there's a difference between a cool proof-of-concept demo and a viable business venture.  Now, as 2024 unfolds, the narrative shifts from mere intelligence to profitability.  Once you find a use case with business value and prove the concept, you can maximize profit by reducing your costs, by finding the least-sophisticated model that will suit your task.  It's kind of like how you set the optimal price: It's the maximum price that the market will bear.  In AI applications, the path to profitability is to use the <mark>dumbest model that the problem will bear.</mark>
 
-As an example of a use case with business value, we set out to build a machine that can tell if a sentence is asking about Spanish immigration law. It's the kind of thing you might use to route customers in a phone maze, route emails to support agents, classify transcripts of call center recordings, etc.  Sounds straightforward, but it's tricky. Language is complex.
+## Make it cheaper
 
-This kind of algorithm is called a "classifier", and there are a lot of ways to make them,<Citation
+One easy way to make a GPT 4 solution cheaper is to use GPT 3.5 instead.  It's a really good model!  And it's a great value compared to GPT 4, which is amazing but expensive.
+
+You make a simple tweak to your code to swap the models and you do your evaluation run again to check the cost.  It's much better!  GPT 3.5 is an order of magnitude cheaper:
+
+<BlogImage images={props.pageContext.frontmatter.images} name="cost_GPT-4_GPT-3.5.png" className="center" alt="An AI model learning" />
+
+The best part here is that the cost per million will be below your break-even point of $200 per million.  You're profitable!
+
+<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5.png" className="center" alt="An AI model learning" />
+
+But is it as accurate?  Yes, it's about the same accuracy.  It's enough.  In the evaluation phase you're measuring things like precision and recall and accuracy, and you get about the same results.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="precision_recall_GPT-4_GPT-3.5.png" className="center" alt="An AI model learning" />
+
+The accuracy score is actually a little higher for GPT 3.5 but that might be related to the training data that was generated with GPT 3.5.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5.png" className="center" alt="An AI model learning" />
+
+Now you have a profitable venture.  But your margins are razor thin:
+
+<BlogImage images={props.pageContext.frontmatter.images} name="profit_GPT-4_GPT-3.5.png" className="center" alt="An AI model learning" />
+
+You want to optimize for profit, right?  And in software we optimize through iteration.  Let's try to cut costs.
+
+## Machine-learning text classifiers
+
+This kind of algorithm that you're selling at a profit is called a "classifier", and there are a lot of ways to make them,<Citation
   data={{
     type: "webpage",
     "container-title": "Levity",
@@ -41,7 +73,9 @@ This kind of algorithm is called a "classifier", and there are a lot of ways to 
     accessed: { 'date-parts': [[2023, 12, 17]] },
     issued: { 'date-parts': [[2022, 11, 16]] }
   }}
-/> including some that leverage the latest and greatest language models from companies like OpenAI<Citation
+/> including ways that don't use large language models.  Let's look into making a classifier with machine learning.
+
+One way to do it is to use a different model from OpenAI that isn't a generative text model.  It's an embeddings model, for turning text into strings of numbers.<Citation
   data={{
     type: "webpage",
     "container-title": "OpenAI",
@@ -51,7 +85,7 @@ This kind of algorithm is called a "classifier", and there are a lot of ways to 
     accessed: { 'date-parts': [[2023, 12, 12]] },
     issued: { 'date-parts': [[2022, 12, 15]] }
   }}
-/> and AWS<Citation
+/>  There are similar embeddings models from other companies, like AWS<Citation
   data={{
     type: "webpage",
     "container-title": "AWS",
@@ -60,11 +94,15 @@ This kind of algorithm is called a "classifier", and there are a lot of ways to 
     accessed: { 'date-parts': [[2023, 12, 17]] },
     issued: { 'date-parts': [[2023, 9, 18]] }
   }}
-/>.  We looked a three different variants on one common way to do it.
+/>.
 
-### Phase One: Crafting Numerical Fingerprints
+You can use those numbers to classify the text in any way that you want if you have a lot of examples that you can use for finding patterns in the data.  Here's how:
 
-Each sentence in our experiment was transformed into a numerical pattern, an 'embedding'. Imagine these embeddings as secret codes that capture the essence of each sentence numerically.<Citation
+### Step One: Crafting Numerical Fingerprints
+
+Computers don't understand words, only numbers.  To process words with computers we have to convert them to numbers.  You could just assign every word a number, "cat" is 1, "dog" is 2, etc.  But there are more useful ways.
+
+You can take a sentence and transform it into a numerical pattern, an 'embedding'. Imagine these embeddings as secret codes that capture the essence of each sentence numerically.<Citation
   data={{
     type: "webpage",
     "container-title": "Pinecone",
@@ -73,85 +111,23 @@ Each sentence in our experiment was transformed into a numerical pattern, an 'em
     URL: "https://www.pinecone.io/learn/vector-embeddings/",
     accessed: { 'date-parts': [[2023, 12, 17]] },
   }}
-/> We have tools that measure how 'similar' these embeddings are, assigning a number to represent the degree of resemblance between any two sentences.<Citation
+/>  We have tools that measure how 'similar' these embeddings are, assigning a number to represent the degree of resemblance between any two sentences.<Citation
   data={{
     type: "webpage",
-    "container-title": "Build In",
+    "container-title": "Built In",
     title: "Understanding Cosine Similarity and Its Applications",
     author: "Richmond Alake",
     URL: "https://builtin.com/machine-learning/cosine-similarity",
     accessed: { 'date-parts': [[2023, 1, 19]] },
   }}
-/>
+/>  So, the difference between "cat" and "dog" might be less than the distance between "cat" and "suspension bridge".
 
-#### The Challenge of Similarity
+While embeddings offer rich, condensed representations of text, they don't inherently categorize sentences. How can we build a classifier out of this?
 
-Here's where it gets tricky. Although we can quantify similarity, it's not initially clear what level of similarity indicates a sentence is indeed about Spanish immigration law.  What's the threshold of similarity where you say, "Yes, <i>that</i> sentence is about Spanish immigration law"?
+### Step Two: The Learning Machine
 
-What you need is some way to do some kind of statistical analysis so that you know that threshold.  And that's <mark>exactly what machine learning is for!</mark>
+Enter the machine-learning model. Its job is to learn from examples - to recognize which numerical patterns correspond to our topic of interest. By examining known questions about immigration law and comparing them to unrelated sentences, the model learns to identify a benchmark for similarity. It's akin to teaching someone to recognize a specific tune among various songs.
 
-### Phase Two: The Learning Machine
-
-Enter the machine learning model. Its job is to learn from examples - to recognize which numerical patterns correspond to our topic of interest. By examining known questions about immigration law and comparing them to unrelated sentences, the model learns to identify a benchmark for similarity. It's akin to teaching someone to recognize a specific tune among various songs.
-
-#### Beyond Numbers: The Role of a Classifier
-
-While embeddings offer rich, condensed representations of text, they don't inherently categorize sentences. That's where a logistic regression model steps in.<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Spot Intelligence",
-    title: "How To Implement Logistic Regression Text Classification In Python With Scikit-learn and PyTorch",
-    author: "Neri Van Otten",
-    URL: "https://spotintelligence.com/2023/02/22/logistic-regression-text-classification-python/",
-    accessed: { 'date-parts': [[2023, 2, 22]] },
-  }}
-/> It's a simple yet effective tool in our arsenal, designed to predict whether a given embedding represents a sentence about Spanish immigration law. The model takes these embeddings and calculates the likelihood of each belonging to our category of interest.
-
-In essence, our approach combined the art of numerical translation of language with the science of pattern recognition, aiming to navigate the subtleties of human language through the lens of AI.
-
-## Method
-
-We <mark>generated a list of 1,500 fake sentences using GPT 3.5</mark>, where each is labeled yes or no: Does the sentence represent a question about Spanish immigration law?  We asked for sentences in English, Spanish and Spanglish.  You can see those in the [`data/labeled.csv`](https://github.com/Anth-us/semantic-text-classification/blob/main/data/labeled.csv) file in the GitHub repository for the experiment.
-
-We used the [Python notebook](https://github.com/Anth-us/semantic-text-classification/blob/main/Custom_Classifier.ipynb) in the repository to load that data and generate an embedding for each sentence in the file in three different ways:
-
-### Word2Vec
-Word2Vec is a group of models that produce word embeddings by capturing the context of a word in a document.<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Medium: Towards Data Science",
-    title: "Word2Vec Explained",
-    author: "Vatsal",
-    URL: "https://towardsdatascience.com/word2vec-explained-49c52b4ccb71",
-    issued: { 'date-parts': [[2021, 7, 29]] },
-  }}
-/> It leverages neural networks and operates on the principle that words appearing in similar contexts have similar meanings.
-
-### BERT
-BERT stands for Bidirectional Encoder Representations from Transformers. It revolutionized the understanding of context in language models by reading the text in both directions and building a deep context understanding.<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Medium: Towards Data Science",
-    title: "BERT Explained: State of the art language model for NLP",
-    author: "Rani Horev",
-    URL: "https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270",
-    issued: { 'date-parts': [[2018, 11, 10]] },
-  }}
-/> BERT processes words in relation to all the other words in a sentence, rather than one-by-one in order.
-
-### OpenAI's Ada 2
-Ada 2 is an embedding model from OpenAI which utilizes transformers like BERT but is fine-tuned with a diverse set of data and tasks, making it versatile for various NLP applications.<Citation
-  data={{
-    type: "webpage",
-    "container-title": "OpenAI",
-    title: "Embeddings: Use Cases",
-    URL: "https://platform.openai.com/docs/guides/embeddings/use-cases",
-  }}
-/> It's part of the GPT (Generative Pretrained Transformer) family of models known for their effectiveness in language understanding and generation.
-
-Once we had three different files containing the labeled sentences with the embeddings appended, we split each file into a training and an evaluation data set.  We trained a simple machine learning model as a classifier based on that data.
-
-### Logistic regression
 For that, we used logistic regression, a statistical method that's like a skilled goldsmith, discerning which nuggets of text match our sought-after criteria. It operates on a simple yet powerful principle: calculating the likelihood that a new sentence belongs to one of two categories – a binary decision of 'yes' or 'no'.<Citation
   data={{
     type: "webpage",
@@ -165,7 +141,120 @@ For that, we used logistic regression, a statistical method that's like a skille
 
 Picture logistic regression as a finely-tuned scale. It weighs the unique numerical fingerprints of words – our carefully crafted vector embeddings – and decides how 'heavy' they are in terms of relevance to our categories. By adjusting this scale, logistic regression finds the precise balance point, the exact threshold of similarity, that tips the scale towards a 'yes' or a 'no'. This isn't just a guessing game; it's a calculated decision based on the distinct patterns and relationships our embeddings reveal.
 
-After training the machine-learning models, then we evaluated all three classifiers with our evaluation metrics.
+It's a simple<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Spot Intelligence",
+    title: "How To Implement Logistic Regression Text Classification In Python With Scikit-learn and PyTorch",
+    author: "Neri Van Otten",
+    URL: "https://spotintelligence.com/2023/02/22/logistic-regression-text-classification-python/",
+    accessed: { 'date-parts': [[2023, 2, 22]] },
+  }}
+/> yet effective tool in our arsenal, designed to take an array of "features" as inputs and produce a binary yes/no classification.  That's exactly what we need: We need a model that takes a string of numbers from the vector embeddings and produces a prediction about whether a given embedding represents a sentence about Spanish immigration law.
+
+## Method
+
+We <mark>generated a list of about 1,200 fake sentences using GPT 3.5</mark>, where each is labeled yes or no: Does the sentence represent a question about Spanish immigration law?  We asked for sentences in English, Spanish and Spanglish.  You can see those in the [`data/labeled.csv`](https://github.com/Anth-us/semantic-text-classification/blob/main/data/labeled.csv) file in the GitHub repository for the experiment.
+
+We used the [Python notebook](https://github.com/Anth-us/semantic-text-classification/blob/main/Custom_Classifier.ipynb) in the repository to load that data and generate an embedding for each sentence in the file using the OpenAI Ada 2 embeddings model.  How did it perform?
+
+<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2.png" className="center" alt="An AI model learning" />
+
+The accuracy improved!  Amazing!
+
+### Cost reduction
+
+Even more amazing is the order-of-magnitude cost reduction.  The Ada 2 model only costs $0.0001 / 1K tokens for input and none for output, compared with GPT 3.5 which costs $0.0010 / 1K tokens for input and	$0.0020 / 1K tokens for output.  The cost has dropped so low that you can't even see it on the visualization next to the cost of GPT 4.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="cost_GPT-4_GPT-3.5_Ada_2.png" className="center" alt="An AI model learning" />
+
+Wow!  Let's scale that to a million classifications:
+
+<BlogImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2.png" className="center" alt="An AI model learning" />
+
+And we know why that's important.  An order-of-magnitude increase in profit:
+
+<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2.png" className="center" alt="An AI model learning" />
+
+### Speed improvement
+
+Another incredible thing is how fast machine-learning classifiers are, compared with LLM that generate responses one token at a time.  An ML classifier shifts the time required to a one-time training step, and they're virtually instant at inference time.  GPT 3.5 and GPT 4 don't require any training since they're "pre-trained", but they're super slow when they generate text compared to a machine-learning classifier when the job at hand is text classification.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2.png" className="center" alt="An AI model learning" />
+
+## More!
+
+Can we make it even cheaper?  Can we eliminate the OpenAI bill entirely?
+
+Yes, we can.  OpenAI doesn't have a monopoly on vector embeddings.  There are lots of ways to do it.  We could use AWS, but currently the pricing of the Titan Embeddings model is the same as the price of the OpenAI Ada 2 model, so that won't help us with costs.
+
+But there are algorithms we can run ourselves.  One of them is BERT.
+
+BERT stands for Bidirectional Encoder Representations from Transformers. It revolutionized the understanding of context in language models by reading the text in both directions and building a deep context understanding.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "BERT Explained: State of the art language model for NLP",
+    author: "Rani Horev",
+    URL: "https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270",
+    issued: { 'date-parts': [[2018, 11, 10]] },
+  }}
+/> BERT processes words in relation to all the other words in a sentence, rather than one-by-one in order.  It's a common embeddings model, so let's try it.
+
+### Accuracy
+
+BERT does just as well as Ada 2 at this task, despite being free.  Good to know!
+
+<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT.png" className="center" alt="An AI model learning" />
+
+### Speed
+
+Computing the embeddings using BERT took about the same amount of time as it took to outsource the job to OpenAI.  It took a little less time.
+
+And, like the model based on OpenAI embeddings, it's virtually instant to compute classifications with it.  All the time is in a one-time training step.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT.png" className="center" alt="An AI model learning" />
+
+### Cost
+
+This classifier completely eliminates the OpenAI bill.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="center" alt="An AI model learning" />
+
+### Profit
+
+And that increases profit!
+
+<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="center" alt="An AI model learning" />
+
+## More!
+
+We can't really improve the price of "free".
+
+And we can't improve on a perfect accuracy score.
+
+What can we improve, training time?  Okay, let's try Word2Vec since it's simpler than BERT.  Maybe it will be faster.
+
+Word2Vec is a group of models that produce word embeddings by capturing the context of a word in a document.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium: Towards Data Science",
+    title: "Word2Vec Explained",
+    author: "Vatsal",
+    URL: "https://towardsdatascience.com/word2vec-explained-49c52b4ccb71",
+    issued: { 'date-parts': [[2021, 7, 29]] },
+  }}
+/> It leverages neural networks and operates on the principle that words appearing in similar contexts have similar meanings.
+
+Is it faster?  Yes!  It's so much faster at computing embeddings that you can't even see the blip on this visualization, next to the times that the other models require.  There's a tiny bar there on the bottom right if you squint.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="center" alt="An AI model learning" />
+
+Does it work, though?
+
+<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="center" alt="An AI model learning" />
+
+Oops.  No, it's significantly less accurate.  Okay, let's stop while we're ahead and go with BERT.
 
 ## Try it yourself
 
@@ -232,37 +321,12 @@ We want to see how well the three different embeddings techniques work for our c
   }}
 /> This matrix helps us pinpoint areas where our model might be overconfident or too cautious, guiding us in fine-tuning its performance.
 
-## The Unveiling: Results and Reflections
+## Maximize profit, not intelligence
 
-The models, especially BERT and Ada 2, demonstrated remarkable accuracy and precision. However, Word2Vec, the less sophisticated tool, wasn't far behind.
+You can do amazing things with OpenAI models but you don't always need them.
+BERT is a widely-available, open algorithm that's so cheap and easy to run that you can compute 1,500 sentence embeddings from a free Google Colab notebook in a minute or two.  And it performs just as well as the OpenAI embeddings that you have to pay for.  Word2Vec embeddings, even cheaper to compute since the process is less computationally intense, also perform really well.  Not good enough for this example, but good enough for lots of things.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="accuracy.png" className="centered" alt="Comparison of Model Accuracy Across Different Embeddings" />
-
-The classifier based on BERT encodings performed just as well in terms of accuracy as the classifier based on OpenAI embeddings.  That's interesting since you have to pay OpenAI for embeddings from Ada 2.  But BERT is a widely-available open algorithm that's so cheap and easy to run that you can compute 1,500 sentence embeddings from a free Google Colab notebook in a minute or two.
-
-<BlogImage images={props.pageContext.frontmatter.images} name="precision-and-recall.png" className="centered" alt="Comparison of Precision and Recall Across Different Embeddings" />
-
-As with accuracy, BERT performs just as well as the OpenAI embeddings that you have to pay for.  Word2Vec embeddings, even cheaper to compute since the process is less computationally intense, also perform really well.  But not as well as BERT.
-
-<BlogImage images={props.pageContext.frontmatter.images} name="ROC-curve.png" className="centered" alt="ROC Curve Comparison for Different Embeddings" />
-
-We can see from both the ROC-AUC curve and the confusion matrices that the Word2Vec classifier had some problems with a few false negatives.  But even that simple technique worked really well.  <mark>Maybe well enough for business use.</mark>
-
-<BlogImage images={props.pageContext.frontmatter.images} name="confusion-word2vec.png" className="centered" alt="Confusion matrix for Word2Vec" />
-
-<BlogImage images={props.pageContext.frontmatter.images} name="confusion-BERT.png" className="centered" alt="Confusion matrix for BERT" />
-
-<BlogImage images={props.pageContext.frontmatter.images} name="confusion-ada-2.png" className="centered" alt="Confusion matrix for OpenAI Ada 2" />
-
-As we analyze these results, a broader business lesson emerges. In the AI arena, <mark>more powerful doesn't always mean more valuable.</mark> Just like our experiment, where Word2Vec held its ground against mightier models, businesses need to gauge the cost-effectiveness of AI solutions.
-
-This is a big deal because if you use BERT instead of Ada 2 then you can create a classifier with equivalent performance that <mark>doesn't cost any OpenAI API fees</mark> to operate.  If you had a working business use case based on the classifier that depends on AI, then you could make it cheaper by eliminating the OpenAI costs, with no loss in performance.  (Your information security people will appreciate that also.)
-
-## 2024: The Year of Profitable AI
-
-The way forward in AI isn't just about intellectual prowess. It's about smart application. For startups and established businesses alike, the goal is to align AI investments with financial prudence.  We're all excited about artificial intelligence, but our True North in business is profitability.
-
-As we move into 2024, the focus shifts to maximizing business value. It's about leveraging AI not just for its intelligence but for its <mark>contribution to the bottom line.</mark> It's an era where the economic viability of AI solutions becomes as crucial as their technical brilliance.  Always remember that <mark>your goal in business is to maximize profit</mark>, not intelligence.
+As we analyze these results, a broader business lesson emerges. In the AI arena, <mark>more powerful doesn't always mean more valuable.</mark> Just like our experiment, where BERT held its ground against mightier models, businesses need to gauge the cost-effectiveness of AI solutions.  With just a couple of iterations we turned a non-viable proof-of-concept into a viable business and then improved the profit by orders of magnitude.  The profit is the thing that matters, and that's what our iterations need to focus on.
 
 ## References
 
