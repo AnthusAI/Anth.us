@@ -41,7 +41,7 @@ You went out and did your business development magic and worked out a deal!  You
 
 No problem!  GPT 4's <a href="/blog/how-ai-agents-do-things/">function-calling</a> feature can generate structured responses!  You jump into VS Code and use GPT 4 in GitHub Copilot to craft a text classifier based on GPT 4, and it's 97% accurate when you evaluate it.  <i>AWESOME</i>, it works!
 
-But there's a problem: You check the costs on your evaluation run, and the <mark>GPT 4 tokens are expensive!</mark>  It costs just over $0.40 to do 240 classifications, which means that it would cost... almost 1,700 dollars per million classifications.  The venture would not be profitable.
+But there's a problem: You check the costs on your evaluation run, and wow, <mark>GPT 4 tokens are expensive!</mark>  It costs just over $0.40 to do 240 classifications, which means that it would cost... almost $1,700 per million classifications.  The venture would not be profitable.
 
 This is the story of 2023: We have amazing new tools, but there's a difference between a cool proof-of-concept demo and a viable business venture.  Now, as 2024 unfolds, the narrative shifts from mere intelligence to profitability.  Once you find a use case with business value and prove the concept, you can maximize profit by reducing your costs, by finding the least-sophisticated model that will suit your task.
 
@@ -266,7 +266,9 @@ Does it work, though?
 
 <BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
 
-Oops.  No, it's significantly less accurate.  Okay, let's stop while we're ahead and go with BERT.  <mark>You can't know until you try</mark>.  Now we know.
+Oops.  No, it's significantly less accurate, at 97%.  That's accurate enough for our requirements, but it doesn't seem worth the drop in accuracy to save a few seconds in a one-time pre-training step.  Okay, let's stop while we're ahead and go with BERT.  You can't know until you try it.  Now we know.
+
+Our goal is to use the <mark>dumbest model that the problem will bear.</mark>  To find that point, we have to go all the way to the point where we find a model that's just not good enough.  We have found that point.  It's just like finding the market price for something: You increase the price until the market shows you that the price is too high, and then you lower it to the point where you get sales.  We can do the same thing with AI solutions to find the best value.
 
 ## Try it yourself
 
