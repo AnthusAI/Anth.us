@@ -203,7 +203,7 @@ BERT stands for Bidirectional Encoder Representations from Transformers. It revo
 
 ### Accuracy
 
-BERT does just as well as Ada 2 at this task, despite being free.  Good to know!
+BERT does just as well as Ada 2 at this task, despite being free.  <mark>Good to know!</mark>
 
 <BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
@@ -217,13 +217,13 @@ And, like the model based on OpenAI embeddings, it's virtually instant to comput
 
 ### Cost
 
-This classifier completely eliminates the OpenAI bill.
+This classifier completely eliminates the OpenAI bill.  Which was already so small with Ada 2 that you can't even see it on this visualization compared with the cost of GPT 4 and GPT 3.5.  But <mark>now the cost is <b>zero</b></mark>.
 
 <BlogImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Cost per million classifications across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
 ### Profit
 
-And that increases profit!
+And that increases our profit!  Our <mark>key performance indicator</mark>!
 
 <BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Profit across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
@@ -233,7 +233,7 @@ We can't really improve the price of "free".
 
 And we can't improve on a perfect accuracy score.
 
-What can we improve, training time?  Okay, let's try Word2Vec since it's simpler than BERT.  Maybe it will be faster.
+What can we improve, training time?  Sure, okay, let's try Word2Vec since it's simpler than BERT.  Maybe it will be faster.
 
 Word2Vec is a group of models that produce word embeddings by capturing the context of a word in a document.<Citation
   data={{
@@ -246,7 +246,7 @@ Word2Vec is a group of models that produce word embeddings by capturing the cont
   }}
 /> It leverages neural networks and operates on the principle that words appearing in similar contexts have similar meanings.
 
-Is it faster?  Yes!  It's so much faster at computing embeddings that you can't even see the blip on this visualization, next to the times that the other models require.  There's a tiny bar there on the bottom right if you squint.
+Is it faster?  Yes!  It's so much faster at computing embeddings that you <mark>can't even see the blip</mark> on this visualization, next to the times that the other models require.  There's a tiny bar there on the bottom right if you squint.
 
 <BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Time for training and inference across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
 
@@ -254,7 +254,7 @@ Does it work, though?
 
 <BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
 
-Oops.  No, it's significantly less accurate.  Okay, let's stop while we're ahead and go with BERT.
+Oops.  No, it's significantly less accurate.  Okay, let's stop while we're ahead and go with BERT.  <mark>You can't know until you try</mark>.  Now we know.
 
 ## Try it yourself
 
@@ -310,6 +310,8 @@ We want to see how well the three different embeddings techniques work for our c
   }}
 /> The AUC (Area Under the Curve) quantifies the model's ability to distinguish between classes - a higher AUC means better discrimination.
 
+<BlogImage images={props.pageContext.frontmatter.images} name="ROC-curve.png" className="centered" alt="ROC-AUC curve analysis." />
+
 **Confusion Matrices**: These are tables that lay out the successes and failures of our predictions in detail. They show four types of outcomes - true positives (correctly identified legal questions), false positives (non-legal questions wrongly identified as legal), true negatives (correctly identified non-legal questions), and false negatives (legal questions missed by the model).<Citation
   data={{
     type: "webpage",
@@ -320,6 +322,8 @@ We want to see how well the three different embeddings techniques work for our c
     issued: { 'date-parts': [[2018, 10, 10]] },
   }}
 /> This matrix helps us pinpoint areas where our model might be overconfident or too cautious, guiding us in fine-tuning its performance.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="confusion-BERT.png" className="centered" alt="Confusion matrix for BERT." />
 
 ## Maximize profit, not intelligence
 
