@@ -27,7 +27,17 @@ state: published
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4.  And you went out and did your business development magic and worked out a deal!  You can make a profitable venture if you can make an automation that can classify sentences as being about Spanish immigration law or not about Spanish immigration law, with at least a 95% accuracy, at a price of less than $200 per million classifications.
+Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4.  You set out looking for opportunities in text classifiers:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "HuggingFace",
+    title: "Text Classification",
+    URL: "https://huggingface.co/tasks/text-classification",
+    accessed: { 'date-parts': [[2023, 12, 22]] }
+  }}
+/>  the kind of thing you might use to classify posts on social media, route customers in a phone maze, send emails to support agents, rate transcripts of call center recordings, etc.  Sounds straightforward, but it's tricky. Language is complex.
+
+You went out and did your business development magic and worked out a deal!  You can make a profitable venture if you can make an automation that can classify sentences as being about Spanish immigration law or not about Spanish immigration law, with at least a 95% accuracy, at a price of less than $200 per million classifications.
 
 No problem!  GPT 4's <a href="/blog/how-ai-agents-do-things/">function-calling</a> feature can generate structured responses!  You jump into VS Code and use GPT 4 in GitHub Copilot to craft a text classifier based on GPT 4, and it's 97% accurate when you evaluate it.  <i>AWESOME</i>, it works!
 
@@ -186,7 +196,7 @@ Another incredible thing is how fast machine-learning classifiers are, compared 
 
 ## More!
 
-Can we make it even cheaper?  Can we eliminate the OpenAI bill entirely?
+Can we make it even cheaper?  Can we <mark>eliminate the OpenAI bill entirely</mark>?
 
 Yes, we can.  OpenAI doesn't have a monopoly on vector embeddings.  There are lots of ways to do it.  We could use AWS, but currently the pricing of the Titan Embeddings model is the same as the price of the OpenAI Ada 2 model, so that won't help us with costs.
 
