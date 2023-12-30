@@ -1,0 +1,113 @@
+---
+title: "Optimizing Efficiency Through Teaching Via Data"
+slug: "teaching-via-data"
+date: "2023-12-28"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+  - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
+tags: ['explainer', 'how-to']
+excerpt: We recently demonstrated how a smaller model can solve a problem just as well as a large language model for orders of magnitude lower cost.  But how can you create a small, cheap model that does a job as well as an LLM?  We demonstrate the use of data, rather than distillation, as a method of teaching a smaller model.
+preview_image: "./images/draft-1.png"
+images:
+  - ./images/draft-1.png
+state: draft
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+In our recent demonstration of machine-learning (ML) text classifiers, we demonstrated how a business can change the game by cutting costs by orders of magnitude through the use of AI solutions that [efficiently solve problems](/blog/maximize-profit-not-intelligence/) using smaller, cheaper models.  We showed how a custom-trained ML model can perform as well or even better than more-powerful large language models (LLMs) for specific business use cases.  But how do you create a small, cheap model that can perform as well as an LLM?
+
+## Knowledge distillation
+
+You may have heard about the process of distillation, where you can "teach" a smaller model with a larger model.  Geoffrey Hinton and his co-authors mentioned the analogy of larval insects in the landmark 2015 paper where they introduced the concept:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Google Inc.",
+    title: "Distilling the Knowledge in a Neural Network",
+    author: ["Geoffrey Hinton", "Oriol Vinyals", "Jeff Dean"],
+    URL: "https://arxiv.org/abs/1503.02531",
+    issued: { 'date-parts': [[2015, 3, 9]] },
+  }}
+/>
+
+> Many insects have a larval form that is optimized for extracting energy
+> and nutrients from the environment and a completely different adult form
+> that is optimized for the very different requirements of traveling and
+> reproduction.
+
+They point out that the requirements for a model during training are different from the requirements at runtime, when efficiency becomes more important than the ability to identify patterns and to generalize.  The distillation process that they developed transfers knowledge from large, cumbersome models to "student" models that are efficient enough to use at runtime.
+
+For large language models, the distillation process is generally a form of fine-tuning that connects the outputs of the larger model to the smaller model for training in a sort of mind-meld.  Our goal is to replace the LLM with a simple ML model, not a smaller LLM, so we can't use the distillation process.  But there's a related idea that's even simpler.
+
+## Teaching via data
+
+Rather than using the teacher model in a fine-tuning process for a smaller LLM, we can connect the teacher model to a student model through training data.  This method was described in early 2023 by researchers at Amazon:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Amazon Science",
+    title: "Using large language models (LLMs) to synthesize training data",
+    author: ["Andy Rosenbaum", "Saleh Soltan", "Wael Hamza"],
+    URL: "https://www.amazon.science/blog/using-large-language-models-llms-to-synthesize-training-data",
+    issued: { 'date-parts': [[2023, 1, 20]] },
+  }}
+/>
+
+> To enable models that are lightweight enough for runtime use, even when
+> real training data is scarce, we propose teaching via data (TvD), in which
+> we use an LLM-based “teacher” model to generate synthetic training data
+> for a specific task, then use the generated data to fine-tune a smaller
+> “student” model.
+
+It's a simple process: You use the teacher model to perform the task that you want a smaller model to be able to do, using real data.  That data then becomes a labeled training set for training a small, new ML model from scratch.
+
+## Example: Text classification
+
+In our [recent case study](/blog/maximize-profit-not-intelligence/) on optimizing an AI/ML solution for cost efficiency, we created a text classifier that can recognize inquiries about Spanish immigration law by using GPT 3.5 to generate a set of labeled sentences that either did or did not meet the criteria.  Then we used that as training data to create an ML text classifier using logistic regression.
+
+### Synthesized training data
+
+We generated data that looked like this:
+
+<p>
+<table>
+<tr>
+  <th>label</th>
+  <th>sentence</th>
+</tr>
+<tr><td>0</td><td>The cat sat on the mat.</td></tr>
+<tr><td>1</td><td>How long does the visa application process take for Spain?</td></tr>
+<tr><td>0</td><td>I love sunny days in the park.</td></tr>
+<tr><td>1</td><td>What is the cost of a student visa for Spain?</td></tr>
+</table>
+</p>
+
+### Real training data
+
+Okay, but, "The cat sat on the mat"?
+
+That's an actual sentence that GPT 3.5 generated for our training data set for that classifier.  And it did work really well.  But we can hypothesize that we probably could get better accuracy with real-world classification using more realistic data for training.
+
+The problem is that we're trying to do prompt engineering to create a training dataset that will work, but we're driving blind.  The LLM can only guess at what kinds of sentences it should include as examples.  It doesn't know anything about the typical length of the sentences that the classifier will process at runtime, or typical topics for the non-matching sentences, or anything.  And we could make subtle mistakes in our prompt engineering that could mis-align our training data with our problem.
+
+It would be better to eliminate any prompt engineering from the process entirely so that we can replace any LLM classifier with an ML classifier using only the output of the LLM classifier.  We can do that by simply using the LLM classifier to process some real-world sentences.  Then we can treat the classifications as labels in a training dataset.
+
+## The experiment
+
+[PENDING]
+
+## Results and analysis
+
+[PENDING]
+
+## Economic viability and future potential
+
+[PENDING]
+
+## Conclusion
+
+[PENDING]
+
+## References
+
+<CitationsList citationFormat="apa" />
