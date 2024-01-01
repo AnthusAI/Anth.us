@@ -113,23 +113,23 @@ Continuing scoping work for a call center project, we can't deploy any text clas
 
 We need to transform each call center transcript into a prompt to an LLM that we can use for classifying the speaker.  A simple option is to create a transcript that shows only the utterances from one speaker, masking the other speaker.  For example:
 
-> Speaker A: Thank you for calling ABC Spanish Immigration Law Consultants, how can I help you?
+> Speaker 0: Thank you for calling ABC Spanish Immigration Law Consultants, how can I help you?
 
-> Speaker B: ...
+> Speaker 1: ...
 
-> Speaker A: Certainly, I'll be happy to help you look into that.
+> Speaker 0: Certainly, I'll be happy to help you look into that.
 
-> Speaker B: ...
+> Speaker 1: ...
 
 We would also get a second masked transcript from the same call:
 
-> Speaker A: ...
+> Speaker 0: ...
 
-> Speaker B: Hi, yes, I live in Florida but I want to learn what I would have to do to move to Barcelona?
+> Speaker 1: Hi, yes, I live in Florida but I want to learn what I would have to do to move to Barcelona?
 
-> Speaker A: ...
+> Speaker 0: ...
 
-> Speaker B: Okay, cool.  Thanks.
+> Speaker 1: Okay, cool.  Thanks.
 
 You can see from the example that it's easy to see whether Speaker A is the call center agent or the contact from just a couple of utterances.  So, let's only include the first three utterances from each side in our transcripts.
 
@@ -137,7 +137,7 @@ You can see from the example that it's easy to see whether Speaker A is the call
 
 We'll create a prompt from each masked transcript by adding instructions about classifying the transcript by speaker, giving the LLM a function to call for recording the classification labels.
 
-> The following transcript represents one side of a call center phone call transcript.  We do not know whether this side of the call is from the call center agent or the contact (customer).  Look at the transcript and classify Speaker A as either the agent or the contact.  Respond by calling the `classify_agent_or_contact` function.
+> The following transcript represents one side of a call center phone call transcript.  We do not know whether this side of the call is from the call center agent or the contact (customer).  Look at the transcript and classify Speaker 0 as either the agent or the contact.  Respond by calling the `classify_agent_or_contact` function.
 
 Here's that function definition:
 
@@ -146,7 +146,7 @@ Here's that function definition:
   "type": "function",
   "function": {
     "name": "classify_agent_or_contact",
-    "description": "Identify Speaker A as either the call center
+    "description": "Identify the speaker as either the call center
       agent or the contact/customer",
     "parameters": {
       "type": "object",
