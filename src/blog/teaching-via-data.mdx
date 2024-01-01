@@ -92,9 +92,75 @@ The problem is that we're trying to do prompt engineering to create a training d
 
 It would be better to eliminate any prompt engineering from the process entirely so that we can replace any LLM classifier with an ML classifier using only the output of the LLM classifier.  We can do that by simply using the LLM classifier to process some real-world sentences.  Then we can treat the classifications as labels in a training dataset.
 
+### How much data?
+
+Do we need millions of examples for training a model?  Luckily, no.  Not for task-specific ML models like this.  We got great results from only a thousand records in our previous text classifier example, and there are plenty of examples of training useful classifiers with only hundreds of records.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "arXiv preprint",
+    title: "Characterizing and Classifying Developer Forum Posts with their Intentions",
+    author: ["Xingfang Wu", "Eric Laufer", "Heng Li", "Foutse khomh", "Santhosh Srinivasan", "Jayden Luo"],
+    URL: "https://paperswithcode.com/paper/characterizing-and-classifying-developer",
+    issued: { 'date-parts': [[2023, 12, 21]] },
+  }}
+/>
+
 ## The experiment
 
-[PENDING]
+Continuing scoping work for a call center project, we can't deploy any text classifiers until we do some groundwork first.  We have transcriptions of call center recordings that are labeled Speaker A and Speaker B, but we don't know if Speaker A is the call center agent or the contact.  Before we can deploy any classifiers for detecting useful things in the conversations, we need to identify the speakers.  We'll use this speaker classifier to test the idea of using TvD to train a classifier based on an ML model using an LLM classifier.
+
+### Data preparation
+
+We need to transform each call center transcript into a prompt to an LLM that we can use for classifying the speaker.  A simple option is to create a transcript that shows only the utterances from one speaker, masking the other speaker.  For example:
+
+> Speaker A: Thank you for calling ABC Spanish Immigration Law Consultants, how can I help you?
+
+> Speaker B: ...
+
+> Speaker A: Certainly, I'll be happy to help you look into that.
+
+> Speaker B: ...
+
+We would also get a second masked transcript from the same call:
+
+> Speaker A: ...
+
+> Speaker B: Hi, yes, I live in Florida but I want to learn what I would have to do to move to Barcelona?
+
+> Speaker A: ...
+
+> Speaker B: Okay, cool.  Thanks.
+
+You can see from the example that it's easy to see whether Speaker A is the call center agent or the contact from just a couple of utterances.  So, let's only include the first three utterances from each side in our transcripts.
+
+### Prompt engineering
+
+We'll create a prompt from each masked transcript by adding instructions about classifying the transcript by speaker, giving the LLM a function to call for recording the classification labels.
+
+> The following transcript represents one side of a call center phone call transcript.  We do not know whether this side of the call is from the call center agent or the contact (customer).  Look at the transcript and classify Speaker A as either the agent or the contact.  Respond by calling the `classify_agent_or_contact` function.
+
+Here's that function definition:
+
+```
+{
+  "type": "function",
+  "function": {
+    "name": "classify_agent_or_contact",
+    "description": "Identify Speaker A as either the call center
+      agent or the contact/customer",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "enum[agent, contact]",
+          "description": "Either \"agent\" or \"contact\".",
+        },
+      },
+      "required": ["classification"],
+    },
+  }
+}
+```
 
 ## Results and analysis
 
