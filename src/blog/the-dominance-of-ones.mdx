@@ -400,6 +400,19 @@ Kullback-Leibler is a loss measure that is used a lot in AI for things like RLHF
 
 Cool, right?  For all three measures, the scenario where <mark>just 1% of the transactions buried within an aggregate sum</mark> scored higher than the simulated natural number dataset.  We can see that someone buried structured transactions in the data without seeing the individual transactions, only the daily summaries.
 
+### Real-world example: Crypto fraud by FTX and Binance
+
+A Forbes investigation recently produced evidence of wash-trading aimed at inflating the market price of Binance's BNB token.  One of the things that led them to the conclusion that FTX and Binance colluded to manipulate the crypto markets was, "there appears to be a lack of randomness to these flows that would likely be apparent if they were rooted market related economic activity."<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Forbes",
+    title: "Did FTX Secretly Help Binance Send Tokens To Binance.US For Wash Trading?",
+    URL: "https://www.forbes.com/sites/digital-assets/2023/12/21/did-ftx-secretly-help-binance-send-tokens-to-binanceus-for-wash-trading/?sh=48c545d77560",
+    accessed: { 'date-parts': [[2024, 1, 5]] },
+    issued: { 'date-parts': [[2023, 12, 21]] }
+  }}
+/>  And we know exactly what that sentence is talking about: The amounts on the transactions didn't correspond with the distribution predicted by Benford's Law.
+
 ## Other applications
 
 Catching financial fraudsters is cool, but there are lots of other applications.  You can use Benford's Law to detect the JPEG quality setting that was used to encode an image, for example.  Using the JPEG coefficients from the luminance channel of already compressed JPEG images, and without using any machine learning, an algorithm can predict the quality setting used to encode the image nearly 90% of the time.<Citation
