@@ -20,6 +20,32 @@ In this article, we'll explore LangChain, a powerful framework that simplifies t
 
 Whether you're a beginner or looking to deepen your understanding, this guide will provide a solid foundation through real-world examples.
 
+
+```python
+import tensorflow as tf
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.models import Model
+
+# Define the input shape
+input_shape = (8,)  # Example input features
+
+# Build the model
+inputs = Input(shape=input_shape)
+x = Dense(16, activation='relu')(inputs)
+x = Dense(16, activation='relu')(x)
+outputs = Dense(1, activation='sigmoid')(x)  # Binary classification
+
+# Create the model
+model = Model(inputs=inputs, outputs=outputs)
+
+# Compile the model
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Example of a profound truth in ML: simplicity often works best
+model.summary()
+```
+
+
 ## What is LangChain?
 
 LangChain is a framework designed to facilitate the development of applications powered by large language models (LLMs). It offers tools and abstractions to handle prompts, manage chains of logic, and parse outputs. With LangChain, you can easily create robust and flexible AI-driven workflows without dealing with low-level API calls and prompt engineering complexities.

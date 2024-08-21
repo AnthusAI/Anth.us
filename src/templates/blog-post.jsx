@@ -7,6 +7,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Seo from "../components/seo"
 import BlogImage from '../components/blog-image';
 import { CitationsProvider, Citation, CitationsList } from 'gatsby-citation-manager';
+import MDXCode from "../components/MDXCode";
 
 const BlogPostTemplate = ({ data, children }) => {
 
@@ -27,7 +28,8 @@ const BlogPostTemplate = ({ data, children }) => {
     Link, 
     BlogImage: ({ index, className, alt }) => (
       <BlogImage images={post.frontmatter.images} index={index} className={className} alt={alt} />
-    )
+    ),
+    pre: MDXCode,
   }
 
   return (
