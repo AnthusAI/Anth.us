@@ -33,6 +33,9 @@ LangChain is a framework designed to facilitate the development of applications 
 Before diving into examples, let's start by setting up LangChain in a Python environment. The installation process is straightforward, and you can quickly get up and running with a few simple commands.
 
 ```python
+# Install necessary libraries
+!pip install langchain langchain-community langchain-core langchain-openai
+
 # Set up the OpenAI API key
 from google.colab import userdata
 import os
@@ -70,9 +73,91 @@ response = chain.invoke(question)
 print(response.content)
 ```
 
+The first thing that you'll see when you run this cell is the output from LangChain that we got from using `set_debug(True)`:
+
+```
+[llm/start] [llm:ChatOpenAI] Entering LLM run with input:
+{
+  "prompts": [
+    "Human: What is the capital of France?"
+  ]
+}
+[llm/end] [llm:ChatOpenAI] [732ms] Exiting LLM run with output:
+{
+  "generations": [
+    [
+      {
+        "text": "The capital of France is Paris.",
+        "generation_info": {
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "The capital of France is Paris.",
+            "additional_kwargs": {
+              "refusal": null
+            },
+            "response_metadata": {
+              "token_usage": {
+                "completion_tokens": 7,
+                "prompt_tokens": 14,
+                "total_tokens": 21
+              },
+              "model_name": "gpt-3.5-turbo-0125",
+              "system_fingerprint": null,
+              "finish_reason": "stop",
+              "logprobs": null
+            },
+            "type": "ai",
+            "id": "run-710678c5-1a80-4a8c-8fa3-14a9d1e7e0eb-0",
+            "usage_metadata": {
+              "input_tokens": 14,
+              "output_tokens": 7,
+              "total_tokens": 21
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "token_usage": {
+      "completion_tokens": 7,
+      "prompt_tokens": 14,
+      "total_tokens": 21
+    },
+    "model_name": "gpt-3.5-turbo-0125",
+    "system_fingerprint": null
+  },
+  "run": null
+}
+```
+
+And then you'll see the answer, extracted from the `content` of the first "generation" from the LLM:
+
+```
+The capital of France is Paris.
+```
+
 ## Example 2: Using an Output Parser
 
-When working with language models, the output is often unstructured text. An output parser helps extract and structure this information. In this example, we'll use a regex-based output parser to extract specific information from the model's output.
+That's a great response!  But it's not the actual answer to the question, it is?  It's a sentence, but what we really wanted was a city name.
+
+Welcome to output parsers!  An application built around LLMs has to be able to get structured data back from them.  There are various ways to do that, and the landscape changes constantly, but in general you need code for interpreting what the language model says.  Often, you need to structure it by extracting details from it.
+
+Here's a simple output parser that plucks out those two named entities.  This could work if you had a model fine-tuned to reliably produce sentences in this format:
 
 ```python
 import re
@@ -90,9 +175,15 @@ capital = extract_capital(output)
 print(f"Extracted Capital: {capital}")
 ```
 
+The output of this cell:
+
+```
+Extracted Capital: Paris
+```
+
 ## Example 3: Applying Chains to DataFrame Rows
 
-Now, let's move on to a more complex and practical example. Suppose you have a DataFrame containing questions, and you want to process each row using the chain.invoke method. This is a common task in data processing workflows where you need to generate or enrich data using language models.
+Now, let's move on to a more complex and practical example. Suppose you have a DataFrame containing questions, and you want to process each row.  This is a common task in data processing workflows where you need to generate or enrich data using language models.  With LangChain, you can use the `chain.invoke()` method.
 
 ```python
 import pandas as pd
@@ -121,11 +212,25 @@ df['response'] = df.apply(process_row, axis=1)
 print(df)
 ```
 
+The output of this cell:
+
+```
+   id                                        text  \
+0   1              What is the capital of France?   
+1   2  Who is the president of the United States?   
+2   3            What is the population of Japan?   
+
+                                            response  
+0                    The capital of France is Paris.  
+1  As of October 2021, the President of the Unite...  
+2  As of 2021, the population of Japan is approxi...  
+```
+
 ## Example 4: Combining Output Parsers with DataFrames
 
 In some cases, you might want to combine the use of output parsers with DataFrame processing. This allows you to extract and structure data from the model's output directly within your DataFrame.
 
-```
+```python
 # Extend the process_row function to include parsing
 def process_and_parse_row(row):
     question = row['text']
@@ -141,11 +246,25 @@ df['capital'] = df.apply(process_and_parse_row, axis=1)
 print(df)
 ```
 
+The output of this cell:
+
+```
+   id                                        text  \
+0   1              What is the capital of France?   
+1   2  Who is the president of the United States?   
+2   3            What is the population of Japan?   
+
+                                            response capital  
+0                    The capital of France is Paris.   Paris  
+1  As of October 2021, the President of the Unite...    None  
+2  As of 2021, the population of Japan is approxi...    None  
+```
+
 ## Generalized parser
 
 Using a generalized parser to take into account different outputs
 
-```
+```python
 import re
 
 def generalized_output_parser(output):
@@ -181,6 +300,15 @@ df['parsed_info'] = df.apply(process_and_parse_row, axis=1)
 
 # Display the DataFrame
 print(df[['response', 'parsed_info']])
+```
+
+The output of this cell:
+
+```
+                                            response    parsed_info
+0                    The capital of France is Paris.          Paris
+1  As of October 2021, the President of the Unite...      Joe Biden
+2  As of 2021, the population of Japan is approxi...  126.3 million
 ```
 
 ## Conclusion
