@@ -13,6 +13,7 @@ excerpt: How to orchestrate LLMs to do real work.
 preview_image: "./images/draft-1.png"
 images:
   - ./images/draft-1.png
+  - ./diagrams/LangChain/API-multiplexer.png
 state: draft
 ---
 
@@ -109,7 +110,11 @@ It starts to get harder when you need to connect the same code to more than one 
     URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html",
     issued: { 'date-parts': [[2024, 8, 21]] },
   }}
-/>).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".  Who will keep up with all of it?  You shouldn't.  That's what LangChain is for.
+/>).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".  Who will keep up with all of it?  You shouldn't.  That's what LangChain is for: You can connect your code through LangChain to many different AI APIs.  Your code can worry about its problems while LangChain worries about those details.
+
+<div className="center-full-image">
+<BlogImage images={props.pageContext.frontmatter.images} name="API-multiplexer.png" className="full" alt="LangChain is an AI API multiplexer." />
+</div>
 
 LangChain isn't the only option if all you want is to connect your same code to many different AI APIs.  Another great option is LiteLLM, which makes every AI API look like the OpenAI API so that you can use the same code for everything.  That strategy worked for us -- to a point.  We eventually reached the point where we wanted our framework to be able to take on more responsibility for handling things like the message history.
 
