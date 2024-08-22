@@ -114,53 +114,29 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
-exports.createSchemaCustomization = ({
-  actions: { createTypes, createFieldExtension },
-  createContentDigest,
-}) => {
-  createFieldExtension({
-    name: 'mdx',
-    extend() {
-      return {
-        type: 'String',
-        resolve(source, args, context, info) {
-          // Grab field
-          const value = source[info.fieldName]
-          // Isolate MDX
-          const mdxType = info.schema.getType('Mdx')
-          // Grab just the body contents of what MDX generates
-          const { resolve } = mdxType.getFields().body
- 
-          return resolve({
-            rawBody: value,
-            internal: {
-              contentDigest: createContentDigest(value), // Used for caching
-            },
-            args,
-            context,
-            info,
-          })
-        },
-      }
-    },
-  })
- 
-  createTypes(`
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  const typeDefs = `
     type Mdx implements Node {
-      frontmatter: MdxFrontmatter
+      frontmatter: Frontmatter
     }
- 
-    type MdxFrontmatter {
-      authors: [AuthorValues]
-      assistants: [AssistantValues]
+    type Frontmatter {
+      title: String!
+      date: Date @dateformat
+      slug: String
+      excerpt: String
+      state: String
+      authors: [Author]
+      assistants: [Assistant]
+      preview_image: File @fileByRelativePath
+      images: [File] @fileByRelativePath
     }
- 
-    type AuthorValues {
-      author: String @mdx
+    type Author {
+      author: String
     }
-
-    type AssistantValues {
-      assistant: String @mdx
+    type Assistant {
+      assistant: String
     }
-  `)
+  `
+  createTypes(typeDefs)
 }

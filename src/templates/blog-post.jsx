@@ -48,20 +48,22 @@ const BlogPostTemplate = ({ data, children }) => {
           <div className='heading'>
             <h1>{post.frontmatter.title}</h1>
             <div className='date'>{formatDate(post.frontmatter.date)}</div>
-            <div className='authors'>
-              <span className='byline'>by </span>
-              {post.frontmatter.authors.map((authorObj, index, array) => (
-                <React.Fragment key={index}>
-                  <span className="author">
-                    <Markdown>
-                      {authorObj.author}
-                    </Markdown>
-                  </span>
-                  {index < array.length - 2 && ', '}
-                  {index === array.length - 2 && (array.length > 2 ? ', and ' : ' and ')}
-                </React.Fragment>
-              ))}
-            </div>
+            {post.frontmatter.authors && post.frontmatter.authors.length > 0 && (
+              <div className='authors'>
+                <span className='byline'>by </span>
+                {post.frontmatter.authors.map((authorObj, index, array) => (
+                  <React.Fragment key={index}>
+                    <span className="author">
+                      <Markdown>
+                        {authorObj.author}
+                      </Markdown>
+                    </span>
+                    {index < array.length - 2 && ', '}
+                    {index === array.length - 2 && (array.length > 2 ? ', and ' : ' and ')}
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
             {post.frontmatter.assistants && post.frontmatter.assistants.length > 0 && (
               <div className='assistants'>
                 <span className='byline'>with assistance from </span>
