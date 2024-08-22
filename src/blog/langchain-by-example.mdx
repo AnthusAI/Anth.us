@@ -4,7 +4,7 @@ slug: "langchain-by-example"
 date: "2024-08-20"
 authors:
   - author: Osledy Bazó, Derek Norrbom, and <a href="/ryan">Ryan Porter</a>
-excerpt: LangChain, by example.
+excerpt: How to orchestrate LLMs to do real work.
 preview_image: "./images/draft-1.png"
 images:
   - ./images/draft-1.png
@@ -14,37 +14,15 @@ state: draft
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-## Introduction
+Don't let the articles about AI being the end of software development fool you: It's the *beginning* of a whlle new kind of software development.  But building applications with language models—from traditional ML to modern LLMs—is hard.  Building software is hard enough in the first place before the machines start talking back to you and having opinions.  One tool that's helped us a lot is LangChain, and we want to share some of what we've learned about how easy it is to use.
 
-In this article, we'll explore LangChain, a powerful framework that simplifies the integration of language models into your applications. We'll walk through practical examples to demonstrate how you can leverage LangChain to build intelligent applications. We'll cover tasks such as applying language model outputs to DataFrame rows, using output parsers, and more.
+## Why LangChain?
 
-Whether you're a beginner or looking to deepen your understanding, this guide will provide a solid foundation through real-world examples.
+We didn't start with LangChain. Our initial approach to creating "agentic" applications (a term with as many definitions as developers) was bare-bones: direct Python code for LLM API requests, no frameworks. This gave us control and deep understanding, but it came with challenges.
 
+As we built more sophisticated applications, the complexity grew. We created systems to manage LLM chat histories, switched to LiteLLM to support various AI APIs, and wrote increasingly complex code to parse LLM responses. Soon, we were spending as much time on infrastructure as on solving our core problems.
 
-```python:title=example.py&highlight=8-12
-import tensorflow as tf
-from tensorflow.keras.layers import Dense, Input
-from tensorflow.keras.models import Model
-
-# Define the input shape
-input_shape = (8,)  # Example input features
-
-# Build the model
-inputs = Input(shape=input_shape)
-x = Dense(16, activation='relu')(inputs)
-x = Dense(16, activation='relu')(x)
-outputs = Dense(1, activation='sigmoid')(x)  # Binary classification
-
-# Create the model
-model = Model(inputs=inputs, outputs=outputs)
-
-# Compile the model
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-# Example of a profound truth in ML: simplicity often works best
-model.summary()
-```
-
+We knew we needed a better solution, so we conducted extensive research into various frameworks. We evaluated options like CrewAI, AutoGen, and others. After careful consideration, we chose LangChain. It stood out for its ability to provide power through flexibility and control, while abstracting away many details we didn't want to handle directly. Crucially, LangChain doesn't impose rigid opinions about application architecture, unlike some alternatives that prescribe specific paradigms (such as CrewAI's concept of building applications with "crews" of "agents" with personas).
 
 ## What is LangChain?
 
@@ -54,27 +32,156 @@ LangChain is a framework designed to facilitate the development of applications 
 
 Before diving into examples, let's start by setting up LangChain in a Python environment. The installation process is straightforward, and you can quickly get up and running with a few simple commands.
 
+```python
+# Set up the OpenAI API key
+from google.colab import userdata
+import os
+os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+
+# Show more about what's happening as it happens.
+from langchain.globals import set_debug
+set_debug(True)
+```
+
 Once installed, you're ready to start building with LangChain.
 
 ## Example 1: Basic Chain Invocation
 
 Let's begin with a basic example where we create a simple chain to answer questions. This chain uses a template-based approach to generate prompts for a language model.
 
+```python
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+
+# Define the prompt template
+template = "Answer the question: {question}"
+prompt = PromptTemplate(
+    template=template,
+    input_variables=["question"])
+
+# Create a simple chain using OpenAI's chat model
+chain = ChatOpenAI(temperature=0.7)
+
+# Example question
+question = "What is the capital of France?"
+
+# Invoke the chain
+response = chain.invoke(question)
+print(response.content)
+```
+
 ## Example 2: Using an Output Parser
 
 When working with language models, the output is often unstructured text. An output parser helps extract and structure this information. In this example, we'll use a regex-based output parser to extract specific information from the model's output.
+
+```python
+import re
+
+# Define a simple output parser
+def extract_capital(output):
+    match = re.search(r"The capital of [a-zA-Z\s]+ is ([a-zA-Z\s]+)\.", output)
+    return match.group(1) if match else None
+
+# Example response from the model
+output = "The capital of France is Paris."
+
+# Parse the output
+capital = extract_capital(output)
+print(f"Extracted Capital: {capital}")
+```
 
 ## Example 3: Applying Chains to DataFrame Rows
 
 Now, let's move on to a more complex and practical example. Suppose you have a DataFrame containing questions, and you want to process each row using the chain.invoke method. This is a common task in data processing workflows where you need to generate or enrich data using language models.
 
+```python
+import pandas as pd
+
+# Example DataFrame
+data = {
+    'id': [1, 2, 3],
+    'text': [
+        "What is the capital of France?",
+        "Who is the president of the United States?",
+        "What is the population of Japan?"
+    ]
+}
+df = pd.DataFrame(data)
+
+# Define a function to process each row
+def process_row(row):
+    question = row['text']
+    result = chain.invoke(question)
+    return result.content  # Adjust according to your chain's output format
+
+# Apply the function to each row in the DataFrame
+df['response'] = df.apply(process_row, axis=1)
+
+# Display the DataFrame with the responses
+print(df)
+```
+
 ## Example 4: Combining Output Parsers with DataFrames
 
 In some cases, you might want to combine the use of output parsers with DataFrame processing. This allows you to extract and structure data from the model's output directly within your DataFrame.
 
+```
+# Extend the process_row function to include parsing
+def process_and_parse_row(row):
+    question = row['text']
+    result = chain.invoke(question)
+    output = result.content
+    parsed_output = extract_capital(output)  # Use the previously defined parser
+    return parsed_output
+
+# Apply the enhanced function to each row
+df['capital'] = df.apply(process_and_parse_row, axis=1)
+
+# Display the updated DataFrame
+print(df)
+```
+
 ## Generalized parser
 
 Using a generalized parser to take into account different outputs
+
+```
+import re
+
+def generalized_output_parser(output):
+    # Try to extract a capital city
+    capital_match = re.search(r"The capital of [a-zA-Z\s]+ is ([a-zA-Z\s]+)\.", output)
+    if capital_match:
+        return capital_match.group(1)
+
+    # Try to extract the president's name
+    president_match = re.search(r"President of the United States is ([a-zA-Z\s]+)\.", output)
+    if president_match:
+        return president_match.group(1)
+
+    population_match = re.search(r"population of [a-zA-Z\s]+ is (?:estimated to be|approximately|around|about)?\s*([\d,\.]+)\s*million", output)
+
+    if population_match:
+        return population_match.group(1) + " million"
+
+    # If nothing matches, return None
+    return None
+
+# Applying the parser to the DataFrame
+def process_and_parse_row(row):
+    question = row['text']
+    result = chain.invoke(question)  # Assuming chain.invoke returns a text output
+    # Access the content of the AIMessage object using .content
+    output = result.content
+    parsed_output = generalized_output_parser(output)
+    return parsed_output
+
+# Apply the generalized parser to each row
+df['parsed_info'] = df.apply(process_and_parse_row, axis=1)
+
+# Display the DataFrame
+print(df[['response', 'parsed_info']])
+```
 
 ## Conclusion
 
