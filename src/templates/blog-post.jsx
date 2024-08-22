@@ -49,19 +49,35 @@ const BlogPostTemplate = ({ data, children }) => {
             <h1>{post.frontmatter.title}</h1>
             <div className='date'>{formatDate(post.frontmatter.date)}</div>
             <div className='authors'>
-              <div className='byline'>by</div>
-              <ul className='authors'>
-                {post.frontmatter.authors.map((author) => (
-                  <li key={author.author}>
-                    <div className="author">
-                      <Markdown>
-                        {author.author}
-                      </Markdown>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <span className='byline'>by </span>
+              {post.frontmatter.authors.map((authorObj, index, array) => (
+                <React.Fragment key={index}>
+                  <span className="author">
+                    <Markdown>
+                      {authorObj.author}
+                    </Markdown>
+                  </span>
+                  {index < array.length - 2 && ', '}
+                  {index === array.length - 2 && (array.length > 2 ? ', and ' : ' and ')}
+                </React.Fragment>
+              ))}
             </div>
+            {post.frontmatter.assistants && post.frontmatter.assistants.length > 0 && (
+              <div className='assistants'>
+                <span className='byline'>with assistance from </span>
+                {post.frontmatter.assistants.map((assistantObj, index, array) => (
+                  <React.Fragment key={index}>
+                    <span className="assistant">
+                      <Markdown>
+                        {assistantObj.assistant}
+                      </Markdown>
+                    </span>
+                    {index < array.length - 2 && ', '}
+                    {index === array.length - 2 && (array.length > 2 ? ', and ' : ' and ')}
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
           </div>
           <MDXProvider components={shortcodes}>
             {children}
@@ -110,6 +126,9 @@ export const pageQuery = graphql`
         date
         authors {
           author
+        }
+        assistants {
+          assistant
         }
         preview_image {
           childImageSharp {

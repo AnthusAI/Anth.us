@@ -152,10 +152,15 @@ exports.createSchemaCustomization = ({
  
     type MdxFrontmatter {
       authors: [AuthorValues]
+      assistants: [AssistantValues]
     }
  
     type AuthorValues {
-      value: String @mdx
+      author: String @mdx
+    }
+
+    type AssistantValues {
+      assistant: String @mdx
     }
   `)
 }

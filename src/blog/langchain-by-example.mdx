@@ -3,7 +3,12 @@ title: "LangChain by Example"
 slug: "langchain-by-example"
 date: "2024-08-20"
 authors:
-  - author: Osledy Bazó, Derek Norrbom, and <a href="/ryan">Ryan Porter</a>
+  - author: Osledy Bazó
+  - author: Derek Norrbom
+  - author: <a href="/ryan">Ryan Porter</a>
+assistants:
+  - assistant: ChatGPT
+  - assistant: Claude
 excerpt: How to orchestrate LLMs to do real work.
 preview_image: "./images/draft-1.png"
 images:
@@ -14,7 +19,18 @@ state: draft
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-Don't let the articles about AI being the end of software development fool you: It's the *beginning* of a whlle new kind of software development.  But building applications with language models is hard.  Building software is hard enough in the first place before the machines start talking back to you and having opinions.  One tool that's helped us a lot lately is LangChain, and we'd love to share some examples of how useful it can be.
+You have problems, and you know that AI can help solve them. You also know that you need software to get you there. But automating AI can be a challenge. Software development was hard enough before the machines started talking back and having opinions! Now, it's even more difficult because the components you're building on can be unpredictable, producing different results at different times.
+That's where we come in. Our team specializes in making these advanced tools accessible. One powerful tool we're excited to share with you is LangChain. LangChain helps you stay focused on solving your problems and creating effective solutions, rather than getting bogged down in the complexities of managing the underlying AI technology.
+We'd like to share some examples of practical solutions we've found using LangChain:
+
+* Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
+* Processing large volumes of data, such as analyzing tens of thousands of call center transcripts to generate examples for fine-tuning LLMs.
+* Building robust AI components that can validate LLM output and retry with hints, improving reliability.
+* Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
+
+These are just a few examples of what's possible. Whether you're tackling business challenges, working on academic research, or exploring AI as a hobby, LangChain can help you harness the power of language models more effectively.
+
+With so many approaches available for building AI applications, you might wonder: Why LangChain? Let's explore what makes this tool stand out and how it can streamline your AI development process.
 
 ## Why LangChain?
 

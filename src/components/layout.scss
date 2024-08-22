@@ -523,29 +523,13 @@ article {
     width: 150%;
     margin-top: 100%;
   }
-
   .heading {
     .date {
       margin: 0;
       font-style: italic;
     }
-    div.authors {
-      display: flex;
-      .byline {
-      }
-      ul.authors {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        li {
-          margin: 0 0 0 0.5ex;
-          padding: 0;
-          display: flex;
-        }
-      }
+    div.assistants {
+      opacity: 0.5;
     }
     margin-bottom: var(--base-line-height);
   }
