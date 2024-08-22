@@ -29,7 +29,11 @@ const BlogPostTemplate = ({ data, children }) => {
     BlogImage: ({ index, className, alt }) => (
       <BlogImage images={post.frontmatter.images} index={index} className={className} alt={alt} />
     ),
-    pre: MDXCode,
+    pre: props => {
+      const className = props.children.props.className || '';
+      console.log('pre shortcode:', { className, props })
+      return <MDXCode>{props.children}</MDXCode>;
+    },
   }
 
   return (
