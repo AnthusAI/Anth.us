@@ -20,6 +20,7 @@ import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 You have problems, and you know that AI can help solve them. You also know that you need software to get you there. But automating AI can be a challenge. Software development was hard enough before the machines started talking back and having opinions! Now, it's even more difficult because the components you're building on can be unpredictable, producing different results at different times.
+
 That's where we come in. Our team specializes in making these advanced tools accessible. One powerful tool we're excited to share with you is LangChain. LangChain helps you stay focused on solving your problems and creating effective solutions, rather than getting bogged down in the complexities of managing the underlying AI technology.
 We'd like to share some examples of practical solutions we've found using LangChain:
 
@@ -36,16 +37,7 @@ With so many approaches available for building AI applications, you might wonder
 
 We didn't start with LangChain. Our initial approach to creating "agentic" applications (a term with as many definitions as developers) was bare-bones: Python code for LLM API requests, no frameworks. This gave us control and deep understanding, but it came with challenges.
 
-As we built more sophisticated applications, the complexity grew. We created systems to manage LLM chat histories, switched to LiteLLM<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Vercel",
-    title: "Litellm: A Simple, Intuitive, and Powerful LLM Framework",
-    author: "Litellm",
-    URL: "https://litellm.vercel.app/",
-    issued: { 'date-parts': [[2024, 8, 21]] },
-  }}
-/> to support various AI APIs, and wrote increasingly complex code to parse LLM responses. Soon, we were spending as much time on infrastructure as on solving our core problems.
+As we built more sophisticated applications, the complexity grew. We created systems to manage LLM chat histories, switched to [LiteLLM](https://litellm.vercel.app/) to support various AI APIs, and wrote increasingly complex code to parse LLM responses. Soon, we were spending as much time on infrastructure as on solving our core problems.
 
 We knew we needed a better solution, so we conducted extensive research into various frameworks. We evaluated options like CrewAI, AutoGen, and others. After careful consideration, we chose LangChain. It stood out for its ability to provide power through flexibility and control, while abstracting away many details we didn't want to handle directly. Crucially, LangChain doesn't impose rigid opinions about application architecture, unlike some alternatives that prescribe specific paradigms (such as CrewAI's concept of building applications with "crews" of "agents" with personas).<Citation
   data={{
@@ -62,31 +54,66 @@ We knew we needed a better solution, so we conducted extensive research into var
 
 LangChain is a framework for building applications with LLMs. It handles prompts. It manages logic chains. It parses outputs. With LangChain, you focus on AI workflows for solving your use cases.  You don't have to mess with API calls or the differences between APIs.  It's a simple abstraction that's easy to understand. It's powerful through its flexibility. It's well used and maintained by masses of other developers.  And it works.
 
-Let's look at some code.
+Let's look at some examples of ways you can use it to solve problems.
 
-## Getting Started: Setting Up LangChain
+## Follow along and run the examples
 
-Before diving into examples, let's start by setting up LangChain in a Python environment. The installation process is straightforward, and you can quickly get up and running with a few simple commands.
+You can experience everything in the article yourself, for free, without setting up anything on your computer.  Just go to this Google Colab notebook [TODO: Insert URL] to see more details and run the code.
 
-```python
-# Install necessary libraries
-!pip install langchain langchain-community langchain-core langchain-openai
+## Example 1: Use AI models from any company's AI API
 
-# Set up the OpenAI API key
-from google.colab import userdata
-import os
-os.environ["OPENAI_API_KEY"] = userdata.get('OPENAI_API_KEY')
+OpenAI gives you example code for calling their API.  It's easy.  Really.
 
-# Show more about what's happening as it happens.
-from langchain.globals import set_debug
-set_debug(True)
-```
+It starts to get harder when you need to connect the same code to more than one AI API.  It's not just a matter of changing a URL and an API key: Different APIs have different input and output structures.  Even if you use something like AWS Bedrock that can connect to many different models, your code has to account for some models accepting a `top_p` parameter (Anthropic Claude<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Amazon Bedrock Documentation",
+    title: "Model Parameters: Anthropic Claude Text Completion",
+    author: "AWS",
+    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-text-completion.html",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/>, Mistral AI<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Amazon Bedrock Documentation",
+    title: "Model Parameters: Mistral Text Completion",
+    author: "AWS",
+    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral-text-completion.html",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/>, Meta LLama<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Amazon Bedrock Documentation",
+    title: "Model Parameters: Meta",
+    author: "AWS",
+    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/>) while others use `topP` (Amazon Titan<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Amazon Bedrock Documentation",
+    title: "Model Parameters: Titan Text",
+    author: "AWS",
+    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/>>, A21 Labs Jurrasic-2<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Amazon Bedrock Documentation",
+    title: "Model Parameters: Jurassic-2",
+    author: "AWS",
+    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/>).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".  Who will keep up with all of it?  You shouldn't.  That's what LangChain is for.
 
-Once installed, you're ready to start building with LangChain.
+LangChain isn't the only option if all you want is to connect your same code to many different AI APIs.  Another great option is LiteLLM, which makes every AI API look like the OpenAI API so that you can use the same code for everything.  That strategy worked for us -- to a point.  We eventually reached the point where we wanted our framework to be able to take on more responsibility for handling things like the message history.
 
-## Example 1: Basic Chain Invocation
-
-Let's begin with a basic example where we create a simple chain to answer questions. This chain uses a template-based approach to generate prompts for a language model.
+So, let's begin with a basic example where we have some code that can answer a question, and then a follow-up question after that.  We want to connect our code to many different AI APIs.  Let's look at how LangChain can simplify things, compared to raw API requests, or using LiteLLM.
 
 ```python
 from langchain_core.prompts import PromptTemplate
