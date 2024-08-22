@@ -14,19 +14,39 @@ state: draft
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-Don't let the articles about AI being the end of software development fool you: It's the *beginning* of a whlle new kind of software development.  But building applications with language models—from traditional ML to modern LLMs—is hard.  Building software is hard enough in the first place before the machines start talking back to you and having opinions.  One tool that's helped us a lot is LangChain, and we want to share some of what we've learned about how easy it is to use.
+Don't let the articles about AI being the end of software development fool you: It's the *beginning* of a whlle new kind of software development.  But building applications with language models is hard.  Building software is hard enough in the first place before the machines start talking back to you and having opinions.  One tool that's helped us a lot lately is LangChain, and we'd love to share some examples of how useful it can be.
 
 ## Why LangChain?
 
-We didn't start with LangChain. Our initial approach to creating "agentic" applications (a term with as many definitions as developers) was bare-bones: direct Python code for LLM API requests, no frameworks. This gave us control and deep understanding, but it came with challenges.
+We didn't start with LangChain. Our initial approach to creating "agentic" applications (a term with as many definitions as developers) was bare-bones: Python code for LLM API requests, no frameworks. This gave us control and deep understanding, but it came with challenges.
 
-As we built more sophisticated applications, the complexity grew. We created systems to manage LLM chat histories, switched to LiteLLM to support various AI APIs, and wrote increasingly complex code to parse LLM responses. Soon, we were spending as much time on infrastructure as on solving our core problems.
+As we built more sophisticated applications, the complexity grew. We created systems to manage LLM chat histories, switched to LiteLLM<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Vercel",
+    title: "Litellm: A Simple, Intuitive, and Powerful LLM Framework",
+    author: "Litellm",
+    URL: "https://litellm.vercel.app/",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/> to support various AI APIs, and wrote increasingly complex code to parse LLM responses. Soon, we were spending as much time on infrastructure as on solving our core problems.
 
-We knew we needed a better solution, so we conducted extensive research into various frameworks. We evaluated options like CrewAI, AutoGen, and others. After careful consideration, we chose LangChain. It stood out for its ability to provide power through flexibility and control, while abstracting away many details we didn't want to handle directly. Crucially, LangChain doesn't impose rigid opinions about application architecture, unlike some alternatives that prescribe specific paradigms (such as CrewAI's concept of building applications with "crews" of "agents" with personas).
+We knew we needed a better solution, so we conducted extensive research into various frameworks. We evaluated options like CrewAI, AutoGen, and others. After careful consideration, we chose LangChain. It stood out for its ability to provide power through flexibility and control, while abstracting away many details we didn't want to handle directly. Crucially, LangChain doesn't impose rigid opinions about application architecture, unlike some alternatives that prescribe specific paradigms (such as CrewAI's concept of building applications with "crews" of "agents" with personas).<Citation
+  data={{
+    type: "webpage",
+    "container-title": "CREW AI Documentation",
+    title: "Core Concepts: Agents",
+    author: "CREW AI",
+    URL: "https://docs.crewai.com/core-concepts/Agents/",
+    issued: { 'date-parts': [[2024, 8, 21]] },
+  }}
+/>
 
 ## What is LangChain?
 
-LangChain is a framework designed to facilitate the development of applications powered by large language models (LLMs). It offers tools and abstractions to handle prompts, manage chains of logic, and parse outputs. With LangChain, you can easily create robust and flexible AI-driven workflows without dealing with low-level API calls and prompt engineering complexities.
+LangChain is a framework for building applications with LLMs. It handles prompts. It manages logic chains. It parses outputs. With LangChain, you focus on AI workflows for solving your use cases.  You don't have to mess with API calls or the differences between APIs.  It's a simple abstraction that's easy to understand. It's powerful through its flexibility. It's well used and maintained by masses of other developers.  And it works.
+
+Let's look at some code.
 
 ## Getting Started: Setting Up LangChain
 
