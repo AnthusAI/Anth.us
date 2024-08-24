@@ -69,52 +69,16 @@ Let's look at some examples of ways you can use it to solve problems.
 
 OpenAI gives you example code for calling their API.  It's easy.  Really.
 
-It starts to get harder when you need to connect the same code to more than one AI API.  It's not just a matter of changing a URL and an API key: Different APIs have different input and output structures.  Even if you use something like AWS Bedrock that can connect to many different models, your code has to account for some models accepting a `top_p` parameter (Anthropic Claude<Citation
+It starts to get harder when you need to connect the same code to more than one AI API.  It's not just a matter of changing a URL and an API key: Different APIs have different input and output structures.  Even if you use something like AWS Bedrock that can connect to many different models, your code has to account for some models accepting a `top_p` parameter (Anthropic Claude, Mistral AI, Meta LLama)<Citation
   data={{
     type: "webpage",
     "container-title": "Amazon Bedrock Documentation",
-    title: "Model Parameters: Anthropic Claude Text Completion",
+    title: "Model Parameters",
     author: "AWS",
-    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-text-completion.html",
+    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html",
     issued: { 'date-parts': [[2024, 8, 21]] },
   }}
-/>, Mistral AI<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Amazon Bedrock Documentation",
-    title: "Model Parameters: Mistral Text Completion",
-    author: "AWS",
-    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral-text-completion.html",
-    issued: { 'date-parts': [[2024, 8, 21]] },
-  }}
-/>, Meta LLama<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Amazon Bedrock Documentation",
-    title: "Model Parameters: Meta",
-    author: "AWS",
-    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html",
-    issued: { 'date-parts': [[2024, 8, 21]] },
-  }}
-/>) while others use `topP` (Amazon Titan<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Amazon Bedrock Documentation",
-    title: "Model Parameters: Titan Text",
-    author: "AWS",
-    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-text.html",
-    issued: { 'date-parts': [[2024, 8, 21]] },
-  }}
-/>>, A21 Labs Jurrasic-2<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Amazon Bedrock Documentation",
-    title: "Model Parameters: Jurassic-2",
-    author: "AWS",
-    URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html",
-    issued: { 'date-parts': [[2024, 8, 21]] },
-  }}
-/>).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".
+/> while others use `topP` (Amazon Titan, A21 Labs Jurrasic-2).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".
 
 Who will keep up with all of it?  You shouldn't.  That's what LangChain is for: You can connect your code through LangChain to many different AI APIs.  Your code can worry about its problems while LangChain worries about those details.
 
@@ -385,11 +349,10 @@ True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of t
 That came from the more-expensive model.  Now, on to the cheaper model to classify it:
 
 ```
-{
-  "prompts": [
-    "Human: \nBased on the following answer, please categorize it strictly as either \"Yes\" or \"No\":\nAnswer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
-  ]
-}
+Based on the following answer, please categorize it strictly as either \"Yes\" or \"No\":
+
+Answer: "To answer this question, let's explore ...
+...a major architectural attraction in the Catalan capital.
 ```
 
 ```
@@ -400,11 +363,8 @@ Oops.  Almost, but we don't want punctuation.  Try again.
 
 ```
 Attempt 1: Invalid response 'yes.'. Retrying...
-{
-  "prompts": [
-    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
-  ]
-}
+
+Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.
 ```
 
 ```
@@ -415,12 +375,11 @@ Try again!
 
 ```
 Attempt 2: Invalid response 'yes.'. Retrying...
-{
-  "prompts": [
-    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
-  ]
-}
+
+Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.
 ```
+
+Output:
 
 ```
 Yes
