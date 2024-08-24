@@ -10,7 +10,7 @@ assistants:
   - assistant: ChatGPT
   - assistant: Claude
 excerpt: How to orchestrate LLMs to do real work.
-preview_image: "./images/draft-1.png"
+preview_image: "./diagrams/LangChain/API-multiplexer.png"
 images:
   - ./images/draft-1.png
   - ./images/LangChain/agentic-framework-logos.png
@@ -27,10 +27,10 @@ That's where we come in. Our team specializes in making these advanced tools acc
 
 We'd like to share some examples of practical solutions we've found using LangChain:
 
-* [Use AI models from any company's AI API](#ai-api-multiplexer) - Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
-* Processing large volumes of data, such as analyzing tens of thousands of call center transcripts to generate examples for fine-tuning LLMs.
-* Building robust AI components that can validate LLM output and retry with hints, improving reliability.
-* Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
+* [Use AI models from any company's AI API](#ai-api-multiplexer) — Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
+* [Two Models, One Task](#two-models-one-task) — Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
+* [Safeguard Retry Loops](#safeguard-retry-loops) — Building robust AI components that can validate LLM output and retry with hints, improving reliability.
+* [Use an LLM to process data](#use-llm-to-process-data) — Feeding large volumes of data to an AI model for processing.  For things like analyzing tens of thousands articles or phone call transcripts or medical transcriptions.
 
 These are just a few examples of what's possible. Whether you're tackling business challenges, working on academic research, or exploring AI as a hobby, LangChain can help you harness the power of language models more effectively.
 
@@ -156,11 +156,554 @@ model = ChatBedrock(
 model.invoke("Is the Sagrada Família located in Barcelona?.").content
 ```
 
+Output:
+
+```
+Yes, the Sagrada Família is located in Barcelona, Spain.
+
+More specifically:
+
+1. It is situated in the Eixample district of Barcelona.
+2. The full name of the church is the Basílica i Temple Expiatori de la Sagrada Família (Basilica and Expiatory Church of the Holy Family).3. It is one of the most famous works of the Catalan architect Antoni Gaudí.
+4. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the world's longest-running architectural projects.
+5. It is a major landmark and tourist attraction in Barcelona, known for its unique and intricate design that combines Gothic and Art Nouveau forms.
+6. Despite being incomplete, the church was consecrated and declared a minor basilica by Pope Benedict XVI in 2010.
+
+The Sagrada Família is not only located in Barcelona but is also considered one of the city's most iconic symbols and a must-see attraction for visitors to the Catalan capital.
+```
+
 Sorting out the details of the differences between the different AI APIs and models could consume hours of your time up front.  And complications related to managing those details could cost you even more time and delayed progress in the future.  Shifting responsibility for those details into LangChain keeps you focused on your goals.
 
 ### Follow along and run the examples
 
 You can experience everything in the article yourself, for free, without setting up anything on your computer.  All the [example notebooks](https://github.com/AnthusAI/LangChain-Examples) are hosted on GitHub.  The quickest way to run them is to go to this [Google Colab notebook](https://colab.research.google.com/github/AnthusAI/LangChain-Examples/blob/main/notebooks/AI_API_Multiplexer.ipynb) for the first example.
+
+### Example 2: Two models, one task
+
+You can use the capability of connecting to many different models to use the right model for the right job within a larger application.
+
+As an example, what if what we really want from the previous examples is a yes/no classification?  The model has a lot to say, but really all we want is a yes or a no.
+
+We know that adding instructions to the prompt to tell the model to give us only a "yes" or "no" will generally hurt the accuracy of the answer.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "arXiv",
+    title: "Let Me Speak Freely? A Study on the Impact of Format Restrictions on Performance of Large Language Models",
+    author: "Zhi Rui Tam, Cheng-Kuang Wu, Yi-Lin Tsai, Chieh-Yen Lin, Hung-yi Lee, Yun-Nung Chen",
+    URL: "https://arxiv.org/abs/2408.02442",
+    issued: { 'date-parts': [[2024, 8, 5]] },
+  }}
+/>  So, to get the best accuracy, we want to let the model speak freely.  Then we need to categorize the answer as either a yes or a no.  We can use another LLM call for that.
+
+But summarizing an answer into either a "yes" or a "no" is pretty simple.  We probably don't need an expensive model for that.  That's how LangChain helps us here: We can use an expensive model for the first question where the accuracy really matters, and then we can use a cheaper model for the final classification.  Let's use GPT 4o for the answer and GPT 4o mini for the yes/no classification:
+
+```python
+from langchain_core.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+
+# First LLM: Use gpt-4o for the CoT prompt to get a detailed answer
+cot_prompt_template = """
+Question: {question}
+Please provide a detailed explanation before answering whether the statement is true or false.
+"""
+
+cot_prompt = PromptTemplate(
+    template=cot_prompt_template,
+    input_variables=["question"])
+
+# Create the first chain using OpenAI's gpt-4o model with a CoT prompt
+chain_1 = ChatOpenAI(temperature=0.7, model_name="gpt-4o")
+
+# Example question
+question = "Is the Sagrada Família located in Barcelona?"
+
+# Invoke the first chain
+cot_response = chain_1.invoke(cot_prompt.format(question=question))
+detailed_answer = cot_response.content
+print("Detailed answer:", detailed_answer)
+
+# Second LLM: Use gpt-4o-mini to categorize the detailed answer as 'Yes' or 'No'
+yes_no_prompt_template = """
+Based on the following answer, please categorize it strictly as either "Yes" or "No":
+Answer: "{detailed_answer}"
+"""
+
+yes_no_prompt = PromptTemplate(
+    template=yes_no_prompt_template,
+    input_variables=["detailed_answer"])
+
+# Create the second chain using OpenAI's gpt-4o-mini model for yes/no clarification
+chain_2 = ChatOpenAI(temperature=0, model_name="gpt-4o-mini")
+
+# Invoke the second chain
+yes_no_response = chain_2.invoke(yes_no_prompt.format(detailed_answer=detailed_answer))
+yes_no_answer = yes_no_response.content.strip()
+print("Yes/No Answer:", yes_no_answer)
+```
+
+First output:
+
+```
+Detailed answer: Yes, the statement is true; the Eiffel Tower is located in Paris.
+
+Let's delve into some details to provide a comprehensive explanation:
+
+1. **Historical Context**: The Eiffel Tower was constructed between 1887 and 1889 as the entrance arch for the 1889 Exposition Universelle (World's Fair), which was held to celebrate the 100th anniversary of the French Revolution.
+
+2. **Geographical Location**: The Eiffel Tower is situated on the Champ de Mars, a large public greenspace in the 7th arrondissement of Paris, France. The exact coordinates are approximately 48.8584° N latitude and 2.2945° E longitude.
+
+3. **Architectural Significance**: Named after its designer, the engineer Gustave Eiffel, the Tower stands as an iconic symbol of French engineering prowess and architectural innovation. 
+
+4. **Cultural Importance**: Over the years, the Eiffel Tower has become one of the most recognizable structures in the world and a global cultural icon of France. It attracts millions of visitors annually, making it one of the most visited paid monuments worldwide.
+
+5. **Role in Parisian Landscape**: The Eiffel Tower is an integral part of Paris's skyline and is often associated with the city's identity. It is visible from various parts of Paris, adding to the city's charm and allure.
+
+In summary, based on historical, geographical, architectural, and cultural evidence, it is accurate to state that the Eiffel Tower is indeed located in Paris.
+```
+
+Second output:
+
+```
+Yes
+```
+
+## <a name="safeguard-retry-loops"></a>Example 3: Add a retry loop to check LLM outputs as a safeguard
+
+LLMs can be talkative.  You just want a "yes" or a "no" but they'll say things like, "The answer is: No."
+
+We have seen how you can add a subsequent LLM call to classify a wordy answer into the "yes" or "no" that we're looking for.  But, what if the second LLM call produces something other than "yes" or "no"?
+
+We need a retry loop as a safeguard layer.  After we call the LLM the second time, to reformat the answer, we can check to make sure we have the right format.  If not, then we can loop back and ask the second LLM a follow-up question.  Each time we do this, we send the entire message history, including the response from the more-expensive model.  You can move whole conversation histories back and forth between models like this.
+
+```python
+from langchain_core.prompts import PromptTemplate
+from langchain_aws import ChatBedrock
+
+# First LLM: Use Claude 3.5 Sonnet for the CoT prompt to get a detailed answer
+cot_prompt_template = """
+Question: {question}
+Please provide a detailed explanation before answering whether the statement is true or false.
+"""
+
+cot_prompt = PromptTemplate(
+    template=cot_prompt_template,
+    input_variables=["question"])
+
+# Create the first chain using Claude 3.5 Sonnet model
+chain_1 = ChatBedrock(model_id="anthropic.claude-3-5-sonnet-20240620-v1:0")
+
+# Example question
+question = "Is the Sagrada Família located in Barcelona?"
+
+# Invoke the first chain
+cot_response = chain_1.invoke(cot_prompt.format(question=question))
+detailed_answer = cot_response.content
+print("Detailed answer:", detailed_answer)
+
+# Second LLM: Use a cheaper model to categorize the detailed answer as 'Yes' or 'No'
+yes_no_prompt_template = """
+Based on the following answer, please categorize it strictly as either "Yes" or "No":
+Answer: "{detailed_answer}"
+"""
+
+yes_no_prompt = PromptTemplate(
+    template=yes_no_prompt_template,
+    input_variables=["detailed_answer"])
+
+# Create the second chain using a cheaper model for yes/no clarification
+chain_2 = ChatBedrock(model_id="mistral.mistral-small-2402-v1:0")
+
+# Retry loop
+max_retries = 3
+retry_count = 0
+
+while retry_count < max_retries:
+    # Invoke the second chain
+    yes_no_response = chain_2.invoke(yes_no_prompt.format(detailed_answer=detailed_answer))
+    yes_no_answer = yes_no_response.content.strip().lower()
+    
+    if yes_no_answer in ["yes", "no"]:
+        print(f"Yes/No Answer: {yes_no_answer.capitalize()}")
+        break
+    else:
+        print(f"Attempt {retry_count + 1}: Invalid response '{yes_no_answer}'. Retrying...")
+        retry_count += 1
+        
+        # If we're not on the last retry, update the prompt to be more specific
+        if retry_count < max_retries:
+            yes_no_prompt_template = """
+            Your previous response was not valid. Please answer ONLY with "Yes" or "No", with no punctuation.
+            Based on this answer, is the statement true?
+            Answer: "{detailed_answer}"
+            """
+            yes_no_prompt = PromptTemplate(
+                template=yes_no_prompt_template,
+                input_variables=["detailed_answer"])
+
+if retry_count == max_retries:
+    print("Failed to get a valid Yes/No answer after maximum retries.")
+```
+
+Now, we can use really cheap models that aren't so reliable.  But it's okay beause we can keep retrying until it works.  In this example, Mistral Small (24.02) had trouble but it eventually got there after a couple of retries.  And, since it's such a cheap model, that was still cheaper than doing one call with the more-expensive model.
+
+```
+[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "Human: \nQuestion: Is the Sagrada Família located in Barcelona?\nPlease provide a detailed explanation before answering whether the statement is true or false."
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [8.56s] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": "To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.",
+        "generation_info": null,
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": "To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.",
+            "additional_kwargs": {
+              "usage": {
+                "prompt_tokens": 39,
+                "completion_tokens": 329,
+                "total_tokens": 368
+              },
+              "stop_reason": "end_turn",
+              "model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0"
+            },
+            "response_metadata": {
+              "usage": {
+                "prompt_tokens": 39,
+                "completion_tokens": 329,
+                "total_tokens": 368
+              },
+              "stop_reason": "end_turn",
+              "model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0"
+            },
+            "type": "ai",
+            "id": "run-9e7e9eb2-7717-4483-ac34-2250e0390bfa-0",
+            "usage_metadata": {
+              "input_tokens": 39,
+              "output_tokens": 329,
+              "total_tokens": 368
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "usage": {
+      "prompt_tokens": 39,
+      "completion_tokens": 329,
+      "total_tokens": 368
+    },
+    "stop_reason": "end_turn",
+    "model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0"
+  },
+  "run": null
+}
+Detailed answer: To answer this question, let's explore some key information about the Sagrada Família:
+
+1. The Sagrada Família is a large, unfinished Roman Catholic church.
+
+2. It was designed by the famous Catalan architect Antoni Gaudí.
+
+3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.
+
+4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.
+
+5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.
+
+6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.
+
+7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.
+
+8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.
+
+9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.
+
+10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.
+
+Given these facts, we can conclude:
+
+True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.
+[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "Human: \nBased on the following answer, please categorize it strictly as either \"Yes\" or \"No\":\nAnswer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [331ms] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": " Yes.",
+        "generation_info": null,
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": " Yes.",
+            "additional_kwargs": {
+              "usage": {
+                "prompt_tokens": 393,
+                "completion_tokens": 3,
+                "total_tokens": 396
+              },
+              "stop_reason": null,
+              "model_id": "mistral.mistral-small-2402-v1:0"
+            },
+            "response_metadata": {
+              "usage": {
+                "prompt_tokens": 393,
+                "completion_tokens": 3,
+                "total_tokens": 396
+              },
+              "stop_reason": null,
+              "model_id": "mistral.mistral-small-2402-v1:0"
+            },
+            "type": "ai",
+            "id": "run-101c1f41-bed0-488f-ad75-17febe31478f-0",
+            "usage_metadata": {
+              "input_tokens": 393,
+              "output_tokens": 3,
+              "total_tokens": 396
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "usage": {
+      "prompt_tokens": 393,
+      "completion_tokens": 3,
+      "total_tokens": 396
+    },
+    "stop_reason": null,
+    "model_id": "mistral.mistral-small-2402-v1:0"
+  },
+  "run": null
+}
+Attempt 1: Invalid response 'yes.'. Retrying...
+[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [190ms] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": " Yes.",
+        "generation_info": null,
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": " Yes.",
+            "additional_kwargs": {
+              "usage": {
+                "prompt_tokens": 410,
+                "completion_tokens": 3,
+                "total_tokens": 413
+              },
+              "stop_reason": null,
+              "model_id": "mistral.mistral-small-2402-v1:0"
+            },
+            "response_metadata": {
+              "usage": {
+                "prompt_tokens": 410,
+                "completion_tokens": 3,
+                "total_tokens": 413
+              },
+              "stop_reason": null,
+              "model_id": "mistral.mistral-small-2402-v1:0"
+            },
+            "type": "ai",
+            "id": "run-be3687f9-0fce-4486-9632-d7d0a0348d56-0",
+            "usage_metadata": {
+              "input_tokens": 410,
+              "output_tokens": 3,
+              "total_tokens": 413
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "usage": {
+      "prompt_tokens": 410,
+      "completion_tokens": 3,
+      "total_tokens": 413
+    },
+    "stop_reason": null,
+    "model_id": "mistral.mistral-small-2402-v1:0"
+  },
+  "run": null
+}
+Attempt 2: Invalid response 'yes.'. Retrying...
+[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
+[0m{
+  "prompts": [
+    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
+  ]
+}
+[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [199ms] Exiting LLM run with output:
+[0m{
+  "generations": [
+    [
+      {
+        "text": " Yes",
+        "generation_info": null,
+        "type": "ChatGeneration",
+        "message": {
+          "lc": 1,
+          "type": "constructor",
+          "id": [
+            "langchain",
+            "schema",
+            "messages",
+            "AIMessage"
+          ],
+          "kwargs": {
+            "content": " Yes",
+            "additional_kwargs": {
+              "usage": {
+                "prompt_tokens": 410,
+                "completion_tokens": 2,
+                "total_tokens": 412
+              },
+              "stop_reason": null,
+              "model_id": "mistral.mistral-small-2402-v1:0"
+            },
+            "response_metadata": {
+              "usage": {
+                "prompt_tokens": 410,
+                "completion_tokens": 2,
+                "total_tokens": 412
+              },
+              "stop_reason": null,
+              "model_id": "mistral.mistral-small-2402-v1:0"
+            },
+            "type": "ai",
+            "id": "run-2b08608c-ba5f-4467-8b31-b1084f1526ed-0",
+            "usage_metadata": {
+              "input_tokens": 410,
+              "output_tokens": 2,
+              "total_tokens": 412
+            },
+            "tool_calls": [],
+            "invalid_tool_calls": []
+          }
+        }
+      }
+    ]
+  ],
+  "llm_output": {
+    "usage": {
+      "prompt_tokens": 410,
+      "completion_tokens": 2,
+      "total_tokens": 412
+    },
+    "stop_reason": null,
+    "model_id": "mistral.mistral-small-2402-v1:0"
+  },
+  "run": null
+}
+Yes/No Answer: Yes
+```
+
+## <a name="use-llm-to-process-data"></a>Example 4: Use an LLM to process data
+
+This example processes a [HuggingFace dataset](https://huggingface.co/datasets/AyoubChLin/CNN_News_Articles_2011-2022) contains thousands of news articles from CNN.  Let's use an LLM to screen for articles about space exploration missions:
+
+```python
+from datasets import load_dataset
+import random
+from tqdm import tqdm
+from langchain_openai import ChatOpenAI
+from langchain.prompts import PromptTemplate
+
+# Load the dataset
+dataset = load_dataset("AyoubChLin/CNN_News_Articles_2011-2022", split="train")
+
+# Sample a percentage of the data (e.g., 1%)
+sample_size = int(len(dataset) * 0.01)
+sampled_data = random.sample(list(dataset), sample_size)
+
+# Use GPT-4 for the model
+model = ChatOpenAI(model_name="gpt-4o-mini")
+
+# Create a prompt template
+prompt = PromptTemplate.from_template(
+    "Does the following news article discuss space exploration missions? Answer with 'Yes' or 'No':\n\n{text}"
+)
+
+chain = prompt | model
+
+# Process sampled data
+for item in tqdm(sampled_data, desc="Processing articles", unit="article"):
+    text = item["text"]
+    response = chain.invoke({"text": text})
+    
+    # Extract the content from AIMessage
+    response_text = response.content.strip().lower()
+    
+    if response_text == "yes":
+        print("Text discusses space flight:\n", text)
+```
+
+That spend a little over 12 minutes, checking 1% of the news articles to find these that discussed space exploration:
+
+```
+Processing articles:  24%|██▎       | 380/1610 [02:54<15:30,  1.32article/s]Text discusses space flight:
+ Sign up for CNN's Wonder Theory science newsletter. Explore the universe with news on fascinating discoveries, scientific advancements and more. (CNN)The early warning system to detect asteroids that pose a threat to Earth, operated by NASA and its collaborators around the world, got to flex its muscles. It successfully detected a small asteroid 6 1/2 feet (2 meters) wide just hours before it smashed into the atmosphere over the Norwegian Sea before disintegrating on Friday, March 11, according to a statement from NASA's Jet Propulsion Laboratory on Tuesday. That's too small to pose any hazard to Earth, NASA said. A still from an animation showing asteroid 2022 EB5's predicted orbit around the sun before crashing into the Earth's atmosphere on March 11.Often such tiny asteroids slip through the surveillance net, and 2022 EB5 -- as the asteroid was named -- is only the fifth of this kind to be spotted and tracked prior to impact. (Fear not, a larger asteroid would be discovered and trac...
+Processing articles:  30%|███       | 490/1610 [03:44<07:55,  2.35article/s]Text discusses space flight:
+ Sign up for CNN's Wonder Theory science newsletter. Explore the universe with news on fascinating discoveries, scientific advancements and more. (CNN)Total lunar eclipses, a multitude of meteor showers and supermoons will light up the sky in 2022.The new year is sure to be a sky-gazer's delight with plenty of celestial events on the calendar. There is always a good chance that the International Space Station is flying overhead. And if you ever want to know what planets are visible in the morning or evening sky, check The Old Farmer's Almanac's visible planets guide.Here are the top sky events of 2022 so you can have your binoculars and telescope ready. Full moons and supermoonsRead MoreThere are 12 full moons in 2022, and two of them qualify as supermoons. This image, taken in Brazil, shows a plane passing in front of the supermoon in March 2020. Definitions of a supermoon can vary, but the term generally denotes a full moon that is brighter and closer to Earth than normal and thus app...
+Processing articles:  35%|███▍      | 558/1610 [04:21<07:36,  2.31article/s]Text discusses space flight:
+ Story highlights Crowds hand each member of the group a red rose While secluded, the crew has few luxuries The group asks scientists to put the data it gathered to good useThe group's isolation simulates a 520-day mission to MarsSix volunteer astronauts emerged from a 'trip' to Mars on Friday, waving and grinning widely after spending  520 days in seclusion.  Crowds handed each member of the group a red rose after their capsule opened at the facility in Moscow.  Scientists placed the six male volunteers in isolation in 2010 to simulate a mission to Mars, part of the European Space Agency's experiment to determine challenges facing future space travelers. The six, who are between ages 27 and 38, lived in a tight space the size of six buses in a row,  said Rosita Suenson, the agency's program officer for human spaceflight.During the period, the crew dressed in blue jumpsuits showered on rare occasions and survived on canned food.  Messages from friends and family came with a lag based on...
+Processing articles:  56%|█████▋    | 908/1610 [06:57<05:01,  2.33article/s]Text discusses space flight:
+ Story highlightsGene Seymour: Gene Roddenberry may have created "Star Trek," but Leonard Nimoy and character of Spock are inseparableHe says Nimoy had many other artistic endeavors, photography, directing, poetry, but he was, in the end, SpockGene Seymour is a film critic who has written about music, movies and culture for The New York Times, Newsday, Entertainment Weekly and The Washington Post. The opinions expressed in this commentary are solely those of the writer. (CNN)Everybody on the planet knows that Gene Roddenberry created Mr. Spock, the laconic, imperturbable extra-terrestrial First Officer for the Starship Enterprise. But Mr. Spock doesn't belong to Roddenberry, even though he is the grand exalted progenitor of everything that was, is, and forever will be "Star Trek."Mr. Spock belongs to Leonard Nimoy, who died Friday at age 83. And though he doesn't take Spock with him, he and Spock remain inseparable. Zachary Quinto, who plays Spock in the re-booted feature film incarnati...
+Processing articles: 100%|██████████| 1610/1610 [12:31<00:00,  2.14article/s]
+```
+
+You can run this example with [this notebook](https://colab.research.google.com/github/AnthusAI/LangChain-Examples/blob/main/notebooks/.ipynb) on Google Colab.
 
 ## References
 
