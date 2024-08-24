@@ -13,8 +13,9 @@ excerpt: How to orchestrate LLMs to do real work.
 preview_image: "./images/draft-1.png"
 images:
   - ./images/draft-1.png
+  - ./images/LangChain/agentic-framework-logos.png
   - ./diagrams/LangChain/API-multiplexer.png
-state: draft
+state: published
 ---
 
 import BlogImage from '../components/blog-image';
@@ -23,9 +24,10 @@ import { Citation, CitationsList } from 'gatsby-citation-manager';
 You have problems, and you know that AI can help solve them. You also know that you need software to get you there. But automating AI can be a challenge. Software development was hard enough before the machines started talking back and having opinions! Now, it's even more difficult because the components you're building on can be unpredictable, producing different results at different times.
 
 That's where we come in. Our team specializes in making these advanced tools accessible. One powerful tool we're excited to share with you is LangChain. LangChain helps you stay focused on solving your problems and creating effective solutions, rather than getting bogged down in the complexities of managing the underlying AI technology.
+
 We'd like to share some examples of practical solutions we've found using LangChain:
 
-* Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
+* [Use AI models from any company's AI API](#ai-api-multiplexer) - Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
 * Processing large volumes of data, such as analyzing tens of thousands of call center transcripts to generate examples for fine-tuning LLMs.
 * Building robust AI components that can validate LLM output and retry with hints, improving reliability.
 * Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
@@ -40,7 +42,13 @@ We didn't start with LangChain. Our initial approach to creating "agentic" appli
 
 As we built more sophisticated applications, the complexity grew. We created systems to manage LLM chat histories, switched to [LiteLLM](https://litellm.vercel.app/) to support various AI APIs, and wrote increasingly complex code to parse LLM responses. Soon, we were spending as much time on infrastructure as on solving our core problems.
 
-We knew we needed a better solution, so we conducted extensive research into various frameworks. We evaluated options like CrewAI, AutoGen, and others. After careful consideration, we chose LangChain. It stood out for its ability to provide power through flexibility and control, while abstracting away many details we didn't want to handle directly. Crucially, LangChain doesn't impose rigid opinions about application architecture, unlike some alternatives that prescribe specific paradigms (such as CrewAI's concept of building applications with "crews" of "agents" with personas).<Citation
+We knew we needed a better solution, so we conducted extensive research into various frameworks. We evaluated options like CrewAI, AutoGen, and others.
+
+<div className="center-full-image">
+<BlogImage images={props.pageContext.frontmatter.images} name="LangChain/agentic-framework-logos.png" className="full" alt="LangChain is an AI API multiplexer." />
+</div>
+
+After careful consideration, we chose LangChain. It stood out for its ability to provide power through flexibility and control, while abstracting away many details we didn't want to handle directly. Crucially, LangChain doesn't impose rigid opinions about application architecture, unlike some alternatives that prescribe specific paradigms (such as CrewAI's concept of building applications with "crews" of "agents" with personas).<Citation
   data={{
     type: "webpage",
     "container-title": "CREW AI Documentation",
@@ -57,11 +65,7 @@ LangChain is a framework for building applications with LLMs. It handles prompts
 
 Let's look at some examples of ways you can use it to solve problems.
 
-## Follow along and run the examples
-
-You can experience everything in the article yourself, for free, without setting up anything on your computer.  Just go to this Google Colab notebook [TODO: Insert URL] to see more details and run the code.
-
-## Example 1: Use AI models from any company's AI API
+## <a name="ai-api-multiplexer"></a>Example 1: Use AI models from any company's AI API
 
 OpenAI gives you example code for calling their API.  It's easy.  Really.
 
@@ -110,280 +114,53 @@ It starts to get harder when you need to connect the same code to more than one 
     URL: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html",
     issued: { 'date-parts': [[2024, 8, 21]] },
   }}
-/>).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".  Who will keep up with all of it?  You shouldn't.  That's what LangChain is for: You can connect your code through LangChain to many different AI APIs.  Your code can worry about its problems while LangChain worries about those details.
+/>).  Some support `top_k` and some don't.  Some support `seed` and some don't.  Some have different request formats, with different ways of defining "functions" or "tools".
+
+Who will keep up with all of it?  You shouldn't.  That's what LangChain is for: You can connect your code through LangChain to many different AI APIs.  Your code can worry about its problems while LangChain worries about those details.
 
 <div className="center-full-image">
 <BlogImage images={props.pageContext.frontmatter.images} name="API-multiplexer.png" className="full" alt="LangChain is an AI API multiplexer." />
 </div>
 
-LangChain isn't the only option if all you want is to connect your same code to many different AI APIs.  Another great option is LiteLLM, which makes every AI API look like the OpenAI API so that you can use the same code for everything.  That strategy worked for us -- to a point.  We eventually reached the point where we wanted our framework to be able to take on more responsibility for handling things like the message history.
+LangChain isn't the only option if all you want is to connect your same code to many different AI APIs.  Another great option is LiteLLM, which makes every AI API look like the OpenAI API so that you can use the same code for everything.  That strategy worked for us — to a point. When we started writing lots of code for managing conversation histories and parsing model outputs we realized that we were reinventing wheels when we should have been focused on solving problems.  LangChain seemed like the best option for abstracting those details without forcing us to conform to a framework's paradigm.
 
-So, let's begin with a basic example where we have some code that can answer a question, and then a follow-up question after that.  We want to connect our code to many different AI APIs.  Let's look at how LangChain can simplify things, compared to raw API requests, or using LiteLLM.
+Here's a minimal LangChain AI API request:
 
 ```python
-from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 
-# Define the prompt template
-template = "Answer the question: {question}"
-prompt = PromptTemplate(
-    template=template,
-    input_variables=["question"])
+model = ChatOpenAI(model_name="gpt-4o")
 
-# Create a simple chain using OpenAI's chat model
-chain = ChatOpenAI(temperature=0.7)
-
-# Example question
-question = "What is the capital of France?"
-
-# Invoke the chain
-response = chain.invoke(question)
-print(response.content)
+model.invoke("Is the Sagrada Família located in Barcelona?").content
 ```
 
-The first thing that you'll see when you run this cell is the output from LangChain that we got from using `set_debug(True)`:
+Output:
 
 ```
-[llm/start] [llm:ChatOpenAI] Entering LLM run with input:
-{
-  "prompts": [
-    "Human: What is the capital of France?"
-  ]
-}
-[llm/end] [llm:ChatOpenAI] [732ms] Exiting LLM run with output:
-{
-  "generations": [
-    [
-      {
-        "text": "The capital of France is Paris.",
-        "generation_info": {
-          "finish_reason": "stop",
-          "logprobs": null
-        },
-        "type": "ChatGeneration",
-        "message": {
-          "lc": 1,
-          "type": "constructor",
-          "id": [
-            "langchain",
-            "schema",
-            "messages",
-            "AIMessage"
-          ],
-          "kwargs": {
-            "content": "The capital of France is Paris.",
-            "additional_kwargs": {
-              "refusal": null
-            },
-            "response_metadata": {
-              "token_usage": {
-                "completion_tokens": 7,
-                "prompt_tokens": 14,
-                "total_tokens": 21
-              },
-              "model_name": "gpt-3.5-turbo-0125",
-              "system_fingerprint": null,
-              "finish_reason": "stop",
-              "logprobs": null
-            },
-            "type": "ai",
-            "id": "run-710678c5-1a80-4a8c-8fa3-14a9d1e7e0eb-0",
-            "usage_metadata": {
-              "input_tokens": 14,
-              "output_tokens": 7,
-              "total_tokens": 21
-            },
-            "tool_calls": [],
-            "invalid_tool_calls": []
-          }
-        }
-      }
-    ]
-  ],
-  "llm_output": {
-    "token_usage": {
-      "completion_tokens": 7,
-      "prompt_tokens": 14,
-      "total_tokens": 21
-    },
-    "model_name": "gpt-3.5-turbo-0125",
-    "system_fingerprint": null
-  },
-  "run": null
-}
+Yes, the Sagrada Família is located in Barcelona, Spain. It is a large Roman Catholic basilica designed by the renowned architect Antoni Gaudí. Construction of the Sagrada Família began in 1882 and it remains unfinished to this day, although work continues with the aim of completing it in the coming years. The basilica is one of Barcelona's most iconic landmarks and a UNESCO World Heritage Site.
 ```
 
-And then you'll see the answer, extracted from the `content` of the first "generation" from the LLM:
+Simple!
 
-```
-The capital of France is Paris.
-```
+If you do this same request [with the OpenAI API](https://platform.openai.com/docs/guides/chat-completions/overview) then you get the response in `message = completion.choices[0].message.content`.  LangChain encapsulates those details so that you can think about what you're doing instead of working to accommodate the API.
 
-## Example 2: Using an Output Parser
-
-That's a great response!  But it's not the actual answer to the question, it is?  It's a sentence, but what we really wanted was a city name.
-
-Welcome to output parsers!  An application built around LLMs has to be able to get structured data back from them.  There are various ways to do that, and the landscape changes constantly, but in general you need code for interpreting what the language model says.  Often, you need to structure it by extracting details from it.
-
-Here's a simple output parser that plucks out those two named entities.  This could work if you had a model fine-tuned to reliably produce sentences in this format:
+That's useful because LangChain requests to other AI APIs, like AWS Bedrock, Anthropic, or Google Vertex look just like LangChain requests to OpenAI.  This example of sending a request to Claude 3.5 Sonnet looks exactly like the example above that uses OpenAI.  Even though the APIs and models have different details.
 
 ```python
-import re
+from langchain_aws import ChatBedrock
 
-# Define a simple output parser
-def extract_capital(output):
-    match = re.search(r"The capital of [a-zA-Z\s]+ is ([a-zA-Z\s]+)\.", output)
-    return match.group(1) if match else None
+model = ChatBedrock(
+    model_id="anthropic.claude-3-5-sonnet-20240620-v1:0",
+)
 
-# Example response from the model
-output = "The capital of France is Paris."
-
-# Parse the output
-capital = extract_capital(output)
-print(f"Extracted Capital: {capital}")
+model.invoke("Is the Sagrada Família located in Barcelona?.").content
 ```
 
-The output of this cell:
+Sorting out the details of the differences between the different AI APIs and models could consume hours of your time up front.  And complications related to managing those details could cost you even more time and delayed progress in the future.  Shifting responsibility for those details into LangChain keeps you focused on your goals.
 
-```
-Extracted Capital: Paris
-```
+### Follow along and run the examples
 
-## Example 3: Applying Chains to DataFrame Rows
-
-Now, let's move on to a more complex and practical example. Suppose you have a DataFrame containing questions, and you want to process each row.  This is a common task in data processing workflows where you need to generate or enrich data using language models.  With LangChain, you can use the `chain.invoke()` method.
-
-```python
-import pandas as pd
-
-# Example DataFrame
-data = {
-    'id': [1, 2, 3],
-    'text': [
-        "What is the capital of France?",
-        "Who is the president of the United States?",
-        "What is the population of Japan?"
-    ]
-}
-df = pd.DataFrame(data)
-
-# Define a function to process each row
-def process_row(row):
-    question = row['text']
-    result = chain.invoke(question)
-    return result.content  # Adjust according to your chain's output format
-
-# Apply the function to each row in the DataFrame
-df['response'] = df.apply(process_row, axis=1)
-
-# Display the DataFrame with the responses
-print(df)
-```
-
-The output of this cell:
-
-```
-   id                                        text  \
-0   1              What is the capital of France?   
-1   2  Who is the president of the United States?   
-2   3            What is the population of Japan?   
-
-                                            response  
-0                    The capital of France is Paris.  
-1  As of October 2021, the President of the Unite...  
-2  As of 2021, the population of Japan is approxi...  
-```
-
-## Example 4: Combining Output Parsers with DataFrames
-
-In some cases, you might want to combine the use of output parsers with DataFrame processing. This allows you to extract and structure data from the model's output directly within your DataFrame.
-
-```python
-# Extend the process_row function to include parsing
-def process_and_parse_row(row):
-    question = row['text']
-    result = chain.invoke(question)
-    output = result.content
-    parsed_output = extract_capital(output)  # Use the previously defined parser
-    return parsed_output
-
-# Apply the enhanced function to each row
-df['capital'] = df.apply(process_and_parse_row, axis=1)
-
-# Display the updated DataFrame
-print(df)
-```
-
-The output of this cell:
-
-```
-   id                                        text  \
-0   1              What is the capital of France?   
-1   2  Who is the president of the United States?   
-2   3            What is the population of Japan?   
-
-                                            response capital  
-0                    The capital of France is Paris.   Paris  
-1  As of October 2021, the President of the Unite...    None  
-2  As of 2021, the population of Japan is approxi...    None  
-```
-
-## Generalized parser
-
-Using a generalized parser to take into account different outputs
-
-```python
-import re
-
-def generalized_output_parser(output):
-    # Try to extract a capital city
-    capital_match = re.search(r"The capital of [a-zA-Z\s]+ is ([a-zA-Z\s]+)\.", output)
-    if capital_match:
-        return capital_match.group(1)
-
-    # Try to extract the president's name
-    president_match = re.search(r"President of the United States is ([a-zA-Z\s]+)\.", output)
-    if president_match:
-        return president_match.group(1)
-
-    population_match = re.search(r"population of [a-zA-Z\s]+ is (?:estimated to be|approximately|around|about)?\s*([\d,\.]+)\s*million", output)
-
-    if population_match:
-        return population_match.group(1) + " million"
-
-    # If nothing matches, return None
-    return None
-
-# Applying the parser to the DataFrame
-def process_and_parse_row(row):
-    question = row['text']
-    result = chain.invoke(question)  # Assuming chain.invoke returns a text output
-    # Access the content of the AIMessage object using .content
-    output = result.content
-    parsed_output = generalized_output_parser(output)
-    return parsed_output
-
-# Apply the generalized parser to each row
-df['parsed_info'] = df.apply(process_and_parse_row, axis=1)
-
-# Display the DataFrame
-print(df[['response', 'parsed_info']])
-```
-
-The output of this cell:
-
-```
-                                            response    parsed_info
-0                    The capital of France is Paris.          Paris
-1  As of October 2021, the President of the Unite...      Joe Biden
-2  As of 2021, the population of Japan is approxi...  126.3 million
-```
-
-## Conclusion
-
-LangChain provides a powerful and flexible way to integrate language models into your data workflows. Whether you're working with unstructured text, automating responses, or extracting specific information, LangChain's tools and abstractions simplify the process.
-
-In this article, we've explored practical examples of how to use LangChain, from basic chain invocations to more complex tasks like applying chains to DataFrame rows and parsing outputs. With these examples, you're well-equipped to start building your own intelligent applications using LangChain.
+You can experience everything in the article yourself, for free, without setting up anything on your computer.  All the [example notebooks](https://github.com/AnthusAI/LangChain-Examples) are hosted on GitHub.  The quickest way to run them is to go to this [Google Colab notebook](https://colab.research.google.com/github/AnthusAI/LangChain-Examples/blob/main/notebooks/AI_API_Multiplexer.ipynb) for the first example.
 
 ## References
 
