@@ -347,74 +347,14 @@ if retry_count == max_retries:
 Now, we can use really cheap models that aren't so reliable.  But it's okay beause we can keep retrying until it works.  In this example, Mistral Small (24.02) had trouble but it eventually got there after a couple of retries.  And, since it's such a cheap model, that was still cheaper than doing one call with the more-expensive model.
 
 ```
-[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
-[0m{
+{
   "prompts": [
     "Human: \nQuestion: Is the Sagrada Família located in Barcelona?\nPlease provide a detailed explanation before answering whether the statement is true or false."
   ]
 }
-[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [8.56s] Exiting LLM run with output:
-[0m{
-  "generations": [
-    [
-      {
-        "text": "To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.",
-        "generation_info": null,
-        "type": "ChatGeneration",
-        "message": {
-          "lc": 1,
-          "type": "constructor",
-          "id": [
-            "langchain",
-            "schema",
-            "messages",
-            "AIMessage"
-          ],
-          "kwargs": {
-            "content": "To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.",
-            "additional_kwargs": {
-              "usage": {
-                "prompt_tokens": 39,
-                "completion_tokens": 329,
-                "total_tokens": 368
-              },
-              "stop_reason": "end_turn",
-              "model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0"
-            },
-            "response_metadata": {
-              "usage": {
-                "prompt_tokens": 39,
-                "completion_tokens": 329,
-                "total_tokens": 368
-              },
-              "stop_reason": "end_turn",
-              "model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0"
-            },
-            "type": "ai",
-            "id": "run-9e7e9eb2-7717-4483-ac34-2250e0390bfa-0",
-            "usage_metadata": {
-              "input_tokens": 39,
-              "output_tokens": 329,
-              "total_tokens": 368
-            },
-            "tool_calls": [],
-            "invalid_tool_calls": []
-          }
-        }
-      }
-    ]
-  ],
-  "llm_output": {
-    "usage": {
-      "prompt_tokens": 39,
-      "completion_tokens": 329,
-      "total_tokens": 368
-    },
-    "stop_reason": "end_turn",
-    "model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0"
-  },
-  "run": null
-}
+```
+
+```
 Detailed answer: To answer this question, let's explore some key information about the Sagrada Família:
 
 1. The Sagrada Família is a large, unfinished Roman Catholic church.
@@ -440,214 +380,53 @@ Detailed answer: To answer this question, let's explore some key information abo
 Given these facts, we can conclude:
 
 True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.
-[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
-[0m{
+```
+
+That came from the more-expensive model.  Now, on to the cheaper model to classify it:
+
+```
+{
   "prompts": [
     "Human: \nBased on the following answer, please categorize it strictly as either \"Yes\" or \"No\":\nAnswer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
   ]
 }
-[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [331ms] Exiting LLM run with output:
-[0m{
-  "generations": [
-    [
-      {
-        "text": " Yes.",
-        "generation_info": null,
-        "type": "ChatGeneration",
-        "message": {
-          "lc": 1,
-          "type": "constructor",
-          "id": [
-            "langchain",
-            "schema",
-            "messages",
-            "AIMessage"
-          ],
-          "kwargs": {
-            "content": " Yes.",
-            "additional_kwargs": {
-              "usage": {
-                "prompt_tokens": 393,
-                "completion_tokens": 3,
-                "total_tokens": 396
-              },
-              "stop_reason": null,
-              "model_id": "mistral.mistral-small-2402-v1:0"
-            },
-            "response_metadata": {
-              "usage": {
-                "prompt_tokens": 393,
-                "completion_tokens": 3,
-                "total_tokens": 396
-              },
-              "stop_reason": null,
-              "model_id": "mistral.mistral-small-2402-v1:0"
-            },
-            "type": "ai",
-            "id": "run-101c1f41-bed0-488f-ad75-17febe31478f-0",
-            "usage_metadata": {
-              "input_tokens": 393,
-              "output_tokens": 3,
-              "total_tokens": 396
-            },
-            "tool_calls": [],
-            "invalid_tool_calls": []
-          }
-        }
-      }
-    ]
-  ],
-  "llm_output": {
-    "usage": {
-      "prompt_tokens": 393,
-      "completion_tokens": 3,
-      "total_tokens": 396
-    },
-    "stop_reason": null,
-    "model_id": "mistral.mistral-small-2402-v1:0"
-  },
-  "run": null
-}
-Attempt 1: Invalid response 'yes.'. Retrying...
-[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
-[0m{
-  "prompts": [
-    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
-  ]
-}
-[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [190ms] Exiting LLM run with output:
-[0m{
-  "generations": [
-    [
-      {
-        "text": " Yes.",
-        "generation_info": null,
-        "type": "ChatGeneration",
-        "message": {
-          "lc": 1,
-          "type": "constructor",
-          "id": [
-            "langchain",
-            "schema",
-            "messages",
-            "AIMessage"
-          ],
-          "kwargs": {
-            "content": " Yes.",
-            "additional_kwargs": {
-              "usage": {
-                "prompt_tokens": 410,
-                "completion_tokens": 3,
-                "total_tokens": 413
-              },
-              "stop_reason": null,
-              "model_id": "mistral.mistral-small-2402-v1:0"
-            },
-            "response_metadata": {
-              "usage": {
-                "prompt_tokens": 410,
-                "completion_tokens": 3,
-                "total_tokens": 413
-              },
-              "stop_reason": null,
-              "model_id": "mistral.mistral-small-2402-v1:0"
-            },
-            "type": "ai",
-            "id": "run-be3687f9-0fce-4486-9632-d7d0a0348d56-0",
-            "usage_metadata": {
-              "input_tokens": 410,
-              "output_tokens": 3,
-              "total_tokens": 413
-            },
-            "tool_calls": [],
-            "invalid_tool_calls": []
-          }
-        }
-      }
-    ]
-  ],
-  "llm_output": {
-    "usage": {
-      "prompt_tokens": 410,
-      "completion_tokens": 3,
-      "total_tokens": 413
-    },
-    "stop_reason": null,
-    "model_id": "mistral.mistral-small-2402-v1:0"
-  },
-  "run": null
-}
-Attempt 2: Invalid response 'yes.'. Retrying...
-[32;1m[1;3m[llm/start][0m [1m[llm:ChatBedrock] Entering LLM run with input:
-[0m{
-  "prompts": [
-    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
-  ]
-}
-[36;1m[1;3m[llm/end][0m [1m[llm:ChatBedrock] [199ms] Exiting LLM run with output:
-[0m{
-  "generations": [
-    [
-      {
-        "text": " Yes",
-        "generation_info": null,
-        "type": "ChatGeneration",
-        "message": {
-          "lc": 1,
-          "type": "constructor",
-          "id": [
-            "langchain",
-            "schema",
-            "messages",
-            "AIMessage"
-          ],
-          "kwargs": {
-            "content": " Yes",
-            "additional_kwargs": {
-              "usage": {
-                "prompt_tokens": 410,
-                "completion_tokens": 2,
-                "total_tokens": 412
-              },
-              "stop_reason": null,
-              "model_id": "mistral.mistral-small-2402-v1:0"
-            },
-            "response_metadata": {
-              "usage": {
-                "prompt_tokens": 410,
-                "completion_tokens": 2,
-                "total_tokens": 412
-              },
-              "stop_reason": null,
-              "model_id": "mistral.mistral-small-2402-v1:0"
-            },
-            "type": "ai",
-            "id": "run-2b08608c-ba5f-4467-8b31-b1084f1526ed-0",
-            "usage_metadata": {
-              "input_tokens": 410,
-              "output_tokens": 2,
-              "total_tokens": 412
-            },
-            "tool_calls": [],
-            "invalid_tool_calls": []
-          }
-        }
-      }
-    ]
-  ],
-  "llm_output": {
-    "usage": {
-      "prompt_tokens": 410,
-      "completion_tokens": 2,
-      "total_tokens": 412
-    },
-    "stop_reason": null,
-    "model_id": "mistral.mistral-small-2402-v1:0"
-  },
-  "run": null
-}
-Yes/No Answer: Yes
 ```
+
+```
+ Yes.
+```
+
+Oops.  Almost, but we don't want punctuation.  Try again.
+
+```
+Attempt 1: Invalid response 'yes.'. Retrying...
+{
+  "prompts": [
+    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
+  ]
+}
+```
+
+```
+ Yes.
+```
+
+Try again!
+
+```
+Attempt 2: Invalid response 'yes.'. Retrying...
+{
+  "prompts": [
+    "Human: \n            Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.\n            Based on this answer, is the statement true?\n            Answer: \"To answer this question, let's explore some key information about the Sagrada Família:\n\n1. The Sagrada Família is a large, unfinished Roman Catholic church.\n\n2. It was designed by the famous Catalan architect Antoni Gaudí.\n\n3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.\n\n4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.\n\n5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.\n\n6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.\n\n7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.\n\n8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.\n\n9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.\n\n10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.\n\nGiven these facts, we can conclude:\n\nTrue. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.\""
+  ]
+}
+```
+
+```
+Yes
+```
+
+Yay!
 
 ## <a name="use-llm-to-process-data"></a>Example 4: Use an LLM to process data
 
