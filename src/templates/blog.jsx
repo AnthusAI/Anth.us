@@ -115,7 +115,7 @@ export const Head = () => {
   return (
     <Seo
       title="Blog"
-      description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS."description="Depend on proven experts With a history of powering a multi-million dollar ticketing system and seamless integrations across platforms for reliable serverless AI solutions on AWS. "
+      description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS and Azure."
       image="serverless-ai-software-solutions.png"
     />
   )
