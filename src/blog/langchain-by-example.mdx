@@ -31,6 +31,7 @@ We'd like to share some examples of practical solutions we've found using LangCh
 * [Two Models, One Task](#two-models-one-task) — Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
 * [Safeguard Retry Loops](#safeguard-retry-loops) — Building robust AI components that can validate LLM output and retry with hints, improving reliability.
 * [Use an LLM to process data](#use-llm-to-process-data) — Feeding large volumes of data to an AI model for processing.  For things like analyzing tens of thousands articles or phone call transcripts or medical transcriptions.
+* [Structuring Data](#structuring-data) — Using LangChain output parsers to extract structured data from datasets.  In this example: Quickly searching a large database of raw recipe text, looking for something we can make with the one avocado that we have.
 
 These are just a few examples of what's possible. Whether you're tackling business challenges, working on academic research, or exploring AI as a hobby, LangChain can help you harness the power of language models more effectively.
 
@@ -98,11 +99,38 @@ model = ChatOpenAI(model_name="gpt-4o")
 model.invoke("Is the Sagrada Família located in Barcelona?").content
 ```
 
-Output:
+LangChain takes care of doing this:
 
-```
-Yes, the Sagrada Família is located in Barcelona, Spain. It is a large Roman Catholic basilica designed by the renowned architect Antoni Gaudí. Construction of the Sagrada Família began in 1882 and it remains unfinished to this day, although work continues with the aim of completing it in the coming years. The basilica is one of Barcelona's most iconic landmarks and a UNESCO World Heritage Site.
-```
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to OpenAI
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from OpenAI to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, the Sagrada Família is located in Barcelona, Spain. It is a large Roman Catholic basilica designed by the renowned architect Antoni Gaudí. Construction of the Sagrada Família began in 1882 and it remains unfinished to this day, although work continues with the aim of completing it in the coming years. The basilica is one of Barcelona's most iconic landmarks and a UNESCO World Heritage Site.</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 Simple!
 
@@ -120,21 +148,36 @@ model = ChatBedrock(
 model.invoke("Is the Sagrada Família located in Barcelona?.").content
 ```
 
-Output:
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to AWS Bedrock
+  </div>
 
-```
-Yes, the Sagrada Família is located in Barcelona, Spain.
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+    </table>
+  </div>
 
-More specifically:
+</div>
 
-1. It is situated in the Eixample district of Barcelona.
-2. The full name of the church is the Basílica i Temple Expiatori de la Sagrada Família (Basilica and Expiatory Church of the Holy Family).3. It is one of the most famous works of the Catalan architect Antoni Gaudí.
-4. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the world's longest-running architectural projects.
-5. It is a major landmark and tourist attraction in Barcelona, known for its unique and intricate design that combines Gothic and Art Nouveau forms.
-6. Despite being incomplete, the church was consecrated and declared a minor basilica by Pope Benedict XVI in 2010.
+<div className="blockDiagram response">
+  <div className="title">
+    response from AWS Bedrock to the application
+  </div>
 
-The Sagrada Família is not only located in Barcelona but is also considered one of the city's most iconic symbols and a must-see attraction for visitors to the Catalan capital.
-```
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, the Sagrada Família is located in Barcelona, Spain.<br/> More specifically:<br/> 1. It is situated in the Eixample district of Barcelona.<br/> 2. The full name of the church is the Basílica i Temple Expiatori de la Sagrada Família (Basilica and Expiatory Church of the Holy Family).3. It is one of the most famous works of the Catalan architect Antoni Gaudí.<br/> 4. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the world's longest-running architectural projects.<br/> 5. It is a major landmark and tourist attraction in Barcelona, known for its unique and intricate design that combines Gothic and Art Nouveau forms.<br/> 6. Despite being incomplete, the church was consecrated and declared a minor basilica by Pope Benedict XVI in 2010.<br/> The Sagrada Família is not only located in Barcelona but is also considered one of the city's most iconic symbols and a must-see attraction for visitors to the Catalan capital.</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 Sorting out the details of the differences between the different AI APIs and models could consume hours of your time up front.  And complications related to managing those details could cost you even more time and delayed progress in the future.  Shifting responsibility for those details into LangChain keeps you focused on your goals.
 
@@ -162,74 +205,138 @@ We know that adding instructions to the prompt to tell the model to give us only
 But summarizing an answer into either a "yes" or a "no" is pretty simple.  We probably don't need an expensive model for that.  That's how LangChain helps us here: We can use an expensive model for the first question where the accuracy really matters, and then we can use a cheaper model for the final classification.  Let's use GPT 4o for the answer and GPT 4o mini for the yes/no classification:
 
 ```python
-from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, AIMessage
 
-# First LLM: Use gpt-4o for the CoT prompt to get a detailed answer
-cot_prompt_template = """
-Question: {question}
-Please provide a detailed explanation before answering whether the statement is true or false.
-"""
-
-cot_prompt = PromptTemplate(
-    template=cot_prompt_template,
-    input_variables=["question"])
-
-# Create the first chain using OpenAI's gpt-4o model with a CoT prompt
 chain_1 = ChatOpenAI(temperature=0.7, model_name="gpt-4o")
-
-# Example question
-question = "Is the Sagrada Família located in Barcelona?"
-
-# Invoke the first chain
-cot_response = chain_1.invoke(cot_prompt.format(question=question))
-detailed_answer = cot_response.content
-print("Detailed answer:", detailed_answer)
-
-# Second LLM: Use gpt-4o-mini to categorize the detailed answer as 'Yes' or 'No'
-yes_no_prompt_template = """
-Based on the following answer, please categorize it strictly as either "Yes" or "No":
-Answer: "{detailed_answer}"
-"""
-
-yes_no_prompt = PromptTemplate(
-    template=yes_no_prompt_template,
-    input_variables=["detailed_answer"])
-
-# Create the second chain using OpenAI's gpt-4o-mini model for yes/no clarification
 chain_2 = ChatOpenAI(temperature=0, model_name="gpt-4o-mini")
 
-# Invoke the second chain
-yes_no_response = chain_2.invoke(yes_no_prompt.format(detailed_answer=detailed_answer))
+question = "Is the Sagrada Família located in Barcelona?"
+
+messages = [
+    HumanMessage(content=f"Question: {question}\nPlease provide a detailed explanation before answering whether the statement is true or false.")
+]
+
+detailed_response = chain_1.invoke(messages)
+detailed_answer = detailed_response.content
+print("Detailed answer:", detailed_answer)
+
+messages.extend([
+    AIMessage(content=detailed_answer),
+    HumanMessage(content="Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
+])
+
+yes_no_response = chain_2.invoke(messages)
 yes_no_answer = yes_no_response.content.strip()
 print("Yes/No Answer:", yes_no_answer)
 ```
 
-First output:
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to GPT 4o
+  </div>
 
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from GPT 4o to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, the statement is true: the Sagrada Família is located in Barcelona.<br/><br/>The Basílica i Temple Expiatori de la Sagrada Família, commonly known as the Sagrada Família, is an iconic basilica in Barcelona, Spain. Designed by the renowned Catalan architect Antoni Gaudí, it is one of the most famous landmarks in the city and a UNESCO World Heritage Site.<br/>
+        Construction of the Sagrada Família began in 1882, and Gaudí took over the project in 1883, transforming it with his distinctive architectural and engineering style that combines Gothic and Art Nouveau forms. Despite Gaudí's death in 1926, work on the basilica has continued, guided by his designs and models.<br/>
+        The Sagrada Família is located in the Eixample district of Barcelona, specifically in the neighborhood of La Sagrada Família, which derives its name from the basilica. Its central location and towering presence make it a significant cultural and tourist attraction in Barcelona.<br/><br/>Therefore, it is accurate to say that the Sagrada Família is located in Barcelona.</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to GPT 4o mini
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes, the statement is true: the Sagrada Família is located in Barcelona.<br/><br/>The Basílica i Temple Expiatori de la Sagrada Família, commonly known as the Sagrada Família, is an iconic basilica in Barcelona, Spain. Designed by the renowned Catalan architect Antoni Gaudí, it is one of the most famous landmarks in the city and a UNESCO World Heritage Site.<br/>
+        Construction of the Sagrada Família began in 1882, and Gaudí took over the project in 1883, transforming it with his distinctive architectural and engineering style that combines Gothic and Art Nouveau forms. Despite Gaudí's death in 1926, work on the basilica has continued, guided by his designs and models.<br/>
+        The Sagrada Família is located in the Eixample district of Barcelona, specifically in the neighborhood of La Sagrada Família, which derives its name from the basilica. Its central location and towering presence make it a significant cultural and tourist attraction in Barcelona.<br/><br/>Therefore, it is accurate to say that the Sagrada Família is located in Barcelona.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from GPT 4o mini to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+This two-step pattern gives us the best of both worlds: High accuracy from a large and expensive model, and data structuring from a smaller and cheaper model.
+
+LangChain of course makes it easy to try different APIs and different models.  Here's the same two-step sequence, but using Claude 3.5 Connect and Llama 3
+
+```python
+from langchain_aws import ChatBedrock
+from langchain_core.messages import HumanMessage, AIMessage
+
+chain_1 = ChatBedrock(model_id="anthropic.claude-3-5-sonnet-20240620-v1:0")
+chain_2 = ChatBedrock(model_id="meta.llama3-8b-instruct-v1:0")
+
+question = "Is the Sagrada Família located in Barcelona?"
+
+messages = [
+    HumanMessage(content=f"Question: {question}\nPlease provide a detailed explanation before answering whether the statement is true or false.")
+]
+
+detailed_response = chain_1.invoke(messages)
+detailed_answer = detailed_response.content
+print("Detailed answer:", detailed_answer)
+
+messages.extend([
+    AIMessage(content=detailed_answer),
+    HumanMessage(content="Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
+])
+
+yes_no_response = chain_2.invoke(messages)
+yes_no_answer = yes_no_response.content.strip()
+print("Yes/No Answer:", yes_no_answer)
 ```
-Detailed answer: Yes, the statement is true; the Eiffel Tower is located in Paris.
 
-Let's delve into some details to provide a comprehensive explanation:
-
-1. **Historical Context**: The Eiffel Tower was constructed between 1887 and 1889 as the entrance arch for the 1889 Exposition Universelle (World's Fair), which was held to celebrate the 100th anniversary of the French Revolution.
-
-2. **Geographical Location**: The Eiffel Tower is situated on the Champ de Mars, a large public greenspace in the 7th arrondissement of Paris, France. The exact coordinates are approximately 48.8584° N latitude and 2.2945° E longitude.
-
-3. **Architectural Significance**: Named after its designer, the engineer Gustave Eiffel, the Tower stands as an iconic symbol of French engineering prowess and architectural innovation. 
-
-4. **Cultural Importance**: Over the years, the Eiffel Tower has become one of the most recognizable structures in the world and a global cultural icon of France. It attracts millions of visitors annually, making it one of the most visited paid monuments worldwide.
-
-5. **Role in Parisian Landscape**: The Eiffel Tower is an integral part of Paris's skyline and is often associated with the city's identity. It is visible from various parts of Paris, adding to the city's charm and allure.
-
-In summary, based on historical, geographical, architectural, and cultural evidence, it is accurate to state that the Eiffel Tower is indeed located in Paris.
-```
-
-Second output:
-
-```
-Yes
-```
+You could even send one request to OpenAI and the follow-up request to AWS Bedrock.  LangChain handles the details so that you can focus on your solution.
 
 ## <a name="safeguard-retry-loops"></a>Example 3: Add a retry loop to check LLM outputs as a safeguard
 
@@ -237,53 +344,31 @@ LLMs can be talkative.  You just want a "yes" or a "no" but they'll say things l
 
 We have seen how you can add a subsequent LLM call to classify a wordy answer into the "yes" or "no" that we're looking for.  But, what if the second LLM call produces something other than "yes" or "no"?
 
-We need a retry loop as a safeguard layer.  After we call the LLM the second time, to reformat the answer, we can check to make sure we have the right format.  If not, then we can loop back and ask the second LLM a follow-up question.  Each time we do this, we send the entire message history, including the response from the more-expensive model.  You can move whole conversation histories back and forth between models like this.
+We need a retry loop as a safeguard layer.  After we call the LLM the second time, to reformat the answer, we can check to make sure we have the right format.  If not, then we can loop back and ask the second LLM a follow-up question.
 
 ```python
-from langchain_core.prompts import PromptTemplate
+from langchain_core.messages import HumanMessage, AIMessage
 from langchain_aws import ChatBedrock
 
-# First LLM: Use Claude 3.5 Sonnet for the CoT prompt to get a detailed answer
-cot_prompt_template = """
-Question: {question}
-Please provide a detailed explanation before answering whether the statement is true or false.
-"""
-
-cot_prompt = PromptTemplate(
-    template=cot_prompt_template,
-    input_variables=["question"])
-
-# Create the first chain using Claude 3.5 Sonnet model
 chain_1 = ChatBedrock(model_id="anthropic.claude-3-5-sonnet-20240620-v1:0")
-
-# Example question
-question = "Is the Sagrada Família located in Barcelona?"
-
-# Invoke the first chain
-cot_response = chain_1.invoke(cot_prompt.format(question=question))
-detailed_answer = cot_response.content
-print("Detailed answer:", detailed_answer)
-
-# Second LLM: Use a cheaper model to categorize the detailed answer as 'Yes' or 'No'
-yes_no_prompt_template = """
-Based on the following answer, please categorize it strictly as either "Yes" or "No":
-Answer: "{detailed_answer}"
-"""
-
-yes_no_prompt = PromptTemplate(
-    template=yes_no_prompt_template,
-    input_variables=["detailed_answer"])
-
-# Create the second chain using a cheaper model for yes/no clarification
 chain_2 = ChatBedrock(model_id="mistral.mistral-small-2402-v1:0")
 
-# Retry loop
+question = "Is the Sagrada Família located in Barcelona?"
+
+cot_response = chain_1.invoke([HumanMessage(content=question)])
+detailed_answer = cot_response.content
+
+message_history = [
+    HumanMessage(content=question),
+    AIMessage(content=detailed_answer),
+    HumanMessage(content="Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
+]
+
 max_retries = 3
 retry_count = 0
 
 while retry_count < max_retries:
-    # Invoke the second chain
-    yes_no_response = chain_2.invoke(yes_no_prompt.format(detailed_answer=detailed_answer))
+    yes_no_response = chain_2.invoke(message_history)
     yes_no_answer = yes_no_response.content.strip().lower()
     
     if yes_no_answer in ["yes", "no"]:
@@ -293,16 +378,8 @@ while retry_count < max_retries:
         print(f"Attempt {retry_count + 1}: Invalid response '{yes_no_answer}'. Retrying...")
         retry_count += 1
         
-        # If we're not on the last retry, update the prompt to be more specific
         if retry_count < max_retries:
-            yes_no_prompt_template = """
-            Your previous response was not valid. Please answer ONLY with "Yes" or "No", with no punctuation.
-            Based on this answer, is the statement true?
-            Answer: "{detailed_answer}"
-            """
-            yes_no_prompt = PromptTemplate(
-                template=yes_no_prompt_template,
-                input_variables=["detailed_answer"])
+            message_history.append(HumanMessage(content="Your previous response was not valid. Please answer ONLY with 'Yes' or 'No', without any additional text or punctuation."))
 
 if retry_count == max_retries:
     print("Failed to get a valid Yes/No answer after maximum retries.")
@@ -310,82 +387,122 @@ if retry_count == max_retries:
 
 Now, we can use really cheap models that aren't so reliable.  But it's okay beause we can keep retrying until it works.  In this example, Mistral Small (24.02) had trouble but it eventually got there after a couple of retries.  And, since it's such a cheap model, that was still cheaper than doing one call with the more-expensive model.
 
-```
-{
-  "prompts": [
-    "Human: \nQuestion: Is the Sagrada Família located in Barcelona?\nPlease provide a detailed explanation before answering whether the statement is true or false."
-  ]
-}
-```
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to Claude 3.5 Sonnet
+  </div>
 
-```
-Detailed answer: To answer this question, let's explore some key information about the Sagrada Família:
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+    </table>
+  </div>
 
-1. The Sagrada Família is a large, unfinished Roman Catholic church.
+</div>
 
-2. It was designed by the famous Catalan architect Antoni Gaudí.
+<div className="blockDiagram response">
+  <div className="title">
+    response from Claude 3.5 Sonnet to the application
+  </div>
 
-3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">To answer this question, let's explore some key information about the Sagrada Família:<br/>1. The Sagrada Família is a large, unfinished Roman Catholic church.<br/><br/>2. It was designed by the famous Catalan architect Antoni Gaudí.<br/>3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.<br/>4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.<br/>5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.<br/>6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.<br/>7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.<br/>8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.<br/>9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.<br/>10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.<br/><br/>Given these facts, we can conclude:<br/>True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
-4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to Mistral Small (24.02)
+  </div>
 
-5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">To answer this question, let's explore some key information about the Sagrada Família:<br/>1. The Sagrada Família is a large, unfinished Roman Catholic church.<br/><br/>2. It was designed by the famous Catalan architect Antoni Gaudí.<br/>3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.<br/>4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.<br/>5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.<br/>6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.<br/>7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.<br/>8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.<br/>9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.<br/>10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.<br/><br/>Given these facts, we can conclude:<br/>True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.</td>
+      </tr>
+    </table>
+  </div>
 
-6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.
+</div>
 
-7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.
+<div className="blockDiagram response">
+  <div className="title">
+    response from Mistral Small (24.02) to the application
+  </div>
 
-8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">yes.</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
-9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to Mistral Small (24.02)
+  </div>
 
-10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Is the Sagrada Família located in Barcelona?</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">To answer this question, let's explore some key information about the Sagrada Família:<br/>1. The Sagrada Família is a large, unfinished Roman Catholic church.<br/><br/>2. It was designed by the famous Catalan architect Antoni Gaudí.<br/>3. Construction of the Sagrada Família began in 1882 and is still ongoing, making it one of the longest-running construction projects in the world.<br/>4. The church is known for its unique, intricate design that combines Gothic and Art Nouveau styles with Gaudí's distinctive organic forms.<br/>5. It is one of the most popular tourist attractions in Spain, receiving millions of visitors each year.<br/>6. The Sagrada Família is indeed located in Barcelona, the capital city of the autonomous community of Catalonia in Spain.<br/>7. Specifically, it is situated in the Eixample district of Barcelona, at the northern part of the city center.<br/>8. The full address is Carrer de Mallorca, 401, 08013 Barcelona, Spain.<br/>9. The church has become an iconic symbol of Barcelona and is often featured in photographs and representations of the city.<br/>10. In 2010, Pope Benedict XVI consecrated the church and proclaimed it a minor basilica.<br/><br/>Given these facts, we can conclude:<br/>True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.</td>
+      </tr>
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">yes.</td>
+      </tr>
+      <tr>
+        <td className="role">user</td>
+        <td className="content">Your previous response was not valid. Please answer ONLY with 'Yes' or 'No', without any additional text or punctuation.</td>
+      </tr>
+    </table>
+  </div>
 
-Given these facts, we can conclude:
+</div>
 
-True. The Sagrada Família is indeed located in Barcelona, Spain. It is one of the city's most recognizable landmarks and a major architectural attraction in the Catalan capital.
-```
+<div className="blockDiagram response">
+  <div className="title">
+    response from Mistral Small (24.02) to the application
+  </div>
 
-That came from the more-expensive model.  Now, on to the cheaper model to classify it:
-
-```
-Based on the following answer, please categorize it strictly as either \"Yes\" or \"No\":
-
-Answer: "To answer this question, let's explore ...
-...a major architectural attraction in the Catalan capital.
-```
-
-```
- Yes.
-```
-
-Oops.  Almost, but we don't want punctuation.  Try again.
-
-```
-Attempt 1: Invalid response 'yes.'. Retrying...
-
-Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.
-```
-
-```
- Yes.
-```
-
-Try again!
-
-```
-Attempt 2: Invalid response 'yes.'. Retrying...
-
-Your previous response was not valid. Please answer ONLY with \"Yes\" or \"No\", with no punctuation.
-```
-
-Output:
-
-```
-Yes
-```
-
-Yay!
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">Yes</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 ## <a name="use-llm-to-process-data"></a>Example 4: Use an LLM to process data
 
@@ -442,6 +559,138 @@ Processing articles: 100%|██████████| 1610/1610 [12:31<00:00
 ```
 
 You can run this example with [this notebook](https://colab.research.google.com/drive/18fFCAuElG4LqunEj2_Ipd7_HWt1WHR4a?usp=sharing) on Google Colab.
+
+## <a name="structuring-data"></a>Example 5: Structing data using LangChain output parsers
+
+We've got one avocado.  We have a [h]uge collection of recipes](https://huggingface.co/datasets/corbt/all-recipes), where each one is a raw, unstructured text string.  What can we make with one avocado?
+
+You can use [LangChain output parsers](https://python.langchain.com/v0.1/docs/modules/model_io/output_parsers/) to extract structured data from raw text.  Here's an example for extracting the number of avocados that each recipe requires:
+
+```python
+class RecipeInfo(BaseModel):
+    title: str = Field(description="The title of the recipe")
+    avocado_count: float = Field(description="The number of avocados required in the recipe")
+    ingredients: List[str] = Field(description="The full list of ingredients")
+    directions: List[str] = Field(description="The list of directions to prepare the recipe")
+
+parser = PydanticOutputParser(pydantic_object=RecipeInfo)
+
+prompt = PromptTemplate(
+    template="Extract the following information from the recipe:\n{format_instructions}\n{recipe_text}\n",
+    input_variables=["recipe_text"],
+    partial_variables={"format_instructions": parser.get_format_instructions()},
+)
+
+chain = prompt | model | parser
+```
+
+When we call that chain with `recipe_text` as input, we'll get four things: The number of avocados as a floating-point number, and the title, ingredients, and directions as three separate strings.
+
+LangChain provides a variety of options for output parsers, but the [`PydanticOutputParser`](https://python.langchain.com/v0.1/docs/modules/model_io/output_parsers/types/pydantic/) is one of the most powerful becuase it supports types for the items it extracts, like the floating-point type for the number of avocados in this example.
+
+The code for this example does a keyword scan for the word "avocado" first and then inspects the recipes it finds, looking for the ones that require one or fewer avocados:
+
+```
+Processing 270 recipes out of 27070 avocado recipes found.
+
+Processing recipe 1/270. Elapsed time: 0.00 seconds.
+
+Recipe: Crispy Chicken Parmesan with Avocado Salsa
+Avocados required: 1.0
+Great! We can make this recipe with our one avocado.
+
+Title:
+Crispy Chicken Parmesan with Avocado Salsa
+
+Ingredients:
+- 1/3 cup dry bread crumbs
+- 1/3 cup Kraft 100% Parmesan Grated Cheese, divided
+- 1/4 cup Miracle Whip made with Olive Oil Spread*
+- 1/2 tsp. chili powder
+- 6 small boneless skinless chicken breasts (1-1/2 lb./675 g), pounded to 1/4-inch thickness
+- 1 Tbsp. olive oil
+- 1/2 cup chopped avocados
+- 1/2 cup tomatillo salsa
+- 1/2 cup chopped tomatoes King Sooper's 1 lb For $0.99 thru 02/09
+
+Directions:
+- Combine bread crumbs and 1/4 cup cheese in shallow dish; set aside.
+- Mix Miracle Whip and chili powder; spread onto both sides of chicken breasts.
+- Coat evenly with bread crumb mixture.
+- Heat oil in large skillet on medium heat.
+- Add chicken; cook 4 to 5 min. on each side or until done (165 degrees F).
+- Meanwhile, mash avocados with salsa.
+- Place chicken on serving plate; top with avocado mixture, tomatoes and remaining cheese.
+
+--------------------------------------------------
+
+Recipe: Halibut Veracruz
+Avocados required: 2.0
+Skipping this recipe. It requires too many avocados (2.0).
+
+--------------------------------------------------
+
+Recipe: Blt Spinach Wrap Recipe
+Avocados required: 2.0
+Skipping this recipe. It requires too many avocados (2.0).
+
+--------------------------------------------------
+
+Recipe: Chicken And Avocado Salad With Lime And Cilantro
+Avocados required: 2.0
+Skipping this recipe. It requires too many avocados (2.0).
+
+--------------------------------------------------
+
+Recipe: Crunchy Quesadilla Stack
+Avocados required: 1.0
+Great! We can make this recipe with our one avocado.
+
+Title:
+Crunchy Quesadilla Stack
+
+Ingredients:
+- 1 -2 cup shredded cooked chicken (amt to your liking)
+- 1 (10 ounce) can Rotel diced tomatoes
+- 1 cup shredded cheddar cheese
+- 1 small avocado, chopped
+- 14 cup sliced green onion (about 2 onions)
+- 1 teaspoon garlic salt
+- 10 flour tortillas
+- 1 (16 ounce) can refried beans
+- 5 corn tostadas, fried
+- cooking spray
+- olive
+- jalapeno pepper
+- green chili
+- bell pepper
+
+Directions:
+- Combine chicken, tomatoes, cheese, avacado, green onions, and garlic salt.
+- Mix well.
+- Spread about 1/3 cup of beans to edge of tortillas.
+- Top each with tostada shell.
+- Spoon chicken mixture over shell; top with remaining flour tortillas.
+- Grill both sides over medium heat in skillet coated with cooking spray until golden brown.
+- Cut into wedges.
+- Serve with sour cream, salsa, etc.
+
+--------------------------------------------------
+
+Recipe: Southwest Chicken Chopped Salad
+Avocados required: 2.0
+Skipping this recipe. It requires too many avocados (2.0).
+
+--------------------------------------------------
+
+...
+```
+
+You can run this example with [this notebook](https://colab.research.google.com/drive/1KBJ0HY025wgk8KWcmaA8NSHX-P2X9a7L?usp=sharing) on Google Colab.
+
+## Focus on your own project
+
+These examples aim to demonstrate that LangChain can enable you to do big things without a lot of code.  It can handle details that you don't want to think about when you're solving real problems under pressure.  It's reliable and actively supported, and it doesn't require you to change how you do things.  We use it a lot, and we think it could help you, too.
 
 ## References
 
