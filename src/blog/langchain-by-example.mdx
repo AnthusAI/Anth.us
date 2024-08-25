@@ -338,13 +338,13 @@ print("Yes/No Answer:", yes_no_answer)
 
 You could even send one request to OpenAI and the follow-up request to AWS Bedrock.  LangChain handles the details so that you can focus on your solution.
 
-## <a name="safeguard-retry-loops"></a>Example 3: Add a retry loop to check LLM outputs as a safeguard
+## <a name="safeguard-retry-loops"></a>Example 3: Add a safeguard retry loop
 
 LLMs can be talkative.  You just want a "yes" or a "no" but they'll say things like, "The answer is: No."
 
-We have seen how you can add a subsequent LLM call to classify a wordy answer into the "yes" or "no" that we're looking for.  But, what if the second LLM call produces something other than "yes" or "no"?
+We have seen how you can add a subsequent LLM call to classify a wordy answer into the "yes" or "no" that we're looking for.  But, what if the second LLM call produces something other than "yes" or "no"?  As you work with smaller and cheaper models you'll need to work harder to meet in the middle with them.  There are lots of tools for that, and one of the most important is the retry loop as a safeguard.
 
-We need a retry loop as a safeguard layer.  After we call the LLM the second time, to reformat the answer, we can check to make sure we have the right format.  If not, then we can loop back and ask the second LLM a follow-up question.
+After we call the LLM the second time to get a "yes" or a  "no", we can check to make sure we got a valid answer.  If not, then we can loop back and ask the second LLM a follow-up question.
 
 ```python
 from langchain_core.messages import HumanMessage, AIMessage
