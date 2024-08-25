@@ -9,13 +9,14 @@ authors:
 assistants:
   - assistant: ChatGPT
   - assistant: Claude
-excerpt: How to orchestrate LLMs to do real work.
+excerpt: "Learn how easy it can be to implement LLM applications through real-world AI use cases, like: What can I make with this one avocado?"
 preview_image: "./diagrams/LangChain/API-multiplexer.png"
 images:
   - ./images/draft-1.png
   - ./images/LangChain/agentic-framework-logos.png
   - ./diagrams/LangChain/API-multiplexer.png
   - ./diagrams/LangChain/Two-Models-One-Task.png
+  - ./diagrams/LangChain/Safeguard-Retry-Loop.png
 state: published
 ---
 
@@ -28,11 +29,20 @@ That's where we come in. Our team specializes in making these advanced tools acc
 
 We'd like to share some examples of practical solutions we've found using LangChain:
 
-* [Use AI models from any company's AI API](#ai-api-multiplexer) — Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
-* [Two Models, One Task](#two-models-one-task) — Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
-* [Safeguard Retry Loops](#safeguard-retry-loops) — Building robust AI components that can validate LLM output and retry with hints, improving reliability.
-* [Use an LLM to process data](#use-llm-to-process-data) — Feeding large volumes of data to an AI model for processing.  For things like analyzing tens of thousands articles or phone call transcripts or medical transcriptions.
-* [Structuring Data](#structuring-data) — Using LangChain output parsers to extract structured data from datasets.  In this example: Quickly searching a large database of raw recipe text, looking for something we can make with the one avocado that we have.
+### [Use AI models from any company's AI API](#ai-api-multiplexer)
+Using AI models on-demand as interchangeable components within larger software architectures, connecting to various AI API providers.
+
+### [Two Models, One Task](#two-models-one-task)
+Creating multi-step processes that break down complex tasks, allowing the use of more cost-effective AI models while achieving better results – a key principle in leveraging AI for practical solutions.
+
+### [Safeguard Retry Loops](#safeguard-retry-loops)
+Building robust AI components that can validate LLM output and retry with hints, improving reliability.
+
+### [Use an LLM to process data](#use-llm-to-process-data)
+Feeding large volumes of data to an AI model for processing.  For things like analyzing tens of thousands articles or phone call transcripts or medical transcriptions.
+
+### [Structuring Data](#structuring-data)
+Using LangChain output parsers to extract structured data from datasets.  In this example: Quickly searching a large database of raw recipe text, looking for something we can make with the one avocado that we have.
 
 These are just a few examples of what's possible. Whether you're tackling business challenges, working on academic research, or exploring AI as a hobby, LangChain can help you harness the power of language models more effectively.
 
@@ -223,7 +233,11 @@ chain_2 = ChatOpenAI(temperature=0, model_name="gpt-4o-mini")
 question = "Is the Sagrada Família located in Barcelona?"
 
 messages = [
-    HumanMessage(content=f"Question: {question}\nPlease provide a detailed explanation before answering whether the statement is true or false.")
+  HumanMessage(
+    content= \
+    f"Question: {question}\n" + \
+    "Please provide a detailed explanation before answering whether the statement is true or false."
+  )
 ]
 
 detailed_response = chain_1.invoke(messages)
@@ -231,8 +245,11 @@ detailed_answer = detailed_response.content
 print("Detailed answer:", detailed_answer)
 
 messages.extend([
-    AIMessage(content=detailed_answer),
-    HumanMessage(content="Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
+  AIMessage(content=detailed_answer),
+  HumanMessage(
+    content= \
+    "Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'."
+  )
 ])
 
 yes_no_response = chain_2.invoke(messages)
@@ -328,7 +345,7 @@ chain_2 = ChatBedrock(model_id="meta.llama3-8b-instruct-v1:0")
 question = "Is the Sagrada Família located in Barcelona?"
 
 messages = [
-    HumanMessage(content=f"Question: {question}\nPlease provide a detailed explanation before answering whether the statement is true or false.")
+  HumanMessage(content=f"Question: {question}\nPlease provide a detailed explanation before answering whether the statement is true or false.")
 ]
 
 detailed_response = chain_1.invoke(messages)
@@ -336,8 +353,10 @@ detailed_answer = detailed_response.content
 print("Detailed answer:", detailed_answer)
 
 messages.extend([
-    AIMessage(content=detailed_answer),
-    HumanMessage(content="Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
+  AIMessage(content=detailed_answer),
+  HumanMessage(
+    content = \
+    "Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
 ])
 
 yes_no_response = chain_2.invoke(messages)
@@ -355,6 +374,10 @@ We have seen how you can add a subsequent LLM call to classify a wordy answer in
 
 After we call the LLM the second time to get a "yes" or a  "no", we can check to make sure we got a valid answer.  If not, then we can loop back and ask the second LLM a follow-up question.
 
+<div className="center-full-image">
+<BlogImage images={props.pageContext.frontmatter.images} name="Safeguard-Retry-Loop.png" className="full" alt="Safeguard retry loop." />
+</div>
+
 ```python
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_aws import ChatBedrock
@@ -368,30 +391,33 @@ cot_response = chain_1.invoke([HumanMessage(content=question)])
 detailed_answer = cot_response.content
 
 message_history = [
-    HumanMessage(content=question),
-    AIMessage(content=detailed_answer),
-    HumanMessage(content="Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'.")
+  HumanMessage(content=question),
+  AIMessage(content=detailed_answer),
+  HumanMessage(
+    content = \
+    "Based on the previous messages, categorize the response strictly as either 'Yes' or 'No'."
+  )
 ]
 
 max_retries = 3
 retry_count = 0
 
 while retry_count < max_retries:
-    yes_no_response = chain_2.invoke(message_history)
-    yes_no_answer = yes_no_response.content.strip().lower()
+  yes_no_response = chain_2.invoke(message_history)
+  yes_no_answer = yes_no_response.content.strip().lower()
+  
+  if yes_no_answer in ["yes", "no"]:
+    print(f"Yes/No Answer: {yes_no_answer.capitalize()}")
+    break
+  else:
+    print(f"Attempt {retry_count + 1}: Invalid response '{yes_no_answer}'. Retrying...")
+    retry_count += 1
     
-    if yes_no_answer in ["yes", "no"]:
-        print(f"Yes/No Answer: {yes_no_answer.capitalize()}")
-        break
-    else:
-        print(f"Attempt {retry_count + 1}: Invalid response '{yes_no_answer}'. Retrying...")
-        retry_count += 1
-        
-        if retry_count < max_retries:
-            message_history.append(HumanMessage(content="Your previous response was not valid. Please answer ONLY with 'Yes' or 'No', without any additional text or punctuation."))
+    if retry_count < max_retries:
+      message_history.append(HumanMessage(content="Your previous response was not valid. Please answer ONLY with 'Yes' or 'No', without any additional text or punctuation."))
 
 if retry_count == max_retries:
-    print("Failed to get a valid Yes/No answer after maximum retries.")
+  print("Failed to get a valid Yes/No answer after maximum retries.")
 ```
 
 Now, we can use really cheap models that aren't so reliable.  But it's okay beause we can keep retrying until it works.  In this example, Mistral Small (24.02) had trouble but it eventually got there after a couple of retries.  And, since it's such a cheap model, that was still cheaper than doing one call with the more-expensive model.
@@ -594,6 +620,51 @@ chain = prompt | model | parser
 ```
 
 When we call that chain with `recipe_text` as input, we'll get four things: The number of avocados as a floating-point number, and the title, ingredients, and directions as three separate strings.
+
+The mechanics of telling the LLM how to respond with structured data and then parsing the response are complicated.  If you're in the middle of trying to solve a problem then you don't want to stop and spend an hour on yak shaving to reinvent that wheel.  When you use the `PydanticOutputParser`, LangChain knows how to add the formatting instructions (as the `format_instructions` variable) to your prompt to tell the model to respond in JSON format with the schema that you requested.  Then, it handles parsing the output.  You could implement that stuff yourself but you have bigger things you need to do.
+
+Note all the JSON schema stuff it added to the prompt here:
+
+<div className="blockDiagram request">
+  <div className="title">
+    request from application to Claude 3.5 Sonnet
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">user</td>
+        <td className="content">
+Extract the following information from the recipe:<br/>The output should be formatted as a JSON instance that conforms to the JSON schema below.
+<br/>
+As an example, for the schema &#123;"properties": &#123;"foo": &#123;"title": "Foo", "description": "a list of strings", "type": "array", "items": &#123;"type": "string"&#125;&#125;&#125;, "required": ["foo"]&#125;the object &#123;"foo": ["bar", "baz"]&#125; is a well-formatted instance of the schema. The object &#123;"properties": &#123;"foo": ["bar", "baz"]&#125;&#125; is not well-formatted.<br/><br/>Here is the output schema:<br/>
+&#96;&#96;&#96;
+<br/>&#123;"properties": &#123;"title": &#123;"title": "Title", "description": "The title of the recipe", "type": "string"&#125;, "avocado_count": &#123;"title": "Avocado Count", "description": "The number of avocados required in the recipe", "type": "number"&#125;, "ingredients": &#123;"title": "Ingredients", "description": "The full list of ingredients", "type": "array", "items": &#123;"type": "string"&#125;&#125;, "directions": &#123;"title": "Directions", "description": "The list of directions to prepare the recipe", "type": "array", "items": &#123;"type": "string"&#125;&#125;&#125;, "required": ["title", "avocado_count", "ingredients", "directions"]&#125;<br/>
+&#96;&#96;&#96;<br/><br/>
+Avocado Toast<br/><br/>Ingredients:<br/>- 1 slice of bread<br/>- 1/2 ripe avocado<br/>- Salt and pepper to taste<br/>- Optional toppings: red pepper flakes, lemon juice, or feta cheese<br/><br/>Instructions:<br/>1. Toast the bread until golden and crispy.<br/>2. Cut the avocado in half and remove the pit. Scoop out the flesh of one half.<br/>3. Mash the avocado in a bowl and spread it on the toasted bread.<br/>4. Sprinkle with salt and pepper.<br/>5. Add any optional toppings if desired.<br/>6. Serve immediately and enjoy your avocado toast!
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+<div className="blockDiagram response">
+  <div className="title">
+    response from Claude 3.5 Sonnet to the application
+  </div>
+
+  <div className="container conversationHistory">
+    <table className="messages">
+      <tr>
+        <td className="role">assistant</td>
+        <td className="content">&grave;&grave;&grave;json<br/>&lbrace;<br/>  &quot;title&quot;: &quot;Avocado Toast&quot;,<br/>  &quot;avocado_count&quot;: 0.5,<br/>  &quot;ingredients&quot;: &lbrack;<br/>    &quot;1 slice of bread&quot;,<br/>    &quot;1/2 ripe avocado&quot;,<br/>    &quot;Salt and pepper to taste&quot;,<br/>    &quot;Optional toppings: red pepper flakes, lemon juice, or feta cheese&quot;<br/>  &rbrack;,<br/>  &quot;directions&quot;: &lbrack;<br/>    &quot;Toast the bread until golden and crispy.&quot;,<br/>    &quot;Cut the avocado in half and remove the pit. Scoop out the flesh of one half.&quot;,<br/>    &quot;Mash the avocado in a bowl and spread it on the toasted bread.&quot;,<br/>    &quot;Sprinkle with salt and pepper.&quot;,<br/>    &quot;Add any optional toppings if desired.&quot;,<br/>    &quot;Serve immediately and enjoy your avocado toast!&quot;<br/>  &rbrack;<br/>&rbrace;<br/>&grave;&grave;&grave;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+See the `"avocado_count": 0.5`?  That's the important part here.  The model understands to convert "1/2 ripe avocado" into a `0.5` value for that item, because LangChain generated clear formatting instructions for the model to tell it what we want.  Please remember that this only works with larger, more-sophisticated models because formatting instructions consume some of the model's attention and lower its performance on the larger task.  Larger models like the ones from OpenAI that have been fine-tuned for producing valid JSON and can handle it.  But, if you want the best-possible accuracy then you should avoid formatting instructions in your critical prompts.  Use formatting instructions in follow-up questions instead, after the delicate decisions have already been made.
 
 LangChain provides a variety of options for output parsers, but the [`PydanticOutputParser`](https://python.langchain.com/v0.1/docs/modules/model_io/output_parsers/types/pydantic/) is one of the most powerful becuase it supports types for the items it extracts, like the floating-point type for the number of avocados in this example.
 
