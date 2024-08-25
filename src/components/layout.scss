@@ -302,6 +302,8 @@ header {
     flex: 1 0 auto;
     align-items: center;
     justify-content: space-between;
+    max-width: var(--size-content);
+    width: 100%;
 
     > a {
       text-decoration: none;
@@ -471,7 +473,10 @@ a.button:active {
 
   .hero-image {
     width: 100%;
-    max-width: 940px;
+  }
+
+  .hero-image-wide {
+    display: none;
   }
 
   .hero-overlay {
@@ -987,33 +992,42 @@ footer {
 }
 
 @media only screen and (min-width: 941px) {
-  .layout {
-    .wrapper {
-      max-width: calc(100vw - (2 * var(--size-gutter)));
+  header {
+    .content {
+      margin: 0;
+      max-width: min(calc(100vw - (2 * var(--size-gutter))), 2000px);
     }
   }
   .hero {
+    overflow: hidden;
+    width: 100%;
+    
     .hero-image {
+      display: none;
+    }
+    .hero-image-wide {
       height: 600px;
+      display: block;
+      width: 100%;
       
       picture {
         img {
-          object-position: 0 90%;
+          object-fit: cover;
+          object-position: center;
+          width: 100%;
+          height: 100%;
         }
       }
     }
   }
   .layout {
     .wrapper {
-      max-width: 940px;
+      max-width: min(calc(100vw), 2000px);
+      margin-left: auto;
+      margin-right: auto;
     }
   }
-
   .gatsby-image-wrapper.centered {
     width: 60%;
-  }  
-}
-
-/* For super-wide desktops */
-@media only screen and (min-width: 1201px) {
+  }
 }

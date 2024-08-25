@@ -58,7 +58,11 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-
+      heroImageWide: file(relativePath: { eq: "serverless-ai-software-solutions-wide.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
+      }
       smartProcessAutomation: file(relativePath: { eq: "smart-process-automation.png" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
@@ -81,7 +85,7 @@ const IndexPage = () => {
       }
 
       recentPosts: allMdx(
-        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions"] } } }
+        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions"] } } } 
         sort: { fields: [frontmatter___date], order: DESC }
         limit: 4
       ) {
@@ -141,12 +145,15 @@ const IndexPage = () => {
     <Layout>
 
       <Hero>
-        <StaticImage
-          className="hero-image"
-          src="../images/serverless-ai-software-solutions.png"
+        <GatsbyImage
+          image={getImage(data.heroImage)}
           alt="Anthus"
-          layout="fullWidth"
-          placeholder="BLURRED"
+          className="hero-image hero-image-default"
+        />
+        <GatsbyImage
+          image={getImage(data.heroImageWide)}
+          alt="Anthus"
+          className="hero-image hero-image-wide"
         />
         <div className="hero-overlay">
           <h1>
