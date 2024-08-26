@@ -262,7 +262,7 @@ pre tt:after {
 
   header, footer {
     .content {
-      max-width: var(--size-content);
+      margin: 0 auto;
     }
   }
 }
