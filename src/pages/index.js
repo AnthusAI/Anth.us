@@ -171,8 +171,8 @@ const IndexPage = () => {
 
       <h2 style={{ marginBottom: '1em' }}>Our Values</h2>
       <ul className={`${styles.list} ${styles.tight}`}>
-        {values.map(value => (
-          <li className={styles.listItem}>
+        {values.map((value, index) => (
+          <li key={index} className={styles.listItem}>
             <p className={styles.listItemTitle}>{value.text}</p>
             <p className={styles.listItemDescription}
             dangerouslySetInnerHTML={{ __html: value.description }}>
