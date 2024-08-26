@@ -597,7 +597,7 @@ You can run this example with [this notebook](https://colab.research.google.com/
 
 ## <a name="structuring-data"></a>Example 5: Structing data using LangChain output parsers
 
-We've got one avocado.  We have a [h]uge collection of recipes](https://huggingface.co/datasets/corbt/all-recipes), where each one is a raw, unstructured text string.  What can we make with one avocado?
+We've got one avocado.  We have a [huge collection of recipes](https://huggingface.co/datasets/corbt/all-recipes), where each one is a raw, unstructured text string.  What can we make with one avocado?
 
 You can use [LangChain output parsers](https://python.langchain.com/v0.1/docs/modules/model_io/output_parsers/) to extract structured data from raw text.  Here's an example for extracting the number of avocados that each recipe requires:
 
@@ -617,9 +617,14 @@ prompt = PromptTemplate(
 )
 
 chain = prompt | model | parser
+
+recipe_info = chain.invoke({"recipe_text": recipe_text})
+
+print(f"Recipe: {recipe_info.title}")
+print(f"Avocados required: {recipe_info.avocado_count}")
 ```
 
-When we call that chain with `recipe_text` as input, we'll get four things: The number of avocados as a floating-point number, and the title, ingredients, and directions as three separate strings.
+When we call that chain with `recipe_text` as input, we'll get four things: The number of avocados as a floating-point number, and the title, ingredients, and directions as three separate strings.  We can easily access them as attributes of the response, like: `recipe_info.avocado_count` and `recipe_info.title`.
 
 The mechanics of telling the LLM how to respond with structured data and then parsing the response are complicated.  If you're in the middle of trying to solve a problem then you don't want to stop and spend an hour on yak shaving to reinvent that wheel.  When you use the `PydanticOutputParser`, LangChain knows how to add the formatting instructions (as the `format_instructions` variable) to your prompt to tell the model to respond in JSON format with the schema that you requested.  Then, it handles parsing the output.  You could implement that stuff yourself but you have bigger things you need to do.
 
@@ -672,37 +677,6 @@ The code for this example does a keyword scan for the word "avocado" first and t
 
 ```
 Processing 270 recipes out of 27070 avocado recipes found.
-
-Processing recipe 1/270. Elapsed time: 0.00 seconds.
-
-Recipe: Crispy Chicken Parmesan with Avocado Salsa
-Avocados required: 1.0
-Great! We can make this recipe with our one avocado.
-
-Title:
-Crispy Chicken Parmesan with Avocado Salsa
-
-Ingredients:
-- 1/3 cup dry bread crumbs
-- 1/3 cup Kraft 100% Parmesan Grated Cheese, divided
-- 1/4 cup Miracle Whip made with Olive Oil Spread*
-- 1/2 tsp. chili powder
-- 6 small boneless skinless chicken breasts (1-1/2 lb./675 g), pounded to 1/4-inch thickness
-- 1 Tbsp. olive oil
-- 1/2 cup chopped avocados
-- 1/2 cup tomatillo salsa
-- 1/2 cup chopped tomatoes King Sooper's 1 lb For $0.99 thru 02/09
-
-Directions:
-- Combine bread crumbs and 1/4 cup cheese in shallow dish; set aside.
-- Mix Miracle Whip and chili powder; spread onto both sides of chicken breasts.
-- Coat evenly with bread crumb mixture.
-- Heat oil in large skillet on medium heat.
-- Add chicken; cook 4 to 5 min. on each side or until done (165 degrees F).
-- Meanwhile, mash avocados with salsa.
-- Place chicken on serving plate; top with avocado mixture, tomatoes and remaining cheese.
-
---------------------------------------------------
 
 Recipe: Halibut Veracruz
 Avocados required: 2.0
