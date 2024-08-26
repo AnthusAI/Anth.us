@@ -271,13 +271,14 @@ header, footer {
   a {
     color: var(--color-inverted-text);
     text-decoration: none;
+    display: inline-block;
+    position: relative;
+    
     &:hover,
     &:active,
     &:visited {
       color: var(--color-inverted-text);
     }
-    display: inline-block;
-    position: relative;    
   }
 }
 
@@ -493,6 +494,7 @@ a.button:active {
 
 article {
   position: relative;
+  text-justify: inter-word;
 
   .draft-overlay {
     position: absolute;
@@ -526,6 +528,8 @@ article {
     margin-top: 100%;
   }
   .heading {
+    margin-bottom: var(--base-line-height);
+    
     .date {
       margin: 0;
       font-style: italic;
@@ -533,14 +537,11 @@ article {
     div.assistants {
       opacity: 0.5;
     }
-    margin-bottom: var(--base-line-height);
   }
   h1 {
     margin-top: var(--base-line-height);
     margin-bottom: 0;
   }
-
-  text-justify: inter-word;
 
   table.data {
     border-collapse: collapse;
@@ -790,35 +791,43 @@ ul.branded li::before {
 .experience {
   display: flex;
   flex-direction: column;
+  margin-bottom: var(--space-4);
+
   .title {
     font-family: var(--font-serif);
     font-size: var(--font-lg);
   }
+
   .subtitle {
     font-weight: 600;
   }
+
   .info {
     margin: var(--space-2) 0;
   }
+
   .date-range {
     font-weight: 400;
     font-style: italic;
   }
+
   .location {
     font-weight: 400;
     font-style: italic;
   }
+
   p {
     margin-bottom: var(--space-2);
   }
+
   ul {
     list-style-type: none;
+    margin-bottom: 0;
+    
     li {
       margin-bottom: var(--space-2);
     }
-    margin-bottom: 0;
   }
-  margin-bottom: var(--space-4);
 }
 
 footer {
