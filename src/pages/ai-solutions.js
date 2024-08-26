@@ -23,7 +23,7 @@ const AISolutionsPage = ({ data }) => {
             You're under pressure to <mark>drive business efficiencies</mark> through artificial intelligence and we know how.  Our methods are rooted in industry best-practices and <mark>decades of professional experience</mark>.  We build solutions that are reliable and affordable to operate over time and we stand behind them.
           </p>
           <p>Please get in touch and let's talk about what we can do for you.</p>
-
+          <div className="clear"></div>
           <h2>Examples</h2>
 
           <p>Here are some of our software solutions over the years, increasingly using and focusing on artificial intelligence:</p>
