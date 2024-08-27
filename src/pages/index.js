@@ -23,7 +23,7 @@ const values = [
   },
   {
     text: "Focus on Business Logic",
-    description: "The only code you should be writing is the business logic that solves real problems.  Don't waste time reinventing wheels."
+    description: "The only code you should be writing is the business logic that solves real problems.  <a href=\"/blog/langchain-by-example/\">Don't waste time reinventing wheels.</a>"
   },
   {
     text: "Continuously Improve",
