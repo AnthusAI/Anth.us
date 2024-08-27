@@ -1,0 +1,147 @@
+---
+title: "Text Classifier Cookbook"
+slug: "Text Classifier Cookbook"
+date: "2024-09-01"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+  - author: <a href="https://www.linkedin.com/in/dereknorrbom/">Derek Norrbom</a>
+  - author: <a href="https://www.linkedin.com/in/osledy-bazo/">Osledy Bazó</a>
+assistants:
+  - assistant: ChatGPT
+  - assistant: Claude
+excerpt: "A curated collection of text classification techniques."
+preview_image: "./images/draft-2.png"
+images:
+  - ./images/draft-2.png
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+Text classification quietly shapes many aspects of our lives, often without us noticing. It decides which resumes pass through hiring systems, what content appears in your social media feed, and even influences loan approvals. These algorithms guide outcomes that affect your career, your views, and your financial future. Understanding how to build effective text classifiers is key to using this power responsibly. This cookbook offers practical techniques to help you create models that work well and consider their real-world impact.
+
+## The barriers that define our lives
+
+A text classifier is a tool that automates the process of sorting text into different categories. Whether it’s powered by machine learning, a generative AI model, or simple keyword scanning, the goal is the same: to take a piece of text and decide which category it belongs to.
+
+Diagram 1: Binary Classification Example
+
+Use Case: Resume Screening
+
+	•	Input Texts:
+	•	“Experienced software engineer with 5 years in Python and ML.”
+	•	“Recent graduate in marketing, proficient in social media management.”
+	•	“15 years in finance, specializing in investment banking.”
+	•	Classifier Gizmo Icon:
+	•	The icon represents the automation engine.
+	•	Categories:
+	•	“Relevant” (highlighted)
+	•	“Not Relevant” (disabled)
+
+Explanation:
+In this example, the classifier acts like a gatekeeper, deciding whether each resume should be flagged as relevant to a specific job. The classifier reviews the text and highlights the “Relevant” category if it finds a match, or leaves it as “Not Relevant” if it doesn’t.
+
+Diagram 2: Multi-Class Classification Example
+
+Use Case: Social Media Content Categorization
+
+	•	Input Texts:
+	•	“I love the new features on this app!”
+	•	“Terrible customer service, very disappointed.”
+	•	“This product was okay, but shipping was slow.”
+	•	Classifier Gizmo Icon:
+	•	The icon represents the automation engine.
+	•	Categories:
+	•	“Positive” (highlighted)
+	•	“Negative” (disabled)
+	•	“Neutral” (disabled)
+
+Explanation:
+Here, the classifier works like a sorter, categorizing social media posts based on sentiment. It reads each post and decides if it’s positive, negative, or neutral, highlighting the category that fits best.
+
+These diagrams show how text classifiers, whether they’re complex algorithms or simple rules, help automate the process of organizing text into meaningful categories. In this cookbook, we’ll explore different ways to build these classifiers, from cutting-edge AI techniques to straightforward programmatic methods.
+
+## AI Text Classifiers
+
+### Single-Request LLM-Based Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Multi-Request LLM-Based Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Fine-Tuned LLM-Based Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### The Best Of All Worlds
+
+[TODO: description]
+
+[TODO: example]
+
+## Machine-Learning Text Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Semantic ML Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Fine-Tuned Semantic ML Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Explainable N-Gram ML Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Zero-Shot Semantic Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Semantic Keyword Scanning
+
+[TODO: description]
+
+[TODO: example]
+
+## Programmatic Text Classifiers
+
+[TODO: description]
+
+[TODO: example]
+
+### Keyword Scanning
+
+[TODO: description]
+
+[TODO: example]
+
+### Fuzzy Keyword Scanning
+
+[TODO: description]
+
+[TODO: example]
+
+## References
+
+<CitationsList citationFormat="apa" />
