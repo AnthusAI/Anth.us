@@ -48,11 +48,13 @@ a {
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
+  color: var(--color-link);
 }
 a:active,
 a:hover {
   outline-width: 0;
   text-decoration: none;
+  color: var(--color-link-hover);
 }
 abbr[title] {
   border-bottom: 1px dotted hsla(0, 0%, 0%, 0.5);
@@ -278,6 +280,7 @@ header, footer {
     &:active,
     &:visited {
       color: var(--color-inverted-text);
+      text-decoration: underline;
     }
   }
 }
