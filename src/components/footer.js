@@ -2,9 +2,10 @@ import * as React from "react";
 import { StaticImage } from 'gatsby-plugin-image'
 
 const moreLinks = [
+  { text: "Contact us", url: "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"}
   { text: "Follow us on GitHub", url: "https://github.com/Anth-us" },
   { text: "Connect on LinkedIn", url: "https://www.linkedin.com/in/ryanalynporter/" },
-  { text: "Join us on Discord", url: "https://discord.gg/f2TtbVx5" }
+  { text: "Join us on Discord", url: "https://discord.gg/uStyWraJ2M" }
 ]
 
 const Footer = () => {
