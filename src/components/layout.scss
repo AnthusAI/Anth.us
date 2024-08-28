@@ -622,6 +622,9 @@ article {
 .center-full-image {
   text-align: center;
 }
+.center-medium-image {
+  text-align: center;
+}
 mark {
   -webkit-animation: 12s highlight 0s 1 normal forwards;
           animation: 12s highlight 0s 1 normal forwards;
@@ -1034,5 +1037,13 @@ footer {
   }
   .gatsby-image-wrapper.centered {
     width: 60%;
+  }
+  .center-medium-image {
+    width: 80%;
+    margin: auto auto auto auto;
+  }
+  .center-small-image {
+    width: 60%;
+    margin: auto auto auto auto;
   }
 }
