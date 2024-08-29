@@ -107,6 +107,7 @@ export const query = graphql`
           frontmatter {
             title
             date
+            display_date
             slug
             excerpt
             state

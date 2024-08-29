@@ -10,7 +10,12 @@ const Solutions = ({ solutions, showPreviewImage, linkToPage, className }) => (
     {solutions.map(({ node }) => {
       const image = getImage(node.frontmatter.preview_image);
       const date = new Date(node.frontmatter.date);
-      const formattedDate = isValid(date) ? format(date, 'MMMM dd, yyyy') : 'Invalid date';
+      const formattedDate = isValid(date) 
+        ? format(date, 'MMMM dd, yyyy') 
+        : node.frontmatter.date;
+      
+      const displayDate = node.frontmatter.display_date || formattedDate;
+
       return (
         <li key={node.id} className={styles.listItem}>
           {showPreviewImage && <GatsbyImage image={image} alt={node.frontmatter.title} />}
@@ -20,7 +25,7 @@ const Solutions = ({ solutions, showPreviewImage, linkToPage, className }) => (
             </Link> :
             <h3>{node.frontmatter.title}</h3>
           }
-          <p className={`${styles.listItemDescription} date`}>{formattedDate}</p>
+          <p className={`${styles.listItemDescription} date`}>{displayDate}</p>
           <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
         </li>
       );
