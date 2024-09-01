@@ -1,0 +1,170 @@
+---
+title: "Fine-Tuned Classification With Confidence"
+slug: "fine-tuned-classification-with-confidence"
+date: "2024-09-01"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+assistants:
+  - assistant: ChatGPT
+  - assistant: Claude
+excerpt: "Getting the best of both worlds from LLM-based text classifiers: Easy setup, and also a confidence value."
+preview_image: "./images/draft-2.png"
+images:
+  - ./images/draft-2.png
+state: draft
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+There's a lot of value in software that can make decisions for us: Should this persobn get a loan?  Is this fraud?  Is this spam?
+
+The challenge is in aligning these automated decision-makers with our specific needs and expectations. Traditionally, selecting appropriate techniques, implementing them successfully, and deploying them at scale has come at great expense in terms of both time and money. This high barrier to entry has often limited custom machine-learning decision automation to well-financed organizations like banks.
+
+We've grown accustomed to some basic forms of automated decision-making in our daily lives, such as spam filters in our email inboxes or recommendation systems on social media platforms. These systems make rudimentary decisions aligned with our interests. However, creating well-aligned automated decisions that are both useful enough and cost-effective enough for more complex business problems has remained out of reach for many organizations.
+
+The process of building a custom decision-making system typically involves:
+
+1. Gathering and preparing large amounts of training data
+2. Selecting and fine-tuning appropriate machine learning models
+3. Setting up infrastructure for model evaluation and result tracking
+4. Developing a production deployment pipeline
+5. Ongoing monitoring and maintenance
+
+Each of these steps requires significant expertise and resources, creating a substantial barrier for many businesses looking to leverage AI for decision-making tasks.
+
+## AI to the rescue
+
+One of the many ways that large language models (LLMs) like GPT 4o and Claude can change the game is by making it a lot easiser to create and deploy automated decision-making software.  We all have new options now for quickly and easily setting up affordable systems that can automate our decisions.
+
+You can think of a large language model (LLM) hosted on a third-party API almost like a flexible platform for creating custom decision-makers that can quickly and cheaply adapt to your needs:
+
+#### No training data
+If you don't have any training data then that's not a problem: You can leverage the model's generalized pre-training to make decisions.  You can get up and running quickly and then you can align your solution over time by looking at how well it performs.
+
+#### Some examples of what you want
+Fine-tuning an LLM can significantly improve the performance of an LLM on well-defined tasks.  Even just a few dozen examples can generally align a model's decisions with what you want to see.
+
+#### Lots of examples
+If you can create thousands of examples of 'correct' decisions then you can leverage machine-learning techniques for evaluating the performance of your solutions.  You can gain the additional benefit of accurate confidence values to tell you how much you can trust each individiaul decision.
+
+### The mechanics
+
+You might be imagining asking the model to make a decision for you and then parsing the results:
+
+***You***: *Is this financial statement fraudulent? [INSERT FINANCIAL STATEMENT]*
+
+***ChatGPT***: *Ah, the enigmatic dance of numbers on a financial statement—a delicate waltz of figures that can tell a story as pure as a lily or as twisted as a pretzel! While I cannot don a detective’s hat and say with certainty whether these financials are fraudulent, one might say that if these numbers were a house of cards, a stiff breeze might send them tumbling. But alas, the final judgment rests in the capable hands of human expertise and thorough scrutiny. Tread carefully, my friend, for the truth lies not in the sparkle of the numbers but in the shadows they may cast!*
+
+It's true that you can use an LLM to help make decisions like that.  But there's a better way: We can dig into the mechanism of how an LLM works to get better accuracy, to lower costs, and to get more out of every decision.
+
+### Predicting the next word
+
+That's because of how an LLM works: Its job is to predict the next word in a sequence.  Sometimes that's easy.  What if someone sayd, "Knock, knock..."  What's the next thing you're supposed to say?  "Who's there?"
+
+We're used to asking questions and getting answers when we use LLMs through apps like ChatGPT, and we don't think about how it's predicting each word.  But look at what happens when we focus on that next word:
+
+```
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import HumanMessage
+import numpy as np
+
+llm = ChatOpenAI(model="gpt-4o-mini").bind(logprobs=True, top_logprobs=10)
+response = llm.invoke([HumanMessage(content="Knock knock.")])
+logprobs = response.response_metadata['logprobs']['content'][0]['top_logprobs']
+
+tokens_probs = [(item['token'], np.exp(item['logprob'])) for item in logprobs]
+tokens_probs.sort(key=lambda x: x[1], reverse=True)
+
+print(tokens_probs)
+```
+
+We send the prompt, "Knock, knock..." to GPT 4o mini, and its job is to predict the next word.  Here's how it responds:
+
+```
+[
+    ("Who's", 0.9241213082249148),
+    ('Who', 0.07585649100400314),
+    ('who', 1.0607895241433564e-05),
+    (" who's", 8.261437120767889e-06),
+    ('Kn', 1.4356225070437273e-06),
+    (' Who', 1.266932415746821e-06),
+    (' who', 3.629822144091328e-07),
+    ("What's", 2.9795364774893755e-08),
+    (' quién', 2.9795364774893755e-08),
+    ('谁', 2.62943171252219e-08)
+]
+```
+
+The model gave us a list of possibilities for the next token.  We can see that the model seems to understand that it's dealing with a knock-knock joke, since it puts a 92% probability on the next word being "Who's".  Or maybe it might say, "Who is", so that shows up as about a 1% probability.  Other possibilities, like responding in Spanish or Chinese, are a lot less probable.
+
+### AI classifiers
+
+There's a finite list of words that it could predict.  What if we limit that list to just two words?  Then we can use this process to choose between those two words, and also to report on how strongly it feels about it one way or another.
+
+```
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import HumanMessage
+import numpy as np
+
+llm = ChatOpenAI(model="gpt-4o-mini").bind(logprobs=True, top_logprobs=2)
+response = llm.invoke([
+    HumanMessage(content="""
+Answer only with 'dogs' or 'cats', lowercase, no punctuation.
+Which is better, 'cats' or 'dogs'?
+""")])
+logprobs = response.response_metadata['logprobs']['content'][0]['top_logprobs']
+
+tokens_probs = [(item['token'], np.exp(item['logprob'])) for item in logprobs]
+tokens_probs.sort(key=lambda x: x[1], reverse=True)
+
+print(tokens_probs)
+```
+
+GPT 4o mini predicts:
+
+```
+[('dogs', 0.9992779386618437), ('cats', 0.0007096615441258638)]
+```
+
+Wow, it feels strongly about dogs!
+
+This is an example of a "classifier": A way to choose between two classes.  In this case: "cats" or "dogs".
+
+Classifiers are a common tool for automating decisions.  You give it some input, like an email, and it generates a classification.  For example, a spam detector is a classifier that decides if an email is spam or not: Yes or no.  It classifies the email into one of two classes: spam or not-spam.  (Sometimes called "spam or ham" in machine-learning circles.)  A fraud-detetion system might rest on classifiers that look for 'red flags' in financial activity.  Social media platforms use text classifiers to detect hate speech and lots of other things.
+
+### Freud-detection example
+
+Our cats-and-dogs classifier doesn't process any input.  Let's look at an example that does.  Freud-detection with an LLM can be as simple as structuring a prompt so that the model must provide a "Yes" or "No" answer to the question: "Is this a quote from Sigmund Freud?"
+
+```
+class FreudDetectionClassifier:
+    ...
+    def classify(self, quote):
+        prompt = f"""Given the following quote, determine if it was said by Sigmund Freud.
+        Answer with either 'Yes' or 'No'.
+        
+        Quote: {quote}
+        
+        Was this quote by Sigmund Freud?"""
+        
+        response = self.llm.invoke([HumanMessage(content=prompt)])
+        ...
+```
+
+We can evaluate this classifier to see how well it does because we have a [Freud-detection dataset](https://www.kaggle.com/datasets/jabara/freud-detection) of quotes from four different authors where one of them is Sigmund Freud, and it includes a label for each one: Was this quote from Signund Freud?
+
+There are 40 quotes set aside for testing, so let's run each of those through our classifier and compare the classification that it produces with the label from the data.  Here's a visualization called a confusion matrix that shows how accurate the predictions were:
+
+<div className="center-small-image">
+<BlogImage images={props.pageContext.frontmatter.images} name="llm-classifiers/freud-detector-base.png" className="full" alt="LLM-based Freud detector" />
+</div>
+
+<div className="center-small-image">
+<BlogImage images={props.pageContext.frontmatter.images} name="llm-classifiers/freud-detector-fine-tuned.png" className="full" alt="LLM-based Freud detector" />
+</div>
+
+
+## References
+
+<CitationsList citationFormat="apa" />
