@@ -17,144 +17,147 @@ state: draft
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-There's a lot of value in software that can make decisions for us: Should this persobn get a loan?  Is this fraud?  Is this spam?
+Automated decision-making shapes our world and powers business. Should this person get a loan? Is this transaction fraudulent? Is this email spam?
 
-The challenge is in aligning these automated decision-makers with our specific needs and expectations. Traditionally, selecting appropriate techniques, implementing them successfully, and deploying them at scale has come at great expense in terms of both time and money. This high barrier to entry has often limited custom machine-learning decision automation to well-financed organizations like banks.
+These yes-or-no questions are the simplest form of what we call "classification" in machine learning.  A "classifier" makes a "prediction" about what "class" you would want for a given input: 'Would the current email user consider this email to be spam?'  It's predicting what you would think if you were to read the email yourself.  You guide it and align it with your idea of "spam" when you use the junk button.
 
-We've grown accustomed to some basic forms of automated decision-making in our daily lives, such as spam filters in our email inboxes or recommendation systems on social media platforms. These systems make rudimentary decisions aligned with our interests. However, creating well-aligned automated decisions that are both useful enough and cost-effective enough for more complex business problems has remained out of reach for many organizations.
+Classification tasks go beyond simple yes-or-no decisions. For instance, a financial advisor might classify stock recommendations as "buy", "sell", or "hold". These multi-class decisions are everywhere in business: categorizing customer feedback, prioritizing leads, or diagnosing equipment faults.
 
-The process of building a custom decision-making system typically involves:
+Traditionally, building effective classifiers required substantial resources: powerful hardware, extensive research, and large datasets. This high barrier to entry often limited custom machine learning classifiers to well-financed organizations, like large banks assessing credit risk, tech giants filtering content, or healthcare conglomerates diagnosing diseases from medical images.
 
-1. Gathering and preparing large amounts of training data
-2. Selecting and fine-tuning appropriate machine learning models
-3. Setting up infrastructure for model evaluation and result tracking
-4. Developing a production deployment pipeline
-5. Ongoing monitoring and maintenance
+## LLMs predict the next word
 
-Each of these steps requires significant expertise and resources, creating a substantial barrier for many businesses looking to leverage AI for decision-making tasks.
+The large language models (LLMs) behind generative AI are also predictors: They work by predicting the 'next' word in a sequence.  The sequence start with your prompt: "Knock, knock..."
 
-## AI to the rescue
+In this case it's easy to figure out what word is likely to come next.  If someone says, "Knock, knock", the what's the next thing you're supposed to say?  "Who's there?"
 
-One of the many ways that large language models (LLMs) like GPT 4o and Claude can change the game is by making it a lot easiser to create and deploy automated decision-making software.  We all have new options now for quickly and easily setting up affordable systems that can automate our decisions.
+We're used to asking questions and getting answers when we use LLMs through apps like ChatGPT, and we don't think about how it's predicting each word.  But look at what happens when we focus on that next-word prediction:
 
-You can think of a large language model (LLM) hosted on a third-party API almost like a flexible platform for creating custom decision-makers that can quickly and cheaply adapt to your needs:
+```
+llm = ChatOpenAI(model="gpt-4o-mini").bind(logprobs=True, top_logprobs=10)
+response = llm.invoke([HumanMessage(content="Knock knock.")])
+logprobs = response.response_metadata['logprobs']['content'][0]['top_logprobs']
+```
+
+We send the prompt, "Knock, knock..." to GPT 4o mini, and its job is to predict the next sub-word token.  Here's how it responds:
+
+```
+Who's      0.9468
+Who        0.1674
+who        0.0004
+ who's     0.0003
+Kn         0.0001
+ Who       0.0001
+ who       0.0000
+What's     0.0000
+ quién     0.0000
+谁          0.0000
+```
+
+The model gave us a list of predictions for the next token, each with the probability that it's the next token.  (The model returns logarithmic probabilities and we have to convert them to linear probabilities, which you can see in the accompanying notebook.)
+
+We can see that the model seems to understand that it's dealing with a knock-knock joke, since it puts a 95% probability on the next word being "Who's".  Or maybe it might say, "Who is", so "Who" shows up as about a 2% probability.  Other possibilities, like responding in Spanish or Chinese, are a lot less probable.
+
+## Predicting a word is classification
+
+In the knock-knock example, the next word could have been anything.  What if we limit that list to just two words?  Then we can use this process to choose between those two words:
+
+```
+llm = ChatOpenAI(model="gpt-4o-mini").bind(logprobs=True, top_logprobs=8)
+response = llm.invoke([
+    HumanMessage(content="""
+You are a text classifier for sentiment analysis.
+Valid answers: "positive", "negative", lowercase, no whitespace or punctuation.
+Classify the following statement as either 'positive' or 'negative':
+"This article about LLM classifiers helped me to understand."
+""")])
+logprobs = response.response_metadata['logprobs']['content'][0]['top_logprobs']
+```
+
+The model returns this ranked list of probabilities:
+
+```
+positive   1.0000000000
+ positive  0.0000000000
+-positive  0.0000000000
+Positive   0.0000000000
+posit      0.0000000000
+_positive  0.0000000000
+negative   0.0000000000
+positivo   0.0000000000
+```
+
+There's some noise in that list, but it effectively chooses between the classes "positive" and "negative".  You can use this as a binary classifier for sentiment analysis.  You can start using it right away, even without any training data or anything.  If you have examples of what you want then you can make it better.  You can align it more closely to the decisions you would make.
+
+## Changing the game
+
+LLMs are changing the landscape for business by lowering the barrier to entry for automating decisions. By leveraging cloud-based APIs, organizations can now tap into powerful, pre-trained models without managing complex infrastructure. These models come with broad knowledge that can be applied to specific tasks, even when domain-specific data is scarce. Moreover, you can rapidly improve LLM-based classifiers through prompt engineering and fine-tuning, often with far fewer examples than traditional ML models require.
+
+These advantages are democratizing the power of custom classification, making it accessible to a broader range of organizations and use cases. Let's explore how LLMs are reshaping this fundamental tool of machine learning.
+
+An AI API can serve as a flexible platform for easily and cheaply creating custom classifiers, whatever your situation:
 
 #### No training data
-If you don't have any training data then that's not a problem: You can leverage the model's generalized pre-training to make decisions.  You can get up and running quickly and then you can align your solution over time by looking at how well it performs.
+You can get started even if you don't have any training data at all.  You can leverage the model's generalized pre-training to make decisions.  You can get up and running quickly with basic prompt engineering and then you can align your solution over time by looking at how well it performs.
 
 #### Some examples of what you want
 Fine-tuning an LLM can significantly improve the performance of an LLM on well-defined tasks.  Even just a few dozen examples can generally align a model's decisions with what you want to see.
 
 #### Lots of examples
-If you can create thousands of examples of 'correct' decisions then you can leverage machine-learning techniques for evaluating the performance of your solutions.  You can gain the additional benefit of accurate confidence values to tell you how much you can trust each individiaul decision.
+If you can create thousands of examples of 'correct' decisions then you can leverage machine-learning techniques for evaluating the performance of your solutions.  You can gain the additional benefit of accurate confidence values to tell you how much you can trust each individual decision.
 
-### The mechanics
+## Aligning the classifier to your needs
 
-You might be imagining asking the model to make a decision for you and then parsing the results:
+### Prompt engineering
 
-***You***: *Is this financial statement fraudulent? [INSERT FINANCIAL STATEMENT]*
+Your first step should always be the prompt itself.  Does it clearly identify the valid classification classes?  Does the task in the prompt express the elements of the decision for your classifier?
 
-***ChatGPT***: *Ah, the enigmatic dance of numbers on a financial statement—a delicate waltz of figures that can tell a story as pure as a lily or as twisted as a pretzel! While I cannot don a detective’s hat and say with certainty whether these financials are fraudulent, one might say that if these numbers were a house of cards, a stiff breeze might send them tumbling. But alas, the final judgment rests in the capable hands of human expertise and thorough scrutiny. Tread carefully, my friend, for the truth lies not in the sparkle of the numbers but in the shadows they may cast!*
+### Completion engineering
 
-It's true that you can use an LLM to help make decisions like that.  But there's a better way: We can dig into the mechanism of how an LLM works to get better accuracy, to lower costs, and to get more out of every decision.
+Identifying the list of classification classes is part of your prompt, but it's the first step toward engineering the answers from the model.  The "completions", in LLM terminology.
 
-### Predicting the next word
+Engineering the completions is critical for LLM-based classifiers.  A lot of popular prompt-engineering techniques, like Chain-of-Thought or Thread-of-Thought prompting, won't work when you're creating text classifiers.  That's because with LLM classifiers you're leveraging the model's ability to predict the next token, and you're mapping that prediction to your classification prediction.  If you want one step of the LLM's prediction process to map to your classification, then you need to engineer your prompts so that one token can represent the classification.  "Yes" is just one token, and so is "No".  "Positive" and "Negative" are common, and so the GPT 4o mini tokenization process represents each of those as one token.  Same for "true" and "false".
 
-That's because of how an LLM works: Its job is to predict the next word in a sequence.  Sometimes that's easy.  What if someone sayd, "Knock, knock..."  What's the next thing you're supposed to say?  "Who's there?"
+You can use longer phrases for multi-class classification, but remember that LLM costs are measured in token, and the output tokens are the expensive ones.  If you can express your classes to the model as "1", "2", "3", "4", etc, then you can cut your costs.  And there are other benefits to representing the answer with the fewest-possible tokens that we'll discuss in more detail when we talk about fine tuning.
 
-We're used to asking questions and getting answers when we use LLMs through apps like ChatGPT, and we don't think about how it's predicting each word.  But look at what happens when we focus on that next word:
+When we start fine-tuning models to improve our classifiers, the fine-tuning process needs a way to measure how well it's doing. This measurement becomes simpler and more precise when it's only looking at one or a few tokens instead of longer phrases. It's like grading a single-word answer versus a whole essay - it's quicker and clearer to see if it's right or wrong. This simplicity makes the training process faster and uses less computer power. So, using short, single-token outputs for classification not only saves on regular usage costs but can also make the whole training process quicker and cheaper.
 
-```
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage
-import numpy as np
+### Completion formatting
 
-llm = ChatOpenAI(model="gpt-4o-mini").bind(logprobs=True, top_logprobs=10)
-response = llm.invoke([HumanMessage(content="Knock knock.")])
-logprobs = response.response_metadata['logprobs']['content'][0]['top_logprobs']
+Did you notice above that the model had a lot of ideas for responses other than the two options that I gave it for "positive" and "negative"?  It was more likely to respond with "-positive" than with "negative".  If we're tying to make a binary classifier then we want it to always answer either "positive" or "negative".  Nothing else.
 
-tokens_probs = [(item['token'], np.exp(item['logprob'])) for item in logprobs]
-tokens_probs.sort(key=lambda x: x[1], reverse=True)
+That can be a problem if you're making software that's looking for specific answers so that it can record the decision the classifier made.  A good LLM-based classifier needs to use fuzzy parsing and a retry mechanism for improving reliability.  But you don't want to depend on that stuff since it can affect accuracy and costs.
 
-print(tokens_probs)
-```
+Fine-tuning is a great way to control the formatting of the answers you get from the model.  It does incur additional costs, for both training and also fine-tuned models often cost more to operate.  But it can be worth the costs to get the answer formatting exactly like you want.
 
-We send the prompt, "Knock, knock..." to GPT 4o mini, and its job is to predict the next word.  Here's how it responds:
+Let's give it just ten manually-created examples:
 
 ```
-[
-    ("Who's", 0.9241213082249148),
-    ('Who', 0.07585649100400314),
-    ('who', 1.0607895241433564e-05),
-    (" who's", 8.261437120767889e-06),
-    ('Kn', 1.4356225070437273e-06),
-    (' Who', 1.266932415746821e-06),
-    (' who', 3.629822144091328e-07),
-    ("What's", 2.9795364774893755e-08),
-    (' quién', 2.9795364774893755e-08),
-    ('谁', 2.62943171252219e-08)
-]
+{"messages": [{"role": "user", "content": "You are a text classifier for sentiment analysis.\nValid answers: \"positive\", \"negative\", only, lowercase, no punctuation or whitespace.\nClassify the following statement as either 'positive' or 'negative':\n\"The weather today is absolutely perfect for a picnic.\""}, {"role": "assistant", "content": "positive"}]}
+{"messages": [{"role": "user", "content": "You are a text classifier for sentiment analysis.\nValid answers: \"positive\", \"negative\", only, lowercase, no punctuation or whitespace.\nClassify the following statement as either 'positive' or 'negative':\n\"I'm disappointed with the poor customer service I received.\""}, {"role": "assistant", "content": "negative"}]}
+...
 ```
 
-The model gave us a list of possibilities for the next token.  We can see that the model seems to understand that it's dealing with a knock-knock joke, since it puts a 92% probability on the next word being "Who's".  Or maybe it might say, "Who is", so that shows up as about a 1% probability.  Other possibilities, like responding in Spanish or Chinese, are a lot less probable.
-
-### AI classifiers
-
-There's a finite list of words that it could predict.  What if we limit that list to just two words?  Then we can use this process to choose between those two words, and also to report on how strongly it feels about it one way or another.
+After fine-tuning GPT 4o mini with only those ten examples for 20 epochs, we re-run the example above.  Now we can see that "positive" and "negative" are now the most-likely outputs, which is what we wanted:
 
 ```
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage
-import numpy as np
-
-llm = ChatOpenAI(model="gpt-4o-mini").bind(logprobs=True, top_logprobs=2)
-response = llm.invoke([
-    HumanMessage(content="""
-Answer only with 'dogs' or 'cats', lowercase, no punctuation.
-Which is better, 'cats' or 'dogs'?
-""")])
-logprobs = response.response_metadata['logprobs']['content'][0]['top_logprobs']
-
-tokens_probs = [(item['token'], np.exp(item['logprob'])) for item in logprobs]
-tokens_probs.sort(key=lambda x: x[1], reverse=True)
-
-print(tokens_probs)
+positive   1.0000000000
+negative   0.0002000000
+ positive  0.0001000000
+-positive  0.0000000000
+active     0.0000000000
+absolute   0.0000000000
+relative   0.0000000000
+post       0.0000000000
 ```
 
-GPT 4o mini predicts:
+Now, we'll avoid extra costs and reliability problems from unpredictable outputs.  But is it giving us the right answers?
 
-```
-[('dogs', 0.9992779386618437), ('cats', 0.0007096615441258638)]
-```
+## Accuracy
 
-Wow, it feels strongly about dogs!
+How do we know if our classifier is making the right classification decisions?  This is the part where we need some data, since the only way to measure the accuracy is if we have some examples that we know are positive and others that we know are negative.  We'll take a collection of texts that have been labeled positive or negative and we'll run our classifier on them.  For each one, we'll compare our prediction with the ground-truth labels in the data.
 
-This is an example of a "classifier": A way to choose between two classes.  In this case: "cats" or "dogs".
 
-Classifiers are a common tool for automating decisions.  You give it some input, like an email, and it generates a classification.  For example, a spam detector is a classifier that decides if an email is spam or not: Yes or no.  It classifies the email into one of two classes: spam or not-spam.  (Sometimes called "spam or ham" in machine-learning circles.)  A fraud-detetion system might rest on classifiers that look for 'red flags' in financial activity.  Social media platforms use text classifiers to detect hate speech and lots of other things.
-
-### Freud-detection example
-
-Our cats-and-dogs classifier doesn't process any input.  Let's look at an example that does.  Freud-detection with an LLM can be as simple as structuring a prompt so that the model must provide a "Yes" or "No" answer to the question: "Is this a quote from Sigmund Freud?"
-
-```
-class FreudDetectionClassifier:
-    ...
-    def classify(self, quote):
-        prompt = f"""Given the following quote, determine if it was said by Sigmund Freud.
-        Answer with either 'Yes' or 'No'.
-        
-        Quote: {quote}
-        
-        Was this quote by Sigmund Freud?"""
-        
-        response = self.llm.invoke([HumanMessage(content=prompt)])
-        ...
-```
-
-We can evaluate this classifier to see how well it does because we have a [Freud-detection dataset](https://www.kaggle.com/datasets/jabara/freud-detection) of quotes from four different authors where one of them is Sigmund Freud, and it includes a label for each one: Was this quote from Signund Freud?
-
-There are 40 quotes set aside for testing, so let's run each of those through our classifier and compare the classification that it produces with the label from the data.  Here's a visualization called a confusion matrix that shows how accurate the predictions were:
 
 <div className="center-small-image">
 <BlogImage images={props.pageContext.frontmatter.images} name="llm-classifiers/freud-detector-base.png" className="full" alt="LLM-based Freud detector" />
@@ -164,6 +167,11 @@ There are 40 quotes set aside for testing, so let's run each of those through ou
 <BlogImage images={props.pageContext.frontmatter.images} name="llm-classifiers/freud-detector-fine-tuned.png" className="full" alt="LLM-based Freud detector" />
 </div>
 
+## Drawbacks
+
+* Higher inference costs
+* Potential privacy concerns
+* Explainability: The "black box" nature of large models
 
 ## References
 
