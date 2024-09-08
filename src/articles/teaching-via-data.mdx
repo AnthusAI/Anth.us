@@ -13,10 +13,10 @@ images:
 state: draft
 ---
 
-import BlogImage from '../components/blog-image';
+import ArticleImage from '../components/article-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-In our recent demonstration of machine-learning (ML) text classifiers, we demonstrated how a business can change the game by cutting costs by orders of magnitude through the use of AI solutions that [efficiently solve problems](/blog/maximize-profit-not-intelligence/) using smaller, cheaper models.  We showed how a custom-trained ML model can perform as well or even better than more-powerful large language models (LLMs) for specific business use cases.  But how do you create a small, cheap model that can perform as well as an LLM?
+In our recent demonstration of machine-learning (ML) text classifiers, we demonstrated how a business can change the game by cutting costs by orders of magnitude through the use of AI solutions that [efficiently solve problems](/articles/maximize-profit-not-intelligence/) using smaller, cheaper models.  We showed how a custom-trained ML model can perform as well or even better than more-powerful large language models (LLMs) for specific business use cases.  But how do you create a small, cheap model that can perform as well as an LLM?
 
 ## Knowledge distillation
 
@@ -48,7 +48,7 @@ Rather than using the teacher model in a fine-tuning process for a smaller LLM, 
     "container-title": "Amazon Science",
     title: "Using large language models (LLMs) to synthesize training data",
     author: ["Andy Rosenbaum", "Saleh Soltan", "Wael Hamza"],
-    URL: "https://www.amazon.science/blog/using-large-language-models-llms-to-synthesize-training-data",
+    URL: "https://www.amazon.science/articles/using-large-language-models-llms-to-synthesize-training-data",
     issued: { 'date-parts': [[2023, 1, 20]] },
   }}
 />
@@ -63,7 +63,7 @@ It's a simple process: You use the teacher model to perform the task that you wa
 
 ## Example: Text classification
 
-In our [recent case study](/blog/maximize-profit-not-intelligence/) on optimizing an AI/ML solution for cost efficiency, we created a text classifier that can recognize inquiries about Spanish immigration law by using GPT 3.5 to generate a set of labeled sentences that either did or did not meet the criteria.  Then we used that as training data to create an ML text classifier using logistic regression.
+In our [recent case study](/articles/maximize-profit-not-intelligence/) on optimizing an AI/ML solution for cost efficiency, we created a text classifier that can recognize inquiries about Spanish immigration law by using GPT 3.5 to generate a set of labeled sentences that either did or did not meet the criteria.  Then we used that as training data to create an ML text classifier using logistic regression.
 
 ### Synthesized training data
 

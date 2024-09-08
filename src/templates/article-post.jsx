@@ -5,11 +5,11 @@ import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Seo from "../components/seo"
-import BlogImage from '../components/blog-image';
+import ArticleImage from '../components/article-image';
 import { CitationsProvider, Citation, CitationsList } from 'gatsby-citation-manager';
 import MDXCode from "../components/MDXCode";
 
-const BlogPostTemplate = ({ data, children }) => {
+const ArticlePostTemplate = ({ data, children }) => {
 
   if (!data || !data.mdx) {
     return <div>No data found for this post!</div>;
@@ -22,12 +22,12 @@ const BlogPostTemplate = ({ data, children }) => {
   const images = post.frontmatter.images.map((image, index) => {
     return getImage(image)
   })
-  console.log('Images in BlogPostTemplate:', images);
+  console.log('Images in ArticlePostTemplate:', images);
 
   const shortcodes = { 
     Link, 
-    BlogImage: ({ index, className, alt }) => (
-      <BlogImage images={post.frontmatter.images} index={index} className={className} alt={alt} />
+    ArticleImage: ({ index, className, alt }) => (
+      <ArticleImage images={post.frontmatter.images} index={index} className={className} alt={alt} />
     ),
     pre: props => {
       const className = props.children.props.className || '';
@@ -113,7 +113,7 @@ export const Head = ({ location, params, data, pageContext }) => {
 }
 
 export const pageQuery = graphql`
-  query BlogPostByID($id: String!) {
+  query ArticlePostByID($id: String!) {
     site {
       siteMetadata {
         siteUrl
@@ -147,7 +147,7 @@ export const pageQuery = graphql`
   }
 `;
 
-export default BlogPostTemplate;
+export default ArticlePostTemplate;
 
 const formatDate = (dateString) => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };

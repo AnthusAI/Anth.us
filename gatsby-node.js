@@ -3,12 +3,12 @@ const path = require('path');
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  // Query for blog files
-  const blogResult = await graphql(`
+  // Query for article files
+  const articleResult = await graphql(`
     {
       allMdx(
         sort: { frontmatter: { date: DESC } },
-        filter: { fields: { sourceName: { eq: "blog" } } }) {
+        filter: { fields: { sourceName: { eq: "article" } } }) {
         nodes {
           id
           frontmatter {
@@ -21,20 +21,20 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `);
-    console.log("blogResult: ", blogResult);
+    console.log("articleResult: ", articleResult);
   
-  if (blogResult.errors) {
-    console.error(blogResult.errors);
-    throw new Error("Error querying for blog files.");
+  if (articleResult.errors) {
+    console.error(articleResult.errors);
+    throw new Error("Error querying for article files.");
   }
   
-  // Create blog post pages
-  const postTemplate = path.resolve(`./src/templates/blog-post.jsx`)
-  const posts = blogResult.data.allMdx.nodes
+  // Create article post pages
+  const postTemplate = path.resolve(`./src/templates/article-post.jsx`)
+  const posts = articleResult.data.allMdx.nodes
   posts.forEach(node => {
-    console.log(`Creating page: /blog/${node.frontmatter.slug}`);
+    console.log(`Creating page: /article/${node.frontmatter.slug}`);
     createPage({
-      path: `blog/` + node.frontmatter.slug,
+      path: `article/` + node.frontmatter.slug,
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         id: node.id
@@ -42,10 +42,10 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // Query for blog tags
-  const blogTagsResult = await graphql(`
+  // Query for article tags
+  const articleTagsResult = await graphql(`
     {
-      allMdx(filter: { fields: { sourceName: { eq: "blog" } } }) {
+      allMdx(filter: { fields: { sourceName: { eq: "article" } } }) {
         group(field: frontmatter___tags) {
           fieldValue
           edges {
@@ -61,19 +61,19 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
   
-  console.log("blogTagsResult: ", blogTagsResult);
+  console.log("articleTagsResult: ", articleTagsResult);
   
-  if (blogTagsResult.errors) {
-    console.error(blogTagsResult.errors);
-    throw new Error("Error querying for blog tags.");
+  if (articleTagsResult.errors) {
+    console.error(articleTagsResult.errors);
+    throw new Error("Error querying for article tags.");
   }
   
-  // Create tag-based collection pages for blog
-  const collectionTemplate = path.resolve(`./src/templates/blog-tag.jsx`)
-  blogTagsResult.data.allMdx.group.forEach(tag => {
-    console.log(`Creating tag collection page: /blog/${tag.fieldValue}`);
+  // Create tag-based collection pages for article
+  const collectionTemplate = path.resolve(`./src/templates/article-tag.jsx`)
+  articleTagsResult.data.allMdx.group.forEach(tag => {
+    console.log(`Creating tag collection page: /article/${tag.fieldValue}`);
     createPage({
-      path: `blog/${tag.fieldValue}`,
+      path: `article/${tag.fieldValue}`,
       component: collectionTemplate,
       context: {
         tag: tag.fieldValue,
@@ -82,13 +82,13 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // Create a page to list all blog posts
+  // Create a page to list all article posts
 
   // MYSTERY: 
-  const allBlogsTemplate = path.resolve(`./src/templates/blog.jsx`);
+  const allarticlesTemplate = path.resolve(`./src/templates/articles.jsx`);
   createPage({
-    path: `blog/`,
-    component: allBlogsTemplate,
+    path: `articles/`,
+    component: allarticlesTemplate,
     context: {
       // You can pass additional context if needed
     },
@@ -113,6 +113,31 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     });
   }
 };
+
+exports.createPages = ({ actions }) => {
+  const { createRedirect } = actions
+
+  // Redirect /blog to /articles
+  createRedirect({
+    fromPath: '/blog',
+    toPath: '/articles',
+    isPermanent: true,
+  })
+
+  // Redirect /blog/ to /articles/
+  createRedirect({
+    fromPath: '/blog/',
+    toPath: '/articles/',
+    isPermanent: true,
+  })
+
+  // Redirect /blog/* to /articles/*
+  createRedirect({
+    fromPath: '/blog/*',
+    toPath: '/articles/:splat',
+    isPermanent: true,
+  })
+}
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
