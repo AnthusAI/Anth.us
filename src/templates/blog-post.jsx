@@ -1,40 +1,31 @@
 import React from 'react';
-import { graphql, useStaticQuery, Link } from 'gatsby';
-import Layout from '../components/layout';
+import { graphql } from 'gatsby';
+import Layout from "../components/layout"
+import Seo from "../components/seo"
 import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import Seo from "../components/seo"
 import BlogImage from '../components/blog-image';
 import { CitationsProvider, Citation, CitationsList } from 'gatsby-citation-manager';
 import MDXCode from "../components/MDXCode";
 
+// Define the shortcodes object
+const shortcodes = { BlogImage, Citation, CitationsList, MDXCode };
+
 const BlogPostTemplate = ({ data, children }) => {
-
-  if (!data || !data.mdx) {
-    return <div>No data found for this post!</div>;
-  }
-
   const post = data.mdx;
+  const siteUrl = data.site.siteMetadata.siteUrl;
+  
+  // Safely access the image URL or set to null if it doesn't exist
+  const imageUrl = post.frontmatter.preview_image
+    && post.frontmatter.preview_image.childImageSharp
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src
+    ? `${siteUrl}${post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}`
+    : null;
 
-  const image = getImage(data.mdx.frontmatter.preview_image)
-
-  const images = post.frontmatter.images.map((image, index) => {
-    return getImage(image)
-  })
-  console.log('Images in BlogPostTemplate:', images);
-
-  const shortcodes = { 
-    Link, 
-    BlogImage: ({ index, className, alt }) => (
-      <BlogImage images={post.frontmatter.images} index={index} className={className} alt={alt} />
-    ),
-    pre: props => {
-      const className = props.children.props.className || '';
-      console.log('pre shortcode:', { className, props })
-      return <MDXCode>{props.children}</MDXCode>;
-    },
-  }
+  const cleanExcerpt = removeHTMLTags(post.frontmatter.excerpt);
 
   return (
     <CitationsProvider>
@@ -96,18 +87,27 @@ const removeHTMLTags = (str) => {
   return str.replace(/<[^>]*>/g, '');
 };
 
-export const Head = ({ location, params, data, pageContext }) => {
+export const Head = ({ data }) => {
   const post = data.mdx;
-
   const siteUrl = data.site.siteMetadata.siteUrl;
-  const imageUrl = `${siteUrl}${post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}`;
+  
+  // Safely access the image URL or set to null if it doesn't exist
+  const imageUrl = post.frontmatter.preview_image
+    && post.frontmatter.preview_image.childImageSharp
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback
+    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src
+    ? `${siteUrl}${post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}`
+    : null;
+
   const cleanExcerpt = removeHTMLTags(post.frontmatter.excerpt);
 
   return (
     <Seo
       title={post.frontmatter.title}
       description={cleanExcerpt}
-      imageURL={imageUrl}
+      image={imageUrl}
     />
   )
 }
