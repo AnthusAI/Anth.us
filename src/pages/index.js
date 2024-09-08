@@ -23,7 +23,7 @@ const values = [
   },
   {
     text: "Focus on Business Logic",
-    description: "The only code you should be writing is the business logic that solves real problems.  <a href=\"/articles/langchain-by-example/\">Don't waste time reinventing wheels.</a>"
+    description: "The only code you should be writing is the business logic that solves real problems.  <a href=\"/blog/langchain-by-example/\">Don't waste time reinventing wheels.</a>"
   },
   {
     text: "Continuously Improve",
@@ -31,7 +31,7 @@ const values = [
   },
   {
     text: "Collaborate with AI Humanely",
-    description: "<a href=\"/articles/people-skills-are-vital-for-leveraging-artificial-people/\">People skills are vital for leveraging artificial people.</a>  You can get a lot more out of AI tools if you know how to collaborate with people."
+    description: "<a href=\"/blog/people-skills-are-vital-for-leveraging-artificial-people/\">People skills are vital for leveraging artificial people.</a>  You can get a lot more out of AI tools if you know how to collaborate with people."
   },
   {
     text: "Implement Infrastructure as Code",
@@ -39,7 +39,7 @@ const values = [
   },
   {
     text: "Commodify AI Models",
-    description: "Treat AI models as replaceable, not magic black boxes.  In a world with no moats, <a href=\"/articles/a-world-with-no-moats/\">don't invest too much in any given castle.</a>"
+    description: "Treat AI models as replaceable, not magic black boxes.  In a world with no moats, <a href=\"/blog/a-world-with-no-moats/\">don't invest too much in any given castle.</a>"
   },
   {
     text: "Optimize Resource Usage",
@@ -206,13 +206,13 @@ const IndexPage = () => {
       </ul>
 
       <h2>Recent Articles</h2>
-      <ul className='article'>
+      <ul className='blog'>
         {data.recentPosts.edges.map(({ node }) => {
           const previewImage = getImage(node.frontmatter.preview_image);
           return (
-            <div className='article-post-preview' key={node.id}>
+            <div className='blog-post-preview' key={node.id}>
               <li className="clear-float">
-                <Link to={`/articles/` + node.frontmatter.slug}>
+                <Link to={`/blog/` + node.frontmatter.slug}>
                   <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
                   <h3>{node.frontmatter.title}</h3>
                 </Link>
@@ -224,7 +224,7 @@ const IndexPage = () => {
         })}
       </ul>
 
-      <div className="clear-float">Please see our <Link to="/articles">articles</Link> for more.</div>
+      <div className="clear-float">Please see our <Link to="/blog">Blog</Link> for more.</div>
 
     </Layout>
   )

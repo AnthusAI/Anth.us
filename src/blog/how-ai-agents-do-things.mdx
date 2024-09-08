@@ -16,12 +16,12 @@ images:
 state: published
 ---
 
-import ArticleImage from '../components/article-image';
+import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 I needed a picture of a cute kitten to post on the Internet, since we all have to do our part or else there would be a shortage.  I asked ChatGPT to make a picture of a cute kitten.  And it made one.
 
-<ArticleImage images={props.pageContext.frontmatter.images} name="a-cute-kitten.png" className="centered" alt="A cute kitten." />
+<BlogImage images={props.pageContext.frontmatter.images} name="a-cute-kitten.png" className="centered" alt="A cute kitten." />
 
 How did this AI model somehow learn to make a picture of a cute kitten?  Did the researchers at OpenAI somehow 'upload' the kitten-drawing skill set into GPT-4, like Neo learning Kung Fu in <i>The Matrix</i> by plugging a cable into the back of his head?
 
@@ -29,7 +29,7 @@ Not really.  The answer is simpler, and it's a preview of <mark>a new type of so
 
 ## Give tools to the AI model
 
-<ArticleImage images={props.pageContext.frontmatter.images} name="ai-agent-uses-tools.png" className="right" alt="An AI agent with a collection of tools." />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-uses-tools.png" className="right" alt="An AI agent with a collection of tools." />
 
 Imagine you’re conversing with an airline assistant who can type on their terminal at superhuman speeds to fetch the latest information to answer your questions.
 
@@ -50,7 +50,7 @@ The key concept is that you tell the AI model that the tools are available and h
 Here's what the process looks like.  Normally, a question and answer would look like this:
 
 <div className="center-full-image">
-<ArticleImage images={props.pageContext.frontmatter.images} name="ai-agent-function-calling-with-no-function.png" className="full" alt="The sequence for request processing for AI agents when there is no function call." />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-function-calling-with-no-function.png" className="full" alt="The sequence for request processing for AI agents when there is no function call." />
 </div>
 
 The agent relays the user's "Hello" message to the model, the model responds, and the agent displays the message for the user in whatever chat UI they're using.  The business system is not involved.
@@ -58,7 +58,7 @@ The agent relays the user's "Hello" message to the model, the model responds, an
 If the user asks a question and the model decides to call a function, the sequence looks a little different.  Here's an example of the user asking for the status of an order, which will require a lookup:
 
 <div className="center-full-image">
-<ArticleImage images={props.pageContext.frontmatter.images} name="ai-agent-function-calling-sequence-diagram.png" className="full" alt="The sequence for function-calling for AI agents." />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-function-calling-sequence-diagram.png" className="full" alt="The sequence for function-calling for AI agents." />
 </div>
 
 The AI model tells you the name of the function to run and the parameters to use.  The agent must execute that function, then report back to the agent API with results.

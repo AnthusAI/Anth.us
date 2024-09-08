@@ -17,7 +17,7 @@ const CollectionTemplate = ({ data, pageContext }) => {
         <ul>
           {posts.map(({ node }) => (
             <li key={node.id}>
-              <Link to={`/articles/` + node.frontmatter.slug}>{node.frontmatter.title}</Link>
+              <Link to={`/blog/` + node.frontmatter.slug}>{node.frontmatter.title}</Link>
             </li>
           ))}
         </ul>
