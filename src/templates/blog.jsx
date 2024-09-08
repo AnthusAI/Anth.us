@@ -12,14 +12,14 @@ const CollectionTemplate = ({ data }) => {
     <Layout>
       <article>
         <div>
-          <h1>Articles</h1>
-          <ul className='article'>
+          <h1>Blog articles</h1>
+          <ul className='blog'>
             {publishedPosts.map(({ node }) => {
               const previewImage = getImage(node.frontmatter.preview_image);
               return (
-                <div className='article-post-preview' key={node.id}>
+                <div className='blog-post-preview' key={node.id}>
                   <li className="clear-float">
-                    <Link to={`/articles/` + node.frontmatter.slug}>
+                    <Link to={`/blog/` + node.frontmatter.slug}>
                       <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
@@ -32,13 +32,13 @@ const CollectionTemplate = ({ data }) => {
           </ul>
 
           {/* <h2>Draft articles</h2>
-          <ul className='article'>
+          <ul className='blog'>
             {draftPosts.map(({ node }) => {
               const previewImage = getImage(node.frontmatter.preview_image);
               return (
-                <div className='article-post-preview' key={node.id}>
+                <div className='blog-post-preview' key={node.id}>
                   <li className="clear-float">
-                    <Link to={`/articles/` + node.frontmatter.slug}>
+                    <Link to={`/blog/` + node.frontmatter.slug}>
                       <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
@@ -114,7 +114,7 @@ export const pageQuery = graphql`
 export const Head = () => {
   return (
     <Seo
-      title="Articles"
+      title="Blog"
       description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS and Azure."
       image="serverless-ai-software-solutions.png"
     />

@@ -2,7 +2,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 
-const ArticleImage = ({ images, name, className, alt }) => {
+const BlogImage = ({ images, name, className, alt }) => {
   const data = useStaticQuery(graphql`
     query {
       allFile {
@@ -33,4 +33,4 @@ const ArticleImage = ({ images, name, className, alt }) => {
   );
 };
 
-export default ArticleImage;
+export default BlogImage;

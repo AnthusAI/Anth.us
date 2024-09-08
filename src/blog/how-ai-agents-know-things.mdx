@@ -13,7 +13,7 @@ images:
 state: draft
 ---
 
-import ArticleImage from '../components/article-image';
+import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 When I wrote this in December 2023, the free ChatGPT's knowledge cutoff date was years before in September 2021.<Citation
@@ -39,13 +39,13 @@ When I wrote this in December 2023, the free ChatGPT's knowledge cutoff date was
 
 But some AI agents can tell you about things that happened after the knowledge cutoff date.  They can somehow do web searches and look up stuff in databases.  So, how does that work?  How can an AI agent look up the status of an order if AI model’s pre-training didn't include that?
 
-Some AI agents can do more than look up stuff, they can <a href="/articles/how-ai-agents-do-things">do things</a> for you.  When you ask ChatGPT to make an image with Dall-E, how do they do it?  Is the AI model somehow deeply integrated with the image-generation model so that it returns images along with its text completions?
+Some AI agents can do more than look up stuff, they can <a href="/blog/how-ai-agents-do-things">do things</a> for you.  When you ask ChatGPT to make an image with Dall-E, how do they do it?  Is the AI model somehow deeply integrated with the image-generation model so that it returns images along with its text completions?
 
 Not really.  The answer is simpler, and it's a preview of <mark>a new type of software solution.</mark>
 
 ## Give the AI model reference material
 
-<ArticleImage images={props.pageContext.frontmatter.images} name="ai-model-that-learns.png" className="right" alt="An AI model learning" />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-model-that-learns.png" className="right" alt="An AI model learning" />
 
 Imagine you’ve got a research assistant.  Any time you ask them a question, they can find you the right answer.  They don't just happen to <i>know</i> the answer to every question.  They just know how to do research and report back to you.  They're super-efficient, so if you ask a question then they can research and respond based on what they found in the blink of an eye.
 
@@ -62,7 +62,7 @@ No. It doesn't happen deeply within the AI.  The answer to all these questions i
 Here's what the process looks like.  Normally, a question and answer would look like this:
 
 <div className="center-full-image">
-<ArticleImage images={props.pageContext.frontmatter.images} name="ai-agent-RAG-with-no-RAG.png" className="full" alt="The sequence for reqeust processing for AI agents when there is no RAG lookup." />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-RAG-with-no-RAG.png" className="full" alt="The sequence for reqeust processing for AI agents when there is no RAG lookup." />
 </div>
 
 The agent relays the user's "Hello" message to the model, the model responds, and the agent displays the message for the user in whatever chat UI they're using.  The business system is not involved.
@@ -70,7 +70,7 @@ The agent relays the user's "Hello" message to the model, the model responds, an
 When we add the ability to look up stuff, the sequence looks a little different.  The application first looks up the stuff and then sends it to the model with the question.  Here's an example of the user asking for the status of an order, which will require a lookup:
 
 <div className="center-full-image">
-<ArticleImage images={props.pageContext.frontmatter.images} name="ai-agent-RAG-sequence-diagram.png" className="full" alt="The sequence for RAG for AI agents." />
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-agent-RAG-sequence-diagram.png" className="full" alt="The sequence for RAG for AI agents." />
 </div>
 
 The AI model tells you the name of the function to run and the parameters to use.  The agent must execute that function, then report back to the agent API with results.

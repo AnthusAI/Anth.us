@@ -23,8 +23,8 @@ module.exports = {
         link:'/about'
       },
       {
-        name:'Articles',
-        link:'/articles'
+        name:'Blog',
+        link:'/blog'
       }
     ]
   },
@@ -89,14 +89,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-page-creator`,
       options: {
-        path: `${__dirname}/src/articles`,
+        path: `${__dirname}/src/blog`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `articles`,
-        path: `${__dirname}/src/articles`,
+        name: `blog`,
+        path: `${__dirname}/src/blog`,
       },
     },
     {

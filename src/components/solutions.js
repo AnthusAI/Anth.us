@@ -21,7 +21,7 @@ const Solutions = ({ solutions, showPreviewImage, linkToPage, className, isFeatu
         <li key={node.id} className={`${styles.listItem} ${isFeatured ? styles.featuredItem : ''}`}>
           {showPreviewImage && image && <GatsbyImage image={image} alt={node.frontmatter.title} />}
           {linkToPage ? 
-            <Link className={styles.listItemLink} to={`/articles/${node.frontmatter.slug}`}>
+            <Link className={styles.listItemLink} to={`/blog/${node.frontmatter.slug}`}>
               <h3>{node.frontmatter.title}</h3>
             </Link> :
             <h3>{node.frontmatter.title}</h3>
