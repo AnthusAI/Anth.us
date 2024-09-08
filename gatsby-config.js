@@ -23,9 +23,13 @@ module.exports = {
         link:'/about'
       },
       {
-        name:'Blog',
+        name:'Articles',
         link:'/blog'
-      }
+      },
+      // {
+      //   name:'Posts',
+      //   link:'/posts'
+      // },
     ]
   },
   plugins: [
@@ -97,6 +101,13 @@ module.exports = {
       options: {
         name: `blog`,
         path: `${__dirname}/src/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/src/posts`,
       },
     },
     {
