@@ -24,7 +24,7 @@ images:
 state: published
 ---
 
-import BlogImage from '../components/blog-image';
+import ArticleImage from '../components/article-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 Picture this: you're at the helm of a startup, brimming with ideas, ready to leverage the marvels of AI, particularly the genius of GPT 4.  You set out looking for opportunities in text classifiers:<Citation
@@ -39,7 +39,7 @@ Picture this: you're at the helm of a startup, brimming with ideas, ready to lev
 
 You went out and did your business development magic and worked out a deal!  You can make a profitable venture if you can make an automation that can classify sentences as being about Spanish immigration law or not about Spanish immigration law, with at least a 95% accuracy, at a price of less than $200 per million classifications.
 
-No problem!  GPT 4's <a href="/blog/how-ai-agents-do-things/">function-calling</a> feature can generate structured responses!  You jump into VS Code and use GPT 4 in GitHub Copilot to craft a text classifier based on GPT 4, and it's 97% accurate when you evaluate it.  <i>AWESOME</i>, it works!
+No problem!  GPT 4's <a href="/articles/how-ai-agents-do-things/">function-calling</a> feature can generate structured responses!  You jump into VS Code and use GPT 4 in GitHub Copilot to craft a text classifier based on GPT 4, and it's 97% accurate when you evaluate it.  <i>AWESOME</i>, it works!
 
 But there's a problem: You check the costs on your evaluation run, and wow, <mark>GPT 4 tokens are expensive!</mark>  It costs just over $0.40 to do 240 classifications, which means that it would cost... almost $1,700 per million classifications.  The venture would not be profitable.
 
@@ -53,23 +53,23 @@ One easy way to make a GPT 4 solution cheaper is to use GPT 3.5 instead.  It's a
 
 You make a simple tweak to your code to swap the models and you do your evaluation run again to check the cost.  It's much better!  GPT 3.5 is an order of magnitude cheaper:
 
-<BlogImage images={props.pageContext.frontmatter.images} name="cost_GPT-4_GPT-3.5.png" className="centered" alt="Cost of GPT 4 vs GPT 3.5 classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="cost_GPT-4_GPT-3.5.png" className="centered" alt="Cost of GPT 4 vs GPT 3.5 classifiers." />
 
 The best part here is that the cost per million will be below your break-even point of $200 per million.  You're profitable! Yay!
 
-<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5.png" className="centered" alt="Profit per million AI text classifications with GPT 4 versus GPT 3.5." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5.png" className="centered" alt="Profit per million AI text classifications with GPT 4 versus GPT 3.5." />
 
 But is it as accurate?  Yes, it's about the same accuracy.  It's enough.  In the evaluation phase you're measuring things like precision and recall and accuracy, and you get about the same results.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="precision_recall_GPT-4_GPT-3.5.png" className="centered" alt="Precision and recall for GPT 4 versus GPT 3.5 LLM text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="precision_recall_GPT-4_GPT-3.5.png" className="centered" alt="Precision and recall for GPT 4 versus GPT 3.5 LLM text classifiers." />
 
 The accuracy score is actually a little higher for GPT 3.5 but that might be related to the training data that was generated with GPT 3.5.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5.png" className="centered" alt="Accuracy for GPT 4 versus GPT 3.5 LLM text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5.png" className="centered" alt="Accuracy for GPT 4 versus GPT 3.5 LLM text classifiers." />
 
 Now you have a profitable venture.  But your margins are razor thin:
 
-<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5.png" className="centered" alt="An AI model learning" />
+<ArticleImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5.png" className="centered" alt="An AI model learning" />
 
 You want to optimize for profit, right?  And in software we optimize through iteration.  Let's try to cut costs.
 
@@ -81,7 +81,7 @@ This kind of algorithm that you're selling at a profit is called a "classifier",
     "container-title": "Levity",
     title: "Text classifiers in Machine Learning: A practical guide",
     author: 'Patricia Orza',
-    URL: "https://levity.ai/blog/text-classifiers-in-machine-learning-a-practical-guide",
+    URL: "https://levity.ai/articles/text-classifiers-in-machine-learning-a-practical-guide",
     accessed: { 'date-parts': [[2023, 12, 17]] },
     issued: { 'date-parts': [[2022, 11, 16]] }
   }}
@@ -93,7 +93,7 @@ One way to do it is to use a different model from OpenAI that isn't a generative
     "container-title": "OpenAI",
     title: "New and improved embedding model",
     author: ['Ryan Greene','Ted Sanders','Lilian Weng','Arvind Neelakantan'],
-    URL: "https://openai.com/blog/new-and-improved-embedding-model",
+    URL: "https://openai.com/articles/new-and-improved-embedding-model",
     accessed: { 'date-parts': [[2023, 12, 12]] },
     issued: { 'date-parts': [[2022, 12, 15]] }
   }}
@@ -170,7 +170,7 @@ We <mark>generated a list of about 1,200 fake sentences using GPT 3.5</mark>, wh
 
 We used the [Python notebook](https://github.com/Anth-us/semantic-text-classification/blob/main/Custom_Classifier.ipynb) in the repository to load that data and generate an embedding for each sentence in the file using the OpenAI Ada 2 embeddings model.  How did it perform?
 
-<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
 
 The accuracy improved!  Amazing!
 
@@ -178,21 +178,21 @@ The accuracy improved!  Amazing!
 
 Even more amazing is the order-of-magnitude cost reduction.  The Ada 2 model only costs $0.0001 / 1K tokens for input and none for output, compared with GPT 3.5 which costs $0.0010 / 1K tokens for input and	$0.0020 / 1K tokens for output.  The cost has dropped so low that you can't even see it on the visualization next to the cost of GPT 4.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="cost_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Cost across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="cost_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Cost across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
 
 Wow!  Let's scale that to a million classifications:
 
-<BlogImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Cost per million across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Cost per million across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
 
 And we know why that's important.  An <mark>order-of-magnitude increase in profit</mark>:
 
-<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Profit across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Profit across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
 
 ### Speed improvement
 
 Another incredible thing is how fast machine-learning classifiers are, compared with LLMs that generate responses one token at a time.  A machine-learning classifier shifts the time required to a one-time training step, and they're virtually instant at inference time.  GPT 3.5 and GPT 4 don't require any training since they're "pre-trained", but they're <mark>super slow</mark> when they generate text compared to a machine-learning classifier when the job at hand is text classification.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Time breakdown for training and inference across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2.png" className="centered" alt="Time breakdown for training and inference across GPT 4, GPT 3.5 and Ada 2 text classifiers." />
 
 ## More!
 
@@ -217,7 +217,7 @@ BERT stands for Bidirectional Encoder Representations from Transformers. It revo
 
 BERT does just as well as Ada 2 at this task, despite being free.  <mark>Good to know!</mark>
 
-<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
 ### Speed
 
@@ -225,19 +225,19 @@ Computing the embeddings using BERT took about the same amount of time as it too
 
 And, like the model based on OpenAI embeddings, it's virtually instant to compute classifications with it.  All the time is in a one-time training step.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Time for training and inference across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Time for training and inference across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
 ### Cost
 
 This classifier completely eliminates the OpenAI bill.  Which was already so small with Ada 2 that you can't even see it on this visualization compared with the cost of GPT 4 and GPT 3.5.  But <mark>now the cost is <b>zero</b></mark>.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Cost per million classifications across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="cost_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Cost per million classifications across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
 ### Profit
 
 And that increases our profit!  Our <mark>key performance indicator</mark>!
 
-<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Profit across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Profit across GPT 4, GPT 3.5, Ada 2 and BERT text classifiers." />
 
 ## More!
 
@@ -260,11 +260,11 @@ Word2Vec is a group of models that produce word embeddings by capturing the cont
 
 Is it faster?  Yes!  It's so much faster at computing embeddings that you <mark>can't even see the blip</mark> on this visualization, next to the times that the other models require.  There's a tiny bar there on the bottom right if you squint.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Time for training and inference across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="time_training_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Time for training and inference across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
 
 Does it work, though?
 
-<BlogImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="accuracy_GPT-4_GPT-3.5_Ada_2_BERT_Word2Vec.png" className="centered" alt="Accuracy across GPT 4, GPT 3.5, Ada 2, BERT and Word2Vec text classifiers." />
 
 Oops.  No, it's significantly less accurate, at 97%.  That's accurate enough for our requirements, but it doesn't seem worth the drop in accuracy to save a few seconds in a one-time pre-training step.  It won't significantly boost our profit, and <mark>that's what matters</mark>.
 
@@ -328,7 +328,7 @@ We want to see how well the three different embeddings techniques work for our c
   }}
 /> The AUC (Area Under the Curve) quantifies the model's ability to distinguish between classes - a higher AUC means better discrimination.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="ROC-curve.png" className="centered" alt="ROC-AUC curve analysis." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="ROC-curve.png" className="centered" alt="ROC-AUC curve analysis." />
 
 **Confusion Matrices**: These are tables that lay out the successes and failures of our predictions in detail. They show four types of outcomes - true positives (correctly identified legal questions), false positives (non-legal questions wrongly identified as legal), true negatives (correctly identified non-legal questions), and false negatives (legal questions missed by the model).<Citation
   data={{
@@ -341,7 +341,7 @@ We want to see how well the three different embeddings techniques work for our c
   }}
 /> This matrix helps us pinpoint areas where our model might be overconfident or too cautious, guiding us in fine-tuning its performance.
 
-<BlogImage images={props.pageContext.frontmatter.images} name="confusion-BERT.png" className="centered" alt="Confusion matrix for BERT." />
+<ArticleImage images={props.pageContext.frontmatter.images} name="confusion-BERT.png" className="centered" alt="Confusion matrix for BERT." />
 
 ## Maximize profit, not intelligence
 

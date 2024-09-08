@@ -14,4 +14,4 @@ Then download PlantUML:
 
 Then you can run it:
 
-    $ bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./
+    $ bundle exec plantuml_diagrams process -i src/articles/diagrams -o ./

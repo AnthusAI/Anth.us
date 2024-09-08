@@ -13,10 +13,10 @@ images:
 state: draft
 ---
 
-import BlogImage from '../components/blog-image';
+import ArticleImage from '../components/article-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-<BlogImage images={props.pageContext.frontmatter.images} name="mechanical-turk.jpg" className="right" alt="Wolfgang von Kempelen's Mechanical Turk" />
+<ArticleImage images={props.pageContext.frontmatter.images} name="mechanical-turk.jpg" className="right" alt="Wolfgang von Kempelen's Mechanical Turk" />
 
 In 1770, an intriguing invention captivated the world: the Mechanical Turk, created by Wolfgang von Kempelen.  The automaton was a life-sized figure dressed in Ottoman robes, with a turban and a pipe in its mouth, that appeared to be a marvel of automation.<Citation
   data={{
@@ -148,7 +148,7 @@ In one study researchers highlighted the potential for job displacement across a
     URL: "https://www.brookings.edu/articles/unleashing-possibilities-ignoring-risks-why-we-need-tools-to-manage-ais-impact-on-jobs/",
     accessed: { 'date-parts': [[2023, 8, 17]] },
   }}
-/>  But now, software developers seem like archaic gatekeepers to app functionality, in a world where you <a href="/blog/the-rise-of-single-use-software/">don't need an app to solve problems</a>.
+/>  But now, software developers seem like archaic gatekeepers to app functionality, in a world where you <a href="/articles/the-rise-of-single-use-software/">don't need an app to solve problems</a>.
 
 Another study, used a novel technique to analyze the overlap between AI-related patents and job descriptions. The findings suggest that AI will significantly impact the work lives of relatively well-paid managers, supervisors, and analysts.<Citation
   data={{

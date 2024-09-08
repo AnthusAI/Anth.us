@@ -1,0 +1,69 @@
+---
+title: "Self-Learning Text Classifiers"
+slug: "self-learning-text-classifiers"
+date: "2024-09-01"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+  - author: <a href="https://www.linkedin.com/in/dereknorrbom/">Derek Norrbom</a>
+  - author: <a href="https://www.linkedin.com/in/osledy-bazo/">Osledy Bazó</a>
+assistants:
+  - assistant: ChatGPT
+  - assistant: Claude
+excerpt: "Minimize development time for setting up a viable text classifier with an agentic self-improvement process."
+preview_image: "./images/draft-2.png"
+images:
+  - ./images/draft-2.png
+state: draft
+---
+
+import ArticleImage from '../components/article-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+Automation that uses AI to make decisions for people can be a powerful business asset — if we can align the decisions it makes with the decisions our people would make.
+
+How can we do that?  That can be the hard part!
+
+## The problem: Alignment
+
+Imagine that we're doing marketing for a company and your job is to screen the incoming emails for qualified leads: People who have shown a genuine interest and are likely to become paying customers.
+
+Our advertising campaigns have been successful and you're getting far too many emails for you to manually review them.  Hooray!  But now we need help screening them, so we turn to AI.
+
+We could set up a text classifier that would read all the emails and ask the question, "Does this email represent a qualified lead?"  But: How will a large language model (LLM) tell the difference between a qualified lead and spam?
+
+It will try.  It will do its best.  It will use its general knowledge about what "qualified lead" means.
+
+That will help a little, but if we're in the business of selling roofing materials, and only at wholesale prices to businesses, and only to customers within your nearby tri-state area, and with various other conditions, then it would be useful if the model had guidelines for making decisions that would align with ours.
+
+### You can't optimize a metric you're not measuring
+
+If we want to optimize for alignment then we need to be able to measure it.  Let's collect some historic emails where people have classified them as qualified leads or not and use that to measure the accuracy of the decisions our LLM application makes.  We can take an old email where we know if it's a qualified lead or not and send it with our current prompts to the LLM, and then we can see if the LLM's decision was aligned with our human label.  If we do this 100 times, then the number of matching answers is a percentage that represents the accuracy of the classifier.
+
+Now we can run an experiment to test a new prompt: We can measure the accuracy when the prompt is only this, as the "control" in our scientific experiment:
+
+    Does this email represent a qualified lead?
+
+We run the accuracy experiment, and that matches our labels 65% of the time.
+
+That means that we have a classifier that sort-of works.  If it were equivalent to a coin flip then it would have 50% accuracy.  But, it's not very well aligned with our data.
+
+So, let's try an adjustment:
+
+    Does this email represent a qualified lead?
+    We sell roofing materials.
+    And only at wholesale prices to businesses.
+    And onluy to customers within the tri-state area near...
+
+Now we run the accuracy experiment again, and that matches our labels 75% of the time.  Hooray!  It got better and now it's more useful.
+
+### Now what?
+
+This is how most people do prompt engineering: Guessing and testing.  Most people don't do full evaluations for the "testing" part, they just run one or two LLM requests.  We're doing better evaluations, but we still don't have any way to improve the prompt other than guessing what might help.
+
+## Automated scientific research
+
+
+
+## References
+
+<CitationsList citationFormat="apa" />
