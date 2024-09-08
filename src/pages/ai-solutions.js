@@ -9,8 +9,7 @@ const AISolutionsPage = ({ data }) => {
     document.title = "AI Solutions";
   }, []);
 
-  const featuredSolutions = data.solutions.edges.filter(({ node }) => node.frontmatter.tags.includes('featured'));
-  const nonFeaturedSolutions = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured') && !node.frontmatter.tags.includes('integrations'));
+  const featuredSolutions = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('integrations'));
   const nonFeaturedIntegrations = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured') && node.frontmatter.tags.includes('integrations'));
 
   return (
@@ -20,24 +19,27 @@ const AISolutionsPage = ({ data }) => {
           <h1>Solving Problems Using AI</h1>
           <p>
             <img src="/assets/images/ai-software-solutions.png" alt="image-right" className="responsive-float-right-image" />
-            You're under pressure to <mark>drive business efficiencies</mark> through artificial intelligence and we know how.  Our methods are rooted in industry best-practices and <mark>decades of professional experience</mark>.  We build solutions that are reliable and affordable to operate over time and we stand behind them.
+            <p>You're under pressure to drive business efficiencies through artificial intelligence, and we know how. <mark>We transform businesses by turning ideas into real-world solutions.</mark> Our approach is built on industry best practices and decades of experience.</p>
+            <p>We excel at:</p>
+            <ul>
+              <li>Business process automation with AI/ML</li>
+              <li>Leveraging cloud and serverless for efficiency and reliability</li>
+              <li>Following industry best practices</li>
+              <li>Delivering solutions with high operational maturity</li>
+              <li>Ensuring regulatory compliance and auditability</li>
+            </ul>
+            <p>Our expertise makes your AI aspirations real. We design, implement, and support robust systems that drive efficiency and create new opportunities.</p>
           </p>
-          <p>Please get in touch and let's talk about what we can do for you.</p>
+          <p>Ready to revolutionize your business? <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link">Let's talk about what we can do for you.</a></p>
           <div className="clear"></div>
-          <h2>Examples</h2>
+          <h2>Portfolio</h2>
 
-          <p>Here are some of our software solutions over the years, increasingly using and focusing on artificial intelligence:</p>
+          <p>Our journey spans decades of solving complex business challenges. Recently, we've focused on AI-driven solutions, leveraging our deep expertise to deliver cutting-edge applications that transform businesses:</p>
 
           <Solutions
             className="smallImageList"
             solutions={featuredSolutions}
             showPreviewImage={true}
-            linkToPage={false}
-          />
-
-          <Solutions
-            solutions={nonFeaturedSolutions}
-            showPreviewImage={false}
             linkToPage={false}
           />
 
