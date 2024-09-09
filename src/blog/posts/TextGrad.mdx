@@ -1,0 +1,45 @@
+---
+title: "TextGrad"
+slug: "textgrad"
+date: "2024-07-02"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: posts
+excerpt: |
+  In the paper "TextGrad: Automatic 'Differentiation' via Text", researchers from Stanford introduce a framework for automatic differentiation via text, for LLMs.
+preview_image: "../images/posts/TextGrad.png"
+images:
+  - "../images/posts/TextGrad.png"
+  - "../images/posts/TextGrad_gradient.png"
+  - "../images/posts/TextGrad_algorithm.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="TextGrad.png"
+  alt="TextGrad: Backpropagation for agentic LLM processes." 
+/>
+
+In the paper [TextGrad: Automatic “Differentiation” via Text](https://arxiv.org/abs/2406.07496), researchers from Stanford introduce a framework for automatic differentiation via text, for LLMs.
+
+This overall idea is the key to automating prompt engineering.  To automate prompt engineering, you need a way to test your prompt and figure out what's wrong with it and then apply that idea to editing the prompt.  TextGrad is about figuring out what's wrong.
+
+It operates in an agentic paradigm, where each node in an execution graph can be an LLM request, or maybe some other thing.
+For the LLM requests, it establishes sort of the equivalent of a 'loss function' in machine learning, for comparing how close the output at that stage was to the ideal completion.
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="TextGrad_gradient.png"
+  alt="An example of a text gradient with TextGrad" 
+/>
+
+Then it propagates feedback backwards through the agentic graph to the beginning, to give the entire agentic system feedback for how to improve the prompts.
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="TextGrad_algorithm.png" 
+  alt="The overall algorithm for text-based backpropagation in agentic LLM applications." 
+/>

@@ -126,6 +126,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       display_date: String
       slug: String
       excerpt: String
+      tags: String
       state: String
       authors: [Author]
       assistants: [Assistant]

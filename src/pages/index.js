@@ -84,8 +84,8 @@ const IndexPage = () => {
         }
       }
 
-      recentPosts: allMdx(
-        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions"] } } } 
+      recentArticles: allMdx(
+        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] } } } 
         sort: { fields: [frontmatter___date], order: DESC }
         limit: 4
       ) {
@@ -107,6 +107,32 @@ const IndexPage = () => {
           }
         }
       }
+
+      recentPosts: allMdx(
+        filter: { frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } } } 
+        sort: { fields: [frontmatter___date], order: DESC }
+        limit: 4
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              date
+              slug
+              excerpt
+              tags
+              state
+              preview_image {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
   `);
 
@@ -207,7 +233,7 @@ const IndexPage = () => {
 
       <h2>Recent Articles</h2>
       <ul className='blog'>
-        {data.recentPosts.edges.map(({ node }) => {
+        {data.recentArticles.edges.map(({ node }) => {
           const previewImage = getImage(node.frontmatter.preview_image);
           return (
             <div className='blog-post-preview' key={node.id}>
@@ -223,8 +249,30 @@ const IndexPage = () => {
           );
         })}
       </ul>
+      <div className="clear-float">Please see our <Link to="/blog">Articles</Link> for more.</div>
 
-      <div className="clear-float">Please see our <Link to="/blog">Blog</Link> for more.</div>
+      <h2>Recent Posts</h2>
+      <ul className={styles.postsList}>
+        {data.recentPosts.edges.map(({ node }) => (
+          <li key={node.id} className={styles.postsListItem}>
+            <div className={styles.postsListItemContent}>
+              <Link
+                className={styles.postsListItemLink}
+                to={`/blog/${node.frontmatter.slug}`}
+              >
+                <p>
+                  <div>{node.frontmatter.excerpt}</div>
+                  <div className={styles.listItemRight}>
+                    <div className={styles.listItemDate}>{formatDate(node.frontmatter.date)}</div>
+                    <div><i>more...</i></div>
+                  </div>
+                </p>
+                <GatsbyImage image={getImage(node.frontmatter.preview_image)} alt={node.frontmatter.excerpt} />
+              </Link>
+            </div>
+          </li>
+        ))}
+      </ul>
 
     </Layout>
   )
@@ -246,3 +294,8 @@ export const Head = () => {
 }
 
 export default IndexPage
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}

@@ -79,7 +79,7 @@ h1 {
   min-height: calc(3 * var(--base-line-height));
 }
 h1, h2 {
-  padding: calc(0.5 * var(--base-line-height)) 0;
+  padding: calc(2 * var(--base-line-height)) 0 calc(0.5 * var(--base-line-height)) 0;
   font-family: var(--font-serif);
 }
 h2 {
