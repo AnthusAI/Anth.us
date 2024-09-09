@@ -1,0 +1,37 @@
+---
+title: "Predictive Attention Mechanism"
+slug: "predictive-attention-mechanism"
+date: "2024-07-05"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: posts
+excerpt: |
+  As a demonstration of an attention mechanism, researchers demonstrated a system that can reconstruct the images that a monkey saw from brain activity.
+preview_image: "../images/posts/predictive-attention-mechanism-neural-decoding.png"
+images:
+  - "../images/posts/predictive-attention-mechanism-latent-inversion.png"
+  - "../images/posts/predictive-attention-mechanism-neural-decoding.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+As a demonstration of an attention mechanism, researchers at Radboud University, Nijmegen, Netherlands demonstrated a system that can reconstruct the images that a monkey saw from brain activity in [*PAM: Predictive Attention Mechanism for Neural Decoding of Visual Perception*](https://www.biorxiv.org/content/10.1101/2024.06.04.596589v1).
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="predictive-attention-mechanism-neural-decoding.png"
+  alt="A system that can reconstruct what a monkey saw from brain activity." 
+/>
+
+The top row of images is what the monkey saw.
+
+The bottom row of images were reconstructed by a deep neural network from monkey brain activity.
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="predictive-attention-mechanism-latent-inversion.png"
+  alt="Using latent inversion to generate images." 
+/>
+
+Lower loss values to the left.  The one on the far left looks nearly perfect.

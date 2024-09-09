@@ -1,0 +1,28 @@
+---
+title: "Automated Scientific Discovery"
+slug: "automated-scientific-discovery"
+date: "2024-08-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: posts
+excerpt: |
+  Two recent papers touch on the trend of automated scientific discovery, exploring AI-driven research assistance and fully autonomous scientific experimentation.
+preview_image: "../images/posts/automated-scientific-discovery.png"
+images:
+- "../images/posts/automated-scientific-discovery.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+Automated scientific discovery is a relatively recent trend, building on advances in agentic application development.
+
+Two recent papers touch on this trend.  In [*OpenResearcher: Unleashing AI for Accelerated Scientific Research*](https://arxiv.org/abs/2408.06941) researchers in China developed a framework for automating some of the grunt work in digging through research papers in a knowledge base like [arxiv.org](arxiv.org).
+
+Going beyond that, [*The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery*](https://arxiv.org/abs/2408.06292) presents a system that can autonomously generate scientific ideas, design experiments, implement them, analyze results, and even draft research papers. This AI Scientist operates in a continuous loop, generating hypotheses, planning and executing experiments using code-writing capabilities, collecting results, drafting papers, and even conducting self-review based on conference guidelines. The system then archives its findings and feedback, using this knowledge to inform future iterations. Importantly, the generated papers and experimental artifacts allow human scientists to interpret and validate the AI's discoveries, potentially accelerating scientific progress through this human-AI collaboration.
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="automated-scientific-discovery.png" 
+  alt="TextGrad: Backpropagation for agentic LLM processes." 
+/>

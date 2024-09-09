@@ -83,6 +83,36 @@
   margin-top: var(--space-1);
 }
 
+.postsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  background-color: #ccc;
+  position: relative;
+}
+.postsList a {
+  text-decoration: none;
+}
+
+.postsListItem {
+  min-width: 280px;
+  margin: 0;
+  list-style-type: none;
+  padding: 16px;
+  background-color: white;
+}
+
+.postsListItemContent {
+  max-width: 90%;
+  margin: 0 auto;
+}
+.listItemRight {
+  float: right;
+  font-size: 0.8em;
+}
+
 .textCenter {
   text-align: center;
 }
@@ -91,4 +121,10 @@
   max-width: none;
   line-height: var(--line-height-loose);
   margin-top: var(--space-4)
+}
+
+@media (min-width: 640px) {
+  .postsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

@@ -26,10 +26,10 @@ module.exports = {
         name:'Articles',
         link:'/blog'
       },
-      // {
-      //   name:'Posts',
-      //   link:'/posts'
-      // },
+      {
+        name:'Posts',
+        link:'/posts'
+      },
     ]
   },
   plugins: [
