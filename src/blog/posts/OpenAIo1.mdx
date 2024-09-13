@@ -1,5 +1,5 @@
 ---
-title: "OpenAI o1"
+title: "OpenAI o1 and o1 mini: Advancing AI Reasoning"
 slug: "openai-o1"
 date: "2024-09-12"
 authors:
@@ -7,7 +7,7 @@ authors:
 tags:
   - posts
 excerpt: |
-  OpenAI's o1 demonstrates the power of deconstructing complex tasks into simpler ones, but at a significantly higher cost compared to custom-built agentic systems.
+  OpenAI's o1 and o1 mini demonstrate advanced reasoning capabilities, offering new perspectives on AI development and application.
 preview_image: "../images/posts/OpenAIo1.png"
 images:
   - "../images/posts/OpenAIo1.png"
@@ -24,12 +24,66 @@ import BlogImage from '../../components/blog-image';
     />
 </p>
 
-[OpenAI's o1](https://openai.com/o1/) is a new system that showcases advanced reasoning capabilities in large language models. It builds upon research in [learning to reason](https://openai.com/index/learning-to-reason-with-llms/) and introduces [o1-mini](https://openai.com/index/openai-o1-mini-advancing-cost-efficient-reasoning/), a more cost-efficient version.
+[OpenAI's o1](https://openai.com/o1/) and [o1 mini](https://openai.com/index/openai-o1-mini-advancing-cost-efficient-reasoning/) showcase advanced reasoning capabilities in large language models, building upon research in [learning to reason](https://openai.com/index/learning-to-reason-with-llms/).
 
-o1 provides further evidence that deconstructing complex tasks into simpler ones and addressing them through agentic workflows is the most effective way to achieve optimal results from a model. This approach aligns with established best practices in AI system design.
+Recent discussions have highlighted several intriguing aspects of o1 and o1 mini:
 
-However, the cost implications of o1 are significant. The token cost for o1 is two orders of magnitude higher than traditional models, and it generates additional reasoning tokens. This positions o1 as a premium "get smarter" solution - an Easy Button for when you need an agentic workflow but lack the time or expertise to build a custom system.
+o1 represents a significant shift in AI architecture and reasoning capabilities. It marks a move towards scaling adaptive compute at inference time, embodying an advanced "thinking before answering" approach. This architectural innovation is best understood by comparing it to traditional models.
 
-While o1 offers valuable insights for improving AI performance, its high cost makes it less practical for widespread adoption. It serves best as a quick solution for complex reasoning tasks when efficiency is less critical than immediate results.
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="Transformer-API.png"
+        alt="An API that wraps a transformer model."
+    />
+</p>
 
-In the evolving landscape of AI tools, o1 represents a trade-off between advanced capabilities and cost-effectiveness, highlighting the ongoing challenge of balancing performance with resource efficiency in AI development.
+Traditionally, AI models like GPT have been transformer-based, with an API wrapping a single large language model. This approach, while powerful, has limitations in complex reasoning tasks.
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="Agentic-API.png"
+        alt="An API that wraps an agentic workflow."
+    />
+</p>
+
+In contrast, o1 utilizes an agentic workflow behind its API. This means it can break down complex problems into smaller, manageable steps, much like a human would approach problem-solving. This architectural difference allows for more sophisticated reasoning and adaptability.
+
+## Specialized focus
+
+o1 demonstrates a specialized focus on STEM-related tasks, particularly excelling in coding and technical problem-solving. This specialization is a result of its training, which heavily emphasized reasoning about STEM questions.
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="o1-is-great-at-coding.png"
+        alt="Illustration showing o1's proficiency in coding and STEM tasks"
+    />
+</p>
+
+However, this specialized training comes with trade-offs. The model's exposure to literature, popular culture, and creative writing was comparatively limited. As a result, o1 may struggle with tasks requiring broader cultural knowledge or creative expression.
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="o1-sucks-at-writing.png"
+        alt="Illustration depicting o1's limitations in creative writing and cultural tasks"
+    />
+</p>
+
+This specialization highlights an important consideration in AI development: the balance between depth in specific domains and breadth across diverse fields of knowledge. While o1 excels in its targeted areas, it may not be the optimal choice for tasks outside its primary focus.
+
+## Black box
+
+While o1 offers advanced reasoning capabilities, its complex nature raises new questions. The black-box aspect of these models, combined with their intricate decision-making processes, introduces concerns about potential biases and logical fallacies that may be harder to detect and address.
+
+Early observations suggest o1 excels at complex problem-solving but at higher costs, potentially best suited for high-level reasoning tasks. In contrast, o1 mini seems designed for integration into coding tools, with faster performance and a focus on coding problems.
+
+## Deconstructing complex tasks
+
+These systems demonstrate the effectiveness of deconstructing complex tasks into simpler ones through agentic workflows. However, the cost implications are significant, with token costs for o1 being considerably higher than traditional models.
+
+As the AI landscape evolves, we see a spectrum of tools balancing sophistication with accessibility and cost-effectiveness. The key will be choosing the right tool for each specific task.
+
+For more in-depth discussions on these topics and others in AI development, please consider joining our Discord community, linked in the footer.
