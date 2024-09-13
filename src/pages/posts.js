@@ -16,7 +16,7 @@ const PostsPage = () => {
       recentPosts: allMdx(
         filter: { frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } } } 
         sort: { fields: [frontmatter___date], order: DESC }
-        limit: 4
+        limit: 8
       ) {
         edges {
           node {
