@@ -1,0 +1,92 @@
+---
+title: "AI-Driven Project Planning: Following a Coherent Development Path"
+slug: "ai-project-planning"
+date: "2025-01-15"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ['AI', 'software development', 'project management', 'productivity']
+excerpt: Here's a practical technique we've refined through thousands of hours of AI pair programming. Using structured project planning with AI tools has consistently improved our development workflow and team coordination.
+preview_image: "./images/ai-project-planning.png"
+images:
+  - ./images/ai-project-planning.png
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-project-planning.png" className="right" alt="A digital project board with glowing elements, representing the fusion of AI assistance and project management." />
+
+Through months of intensive work with AI coding tools, particularly Cursor Composer, we've refined a project management technique that consistently delivers results. What started as an experiment has become an essential part of our development workflow. Here's what we've learned works.
+
+## The Problem with Unstructured AI Development
+
+If you've spent time coding with AI assistants, you've probably noticed how they excel at understanding your immediate requests but lack the strategic oversight that a good project manager provides. Sure, ChatGPT now has its Memory feature, but when we're deep in development with tools like Cursor Composer, we need something more structured and project-focused.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "OpenAI",
+    title: "New GPT-4 Turbo with Memory",
+    URL: "https://openai.com/blog/new-gpt4-turbo-with-memory",
+    accessed: { 'date-parts': [[2025, 1, 15]] },
+    issued: { 'date-parts': [[2024, 12, 1]] }
+  }}
+/>
+
+## The Living Project Plan Approach
+
+Here's what's working incredibly well for us: When we start a new feature branch, our first step is opening Cursor Composer (Cmd+I) and having a high-level discussion about what we're building. But instead of jumping straight into code, we ask Composer to create a structured project plan document that outlines our development strategy.
+
+This plan document becomes our source of truth - much like a product requirements document or sprint planning board. Every time we start a new coding session, we include it in our context with Composer. As we make progress, we explicitly ask Composer to update the plan, tracking completed items and adjusting our strategy as needed.
+
+## Why This Works So Well
+
+What makes this approach particularly effective is how it mirrors established project management practices while integrating seamlessly with modern development workflows. The plan document lives in our repository, version controlled alongside our code. When we come back to a project after a few days (or weeks), we have a clear record of decisions made, progress achieved, and next steps to take.
+
+## Real World Example
+
+Let's say we're adding a new feature to our authentication system. A typical session might look like this:
+
+```
+Us: We need to add OAuth2 support to our auth system. Let's create a project 
+    plan document to track this.
+
+[Composer creates initial project-plan.md with requirements, milestones, and 
+ technical considerations]
+
+[Later that week...]
+
+Us: Here's our project plan for the OAuth2 implementation. We completed the 
+    client configuration milestone. What's the next priority?
+
+Composer: According to the plan, we've completed the basic client setup 
+         milestone. The next priority is implementing the authorization 
+         callback endpoint...
+```
+
+The beauty of this approach is that it creates a natural project management flow between sessions. Each time we make progress, we update the plan. Each time we start a new session, we have clear direction and context.
+
+## Making It Part of Your Workflow
+
+We've found it's important to treat this plan like any other project management artifact. After any significant changes, we explicitly ask Composer to update it. We maintain clear sections for Requirements, Completed Items, Current Sprint, and Next Steps. Sometimes we even include architecture decisions and key implementation details in the plan.
+
+This isn't just about tracking progress - it's about creating living project documentation that evolves with our development. It helps us stay organized, helps our team understand what's happening, and gives us a clear path forward at every step.
+
+## Reducing Cognitive Load with AI Memory
+
+One of the most powerful benefits of this approach emerges when returning to a project after time away. Whether it's Monday morning after a weekend, or coming back after working on different projects, the combination of AI and a structured plan acts as a powerful memory prosthesis.
+
+Instead of spending the first hour trying to reconstruct where you left off, you can share the plan with Composer and immediately get meaningful guidance. The AI can quickly parse the technical details, current status, and next steps, presenting them in a way that maps to your current context.
+
+This cognitive offloading is particularly valuable for:
+- Recalling specific technical decisions and their rationales
+- Tracking dependencies that aren't immediately visible in the code
+- Remembering edge cases and planned error handling
+- Maintaining consistency in architectural patterns across sessions
+
+The AI becomes particularly valuable here because it can do more than just regurgitate the plan - it can connect dots between different parts of the project, suggest optimizations based on completed work, and help you avoid repeating paths you've already decided against.
+
+Have you tried anything similar in your AI-assisted development workflow? We'd love to hear about your experiences and techniques for structured AI development.
+
+## References
+
+<CitationsList citationFormat="apa" /> 
