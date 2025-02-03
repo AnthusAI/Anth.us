@@ -11,6 +11,13 @@ We maintain comprehensive documentation for content creation and management in t
 
 The documentation uses a combination of XML for structure and Markdown for content formatting, making it both machine-readable and human-friendly.
 
+## Content Types
+
+Our site features two main types of blog content:
+
+- **Articles**: Long-form, comprehensive content with citations and illustrations, located in `src/blog/*.mdx`. These are well-researched pieces that dive deep into topics about AI, technology, and solutions.
+- **Posts**: Short, time-sensitive updates similar to social media posts, located in `src/blog/posts/*.mdx`. These are meant for frequent, concise updates that can be shared directly on social platforms.
+
 ## Diagrams
 
 This project uses a Ruby [pre-processor](https://github.com/endymion/plantuml_diagrams/tree/main) for generating PlantUML diagrams.  To use it, first install it:

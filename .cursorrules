@@ -6,8 +6,8 @@ Key documentation files:
   It explains different content types, creation processes, and best practices.
 
 Content structure:
-- Blog articles are in src/blog/*.mdx
-- Posts are in src/blog/posts/*.mdx
+- Blog articles (src/blog/*.mdx): Long-form, comprehensive content with citations and illustrations. These are well-researched pieces that dive deep into topics about AI, technology, and solutions.
+- Posts (src/blog/posts/*.mdx): Short, time-sensitive updates similar to social media posts. These are meant for frequent, concise updates that can be shared directly on social platforms.
 - Solutions are in src/blog/solutions/*.mdx
 - Static pages are in src/pages/*.js
 - Images should go in src/blog/images/ or src/images/
@@ -15,7 +15,9 @@ Content structure:
 
 When helping create content:
 1. Reference docs/content-guide.xml for structure and requirements
-2. Follow the appropriate template based on content type
+2. Follow the appropriate template based on content type:
+   - For articles: Include citations, illustrations, and comprehensive coverage
+   - For posts: Keep it concise, timely, and social-media friendly
 3. Ensure all required frontmatter is included
 4. Use Markdown for content formatting
 5. Add appropriate tags and metadata
