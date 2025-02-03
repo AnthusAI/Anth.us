@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documentation>
+    <title>Content Creation Guide for Anth.us</title>
+    
+    <section id="introduction">
+        <heading>Introduction</heading>
+        <content>
+            This guide explains how to create and manage different types of content on the Anth.us website. Our site uses Gatsby and supports various content types including blog articles, solutions, and static pages.
+        </content>
+    </section>
+
+    <section id="content-types">
+        <heading>Content Types</heading>
+        <content>
+            We have several types of content:
+
+            - **Blog Articles**: Long-form content about AI, technology, and solutions (`src/blog/*.mdx`)
+            - **Posts**: Shorter updates and announcements (`src/blog/posts/*.mdx`)
+            - **Solutions**: Detailed technical solutions (`src/blog/solutions/*.mdx`)
+            - **Pages**: Static website pages (`src/pages/*.js`)
+        </content>
+    </section>
+
+    <section id="creating-blog-article">
+        <heading>Creating a Blog Article</heading>
+        <content>
+            To create a new blog article:
+
+            1. Create a new `.mdx` file in `src/blog/`
+            2. Use kebab-case for the filename (e.g., `my-new-article.mdx`)
+            3. Include the following frontmatter:
+            ```markdown
+            ---
+            title: "Your Article Title"
+            date: "YYYY-MM-DD"
+            description: "A brief description of your article"
+            author: "Your Name"
+            tags: ["tag1", "tag2"]
+            ---
+            ```
+            4. Write your content using Markdown syntax
+            5. Use components by importing them at the top of your MDX file
+        </content>
+    </section>
+
+    <section id="creating-post">
+        <heading>Creating a Post</heading>
+        <content>
+            Posts are shorter updates that live in `src/blog/posts/`. They follow the same structure as blog articles but are typically more concise and focused on specific updates or announcements.
+
+            Example post structure:
+            ```markdown
+            ---
+            title: "Quick Update: New Feature Release"
+            date: "YYYY-MM-DD"
+            description: "Brief announcement about our latest feature"
+            type: "post"
+            ---
+
+            Brief content here...
+            ```
+        </content>
+    </section>
+
+    <section id="creating-page">
+        <heading>Creating a Static Page</heading>
+        <content>
+            To create a new static page:
+
+            1. Create a new `.js` file in `src/pages/`
+            2. Use the following template:
+            ```javascript
+            import React from 'react'
+            import Layout from '../components/Layout'
+
+            const NewPage = () => {
+                return (
+                    <Layout>
+                        <h1>Your Page Title</h1>
+                        {/* Your content here */}
+                    </Layout>
+                )
+            }
+
+            export default NewPage
+            ```
+        </content>
+    </section>
+
+    <section id="using-ai">
+        <heading>Using AI to Create Content</heading>
+        <content>
+            When using AI to help create content:
+
+            1. Start a new coding session in Cursor
+            2. Clearly describe the type of content you want to create
+            3. Provide any specific requirements or topics to cover
+            4. The AI will help create the appropriate file with the correct structure
+            5. Review and edit the AI-generated content before publishing
+
+            Remember that AI is a tool to assist in content creation - always review and enhance the output to maintain our quality standards.
+        </content>
+    </section>
+
+    <section id="best-practices">
+        <heading>Best Practices</heading>
+        <content>
+            - Use descriptive filenames that reflect the content
+            - Include relevant tags for better categorization
+            - Add images to `src/blog/images/` or `src/images/` as appropriate
+            - Create diagrams in `src/blog/diagrams/` using PlantUML
+            - Keep content focused and well-structured
+            - Use headings to organize your content
+            - Include code examples where relevant
+            - Link to related content when appropriate
+        </content>
+    </section>
+</documentation> 

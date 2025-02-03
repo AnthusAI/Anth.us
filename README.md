@@ -1,6 +1,15 @@
 # Anthus AI Solutions
 
-This the Gatsby site project for https://anth.us
+This is the Gatsby site project for https://anth.us
+
+## Documentation
+
+We maintain comprehensive documentation for content creation and management in the `docs` directory:
+
+- `docs/content-guide.xml`: Guide for creating articles, posts, and pages
+- More documentation will be added as needed
+
+The documentation uses a combination of XML for structure and Markdown for content formatting, making it both machine-readable and human-friendly.
 
 ## Diagrams
 
