@@ -1,0 +1,22 @@
+This is the Gatsby site project for https://anth.us. The project contains documentation for content creation and management.
+
+Key documentation files:
+- docs/content-guide.xml: Comprehensive guide for creating articles, posts, and pages
+  This file contains structured documentation using XML with Markdown content inside <content> tags.
+  It explains different content types, creation processes, and best practices.
+
+Content structure:
+- Blog articles are in src/blog/*.mdx
+- Posts are in src/blog/posts/*.mdx
+- Solutions are in src/blog/solutions/*.mdx
+- Static pages are in src/pages/*.js
+- Images should go in src/blog/images/ or src/images/
+- Diagrams are created in src/blog/diagrams/ using PlantUML
+
+When helping create content:
+1. Reference docs/content-guide.xml for structure and requirements
+2. Follow the appropriate template based on content type
+3. Ensure all required frontmatter is included
+4. Use Markdown for content formatting
+5. Add appropriate tags and metadata
+6. Place images and diagrams in their designated directories 
