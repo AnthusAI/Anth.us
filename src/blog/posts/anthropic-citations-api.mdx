@@ -1,0 +1,36 @@
+---
+title: "Anthropic's Citations API: A Step Forward for AI Agent Explainability"
+date: "2025-01-24"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "Anthropic's new Citations API enables Claude to provide precise citations for its responses, opening new possibilities for verifiable AI agent systems."
+preview_image: "../images/posts/anthropic-citations.png"
+images:
+  - "../images/posts/anthropic-citations.png"
+tags:
+  - posts
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="anthropic-citations.png"
+    />
+</p>
+
+Anthropic has released their Citations API, enabling Claude to provide precise citations for its responses. This development is particularly intriguing for agent-based systems where explainability and verification are crucial.
+
+The Citations API allows Claude to return not just relevant quotes but also their exact locations in source documents. This capability could transform how we build verifiable AI agents, enabling them to show their work and maintain clear chains of evidence.
+
+Key features of the Citations API include:
+- Precise quote locations with character-level spans
+- Support for both PDF and text documents
+- Flexible citation formats
+- Integration with Claude's existing capabilities
+
+For agent-based systems, this means we can now build more transparent decision-making processes. Agents can explain their reasoning with direct references to source materials, making their actions more auditable and trustworthy.
+
+We're exploring integrating this capability into our agent frameworks to enhance explainability and verification in our AI solutions. 
