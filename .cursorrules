@@ -8,6 +8,7 @@ Key documentation files:
 Content structure:
 - Blog articles (src/blog/*.mdx): Long-form, comprehensive content with citations and illustrations. These are well-researched pieces that dive deep into topics about AI, technology, and solutions.
 - Posts (src/blog/posts/*.mdx): Short, time-sensitive updates similar to social media posts. These are meant for frequent, concise updates that can be shared directly on social platforms.
+- The excerpts for posts should serve as standalone super-pithy microblog posts on social media. (No emojis!)
 - Solutions are in src/blog/solutions/*.mdx
 - Static pages are in src/pages/*.js
 - Images should go in src/blog/images/ or src/images/
