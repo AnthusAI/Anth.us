@@ -83,6 +83,11 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
+      plexusLogo: file(relativePath: { eq: "plexus-logo.png" }) {
+        childImageSharp {
+          gatsbyImageData(layout: CONSTRAINED, width: 1200)
+        }
+      }
 
       recentArticles: allMdx(
         filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] } } } 
@@ -230,6 +235,34 @@ const IndexPage = () => {
           </li>
         ))}
       </ul>
+
+      <section className={styles.plexusFeature}>
+        <h2>Introducing Plexus</h2>
+        <ul className='blog'>
+          <div className='blog-post-preview'>
+            <li className="clear-float">
+              <Link to="https://plexus.anth.us">
+                <GatsbyImage
+                  image={getImage(data.plexusLogo.childImageSharp.gatsbyImageData)}
+                  alt="Plexus Platform"
+                  className="right"
+                />
+                <h3>Introducing Plexus</h3>
+              </Link>
+              <p>
+                Plexus is our no-code platform for running AI agents over your data at industrial scale. Factored out of over a year of intensive call center QA work, it represents our journey from traditional ML models like SVM through BERT and fine-tuned versions of GPT-4, Llama, and other modern language models. Build and deploy AI workflows that analyze content streams and take action—without managing infrastructure or writing code.
+              </p>
+              <ul className="branded">
+                <li>Use any AI model from any provider</li>
+                <li>Evaluate performance quantitatively</li>
+                <li>Deploy to any infrastructure</li>
+                <li>Scale with your needs</li>
+              </ul>
+              <Link to="https://plexus.anth.us" className="button">Learn More</Link>
+            </li>
+          </div>
+        </ul>
+      </section>
 
       <h2>Recent Articles</h2>
       <ul className='blog'>

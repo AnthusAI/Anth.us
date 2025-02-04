@@ -128,3 +128,56 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.plexusFeature {
+  margin: 2rem 0;
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+}
+
+.plexusContent {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.plexusText ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.plexusText li {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.plexusText li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+.plexusImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plexusLogo {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .plexusContent {
+    grid-template-columns: 1fr;
+  }
+  
+  .plexusImage {
+    order: -1;
+  }
+}

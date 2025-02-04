@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Solutions from "../components/solutions"
+import { Link } from 'gatsby';
 
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
@@ -74,7 +75,9 @@ const AISolutionsPage = ({ data }) => {
 
           <h2>The Process</h2>
           <figure>
-            <img src="/assets/images/Anthus AI Application Lifecycle.png" alt="AI Application Lifecycle" />
+            <Link to="https://plexus.anth.us">
+              <img src="/assets/images/Anthus AI Application Lifecycle.png" alt="AI Application Lifecycle" />
+            </Link>
           </figure>
         </div>
       </article>
