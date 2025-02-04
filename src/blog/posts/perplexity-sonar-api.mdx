@@ -1,0 +1,45 @@
+---
+title: "Perplexity Sonar API: Research Agents as a Service"
+slug: "perplexity-sonar-api"
+date: "2025-01-21"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - posts
+excerpt: |
+  Perplexity launches Sonar API, packaging their research agent capabilities as a model-like service, following a growing trend of agent-based workflows behind APIs.
+preview_image: "../images/posts/perplexity-sonar.png"
+images:
+  - "../images/posts/perplexity-sonar.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="perplexity-sonar.png"
+        alt="Perplexity Sonar API: Research agents as a service"
+    />
+</p>
+
+[Perplexity's new Sonar API](https://sonar.perplexity.ai/) exposes their research agent capabilities through a standard model-like interface. The service joins OpenAI's o1 in a growing category of agent-based systems packaged as simple API endpoints.
+
+Under the hood, both Sonar and o1 run complex multi-model orchestration workflows. Yet they present as traditional model APIs, abstracting away the complexity of agent systems that decompose and execute multi-step tasks.
+
+## Technical Details
+
+The API accepts natural language queries and handles:
+- Task decomposition
+- Multi-step research execution
+- Source retrieval and citation
+- Response synthesis
+
+## Pricing
+
+Perplexity's [pricing](https://docs.perplexity.ai/guides/pricing) reflects the computational overhead of running agent workflows. Like o1, Sonar commands higher rates than standard LLM APIs due to the multiple model calls and orchestration required per request.
+
+## Engineering Impact
+
+This abstraction of agent systems behind clean APIs marks a shift in the AI infrastructure landscape. Rather than building orchestration from scratch, teams can now access production-ready agent capabilities through familiar REST interfaces. The trend suggests agent-based architectures are becoming a standard pattern in AI system design.
