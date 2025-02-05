@@ -14,6 +14,21 @@ Content structure:
 - Images should go in src/blog/images/posts/ for posts and src/blog/images/ for articles
 - Diagrams are created in src/blog/diagrams/ using PlantUML
 
+Image Generation Guidelines:
+1. Always generate placeholder images in the correct directory with appropriate filenames:
+   - For posts: src/blog/images/posts/
+   - For articles: src/blog/images/
+2. Use kebab-case for image filenames (e.g., "my-image-name.png")
+3. Generate placeholder images using ImageMagick with this template:
+   ```bash
+   convert -size 1200x630 xc:white -gravity center -pointsize 40 -annotate 0 "Your Title Here" src/blog/images/posts/your-title-here.png
+   ```
+4. Always create the placeholder image before creating the content file to ensure:
+   - Consistent file paths
+   - Correct image references in frontmatter
+   - Proper BlogImage component usage
+5. Image dimensions should be 1200x630 pixels for social media optimization
+
 Editorial Guidelines:
 1. Audience and Perspective:
    - Target audience: Business-oriented AI engineers, product developers, and especially potential clients
