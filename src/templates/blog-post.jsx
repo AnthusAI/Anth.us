@@ -5,11 +5,12 @@ import Seo from "../components/seo"
 import { MDXProvider } from "@mdx-js/react"
 import Markdown from 'markdown-to-jsx';
 import BlogImage from '../components/blog-image';
+import AudioNative from '../components/AudioNative';
 import { CitationsProvider, Citation, CitationsList } from 'gatsby-citation-manager';
 import MDXCode from "../components/MDXCode";
 
 // Define the shortcodes object
-const shortcodes = { BlogImage, Citation, CitationsList, MDXCode };
+const shortcodes = { BlogImage, Citation, CitationsList, MDXCode, AudioNative };
 
 const BlogPostTemplate = ({ data, children }) => {
   const post = data.mdx;
