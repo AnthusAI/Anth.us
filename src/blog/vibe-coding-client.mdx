@@ -1,0 +1,192 @@
+---
+title: "How to Handle a Vibe-Coding Client"
+slug: "vibe-coding-client"
+date: "2025-03-03"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: How to align vibe coding with your technology stack to create opportunities for developers instead of threatening them.
+preview_image: "./images/vibe-coding-client.png"
+images:
+  - ./images/vibe-coding-client.png
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<BlogImage images={props.pageContext.frontmatter.images} name="vibe-coding-client.png" className="right" alt="How to Handle a Vibe-Coding Client" />
+
+It's an increasingly common sight: The person who owns the company excitedly showing off what they built in v0.dev last night.  "Fully working code! We don't need Figma anymore!" as the UX designer frowns while trying to sound enthusiastic. "We can go straight to fully-working apps now!" as the full-stack developers frown while trying to sound enthusiastic. Do they still need developers at all?  Your client has discovered "vibe coding".<Citation
+  data={{
+    type: "webpage",
+    title: "Not a Coder? With A.I., Just Having an Idea Can Be Enough",
+    author: "Kevin Roose",
+    "container-title": "The New York Times",
+    URL: "https://www.nytimes.com/2025/02/27/technology/personaltech/vibecoding-ai-software-programming.html",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2025, 2, 27]] }
+  }}
+/>
+
+You know they can't really do it without developers. And they probably know that too, since they're already hitting the limits of vibe coding alone: When they add new things, old things break. Their prototype looks great but they don't know how to connect it to the company's data.
+
+The genie is out of the bottle and you can't go back to the old ways. But how are things supposed to work now? How do you incorporate "vibe coding" into a new way?
+
+How are you supposed to pick up the pieces and make a real app out of the product of these vibe-coding sessions? How can you wrestle these scraps of incoming alien code under control and align them with agile software development principles and operational best practices?
+
+How can you turn your client's newfound excitement for getting directly involved in building code through vibe-coding into an opportunitu rather than a threat?
+
+## Understanding Vibe Coding
+
+Vibe coding represents a fundamental shift in how business leaders approach software development. Instead of getting stuck in endless design cycles or struggling to communicate requirements, they can have direct conversations with AI assistants to create functional prototypes. The key is understanding that these prototypes aren't meant to replace professional development - they're meant to enhance it.
+
+### Why Vibe Coding is Good for Everyone
+
+As developers and designers, our initial concerns about vibe coding are understandable. But looking deeper, this shift creates opportunities that benefit all stakeholders involved. Just as previous waves of automation created new roles and responsibilities rather than simply eliminating jobs<Citation
+  data={{
+    type: "webpage",
+    title: "The Paradox of Automation",
+    author: "Ryan Porter",
+    "container-title": "Anthus Blog",
+    URL: "https://anth.us/blog/paradox-of-automation/",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2024, 9, 24]] }
+  }}
+/>, vibe coding represents an opportunity to evolve our roles and create more value through new ways of working.
+
+At its core, vibe coding supercharges the agile feedback loop. In traditional development, a significant part of our job involves iterating and gathering continuous feedback to align software with client needs and business value. This process typically involves multiple handoffs: business leaders delegate to product managers, who communicate with developers, who implement changes, then wait for feedback - a slow-motion cycle that can become inefficient with too many intermediaries.
+
+Vibe coding transforms this dynamic. Business leaders, who are closest to understanding their business needs and vision, can now create functional prototypes that help teams more efficiently align software design and implementation with business value. Instead of requirements trickling down through layers of interpretation, decision-making shifts closer to those best positioned to evaluate business impact.
+
+This creates a win-win scenario for all stakeholders:
+
+* **Business Leaders** get faster iteration on their vision
+* **Developers** can focus on architecture, scalability, and integration rather than basic prototyping
+* **Designers** can evolve UI/UX from working prototypes instead of static mockups
+* **Product Managers** can validate ideas more quickly with functional demos
+
+Most importantly, this makes development teams more valuable, not less. When projects move faster and align more closely with business goals, technical expertise becomes even more critical for turning prototypes into production-ready applications.
+
+### Leveraging AI as a Development Partner
+
+The real opportunity lies in how we can guide this process. As developers, we're experts at risk mitigation and quality assurance. We can apply principles like test-driven development to vibe coding by maintaining structured project plans that evolve with the development process.<Citation
+  data={{
+    type: "webpage",
+    title: "Project Plan Files: A Simple Technique for AI-Assisted Development",
+    author: "Ryan Porter",
+    "container-title": "Anthus Blog",
+    URL: "https://anth.us/blog/ai-project-planning/",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2024, 1, 15]] }
+  }}
+/> We can:
+
+1. Providing structured starter kits that guide AI-assisted development
+2. Embedding best practices into the development environment
+3. Using AI to reinforce good habits (like regular commits and testing)
+4. Setting up automated quality gates that catch issues early
+
+For example, instead of fighting against tools like v0.dev, we can create environments where AI assists clients in creating components that automatically include:
+
+* Jest unit tests
+* Storybook interaction tests
+* Type checking
+* Git integration
+
+The AI becomes a partner in teaching clients development best practices - reminding them to commit changes, run tests, and share code with the development team. Clients don't need to understand all the technical details; they just need to follow the AI's guidance, which we've structured to align with our development standards.
+
+## The Challenge of Unstructured Prototypes
+
+The excitement is contagious when a business leader shows off their first vibe-coded prototype. The UI looks slick, the interactions are smooth, and everything seems to work perfectly in the demo. But as development teams, we've seen this story before - what looks great in isolation often faces challenges when it needs to integrate with real-world systems and scale beyond the demo.
+
+These challenges typically emerge in predictable patterns. A client adds a new feature, and three existing features break. They try to connect their beautiful UI to actual company data, only to realize the components weren't built with real data structures in mind. Or they attempt to expand the prototype, but without proper architecture, each addition makes the codebase more brittle.
+
+This isn't a failure of vibe coding - it's simply the natural result of rapid prototyping without structured development practices. The same issues would arise with any quick prototype, whether built by AI or humans. The difference is that with AI-assisted development, we have an unprecedented opportunity to prevent these issues before they start.
+
+## Creating a Structured Framework
+
+The solution isn't to rein in your client's enthusiasm - it's to channel it productively. Think of it like installing guard rails on a race track: they don't slow down the cars, they just keep them safely on course. We've developed an approach that transforms vibe coding from a potential source of technical debt into a powerful tool for rapid, sustainable development.
+
+### A Foundation of Best Practices
+
+The key is starting with a solid foundation. Just as you wouldn't build a house without blueprints, you shouldn't start vibe coding without a clear technical structure. Our approach begins with a carefully curated technology stack that balances flexibility with consistency:
+
+* **Modern UI Foundations**: We use Shadcn UI components and Tailwind CSS for styling, giving clients a rich palette of pre-built elements that maintain consistent design patterns<Citation
+  data={{
+    type: "webpage",
+    title: "Shadcn UI - The accessible component library",
+    "container-title": "Shadcn",
+    URL: "https://ui.shadcn.com",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2023, 6, 1]] }
+  }}
+/>
+* **Type Safety First**: TypeScript provides guardrails that catch errors before they can cascade into bigger problems<Citation
+  data={{
+    type: "webpage",
+    title: "TypeScript: JavaScript with syntax for types",
+    "container-title": "TypeScript",
+    URL: "https://www.typescriptlang.org",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2023, 1, 1]] }
+  }}
+/>
+* **Built-in Quality Assurance**: Jest and Storybook integration ensures every component is testable and documentable from day one<Citation
+  data={{
+    type: "webpage",
+    title: "Storybook: Frontend workshop for UI development",
+    "container-title": "Storybook",
+    URL: "https://storybook.js.org",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2023, 1, 1]] }
+  }}
+/>
+* **Universal Compatibility**: Like type O-negative blood, our stack is designed to be compatible with any modern web framework, from Next.js to Remix
+
+### Making It Real: The Vibe Coding Workbench
+
+To put these principles into practice, we've created the [Vibe Coding Workbench](https://github.com/AnthusAI/Vibe-Coding-Workbench) - an open-source starter kit that makes it easy for clients to create production-ready components through vibe coding.<Citation
+  data={{
+    type: "webpage",
+    title: "Vibe Coding Workbench",
+    author: "Anthus AI",
+    "container-title": "GitHub",
+    URL: "https://github.com/AnthusAI/Vibe-Coding-Workbench",
+    accessed: { 'date-parts': [[2024, 1, 22]] },
+    issued: { 'date-parts': [[2024, 1, 15]] }
+  }}
+/> Think of it as a "development environment as code" - it provides all the structure and guardrails needed while staying out of the way of the creative process.
+
+The Workbench isn't just a collection of tools - it's a complete development environment that guides users toward best practices:
+
+* Every new component automatically gets a Storybook story for visual testing
+* TypeScript validation runs continuously to catch type errors
+* Git integration is built-in, with automated reminders to commit changes
+* Test runners provide immediate feedback on component health
+
+## The Path to Success
+
+Success with vibe coding isn't about controlling your client - it's about empowering them with the right tools and practices. When you provide a structured environment that naturally guides development toward best practices, everyone wins:
+
+* Business leaders can maintain their rapid iteration and direct involvement
+* Developers can focus on architecture and integration instead of cleanup
+* The entire team benefits from faster development cycles and higher quality code
+
+The key is establishing these patterns early and maintaining them consistently. When everyone understands the framework and its benefits, vibe coding becomes another valuable tool in your development toolkit - one that brings business and technical teams closer together rather than driving them apart.
+
+## Getting Started
+
+Ready to transform vibe coding from a challenge into an opportunity? Here are your next steps:
+
+1. **Set Up Your Environment**: Clone the [Vibe Coding Workbench](https://github.com/AnthusAI/Vibe-Coding-Workbench) and customize it for your team's needs
+2. **Document Your Patterns**: Create clear guidelines for component creation, testing, and integration
+3. **Start Small**: Begin with a single feature or component to demonstrate the benefits of structured vibe coding
+4. **Iterate and Improve**: Use feedback from both business and technical teams to refine your approach
+
+Remember, the goal isn't to replace traditional development - it's to enhance it with new tools that bring business and technical teams closer together. When done right, vibe coding can accelerate development while maintaining the quality and maintainability your applications need.
+
+Have you implemented structured approaches to AI-assisted development in your organization? We'd love to hear about your experiences and techniques.
+
+## References
+
+<CitationsList citationFormat="apa" /> 
