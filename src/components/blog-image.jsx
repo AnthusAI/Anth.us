@@ -27,7 +27,12 @@ const BlogImage = ({ images, name, className, alt }) => {
   const imageData = imageNode ? imageNode.childImageSharp.gatsbyImageData : null;
 
   return imageData ? (
-    <GatsbyImage className={className} image={imageData} alt={alt} />
+    <GatsbyImage 
+      className={className} 
+      image={imageData} 
+      alt={alt}
+      loading="eager"
+    />
   ) : (
     <p>No image data found.</p>
   );
