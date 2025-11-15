@@ -1,0 +1,269 @@
+---
+title: "Give an Agent a Tool"
+slug: "give-an-agent-a-tool"
+date: "2025-09-15"
+display_date: "September 2025"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["solutions"]
+preview_image: "./images/give-an-agent-a-tool.png"
+excerpt: "<p>A demonstration of a fundamental paradigm shift in computer programming: from writing explicit code for every scenario to giving intelligent agents the right tools and letting them figure it out. This project shows how the same task that requires hundreds of lines of complex branching logic in traditional programming becomes simple and flexible with agentic AI: <ul><li>Traditional vs. agent-based approaches to data processing</li><li>Handles unexpected data formats without code changes</li><li>Demonstrates the 'give an agent a tool' paradigm</li><li>Real-world example: extracting contacts from varied CSV formats</li></ul>View the project on <a href='https://github.com/AnthusAI/Give-an-Agent-a-Tool'>GitHub</a>.</p>"
+images: []
+state: published
+---
+
+## A Programming Paradigm Shift
+
+> _"If you give an agent a tool, then nobody has to fish."_
+
+For decades, learning to write computer code has been one of the most challenging skills a person could master. Programming meant thinking like a machine—anticipating every possible scenario, handling every edge case, and writing explicit instructions for each step. It was a uniquely human burden: translating complex real-world problems into rigid, logical sequences that computers could follow.
+
+**Give an Agent a Tool** demonstrates a fundamental shift in how we write computer programs. Instead of anticipating every scenario with explicit code, we provide intelligent agents with the right tools and let them figure out how to use them.
+
+## Why This Is an AI Solution
+
+This paradigm shift became increasingly clear to us as we worked on **self-evolving agents at production scale**. While building an **RLHF (Reinforcement Learning from Human Feedback)** system for call center quality assurance, we developed agents with **agentic meta-cognition and meta-learning** capabilities—agents that could reason about their own reasoning and learn how to learn better.
+
+Working with these systems revealed something profound: the traditional programming approach of anticipating every scenario was fundamentally incompatible with self-evolving AI. When agents continuously improve themselves based on human feedback, you can't pre-program all their behaviors. Instead, you give them tools and let them discover how to use those tools more effectively over time.
+
+This project distills that insight into a clear demonstration: the future of programming isn't about writing more comprehensive if/else statements—it's about giving intelligent agents the right capabilities and letting them figure out the rest.
+
+## The Problem: Data Variability
+
+Here's a real-world challenge we face constantly: receiving people data from many sources (CRM exports, event sign-ups, HR spreadsheets, legacy systems). Each file is a table, but headers, orders, and languages vary. The simple business goal is always the same: **extract each person's name and email**.
+
+You might see all of these formats on the same day:
+
+**Common CRM export:**
+```
+First Name | Last Name | Email
+John       | Doe       | john@example.com
+Jane       | Smith     | jane@test.org
+```
+
+**Last, First ordering:**
+```
+Last  | First | Email
+Doe   | John  | john@example.com
+Smith | Jane  | jane@test.org
+```
+
+**Different header names + extra columns:**
+```
+NAME       | WORK EMAIL           | ID
+John Doe   | john@example.com     | 101
+Jane Smith | jane@test.org        | 102
+```
+
+**International (Spanish):**
+```
+Nombre | Apellidos | Correo
+Luis   | García    | luis@empresa.es
+María  | López     | maria@test.es
+```
+
+## Traditional Approach: Anticipate Everything
+
+The traditional programming approach requires explicit code for every variation:
+
+```python
+synonyms = {
+  first_name: ["first", "first name", "given", "nombre"],
+  last_name:  ["last", "last name", "surname", "apellidos"],
+  email:      ["email", "work email", "correo", "email address"]
+}
+
+table = parse_table(text, auto_detect_delimiter=True)
+headers = normalize_headers(table.headers, using=synonyms)
+
+out = []
+for row in table.rows:
+  (first, last) = infer_name(row, headers)
+    # if name == "Last, First" -> split on comma
+    # else if single NAME -> split on space(s)
+  email = find_email(row, headers, fallback_to_notes=True)
+  if missing(first) and missing(last) or missing(email):
+    error "Missing name or email — add another case"
+  out.append({first_name: first, last_name: last, email: email})
+
+return out
+```
+
+This works... until a new variation appears:
+
+**Unexpected legacy export:**
+```
+Contact Info        | Details
+"Smith, Jane (Mgr)" | "jane.smith@company.com"
+"Rodriguez, Carlos" | "carlos.r@email.com Phone: 555.987.6543"
+```
+
+❌ **Error**: `ValueError: Unsupported headers: Contact Info, Details`
+
+The import fails. We didn't anticipate this header scheme or the mixed email/phone cell. Now we need to add more mappings and conditionals, growing the complexity of our code.
+
+## Agent Approach: Provide Tools and Goals
+
+Instead of growing a thicket of if/else statements, we give one business action to an agent and describe the goal:
+
+**Agent prompt:**
+```
+You are a contact import assistant.
+Goal: read the CSV below and file each contact you can find.
+Use the single tool file_contact(name, email?, phone?) to file each person.
+Infer names and emails/phones from whatever headers or content appear.
+```
+
+**Tool definition:**
+```python
+def file_contact(name: str, email: str = None, phone: str = None):
+    """Save a single contact record where name is required
+    and at least one of email or phone is provided."""
+    # Store the contact
+    pass
+```
+
+When the unexpected legacy export arrives, the agent adapts automatically:
+- Reads the table structure
+- Infers that "Contact Info" contains names
+- Extracts emails and phones from the "Details" field
+- Calls `file_contact()` for each person
+
+✅ **Success** - no code changes needed.
+
+## The Real Test: Completely Unexpected Formats
+
+The true power becomes clear with formats that weren't anticipated at all:
+
+**Messy real-world export:**
+```
+"Contact Info","Details","Extra"
+"Smith, Jane (Manager)","jane.smith@company.com | Mobile: +1-555-0123","Dept: Sales"
+"Rodriguez, Carlos","carlos.r@email.com Phone: 555.987.6543","Engineering Lead"
+```
+
+**Traditional Approach:**
+- ❌ Breaks completely - doesn't recognize the format
+- ❌ Can't parse names with titles in parentheses
+- ❌ Can't extract emails/phones from mixed delimiter fields
+- ❌ Requires major code changes to handle this format
+
+**Agent Approach:**
+- ✅ Automatically recognizes it's CSV despite unusual structure
+- ✅ Intelligently parses "Smith, Jane (Manager)" → First: Jane, Last: Smith
+- ✅ Extracts email and phone from mixed delimiter strings
+- ✅ Handles it with the same tools, no code changes needed
+
+This demonstrates **true agility** - the ability to handle evolving requirements and unexpected data without rewriting core logic.
+
+## Why This Matters
+
+You don't need to be a programmer to understand why this is revolutionary:
+
+- **Traditional programming**: Like writing a 500-page manual for every possible situation an employee might encounter
+- **Agent programming**: Like hiring a smart employee, giving them the right tools, and trusting them to figure it out
+
+The first approach requires you to think of everything. The second approach lets intelligence emerge from the combination of simple tools and smart delegation.
+
+## "In the future, the only code you will write is business logic."
+
+_— Werner Vogels, CTO of AWS_
+
+This example demonstrates exactly that. We don't enumerate formats—we implement the one capability the business cares about (`file_contact`) and let the agent do the rest.
+
+Writing code is not the hard part. The hard part is **keeping code working over time** as inputs change and people depend on it. What really drives time and money over the long run:
+
+- **Changes keep coming**: vendor export tweaks, new languages, new columns
+- **Every new rule risks breaking something else**
+- **Time spent coordinating changes across teams**
+- **Outages**: failed imports can interrupt the business
+- **Duplicate logic** spreads and drifts across systems
+
+With agents, that long-term cost shifts from "rewrite rules for each new case" to "reuse the same tool and let the agent adapt." You maintain far less code and lower the chance of interruptions, while keeping the only code you write—the business tool—simple and focused.
+
+## The Agentic AI Paradigm
+
+This project exemplifies the **agentic AI** paradigm we emphasize in our work:
+
+- **Self-evolving systems**: Agents adapt to new scenarios without explicit programming
+- **Tool use**: Agents accomplish goals by intelligently using provided capabilities
+- **Intelligent automation**: Automation that handles unexpected situations gracefully
+- **Reduced maintenance burden**: Less code to maintain, fewer edge cases to anticipate
+
+This is the same paradigm that powers our other solutions like [SQLBot](/solutions/sqlbot), where we give an agent SQL tools and let it figure out how to answer natural language questions about databases.
+
+## Real-World Applications
+
+This approach applies anywhere you face data variability:
+
+### Data Integration
+- Import contacts from dozens of different CRM systems
+- Consolidate spreadsheets from multiple departments
+- Process vendor data feeds with varying formats
+
+### ETL Pipelines
+- Handle schema evolution without pipeline rewrites
+- Process international data with varying conventions
+- Adapt to unexpected data quality issues
+
+### API Integration
+- Work with APIs that change their response formats
+- Handle different versions of the same API
+- Process responses from multiple similar services
+
+### Document Processing
+- Extract structured data from varied document formats
+- Handle invoices from different vendors
+- Process forms with different layouts
+
+## Technical Implementation
+
+The project includes:
+
+- **Traditional approach**: Complete implementation showing the complexity of explicit code
+- **Agent approach**: Streamlined implementation using LLM-based agents with tools
+- **Side-by-side comparison**: Run both approaches on the same data
+- **Test suite**: Comprehensive tests including unexpected formats
+- **Real-world examples**: Actual data variations we've encountered
+
+The code demonstrates how the same business capability (`file_contact`) handles all variations when given to an intelligent agent.
+
+## The Burden Programmers Have Carried
+
+Traditional programming requires **thinking of everything**:
+- Every header synonym (First vs Given vs Nombre)
+- Every column order
+- Every language
+- Every messy field format
+
+Miss one scenario, and your program breaks.
+
+With agentic AI, we shift that burden from the programmer to the agent. The programmer focuses on **what** needs to happen (file contacts), and the agent figures out **how** to do it with the available tools.
+
+## Inspired By SQLBot
+
+This project was inspired by our [SQLBot](/solutions/sqlbot) work, which demonstrates this paradigm shift in the context of database querying. SQLBot shows how an agent with SQL tools can be more flexible than traditional query builders.
+
+Both projects illustrate the same principle: **give an agent the right tools, and it will figure out how to accomplish the goal**.
+
+## Open Source
+
+The complete project is available on [GitHub](https://github.com/AnthusAI/Give-an-Agent-a-Tool), including:
+
+- Traditional and agent-based implementations
+- Comprehensive test suite
+- Real-world data examples
+- Side-by-side comparisons
+- Documentation and usage guides
+
+We built this to demonstrate a fundamental shift in how we think about programming. It's not just about AI—it's about a new way of solving problems that's more flexible, more maintainable, and more aligned with how humans naturally think about tasks.
+
+## The Future of Programming
+
+> _"Give a man a fish and you feed him for a day. Teach a man to fish and you feed him for a lifetime. Give an agent a tool and nobody has to fish."_
+
+This is the future we're building: systems that adapt to change, handle the unexpected, and require less maintenance. Systems where programmers focus on business capabilities, not edge cases.
+
+This is **agentic AI** in action—and it's changing how we write computer programs.
+
+

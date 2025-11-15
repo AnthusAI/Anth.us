@@ -235,6 +235,14 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 - Use when highlighting long-term value and sustainability
 - Context: How our systems improve month over month in production
 
+**LLM Fine-Tuning**
+- High-demand skill in the AI employment market
+- Demonstrates ability to align AI models to specific business requirements
+- More sophisticated than prompt engineering alone
+- Use when describing how we customize foundation models for specific use cases
+- Context: Fine-tuning classifiers for improved accuracy and alignment in production systems
+- Shows expertise in the complete ML lifecycle, not just API consumption
+
 ### Business Value Terms
 
 **Intelligent Automation / Hyperautomation**

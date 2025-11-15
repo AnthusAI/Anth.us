@@ -1,0 +1,108 @@
+---
+title: "Classification with Confidence"
+slug: "classification-with-confidence"
+date: "2025-09-15"
+display_date: "September 2025"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["solutions"]
+preview_image: "../images/llm-classifiers/freud-detector-fine-tuned.png"
+excerpt: "<p>A practical exploration of LLM fine-tuning for text classification, developed during our call center QA work. This project demonstrates how fine-tuning foundation models can significantly improve classification accuracy and alignment to specific business requirements: <ul><li>Fine-tuned GPT-4o-mini for improved classification performance</li><li>Confidence scoring to determine when human review is needed</li><li>Production-ready approach to model alignment</li><li>Practical application of HITL (human-in-the-loop) principles</li></ul>View the project on <a href='https://github.com/AnthusAI/Classification-with-Confidence'>GitHub</a>.</p>"
+images:
+  - "../images/llm-classifiers/freud-detector-base.png"
+  - "../images/llm-classifiers/freud-detector-fine-tuned.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+## Fine-Tuning LLMs for Better Classification
+
+As we worked on call center quality assurance systems, we explored various approaches to text classification. One key question emerged: how much can LLM fine-tuning improve classification accuracy compared to using base models with prompt engineering alone?
+
+This project demonstrates the practical application of **LLM fine-tuning** to align a classifier with specific business requirements. It's not groundbreaking research—it's a hands-on exploration of techniques that proved valuable in production systems.
+
+## The Problem: When to Trust AI Decisions
+
+In production AI systems, especially those involving **human-in-the-loop (HITL)** workflows, a critical question arises: when should the system make autonomous decisions, and when should it escalate to human review?
+
+**Confidence scoring** provides the answer. By understanding not just *what* the model predicts but *how confident* it is in that prediction, we can:
+
+- Route high-confidence predictions straight through
+- Flag low-confidence cases for human review
+- Optimize the balance between automation and accuracy
+- Continuously improve by learning from the cases humans review
+
+## The Approach: Fine-Tuning for Alignment
+
+We took a straightforward classification task and compared two approaches:
+
+1. **Base model with prompt engineering**: Using GPT-4o-mini out of the box
+2. **Fine-tuned model**: Training the same model on labeled examples
+
+The results speak for themselves:
+
+### Before Fine-Tuning
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="freud-detector-base.png"
+  alt="Confusion matrix showing base model performance" 
+/>
+
+The base model shows decent performance but struggles with false negatives—missing positive cases that should be caught.
+
+### After Fine-Tuning
+
+<BlogImage 
+  images={props.pageContext.frontmatter.images} 
+  name="freud-detector-fine-tuned.png"
+  alt="Confusion matrix showing fine-tuned model performance" 
+/>
+
+The fine-tuned model demonstrates significantly improved accuracy, particularly in correctly identifying positive cases (8 correct vs 4 in the base model).
+
+## Why This Matters
+
+**LLM fine-tuning** is a high-value skill in the AI employment market because it demonstrates:
+
+- Understanding of the complete ML lifecycle, not just API consumption
+- Ability to align AI models to specific business requirements
+- More sophisticated approach than prompt engineering alone
+- Production-ready thinking about model performance and reliability
+
+In our call center QA work, these techniques enabled us to:
+
+- Customize models for specific client scorecards
+- Improve accuracy on domain-specific terminology
+- Reduce false positives and false negatives
+- Build confidence scoring into our **adaptive systems**
+
+## Technical Implementation
+
+The project includes:
+
+- **Training pipeline**: Scripts for fine-tuning OpenAI models
+- **Evaluation framework**: Tools for measuring classification performance
+- **Confidence analysis**: Methods for extracting and using confidence scores
+- **Comparison tools**: Side-by-side evaluation of base vs fine-tuned models
+
+This represents the kind of practical ML engineering that bridges research and production deployment.
+
+## Production-Ready AI Thinking
+
+What separates demos from production systems is attention to details like:
+
+- **Model alignment**: Fine-tuning to match specific requirements
+- **Confidence scoring**: Knowing when to trust automated decisions
+- **Continuous evaluation**: Measuring performance on real-world data
+- **Human-in-the-loop integration**: Designing for human oversight where needed
+
+These aren't just academic exercises—they're the foundation of reliable AI systems that deliver business value.
+
+## Open Source
+
+The complete project is available on [GitHub](https://github.com/AnthusAI/Classification-with-Confidence), including training scripts, evaluation tools, and example datasets. It's designed to be a practical reference for anyone implementing similar classification systems.
+
+This work emerged from real-world challenges in building production AI systems, and we're sharing it to help others tackle similar problems.
+
