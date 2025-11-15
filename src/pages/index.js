@@ -197,10 +197,9 @@ const IndexPage = () => {
       </Hero>
 
       <p className={styles.intro} id="our-values">
-        Anthus represents a legacy of reliable innovation.
-        Our team excels in both developing and operating efficient, high-availability systems.
-        Our track record stands for itself, demonstrating enduring solutions with business value.
-        Partner with us for a journey marked by excellence and dependability.
+        We've processed a quarter billion dollars in revenue at scale with nearly 100% uptime.
+        We've built production RLHF systems that transform core business processes through self-evolving AI agents.
+        We don't just talk about AI—we deliver it at scale.
       </p>
 
       <h2 style={{ marginBottom: '1em' }}>Our Mission</h2>
@@ -236,7 +235,7 @@ const IndexPage = () => {
       </ul>
 
       <section className={styles.plexusFeature}>
-        <h2>Introducing Plexus</h2>
+        <h2>Production RLHF at Scale</h2>
         <ul className='blog'>
           <div className='blog-post-preview'>
             <li className="clear-float">
@@ -246,16 +245,16 @@ const IndexPage = () => {
                   alt="Plexus Platform"
                   className="right"
                 />
-                <h3>Introducing Plexus</h3>
+                <h3>Plexus: The RLHF Data Flywheel</h3>
               </Link>
               <p>
-                Plexus is our no-code platform for running AI agents over your data at industrial scale. Factored out of over two years of intensive call center QA work, it represents our journey from traditional ML models like SVM through BERT and fine-tuned versions of GPT-4, Llama, and other modern language models. Build and deploy AI workflows that analyze content streams and take action—without managing infrastructure or writing code.
+                We built what many consider the holy grail of AI: a production-scale RLHF system that continuously aligns itself with human feedback automatically over time. Plexus is our custom MLOps platform that powers this self-evolving data flywheel, managing the complete lifecycle of AI agents and classification models that get smarter with every interaction.
               </p>
               <ul className="branded">
-                <li>Use any AI model from any provider</li>
-                <li>Evaluate performance quantitatively</li>
-                <li>Deploy to any infrastructure</li>
-                <li>Scale with your needs</li>
+                <li>Two years of continuous production operation</li>
+                <li>Self-evolving AI agents that improve autonomously</li>
+                <li>Human-in-the-loop feedback drives continuous learning</li>
+                <li>Transforms core business processes at scale</li>
               </ul>
               <Link to="https://plexus.anth.us" className="button">Learn More</Link>
             </li>

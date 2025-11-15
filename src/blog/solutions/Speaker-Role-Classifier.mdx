@@ -1,0 +1,220 @@
+---
+title: "Speaker Role Classifier"
+slug: "speaker-role-classifier"
+date: "2025-11-15"
+display_date: "November 2025"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["solutions"]
+preview_image: "./images/speaker-role-classifier.png"
+excerpt: "<p>A real-world solution demonstrating the 'give an agent a tool' agentic programming paradigm for classifying speakers in call center transcripts. This could have been implemented with a custom ML model, but leveraging an LLM with agentic AI delivers the business solution faster and with less uncertainty: <ul><li>Classifies speakers as Agent or Customer in diarized transcripts</li><li>Command-line interface, Python library, and AWS Lambda deployment</li><li>Infrastructure-as-code with AWS CDK</li><li>Enables business agility through rapid AI solution development</li></ul>View the project on <a href='https://github.com/AnthusAI/speaker-role-classifier'>GitHub</a>.</p>"
+images: []
+state: published
+---
+
+## Agentic AI for Business Agility
+
+Call center analytics depends on understanding who said what. When you have a diarized transcript (where different speakers are identified but not labeled), you need to determine which speaker is the agent and which is the customer.
+
+**Speaker Role Classifier** demonstrates the power of the 'give an agent a tool' paradigm. This could have been solved with a custom machine learning model—requiring data collection, model training, validation, and ongoing maintenance. Instead, by leveraging an LLM with agentic AI, we delivered a production-ready solution as a CLI, Python library, and serverless AWS Lambda function with significantly less development time and uncertainty. This approach enables businesses to be more agile, spending less time on software development and more time solving business problems.
+
+## The Problem: Speaker Identification
+
+Modern speech-to-text systems can identify that multiple speakers are present (diarization), but they don't know which speaker has which role. A typical transcript might look like:
+
+```
+Speaker 0: Thank you for calling. How can I help you today?
+Speaker 1: Hi, I'm having trouble with my account.
+Speaker 0: I'd be happy to help with that. Can you provide your account number?
+```
+
+For quality assurance, compliance monitoring, and analytics, you need to know:
+- Which speaker is the agent?
+- Which speaker is the customer?
+- Are there multiple customers or agents on the call?
+
+Manual labeling doesn't scale. You need automated classification that's accurate and fast.
+
+## The Solution: LLM-Based Classification
+
+The Speaker Role Classifier uses GPT models to analyze conversation patterns and classify speaker roles. It considers:
+
+- **Conversational patterns**: Agents typically greet first, ask questions, and offer solutions
+- **Language style**: Agents use professional terminology and company-specific phrases
+- **Turn-taking**: The flow of conversation reveals role relationships
+- **Context clues**: References to systems, policies, and procedures
+
+The tool processes transcripts and returns labeled results:
+
+```json
+{
+  "speaker_0": "Agent",
+  "speaker_1": "Customer"
+}
+```
+
+## Multiple Deployment Options
+
+### Command-Line Interface
+
+```bash
+speaker-role-classifier transcript.json
+```
+
+Perfect for:
+- Batch processing of transcripts
+- Integration into data pipelines
+- Local development and testing
+- Quick validation of results
+
+### Python Library
+
+```python
+from speaker_role_classifier import classify_speakers
+
+transcript = load_transcript("call.json")
+roles = classify_speakers(transcript)
+print(roles)
+```
+
+Ideal for:
+- Integration into Python applications
+- Data science workflows
+- Custom processing pipelines
+- Jupyter notebook analysis
+
+### AWS Lambda Deployment
+
+The project includes complete AWS CDK infrastructure code for serverless deployment:
+
+```bash
+cdk deploy
+```
+
+This creates:
+- Lambda function with proper IAM roles
+- API Gateway endpoint for HTTP access
+- CloudWatch logging and monitoring
+- Scalable, pay-per-use architecture
+
+The serverless deployment demonstrates:
+- **Production-ready infrastructure**: Following AWS Well-Architected principles
+- **Infrastructure-as-code**: Reproducible, version-controlled deployments
+- **Serverless architecture**: Automatic scaling without server management
+- **Enterprise patterns**: Proper security, logging, and monitoring
+
+## Real-World Applications
+
+### Call Center QA
+
+Automatically identify agent and customer speakers in thousands of calls for quality assurance scoring. This was the original use case that drove development.
+
+### Compliance Monitoring
+
+Ensure agents follow required scripts and procedures by accurately identifying which statements came from the agent vs. customer.
+
+### Analytics and Reporting
+
+Generate accurate metrics on:
+- Agent talk time vs. customer talk time
+- Question patterns from customers
+- Response patterns from agents
+- Conversation flow analysis
+
+### Training and Coaching
+
+Identify specific agent behaviors and customer responses for training programs and performance coaching.
+
+## Technical Architecture
+
+The tool demonstrates several best practices:
+
+### Modular Design
+
+- Core classification logic separated from deployment concerns
+- Easy to test and validate independently
+- Reusable across different deployment targets
+
+### Multiple Interfaces
+
+- CLI for command-line usage
+- Library API for programmatic access
+- Lambda handler for serverless deployment
+- Each interface wraps the same core logic
+
+### Infrastructure-as-Code
+
+AWS CDK code defines:
+- Lambda function configuration
+- IAM roles and permissions
+- API Gateway setup
+- CloudWatch log groups
+
+This makes deployment reproducible and maintainable.
+
+### Configuration Management
+
+Environment variables and configuration files separate deployment-specific settings from code, enabling:
+- Different configurations for dev/staging/production
+- Easy model version updates
+- Flexible API key management
+
+## Serverless Benefits
+
+The AWS Lambda deployment provides:
+
+- **Automatic scaling**: Handle one call or one million
+- **Pay-per-use pricing**: Only pay for actual processing time
+- **Zero server management**: No infrastructure to maintain
+- **High availability**: Built-in redundancy and failover
+- **Global deployment**: Deploy to multiple regions easily
+
+This is **intelligent automation** with enterprise-grade operational maturity.
+
+## Context: Call Center QA Work
+
+This tool emerged from our work on call center quality assurance systems. When analyzing thousands of calls, accurate speaker identification is foundational—everything else depends on knowing who said what.
+
+Rather than building this capability into a monolithic system, we extracted it as a standalone tool that others can use. This modular approach enables:
+
+- Reuse across different projects
+- Independent testing and validation
+- Community contributions and improvements
+- Easier maintenance and updates
+
+## Production-Ready Thinking
+
+What makes this a production-ready tool rather than just a demo?
+
+- **Multiple deployment options**: Choose what fits your architecture
+- **Infrastructure-as-code**: Reproducible deployments
+- **Error handling**: Graceful handling of edge cases
+- **Logging and monitoring**: CloudWatch integration for observability
+- **Configuration management**: Separate code from configuration
+- **Documentation**: Clear usage examples and API documentation
+
+These aren't just nice-to-haves—they're essential for systems that run in production environments.
+
+## Open Source
+
+The complete project is available on [GitHub](https://github.com/AnthusAI/speaker-role-classifier), including:
+
+- CLI and library code
+- AWS CDK infrastructure definitions
+- Example transcripts and usage patterns
+- Deployment documentation
+
+We built this to solve a real problem in our call center QA work, and we're sharing it so others can solve similar problems without starting from scratch.
+
+## Practical AI Tooling
+
+Speaker Role Classifier exemplifies our approach to AI solutions:
+
+- **Solve real problems**: Built from actual production needs
+- **Production-ready**: Not just demos, but deployable systems
+- **Multiple interfaces**: CLI, library, and serverless options
+- **Infrastructure-as-code**: Reproducible, maintainable deployments
+- **Open source**: Share knowledge and enable others
+
+This is how AI moves from research to production—one practical tool at a time.
+

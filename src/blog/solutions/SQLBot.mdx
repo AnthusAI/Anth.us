@@ -1,0 +1,163 @@
+---
+title: "SQLBot"
+slug: "sqlbot"
+date: "2025-09-15"
+display_date: "September 2025"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["solutions"]
+preview_image: "./images/sqlbot.png"
+excerpt: "<p>A natural language interface for SQL databases that demonstrates the power of agentic AI with tool use. SQLBot transforms how non-technical users interact with data by converting conversational queries into accurate SQL commands: <ul><li>Natural language to SQL translation using LLMs</li><li>Command-line interface and Python library API</li><li>Example implementation with the Sakila sample database</li><li>Demonstrates agentic AI paradigm: giving agents tools to solve problems</li></ul>View the project on <a href='https://github.com/AnthusAI/SQLBot'>GitHub</a>.</p>"
+images: []
+state: published
+---
+
+## If You Give an Agent a Tool
+
+The classic children's book asks: "If you give a mouse a cookie, what will happen next?" In AI, we ask a similar question: if you give an agent a tool, what can it accomplish?
+
+**SQLBot** answers that question by giving an AI agent access to SQL databases. The result is a natural language interface that makes data accessible to anyone who can ask a question in plain English.
+
+## The Problem: Data Accessibility
+
+Organizations have valuable data locked in SQL databases, but accessing it requires:
+
+- SQL expertise that many business users don't have
+- Time from data analysts who are already overloaded
+- Back-and-forth communication to clarify requirements
+- Repeated similar queries that could be self-service
+
+This creates bottlenecks where simple questions take hours or days to answer, and data-driven insights remain out of reach for non-technical stakeholders.
+
+## The Solution: Agentic AI with Tool Use
+
+SQLBot demonstrates a powerful paradigm in **agentic AI**: giving AI agents the tools they need to solve problems autonomously. Instead of trying to teach the AI everything about your database, we give it:
+
+1. **Database schema access**: Understanding table structures and relationships
+2. **SQL execution capability**: The ability to run queries and see results
+3. **Iterative refinement**: The ability to adjust queries based on results
+4. **Natural language interface**: A conversational way to express intent
+
+The AI agent uses these tools to translate natural language questions into accurate SQL queries, execute them, and present results in human-readable form.
+
+## How It Works
+
+### Command-Line Interface
+
+```bash
+sqlbot "Show me the top 10 customers by total purchases"
+```
+
+The CLI provides immediate access to your database through natural language, perfect for:
+
+- Ad-hoc data exploration
+- Quick business intelligence queries
+- Data validation and quality checks
+- Rapid prototyping of data questions
+
+### Python Library API
+
+```python
+from sqlbot import SQLBot
+
+bot = SQLBot(database_url="sqlite:///sakila.db")
+result = bot.query("What are our most popular film categories?")
+print(result)
+```
+
+The library API enables integration into:
+
+- Business intelligence dashboards
+- Data analysis workflows
+- Automated reporting systems
+- Custom applications
+
+## Real-World Applications
+
+### Business Intelligence Self-Service
+
+Enable business users to answer their own data questions without waiting for analyst support. Questions like:
+
+- "What were our top-selling products last quarter?"
+- "Which customers haven't made a purchase in 90 days?"
+- "Show me sales trends by region for the past year"
+
+### Data Exploration
+
+Data scientists and analysts can use natural language to quickly explore unfamiliar databases, understand data distributions, and identify patterns without writing SQL from scratch.
+
+### Automated Reporting
+
+Integrate SQLBot into reporting pipelines where business stakeholders can define reports in natural language, and the system automatically generates the appropriate queries.
+
+### Prototyping and Validation
+
+Product managers and business analysts can prototype data requirements by expressing them conversationally, then hand off the validated SQL to engineering teams.
+
+## Technical Architecture
+
+SQLBot leverages modern LLM capabilities for:
+
+- **Schema understanding**: Analyzing database structure to generate appropriate queries
+- **Query generation**: Converting natural language to syntactically correct SQL
+- **Error handling**: Detecting and correcting query errors iteratively
+- **Result interpretation**: Presenting data in human-readable formats
+
+The tool-use paradigm means the AI doesn't need to memorize your data—it uses tools to discover what it needs, just like a human analyst would.
+
+## Example: Sakila Database
+
+We provide a complete example implementation using the Sakila sample database (a classic movie rental database). This demonstrates:
+
+- Queries across multiple related tables
+- Aggregations and grouping
+- Date-based filtering
+- Complex business logic
+
+The [SQLBot-Sakila-SQLite](https://github.com/AnthusAI/SQLBot-Sakila-SQLite) repository provides a ready-to-run example you can explore.
+
+## The Agentic AI Paradigm
+
+SQLBot exemplifies a shift in how we think about AI systems. Instead of:
+
+- Training models on massive datasets of SQL queries
+- Fine-tuning for every possible database schema
+- Hard-coding business logic
+
+We give the AI agent **tools** and let it figure out how to use them. This approach:
+
+- Generalizes to any SQL database
+- Adapts to schema changes automatically
+- Requires minimal setup and configuration
+- Demonstrates genuine problem-solving capability
+
+This is the essence of **agentic AI**: systems that can use tools autonomously to accomplish goals.
+
+## Accessibility and Democratization
+
+By removing the SQL barrier, SQLBot democratizes data access. Business users who previously needed to:
+
+- Submit tickets to data teams
+- Wait hours or days for results
+- Iterate slowly through email
+- Accept "close enough" answers
+
+Can now explore data directly, iterate quickly, and get exactly the insights they need.
+
+## Open Source
+
+The complete project is available on [GitHub](https://github.com/AnthusAI/SQLBot), including:
+
+- Command-line interface
+- Python library
+- Example implementations
+- Documentation and usage guides
+
+We built SQLBot to demonstrate practical applications of agentic AI and tool use. It's a working example of how AI agents can solve real business problems when given the right capabilities.
+
+## The Future of Human-AI Collaboration
+
+SQLBot represents a broader trend: AI systems that augment human capabilities by handling technical complexity. The human provides domain knowledge and asks the right questions. The AI handles the technical implementation.
+
+This is **intelligent automation** in action—not replacing human judgment, but removing technical barriers so humans can focus on what they do best: understanding business context and making decisions.
+
