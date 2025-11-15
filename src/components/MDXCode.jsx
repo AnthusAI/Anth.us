@@ -30,7 +30,7 @@ const calculateLinesToHighlight = (meta) => {
 };
 
 export const MDXCode = ({children}) => {
-  const { colorScheme, isInitialized } = useColorScheme()
+  const { colorScheme } = useColorScheme()
   console.log('MDXCode props:', { children })
 
   if (children.type !== "code") {

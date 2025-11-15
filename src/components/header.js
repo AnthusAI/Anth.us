@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import priorityPlus from 'priority-plus';
-import { StaticImage } from 'gatsby-plugin-image'
 
 const Header = ({ siteTitle, menuLinks }) => {
   // Using useEffect to call the priorityPlus function after the component mounts
