@@ -189,6 +189,97 @@ Excerpts should:
 - Avoid emojis completely
 - Capture the essence in one compelling sentence or short paragraph
 
+## Strategic Marketing Terminology
+
+When creating content about our AI/ML capabilities, emphasize these high-value terms that resonate in the 2024-2025 market. These terms are backed by market research showing their value in AI employment and business positioning.
+
+### Core Differentiators
+
+**RLHF (Reinforcement Learning from Human Feedback)**
+- Production-scale RLHF is rare and highly valued in the AI industry
+- This is a key competitive advantage - emphasize our two years of production operation
+- Use when describing how our systems learn from human expert feedback
+- Context: Powers the continuous improvement in our Call Criteria work
+
+**Data Flywheel**
+- Self-reinforcing loops where data collection and analysis continuously improve system performance
+- Demonstrates sustainable competitive moat - the system gets smarter over time
+- Use when explaining how our solutions create compounding value
+- Context: The core mechanism behind our self-evolving AI agents
+
+**Self-Evolving AI Agents / Agentic AI**
+- Top buzzword for 2025 according to market research
+- Emphasizes autonomous systems that adapt without extensive human guidance
+- "Agentic AI" is more technical and specific than just "AI agents"
+- Use when describing systems that independently improve their performance
+- Context: Our Call Criteria AI agents that continuously adapt to new patterns
+
+### Platform & Infrastructure
+
+**MLOps Platform**
+- Plexus manages the complete ML lifecycle from training to deployment
+- MLOps expertise appears in 67% of AI job requirements (high-value skill)
+- Use when describing our infrastructure and operational capabilities
+- Context: Plexus as the enterprise platform managing our RLHF systems
+
+**Human-in-the-Loop (HITL)**
+- Technical term for our cybernetic systems approach
+- Blends AI automation with human expertise
+- More precise than "human oversight" or "human review"
+- Use when describing how we preserve human judgment in AI systems
+- Context: How Call Criteria QA experts guide AI learning
+
+**Continuous Learning / Adaptive Systems**
+- Emphasizes self-improving nature of our solutions
+- Distinguishes from static AI models that degrade over time
+- Use when highlighting long-term value and sustainability
+- Context: How our systems improve month over month in production
+
+### Business Value Terms
+
+**Intelligent Automation / Hyperautomation**
+- Integration of AI, ML, and automation for complex business processes
+- Broader than simple RPA (Robotic Process Automation)
+- Use when describing business process transformation
+- Context: Automating call center QA while maintaining quality
+
+**Production-Scale AI**
+- Emphasize two years of continuous operation, not just research or prototypes
+- Distinguishes us from vendors with only demos or POCs
+- Use when establishing credibility and proven track record
+- Context: Our Call Criteria deployment serving real business needs at scale
+
+**Cybernetic Systems**
+- Describes the integration of human and AI capabilities
+- More sophisticated than "AI-assisted" or "AI-powered"
+- Use when explaining our human-in-the-loop architecture
+- Context: How we transformed Call Criteria's QA process
+
+### Usage Guidelines
+
+**Do:**
+- Use these terms naturally in context, not as buzzword stuffing
+- Back up claims with concrete examples (especially Call Criteria case study)
+- Maintain technical credibility while highlighting business value
+- Explain what these terms mean in practice for our clients
+- Connect technical capabilities to business outcomes
+
+**Don't:**
+- Use buzzwords without substance or examples
+- Overuse terms to the point of diluting their impact
+- Make claims we can't back up with real implementation experience
+- Use jargon without explaining the practical benefit
+
+**Strategic Focus:**
+Our Call Criteria work provides concrete proof of these capabilities. When creating content, use this case study as the anchor for demonstrating:
+- RLHF at production scale (two years of continuous operation)
+- Data flywheel creating compounding value
+- Self-evolving agentic AI in real-world deployment
+- Enterprise MLOps platform (Plexus) managing complexity
+- Human-in-the-loop design preserving expertise
+
+This combination of buzzwords backed by proven implementation is what separates us from vendors who only have theoretical capabilities or small-scale demos.
+
 ## Code Style
 
 ### JavaScript/JSX
