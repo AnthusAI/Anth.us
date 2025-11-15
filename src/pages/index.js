@@ -249,7 +249,7 @@ const IndexPage = () => {
                 <h3>Introducing Plexus</h3>
               </Link>
               <p>
-                Plexus is our no-code platform for running AI agents over your data at industrial scale. Factored out of over a year of intensive call center QA work, it represents our journey from traditional ML models like SVM through BERT and fine-tuned versions of GPT-4, Llama, and other modern language models. Build and deploy AI workflows that analyze content streams and take action—without managing infrastructure or writing code.
+                Plexus is our no-code platform for running AI agents over your data at industrial scale. Factored out of over two years of intensive call center QA work, it represents our journey from traditional ML models like SVM through BERT and fine-tuned versions of GPT-4, Llama, and other modern language models. Build and deploy AI workflows that analyze content streams and take action—without managing infrastructure or writing code.
               </p>
               <ul className="branded">
                 <li>Use any AI model from any provider</li>
