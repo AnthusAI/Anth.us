@@ -15,18 +15,6 @@ const shortcodes = { BlogImage, Citation, CitationsList, MDXCode, AudioNative };
 const BlogPostTemplate = ({ data, children }) => {
   const post = data.mdx;
   const siteUrl = data.site.siteMetadata.siteUrl;
-  
-  // Safely access the image URL or set to null if it doesn't exist
-  const imageUrl = post.frontmatter.preview_image
-    && post.frontmatter.preview_image.childImageSharp
-    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData
-    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images
-    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback
-    && post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src
-    ? `${siteUrl}${post.frontmatter.preview_image.childImageSharp.gatsbyImageData.images.fallback.src}`
-    : null;
-
-  const cleanExcerpt = removeHTMLTags(post.frontmatter.excerpt);
 
   return (
     <CitationsProvider>

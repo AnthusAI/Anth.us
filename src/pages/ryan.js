@@ -1,11 +1,8 @@
 import { graphql } from 'gatsby';
 import * as React from "react"
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Solutions from "../components/solutions"
-import * as styles from "../components/index.module.css"
-import { format, isValid } from 'date-fns';
 
 const RyansPage = ({ data }) => {
   const featuredSolutions = data.solutions.edges.filter(({ node }) => node.frontmatter.tags.includes('featured'));

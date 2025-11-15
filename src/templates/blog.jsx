@@ -6,7 +6,6 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const CollectionTemplate = ({ data }) => {
   const publishedPosts = data.publishedPosts.edges;
-  const draftPosts = data.draftPosts.edges;
 
   return (
     <Layout>
