@@ -26,7 +26,7 @@ const values = [
   },
   {
     text: "Continuously Improve",
-    description: "Enable rapid, iterative change through agile software development.  Mitigate the risk of change by making lots of small, verifiable changes."
+    description: "Enable rapid, iterative change through CI/CD and DevOps for code, and RLHF and MLOps for AI/ML.  Mitigate the risk of making changes by deploying lots of small, verifiable steps."
   },
   {
     text: "Collaborate with AI Humanely",
@@ -34,7 +34,7 @@ const values = [
   },
   {
     text: "Implement Infrastructure as Code",
-    description: "Every aspect of a production system should be created and configured by code so that it's reprooducible, not manually."
+    description: "Leverage DevOps to implement Infrastructure as Code.  Every aspect of a production system should be created and configured by code so that it's reproducible, not manually."
   },
   {
     text: "Commodify AI Models",
