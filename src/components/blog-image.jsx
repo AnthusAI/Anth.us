@@ -5,13 +5,18 @@ import React from 'react';
 const BlogImage = ({ images, name, className, alt }) => {
   const data = useStaticQuery(graphql`
     query {
-      allFile {
+      sharpImages: allFile(filter: {extension: {regex: "/(jpg|jpeg|png|webp|avif)$/"}}) {
         nodes {
           relativePath
-          publicURL
           childImageSharp {
             gatsbyImageData
           }
+        }
+      }
+      otherImages: allFile(filter: {extension: {regex: "/(gif|svg)$/"}}) {
+        nodes {
+          relativePath
+          publicURL
         }
       }
     }
@@ -22,19 +27,31 @@ const BlogImage = ({ images, name, className, alt }) => {
     return null;
   }
 
-  const imageNode = data.allFile.nodes.find(
+  // Check sharp-compatible images first
+  const sharpNode = data.sharpImages.nodes.find(
     node => node.relativePath.endsWith(name)
   );
   
-  if (!imageNode) {
-    return <p>No image found for: {name}</p>;
+  if (sharpNode) {
+    return (
+      <GatsbyImage 
+        className={className} 
+        image={sharpNode.childImageSharp.gatsbyImageData} 
+        alt={alt}
+        loading="eager"
+      />
+    );
   }
 
-  // If it's a GIF or other non-sharp format, use regular img tag with publicURL
-  if (!imageNode.childImageSharp) {
+  // Check other formats (GIF, SVG)
+  const otherNode = data.otherImages.nodes.find(
+    node => node.relativePath.endsWith(name)
+  );
+  
+  if (otherNode) {
     return (
       <img 
-        src={imageNode.publicURL} 
+        src={otherNode.publicURL} 
         alt={alt} 
         className={className}
         style={{ maxWidth: '100%', height: 'auto' }}
@@ -42,15 +59,7 @@ const BlogImage = ({ images, name, className, alt }) => {
     );
   }
 
-  // Otherwise use GatsbyImage for optimized images
-  return (
-    <GatsbyImage 
-      className={className} 
-      image={imageNode.childImageSharp.gatsbyImageData} 
-      alt={alt}
-      loading="eager"
-    />
-  );
+  return <p>No image found for: {name}</p>;
 };
 
 export default BlogImage;
