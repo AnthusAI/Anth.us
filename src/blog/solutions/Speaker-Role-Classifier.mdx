@@ -5,22 +5,28 @@ date: "2025-11-15"
 display_date: "November 2025"
 authors:
   - author: <a href="/ryan">Ryan Porter</a>
-tags: ["solutions"]
+tags: ["solutions", "featured"]
 preview_image: "./images/speaker-role-classifier.png"
-excerpt: "<p>A real-world solution demonstrating the 'give an agent a tool' agentic programming paradigm for classifying speakers in call center transcripts. This could have been implemented with a custom ML model, but leveraging an LLM with agentic AI delivers the business solution faster and with less uncertainty: <ul><li>Classifies speakers as Agent or Customer in diarized transcripts</li><li>Command-line interface, Python library, and AWS Lambda deployment</li><li>Infrastructure-as-code with AWS CDK</li><li>Enables business agility through rapid AI solution development</li></ul>View the project on <a href='https://github.com/AnthusAI/speaker-role-classifier'>GitHub</a>.</p>"
+excerpt: "<p>A real-world example of how the agentic programming paradigm enables rapid solution development. We faced a problem where ambiguity in speaker role names could have made a traditional programmatic solution complex and time-consuming. By giving an AI agent the right tools, we delivered a working solution quickly and moved on—demonstrating how agent-based programming enables much greater agility and speed. View the project on <a href='https://github.com/AnthusAI/speaker-role-classifier'>GitHub</a>.</p>"
 images: []
 state: published
 ---
 
-## Agentic AI for Business Agility
+## Agility Through Agentic Programming
 
-Call center analytics depends on understanding who said what. When you have a diarized transcript (where different speakers are identified but not labeled), you need to determine which speaker is the agent and which is the customer.
+We recently faced a real-world problem: classifying speaker roles in conversation transcripts. The challenge wasn't just the classification itself—it was the ambiguity in how speaker roles might be named and the variety of scenarios we'd need to handle.
 
-**Speaker Role Classifier** demonstrates the power of the 'give an agent a tool' paradigm. This could have been solved with a custom machine learning model—requiring data collection, model training, validation, and ongoing maintenance. Instead, by leveraging an LLM with agentic AI, we delivered a production-ready solution as a CLI, Python library, and serverless AWS Lambda function with significantly less development time and uncertainty. This approach enables businesses to be more agile, spending less time on software development and more time solving business problems.
+In traditional programming, this would require:
+- Extensive scenario mapping and edge case handling
+- Complex branching logic for different naming conventions
+- Ongoing maintenance as new scenarios emerged
+- Significant development time before delivering value
 
-## The Problem: Speaker Identification
+Instead, we applied the [**"give an agent a tool"**](/blog/give-an-agent-a-tool) paradigm. By giving an AI agent access to the transcript and letting it figure out the speaker roles, we delivered a working solution quickly and moved on. This is the power of agentic programming: **flexibility and speed**.
 
-Modern speech-to-text systems can identify that multiple speakers are present (diarization), but they don't know which speaker has which role. A typical transcript might look like:
+## The Problem: Ambiguous Speaker Roles
+
+When you have a conversation transcript where speakers are identified but not labeled, you need to determine their roles. A typical transcript might look like:
 
 ```
 Speaker 0: Thank you for calling. How can I help you today?
@@ -28,23 +34,20 @@ Speaker 1: Hi, I'm having trouble with my account.
 Speaker 0: I'd be happy to help with that. Can you provide your account number?
 ```
 
-For quality assurance, compliance monitoring, and analytics, you need to know:
-- Which speaker is the agent?
-- Which speaker is the customer?
-- Are there multiple customers or agents on the call?
+The challenge: speaker roles could be named anything—"Agent", "Representative", "Support", "Customer", "Caller", "Client"—and the number of speakers could vary. Building explicit logic to handle all these scenarios would be time-consuming and brittle.
 
-Manual labeling doesn't scale. You need automated classification that's accurate and fast.
+With an AI agent, you just describe what you need, and it figures out the rest.
 
-## The Solution: LLM-Based Classification
+## The Solution: Give an Agent a Tool
 
-The Speaker Role Classifier uses GPT models to analyze conversation patterns and classify speaker roles. It considers:
+The Speaker Role Classifier gives an AI agent access to the transcript and asks it to classify speaker roles. The agent analyzes:
 
-- **Conversational patterns**: Agents typically greet first, ask questions, and offer solutions
-- **Language style**: Agents use professional terminology and company-specific phrases
-- **Turn-taking**: The flow of conversation reveals role relationships
-- **Context clues**: References to systems, policies, and procedures
+- **Conversational patterns**: Who initiates, who responds, who asks questions
+- **Language style**: Professional vs. casual language
+- **Turn-taking**: The flow of conversation reveals relationships
+- **Context clues**: References that indicate role
 
-The tool processes transcripts and returns labeled results:
+The agent figures out the roles and returns labeled results:
 
 ```json
 {
@@ -52,6 +55,8 @@ The tool processes transcripts and returns labeled results:
   "speaker_1": "Customer"
 }
 ```
+
+No complex branching logic. No exhaustive scenario mapping. Just give the agent the tool (access to the transcript) and let it solve the problem.
 
 ## Multiple Deployment Options
 
@@ -103,27 +108,23 @@ The serverless deployment demonstrates:
 - **Serverless architecture**: Automatic scaling without server management
 - **Enterprise patterns**: Proper security, logging, and monitoring
 
-## Real-World Applications
+## Why This Matters: Business Agility
 
-### Call Center QA
+This project demonstrates a fundamental shift in how we build software:
 
-Automatically identify agent and customer speakers in thousands of calls for quality assurance scoring. This was the original use case that drove development.
+**Traditional Approach:**
+- Weeks analyzing all possible scenarios
+- Complex code with extensive branching logic
+- Ongoing maintenance as new edge cases emerge
+- Slow time-to-value
 
-### Compliance Monitoring
+**Agentic Approach:**
+- Give the agent the right tools
+- Let it figure out the scenarios
+- Deliver working solution quickly
+- Move on to the next problem
 
-Ensure agents follow required scripts and procedures by accurately identifying which statements came from the agent vs. customer.
-
-### Analytics and Reporting
-
-Generate accurate metrics on:
-- Agent talk time vs. customer talk time
-- Question patterns from customers
-- Response patterns from agents
-- Conversation flow analysis
-
-### Training and Coaching
-
-Identify specific agent behaviors and customer responses for training programs and performance coaching.
+This isn't just about speaker classification—it's about **development speed and business agility**. When you can solve problems in days instead of weeks, you can respond to business needs faster and deliver more value.
 
 ## Technical Architecture
 
@@ -171,16 +172,18 @@ The AWS Lambda deployment provides:
 
 This is **intelligent automation** with enterprise-grade operational maturity.
 
-## Context: Call Center QA Work
+## The Paradigm Shift
 
-This tool emerged from our work on call center quality assurance systems. When analyzing thousands of calls, accurate speaker identification is foundational—everything else depends on knowing who said what.
+This tool emerged from a real-world need we had to solve quickly. Rather than spending weeks building a traditional solution with complex logic, we applied the agentic programming paradigm and delivered a working solution in a fraction of the time.
 
-Rather than building this capability into a monolithic system, we extracted it as a standalone tool that others can use. This modular approach enables:
+This represents a fundamental shift in software development:
 
-- Reuse across different projects
-- Independent testing and validation
-- Community contributions and improvements
-- Easier maintenance and updates
+- **From explicit programming to delegation**: Tell the agent what you need, not how to do it
+- **From scenario mapping to flexible reasoning**: Agents adapt to new scenarios automatically
+- **From maintenance burden to resilience**: Agents handle edge cases without code changes
+- **From slow iteration to rapid delivery**: Ship solutions in days, not weeks
+
+For more on this paradigm, see our article on [**giving an agent a tool**](/blog/give-an-agent-a-tool).
 
 ## Production-Ready Thinking
 
@@ -206,15 +209,15 @@ The complete project is available on [GitHub](https://github.com/AnthusAI/speake
 
 We built this to solve a real problem in our call center QA work, and we're sharing it so others can solve similar problems without starting from scratch.
 
-## Practical AI Tooling
+## Agentic Programming in Practice
 
-Speaker Role Classifier exemplifies our approach to AI solutions:
+Speaker Role Classifier exemplifies the agentic programming paradigm:
 
-- **Solve real problems**: Built from actual production needs
-- **Production-ready**: Not just demos, but deployable systems
-- **Multiple interfaces**: CLI, library, and serverless options
-- **Infrastructure-as-code**: Reproducible, maintainable deployments
-- **Open source**: Share knowledge and enable others
+- **Solve real problems quickly**: Built and deployed in a fraction of traditional development time
+- **Flexible by design**: Handles scenarios we didn't explicitly program for
+- **Production-ready**: Not just a demo, but a deployable system with CLI, library, and serverless options
+- **Infrastructure-as-code**: Reproducible, maintainable deployments with AWS CDK
+- **Open source**: Share the approach so others can move fast too
 
-This is how AI moves from research to production—one practical tool at a time.
+This is how agentic programming enables business agility—by letting you focus on problems, not implementation details.
 

@@ -10,8 +10,15 @@ const AISolutionsPage = ({ data }) => {
     document.title = "AI Solutions";
   }, []);
 
-  const featuredSolutions = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('integrations'));
-  const nonFeaturedIntegrations = data.solutions.edges.filter(({ node }) => !node.frontmatter.tags.includes('featured') && node.frontmatter.tags.includes('integrations'));
+  const featuredSolutions = data.solutions.edges.filter(({ node }) => 
+    node.frontmatter.tags.includes('featured') && !node.frontmatter.tags.includes('integrations')
+  );
+  const nonFeaturedSolutions = data.solutions.edges.filter(({ node }) => 
+    !node.frontmatter.tags.includes('featured') && !node.frontmatter.tags.includes('integrations')
+  );
+  const integrations = data.solutions.edges.filter(({ node }) => 
+    node.frontmatter.tags.includes('integrations')
+  );
 
   return (
     <Layout>
@@ -33,9 +40,9 @@ const AISolutionsPage = ({ data }) => {
           </p>
           <p>Ready to revolutionize your business? <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link">Let's talk about what we can do for you.</a></p>
           <div className="clear"></div>
-          <h2>Portfolio</h2>
+          <h2>Featured Solutions</h2>
 
-          <p>Our journey spans decades of solving complex business challenges. Recently, we've focused on AI-driven solutions, leveraging our deep expertise to deliver cutting-edge applications that transform businesses:</p>
+          <p>Our recent work showcases AI-driven solutions that demonstrate production-ready implementations of agentic AI, RLHF systems, and intelligent automation:</p>
 
           <Solutions
             className="smallImageList"
@@ -44,10 +51,21 @@ const AISolutionsPage = ({ data }) => {
             linkToPage={false}
           />
 
+          <h2>Portfolio</h2>
+
+          <p>Our journey spans decades of solving complex business challenges, from serverless architectures to AI-enabled systems:</p>
+
+          <Solutions
+            className="smallImageList"
+            solutions={nonFeaturedSolutions}
+            showPreviewImage={true}
+            linkToPage={false}
+          />
+
           <h2>Integrations</h2>
 
           <Solutions
-            solutions={nonFeaturedIntegrations}
+            solutions={integrations}
             showPreviewImage={false}
             linkToPage={false}
           />
