@@ -8,6 +8,7 @@ const BlogImage = ({ images, name, className, alt }) => {
       allFile {
         nodes {
           relativePath
+          publicURL
           childImageSharp {
             gatsbyImageData
           }
@@ -24,17 +25,31 @@ const BlogImage = ({ images, name, className, alt }) => {
   const imageNode = data.allFile.nodes.find(
     node => node.relativePath.endsWith(name)
   );
-  const imageData = imageNode ? imageNode.childImageSharp.gatsbyImageData : null;
+  
+  if (!imageNode) {
+    return <p>No image found for: {name}</p>;
+  }
 
-  return imageData ? (
+  // If it's a GIF or other non-sharp format, use regular img tag with publicURL
+  if (!imageNode.childImageSharp) {
+    return (
+      <img 
+        src={imageNode.publicURL} 
+        alt={alt} 
+        className={className}
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
+    );
+  }
+
+  // Otherwise use GatsbyImage for optimized images
+  return (
     <GatsbyImage 
       className={className} 
-      image={imageData} 
+      image={imageNode.childImageSharp.gatsbyImageData} 
       alt={alt}
       loading="eager"
     />
-  ) : (
-    <p>No image data found.</p>
   );
 };
 
