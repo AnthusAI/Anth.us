@@ -137,6 +137,36 @@ const IndexPage = () => {
         }
       }
 
+      featuredSolutions: allMdx(
+        filter: { 
+          frontmatter: { 
+            state: { eq: "published" }, 
+            tags: { in: ["featured"] }
+          }
+          internal: { contentFilePath: { regex: "/solutions/" } }
+        }
+        sort: { fields: [frontmatter___date], order: DESC }
+        limit: 4
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              date
+              slug
+              excerpt
+              display_date
+              preview_image {
+                childImageSharp {
+                  gatsbyImageData(layout: CONSTRAINED)
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
   `);
 
@@ -235,7 +265,7 @@ const IndexPage = () => {
       </ul>
 
       <section className={styles.plexusFeature}>
-        <h2>Production RLHF at Scale</h2>
+        <h2>Production MLOps at Scale</h2>
         <ul className='blog'>
           <div className='blog-post-preview'>
             <li className="clear-float">
@@ -261,6 +291,26 @@ const IndexPage = () => {
           </div>
         </ul>
       </section>
+
+      <h2>Featured Solutions</h2>
+      <ul className='blog'>
+        {data.featuredSolutions.edges.map(({ node }) => {
+          const previewImage = getImage(node.frontmatter.preview_image);
+          return (
+            <div className='blog-post-preview' key={node.id}>
+              <li className="clear-float">
+                <Link to={`/blog/${node.frontmatter.slug}`}>
+                  <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
+                  <h3>{node.frontmatter.title}</h3>
+                </Link>
+                <div className='date'>{node.frontmatter.display_date || node.frontmatter.date}</div>
+                <div dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></div>
+              </li>
+            </div>
+          );
+        })}
+      </ul>
+      <div className="clear-float">View all our <Link to="/ai-solutions">Solutions</Link>.</div>
 
       <h2>Recent Articles</h2>
       <ul className='blog'>
