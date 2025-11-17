@@ -220,7 +220,7 @@ const IndexPage = () => {
             Depend on proven experts
           </h1>
           <p>
-            We make it easy to leverage the power of AI to solve your business problems.
+            We know how to solve your business problems using AI.  And we know how to scale it up.
           </p>
           <Link to="/ai-solutions" className="button">Learn More</Link>
         </div>
