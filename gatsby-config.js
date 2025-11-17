@@ -71,7 +71,8 @@ module.exports = {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `Cinzel:600,900`,
+          `Jersey 10:400`,
+          `Geist Mono:400,500`,
           `Montserrat:400,500,600,900`,
         ],
         display: 'block',
