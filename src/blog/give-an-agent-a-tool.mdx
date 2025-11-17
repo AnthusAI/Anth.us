@@ -7,10 +7,22 @@ authors:
   - author: <a href="/ryan">Ryan Porter</a>
 tags: ["AI", "featured"]
 preview_image: "./images/give-an-agent-a-tool.png"
-excerpt: "<p>A demonstration of a fundamental paradigm shift in computer programming: from writing explicit code for every scenario to giving intelligent agents the right tools and letting them figure it out. This project shows how the same task that requires hundreds of lines of complex branching logic in traditional programming becomes simple and flexible with agentic AI: <ul><li>Traditional vs. agent-based approaches to data processing</li><li>Handles unexpected data formats without code changes</li><li>Demonstrates the 'give an agent a tool' paradigm</li><li>Real-world example: extracting contacts from varied CSV formats</li></ul>View the project on <a href='https://github.com/AnthusAI/Give-an-Agent-a-Tool'>GitHub</a>.</p>"
-images: []
+excerpt: "<p>A demonstration of a fundamental paradigm shift in computer programming: from writing explicit code for every scenario to giving intelligent agents the right tools and letting them figure it out. This project shows how the same task that requires hundreds of lines of complex branching logic in traditional programming becomes simple and flexible with agentic AI. Through a real-world example of extracting contacts from varied CSV formats, we compare traditional approaches against agent-based data processing that handles unexpected formats without code changes, demonstrating the 'give an agent a tool' paradigm in action. View the project on <a href='https://github.com/AnthusAI/Give-an-Agent-a-Tool'>GitHub</a>.</p>"
+images:
+  - "./images/give-an-agent-a-tool.png"
+  - "./images/ai-agent-uses-tools.png"
 state: published
 ---
+
+import BlogImage from '../components/blog-image';
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images} 
+        name="give-an-agent-a-tool.png"
+        alt="Give an agent a tool: If you give an agent a tool, then nobody has to fish"
+    />
+</p>
 
 ## A Programming Paradigm Shift
 
