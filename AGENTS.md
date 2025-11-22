@@ -71,9 +71,16 @@ bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./  # Generate dia
 
 Posts are short, timely updates (similar to social media posts) located in `src/blog/posts/*.mdx`.
 
-**Required steps:**
-1. Create placeholder image first (see Image Guidelines below)
-2. Create MDX file in `src/blog/posts/` with kebab-case filename
+**Quick reference**
+- **Go-to example**: `src/blog/posts/perplexity-sonar-api.mdx` shows the standard frontmatter, centered image block, and concise sections (Overview → Technical Details → Impact). Open it when starting a new post and reuse its structure.
+- **Location**: `src/blog/posts/your-slug.mdx`
+- **Tags**: Always include `posts` (and typically nothing else).
+- **Images**: Single preview image stored at `src/blog/images/posts/your-slug.png`. Import `BlogImage` exactly like the example.
+- **Use case**: Headlines or commentary that should fit in a social post when condensed.
+
+**Required steps**
+1. Create the placeholder image first (see Image Guidelines below).
+2. Duplicate or reference `perplexity-sonar-api.mdx` as a template, updating frontmatter + content.
 3. Use this exact frontmatter structure:
 
 ```mdx
@@ -109,16 +116,39 @@ Your post content here...
 
 Articles are long-form, comprehensive content with citations and illustrations, located in `src/blog/*.mdx`.
 
-**Structure similar to posts but:**
-- Longer, more detailed content
-- Include citations using `<Citation>` component
-- May include multiple images and diagrams
-- Tags should NOT include "posts"
-- Typically include tags like "AI", "featured", "how-to", "explainer", etc.
+**Quick reference**
+- **Go-to example**: `src/blog/how-ai-agents-do-things.mdx` demonstrates the expected length, multiple images/diagrams, and `<Citation>` usage. Use it as the starting template for any new article.
+- **Location**: `src/blog/your-article-slug.mdx`
+- **Tags**: No `posts`. Prefer descriptive tags such as `AI`, `featured`, `how-to`, `explainer`.
+- **Content expectations**: Multiple sections, at least one image (stored in `src/blog/images/`), and citations when referencing external sources.
+- **Components**: Import `BlogImage`, `Citation`, and `CitationsList` when needed (follow the example).
+- **Use case**: Deep dives, explainers, or thought leadership pieces that require context, diagrams, or code snippets.
 
 ### Creating a Solution
 
 Solutions are case studies in `src/blog/solutions/*.mdx` with tag "solutions".
+
+**Quick reference**
+- **Go-to example**: `src/blog/solutions/Call Criteria.mdx` highlights the expected depth (challenge → approach → results), dual tagging (`solutions`, optional `featured`), and business-value framing. Mirror its outline for new case studies.
+- **Location**: `src/blog/solutions/Your Case Study.mdx` (CamelCase filenames are acceptable for solution folders).
+- **Tags**: Must include `solutions`; add `featured` or vertical-specific tags as needed.
+- **Content expectations**: Executive summary, challenge, solution architecture, measurable outcomes, and explicit references to RLHF/data flywheel/HITL when relevant.
+- **Images**: Store in `src/blog/solutions/images/` and reference with relative paths.
+- **Use case**: Documenting production engagements or platform deployments.
+
+### Post-from-URL SOP
+
+When asked to create a post from an external article URL, follow this workflow:
+1. **Ingest**: Open the URL, skim for the primary announcement or insight, and capture key stats/quotes.
+2. **Positioning brief**: Draft 2–3 bullet notes on why the news matters to Anth.us clients (tie to RLHF, agentic AI, MLOps, etc.).
+3. **Excerpt + summary**: Convert the brief into (a) a one-sentence excerpt suitable for social media, and (b) 2–3 short paragraphs of extended commentary for the post body.
+4. **Image concept**: Identify a visual hook (logo, architecture sketch, chart). If no official asset is provided, craft a descriptive placeholder text (e.g., “Perplexity Sonar API workflow”). Create the 1200x630 placeholder image in `src/blog/images/posts/` before writing MDX.
+5. **Frontmatter prep**: Copy the template from `perplexity-sonar-api.mdx`, updating title, slug, date, excerpt, `preview_image`, and `images`.
+6. **Content draft**: Use the standard centered image block followed by:
+   - Source link in the opening paragraph (`[Title](URL)`).
+   - Two sections: `## Why it matters` and `## Key technical notes` (rename if necessary) summarizing the findings and Anth.us perspective.
+7. **Source attribution**: Link back to the original URL in-body and mention any quoted figures. If multiple sources, add bullet list of references at the bottom.
+8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free.
 
 ## Image Guidelines
 
