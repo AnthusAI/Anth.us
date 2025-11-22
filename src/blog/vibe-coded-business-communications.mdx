@@ -1,0 +1,131 @@
+---
+title: "Vibe-Coded Business Communications"
+slug: "vibe-coded-business-communications"
+date: "2025-11-17"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ['how-to', 'AI']
+excerpt: |
+  Build presentation decks with AI coding agents armed with Marp so any business update can ship as a polished narrative minutes after the work is done.
+preview_image: "./images/vibe-coded-business-communications.png"
+images:
+  - ./images/vibe-coded-business-communications.png
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="vibe-coded-business-communications.png"
+  className="centered"
+  alt="Marp logo centered on a white background."
+/>
+
+_Build presentation decks with AI coding agents armed with Marp._
+
+Slide decks remain a staple deliverable across industries, yet building them manually burns time you could spend on content quality. Marp converts Markdown directly into HTML, PDF, or PowerPoint, so an AI coding agent can generate, lint, and export the deck while you concentrate on sharpening the message.<Citation
+  data={{
+    type: "webpage",
+    title: "Marp: Markdown Presentation Ecosystem",
+    "container-title": "Marp",
+    URL: "https://marp.app/",
+    accessed: { 'date-parts': [[2025, 11, 17]] }
+  }}
+/>
+
+## What you need
+
+* **Marp tooling**: Install the VS Code extension for live preview and the CLI for automated exports (`npm install -D @marp-team/marp-cli`).<Citation
+  data={{
+    type: "webpage",
+    title: "Marp: Markdown Presentation Ecosystem",
+    "container-title": "Marp",
+    URL: "https://marp.app/",
+    accessed: { 'date-parts': [[2025, 11, 17]] }
+  }}
+/>
+
+* **AI coding agent**: Any automation-capable agent (OpenAI GPTs, Cursor, CrewAI, etc.) that can read repositories, invoke commands, and submit pull requests.
+* **Single source of truth**: Markdown summaries, metrics, or transcripts stored in Git so the agent can reuse them in the deck.
+
+## Step-by-step workflow
+
+### 1. Outline slides in Markdown
+
+Create a `deck.marp.md` file with a simple template. Ask the agent to bootstrap it from an existing recap, notebook, or doc string.
+
+```markdown
+---
+theme: gaia
+paginate: true
+---
+# Executive Summary
+- Key outcome 1
+- Key outcome 2
+---
+# System Diagram
+<!-- Agent inserts architecture callouts here -->
+```
+
+### 2. Let the agent populate each section
+
+Provide the agent with the outline, source material (metrics, transcripts, Jira summaries), and instructions such as “keep each slide under five bullets” or “add speaker notes below `---`. Because directives stay inline, the agent can tweak layout properties without leaving Markdown.
+
+### 3. Export deliverables automatically
+
+Teach the agent a single command that produces all required formats:
+
+```bash
+npx @marp-team/marp deck.marp.md --html --pdf --pptx --output dist/
+```
+
+The agent can watch for changes to data files or meeting notes, rerun the export, and post artifacts to Slack, email, or a shared drive.
+
+### 4. Keep humans in the loop
+
+Use comments or issues to request reviews on specific slides. Because the entire deck is text, diffing becomes trivial and stakeholders can approve changes the same way they approve code.
+
+## Automate refresh cycles
+
+Configure the AI agent with a “prepare deck” action tied to your reporting cadence:
+
+1. Pull the latest Markdown summaries into a `marp/` directory.
+2. Insert updated KPIs, diagrams, or quotes.
+3. Run the Marp CLI and attach artifacts to the weekly update issue.
+4. Notify reviewers with a link to the commit so they can track changes across reporting periods.
+
+This turns presentations into continuously updated documentation rather than one-off files that drift out of sync with the underlying system.
+
+## Example: Converting the Plexus Scaling SLAs PDF
+
+The `Plexus-Scaling-SLAs` repository includes a static `presentation.pdf` that explains scaling SLAs for a production AI program.<Citation
+  data={{
+    type: "report",
+    title: "Plexus Scaling SLAs",
+    author: "Anthus AI",
+    "container-title": "GitHub",
+    URL: "https://github.com/AnthusAI/Plexus-Scaling-SLAs/blob/main/presentation.pdf",
+    accessed: { 'date-parts': [[2025, 11, 17]] }
+  }}
+/> A practical conversion flow looks like this:
+
+1. Ask the AI coding agent to extract the slide outline from the PDF (titles, bullet lists, charts) and emit a `.marp.md` file with `---` separators.
+2. Have the agent rewrite heavy bullet lists into concise talking points and move detailed explanations into speaker notes using `<!-- presenter: ... -->`.
+3. Store the Markdown next to the PDF, then let the agent add a GitHub Actions workflow that runs `marp` on every push so the deck always compiles.
+4. When stakeholders request updates, you only modify Markdown; the agent regenerates PDFs and PPTX files seconds later.
+
+## Tips for crisp AI-assisted decks
+
+* Keep each slide scoped to one insight; ask the agent to split dense sections automatically.
+* Provide concrete prompts (“turn quarterly pipeline metrics into a two-column comparison slide”) so the agent knows how to reshape data.
+* Use Marp directives like `backgroundImage` or `_class` sparingly—agents handle them well when documented inline.
+* Archive every generated deck artifact with the commit hash that produced it to preserve traceability for audits.
+
+By combining Marp’s text-first workflow with AI coding agents, you eliminate the drudgery of presentation building and make it easy to communicate complex ideas on demand.
+
+## References
+
+<CitationsList citationFormat="apa" />
+

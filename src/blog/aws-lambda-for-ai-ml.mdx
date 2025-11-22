@@ -1,0 +1,140 @@
+---
+title: "AWS Lambda for AI/ML"
+slug: "aws-lambda-for-ai-ml"
+date: "2025-11-22"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ['AI', 'serverless', 'aws', 'architecture']
+excerpt: |
+  Serverless isn't just for web apps anymore. Here's how we use the "Serverless AI Stack"—Lambda for orchestration, AgentCore for agents, and SageMaker Serverless for inference—to build production AI systems that scale to zero.
+preview_image: "./images/aws-lambda-for-ai-ml.png"
+images:
+  - "./images/aws-lambda-for-ai-ml.png"
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<div className="center-full-image">
+    <BlogImage className="center-full-image"
+        images={props.pageContext.frontmatter.images} 
+        name="aws-lambda-for-ai-ml.png"
+        alt="AWS Lambda for AI/ML" />
+</div>
+
+For years, "serverless AI" felt like a contradiction. AI models needed massive GPUs and long-running processes, while AWS Lambda was built for short, bursty CPU tasks. If you wanted to run a serious AI workload, you spun up an EC2 instance (or twenty) and kept them running.
+
+That has changed. While you still need GPUs for the heaviest lifting, AWS is steadily extending the Function-as-a-Service (FaaS) concept into the AI/ML domain. We now have a complete **Serverless AI Stack** that lets us build complex, production-grade AI systems that sleep when they aren't working and scale instantly when they are.
+
+We run our production AI agents on **AWS Lambda**, and we've been experimenting with two powerful new additions to the serverless AI stack:
+1. **AWS Lambda** for orchestration (the "brain stem")
+2. **Bedrock AgentCore** for agent runtimes ("Lambda for AI")
+3. **SageMaker Serverless Inference** for model execution ("Lambda for ML")
+
+Here is how we use them in production.
+
+## 1. AWS Lambda for Orchestration
+
+We use standard AWS Lambda functions to run **LangChain** and **LangGraph** workflows.
+
+This might sound counter-intuitive. Isn't Lambda too limited for AI? It's true that you can't run a 70-billion parameter LLM *inside* a Lambda function. But that's not what orchestration is. Orchestration is about decision-making, API calling, and state management.
+
+Lambda is actually the perfect host for LangChain and LangGraph apps because of the "scale to zero" property. Orchestration workloads are typically bursty and I/O-bound—spending significant time waiting for the LLM to generate tokens or external tools to finish.
+
+By running the orchestration logic in Lambda, we get:
+- **Zero idle cost**: We don't pay for a container to sit there waiting for a user to ask a question.
+- **Massive concurrency**: If 1,000 users start a chat at once, AWS spins up 1,000 concurrent execution environments instantly.
+- **Python support**: Lambda's Python runtime is first-class, which is critical since the entire AI ecosystem is Python-based.
+
+We package our LangGraph nodes as Lambda functions and use **AWS Step Functions** or DynamoDB to manage the state between turns. This gives us a highly durable, event-driven architecture that costs pennies to operate.
+
+## 2. Bedrock AgentCore: "Lambda for AI"
+
+Standard Lambda has limits—specifically, the 15-minute execution timeout. This kills you when you have an AI agent that needs to perform a long-running task, like analyzing a massive dataset or browsing the web for 30 minutes to find an answer.
+
+Enter **Bedrock AgentCore**. This is what we call "Lambda for AI."
+
+AgentCore is a serverless runtime built specifically for AI agents. It looks and feels like Lambda—you write a handler function, and AWS manages the infrastructure—but it has superpowers designed for agentic workflows:
+
+*   **8-hour runtime**: Agents can run for up to 8 hours, allowing for complex, multi-step reasoning loops that would time out on standard Lambda.
+*   **Built-in Memory**: It has a managed memory service that persists conversation history and "long-term memory" facts across sessions.
+*   **Identity Management**: It handles OAuth flows so your agent can act *as the user* (e.g., accessing their GitHub or Slack) securely.
+
+You *could* handle long-running tasks by building an intricate AWS Step Functions state machine. But that feels like fitting the infrastructure to your hand like a glove—you end up building very specialized infrastructure when you really just want to run code.
+
+In the beginning, you don't want to do a bunch of AWS architecture work. You just want it to work. AgentCore allows a single instance to execute for **hours**, which is frankly amazing. It lets you bypass the architectural complexity and just let the agent run.
+
+### The "Give an Agent a Tool" Paradigm
+
+We built a demo repo, [AWS-AgentCore-examples](https://github.com/AnthusAI/AWS-AgentCore-examples), to show this in action. It demonstrates a fundamental shift in how we write software—what we call the [**Give an Agent a Tool**](/blog/give-an-agent-a-tool) paradigm:
+
+> *"Give a man a fish and you feed him for a day. Teach a man to fish and you feed him for a lifetime. **Give an agent a tool and nobody has to fish.**"*
+
+Instead of writing explicit logic for every scenario, you provide tools and goals. The repo includes several progressive examples:
+
+1.  **Hello World**: A basic AgentCore structure without AI, showing how the request/response pattern works similarly to Lambda.
+2.  **Claude Agent**: Integrating Bedrock to give the agent intelligence.
+3.  **Memory Agents**: Demonstrating both Short-Term Memory (STM) for conversation context and Long-Term Memory (LTM) for remembering facts across sessions.
+4.  **Code Interpreter Agent**: A "Give an Agent a Tool" example where the agent uses a managed Python sandbox to parse messy CSV files without hard-coded parsing logic.
+5.  **Browser Tool Agent**: An agent that browses the web to answer questions, replacing fragile scraping scripts with autonomous navigation.
+
+This is the future of agent deployment: you focus on the prompt and the tools (like the Code Interpreter or Browser), and the platform handles the loop, memory, and security.<Citation
+  data={{
+    type: "webpage",
+    title: "AWS AgentCore Examples",
+    "container-title": "GitHub",
+    URL: "https://github.com/AnthusAI/AWS-AgentCore-examples",
+    author: [{ literal: "Anthus AI" }],
+    issued: { "date-parts": [[2024]] },
+    accessed: { "date-parts": [[2025, 11, 22]] }
+  }}
+/>
+
+## 3. SageMaker Serverless Inference: "Lambda for ML"
+
+Finally, what about running the models themselves?
+
+If you need to deploy a custom model—say, a BERT classifier fine-tuned on your industry's jargon—you traditionally had to provision a SageMaker endpoint backed by a real instance (like an `ml.m5.large`). That instance costs money every second it's up, whether anyone is using it or not.
+
+**SageMaker Serverless Inference** is the solution. It is effectively "Lambda for ML models."
+
+You package your model artifacts and inference code, and AWS deploys it to a serverless endpoint. It scales down to zero when not in use. When a request comes in, AWS spins up the compute, loads your model, runs the prediction, and spins it down.
+
+We built a reference implementation for this: [SageMaker-Serverless-Inference-BERT-text-classifier](https://github.com/AnthusAI/SageMaker-Serverless-Inference-BERT-text-classifier).
+
+### DevOps + MLOps: Two Lifecycles in Parallel
+
+The challenge with deploying custom models is that you're managing two lifecycles at once. Our demo repo breaks this down:
+
+1.  **The MLOps Track**: Training the model (in this case, a BERT model fine-tuned on IMDB sentiment data), evaluating its accuracy (93.2%), and registering the artifact.
+2.  **The DevOps Track**: Writing the inference code, packaging it with the model, and deploying the infrastructure as code (using AWS CDK).
+
+In our example, we package a **BERT-base-uncased** model with PyTorch inference code. SageMaker handles the rest:
+
+*   **Cold starts**: The first request triggers a "cold start" where AWS provisions the container and loads the 400MB model into memory. This takes about 30-60 seconds.
+*   **Warm requests**: Subsequent requests are fast (less than 1 second) because the container stays warm for a while.
+*   **Cost**: You pay per millisecond of inference time. A 4GB memory instance running for 100ms costs fractions of a cent ($0.000025). This is perfect for variable traffic.<Citation
+  data={{
+    type: "webpage",
+    title: "SageMaker Serverless Inference BERT Text Classifier",
+    "container-title": "GitHub",
+    URL: "https://github.com/AnthusAI/SageMaker-Serverless-Inference-BERT-text-classifier",
+    author: [{ literal: "Anthus AI" }],
+    issued: { "date-parts": [[2024]] },
+    accessed: { "date-parts": [[2025, 11, 22]] }
+  }}
+/>
+
+## The Gap: GPU Serverless
+
+The one missing piece in this stack is **GPU-accelerated serverless**.
+
+Right now, if you want to run a large language model efficiently, you still need provisioned GPUs. AWS doesn't yet have a "Lambda with H100s" that scales to zero instantly (though cold starts would be a nightmare there anyway).
+
+But for *agent orchestration* and *smaller ML models loaded from S3 buckets*, the tools are already here. By moving your LangChain logic to Lambda and your smaller custom models to SageMaker Serverless, you can build AI platforms that are remarkably robust and cost-efficient.
+
+You don't need a cluster of servers to build an AI company anymore. You just need functions.
+
+<CitationsList citationFormat="apa" />
+
