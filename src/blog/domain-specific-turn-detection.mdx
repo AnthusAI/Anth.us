@@ -1,20 +1,21 @@
 ---
-title: "Domain-Specific Fine-Tuning for Turn Detection"
+title: "The Turn Detection Trap: When 100% Accuracy is Wrong"
 slug: "domain-specific-turn-detection"
 date: "2025-11-22"
 authors:
   - author: <a href="/ryan">Ryan Porter</a>
 tags: ['AI', 'NLP', 'fine-tuning', 'experiment']
 excerpt: |
-  We fine-tuned MobileBERT on call center transcripts to see if domain specificity beats general knowledge for turn detection. The result was a 12.5% jump in accuracy—but uncovering that required fighting gradient explosion in MobileBERT itself.
+  We fine-tuned MobileBERT for turn detection and achieved 100% accuracy. Then we realized we hadn't solved turn detection at all—we had just built a very expensive punctuation detector.
 preview_image: "./images/domain-specific-turn-detection.png"
 images:
   - "./images/domain-specific-turn-detection.png"
+  - "./images/turn-detection-confusion-matrix.png"
+  - "./images/turn-detection-threshold-optimization.png"
 state: published
 ---
 
 import BlogImage from '../components/blog-image';
-import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 <div className="center-full-image">
     <BlogImage className="center-full-image"
@@ -28,102 +29,139 @@ Turn detection is the subtle art of knowing when a user has finished speaking. I
 1.  **The Interruption**: The bot cuts you off while you're pausing to check your credit card number.
 2.  **The Awkward Silence**: You finish speaking, and the bot stares blankly for three seconds before replying.
 
-Most systems rely on a standard Voice Activity Detector (VAD) or a general-purpose language model. But we wanted to answer a specific question: **"If we keep the architecture and latency target fixed (MobileBERT, less than 50ms) and only change the training corpus from 'general conversations' to 'call-center transcripts', how much accuracy do we gain?"**
+Most systems rely on a standard Voice Activity Detector (VAD) or a general-purpose language model. We wanted to answer a specific question: **"If we keep the architecture and latency target fixed (MobileBERT, less than 50ms) and only change the training corpus from 'general conversations' to 'call-center transcripts', how much accuracy do we gain?"**
 
-The answer was stark: we improved accuracy from **87.5% to 100%** on the target domain. But getting there was an adventure in model architecture debugging.
+We ran the experiment. We got the results. And for a brief, shining moment, we thought we had solved turn detection forever.
 
-## The Experiment Design
+We achieved **100% accuracy**.
 
-We trained four different model variants to test how granular we needed to be. All models were based on **MobileBERT** (chosen for its speed on CPU), but trained on different data slices:
+Then we looked closer.
 
-1.  **Model_General**: Trained on PersonaChat and TURNS-2K (approx. 20k sentences of casual conversation).
-2.  **Model_Domain**: Trained on the AIxBlock Call Center dataset (approx. 73k sentences of real support calls).
-3.  **Model_Agent**: Trained only on the *agent* side of the call center conversations.
-4.  **Model_Customer**: Trained only on the *customer* side.
+## Phase 1: The "Perfect" Model
 
-To prevent the model from simply memorizing sentences, we enforced a **one-shot rule**: every unique sentence appeared exactly once in the training set, either as a complete utterance or a randomly truncated incomplete version.
+We trained four different model variants based on **MobileBERT**, chosen for its speed on CPU. All models were fine-tuned to classify text as "Complete" (turn over) or "Incomplete" (user still speaking).
 
-## Findings: The "Generalization" Myth
+1.  **Model_General**: Trained on PersonaChat and TURNS-2K (casual conversation).
+2.  **Model_Domain**: Trained on the AIxBlock Call Center dataset (support calls).
+3.  **Model_Agent**: Trained only on agent utterances.
+4.  **Model_Customer**: Trained only on customer utterances.
 
-We expected the general model to fail hard on domain-specific jargon. Surprisingly, it didn't.
+To prevent memorization, we enforced a **one-shot rule**: every unique sentence appeared exactly once in the training set.
 
-*   **Model_General** achieved **87.5% accuracy** on call center data.
-*   This was only a **1.1% drop** from its performance on its own general test set (88.6%).
+### The Initial Results
 
-This suggests that MobileBERT's pre-training provides a very robust baseline for understanding sentence structure. It knows that "My name is..." is incomplete, regardless of context.
+When we tested our domain-specific model on the call center test set, the results were literally perfect.
 
-However, **87.5% isn't good enough for a voice bot.** That 12.5% error rate means 1 in 8 turns will be mishandled—either an interruption or a lag.
+<div className="center-full-image">
+    <BlogImage className="center-full-image"
+        images={props.pageContext.frontmatter.images}
+        name="turn-detection-confusion-matrix.png"
+        alt="Confusion Matrix showing 100% accuracy" />
+</div>
 
-## The Power of Specialization
+*   **Model_General**: 87.5% accuracy
+*   **Model_Domain**: **100.0% accuracy**
 
-When we switched to **Model_Domain**, accuracy on the call center test set jumped to **100%**.
+We had improved accuracy by 12.5 percentage points just by switching to domain-specific data. It seemed that "completeness" in a call center context was highly pattern-based, and our model had learned those patterns perfectly.
 
-It turns out that "completeness" in a call center context is highly pattern-based. Customers use specific phrasings ("I'm calling about...", "My account number is...") that distinctively signal whether they are done. By training on the exact domain, the model learned these patterns perfectly.
+We were ready to declare victory. But 100% accuracy in machine learning is usually a red flag. It means you either leaked data into your test set, or your model found a cheat code.
 
-Even more interestingly, the **Model_Agent** and **Model_Customer** variants *also* achieved 100% accuracy on their respective test sets. This suggests that we could potentially deploy ultra-specialized models for each side of the conversation if we really wanted to squeeze out every drop of performance.
+## Phase 2: The Punctuation Trap
 
-## The Technical "Gotcha": MobileBERT's Missing Layer
+We decided to stress-test the model by simulating a real-time stream. In a real voice bot, text arrives word-by-word from the Automatic Speech Recognition (ASR) system.
 
-The most frustrating part of this adventure wasn't the data—it was the model itself.
+We fed the sentence `"Is it a 250 or 350?"` into the model one word at a time to see *when* it decided the turn was complete.
 
-When we first tried to fine-tune `google/mobilebert-uncased` using the standard HuggingFace `MobileBERTForSequenceClassification` class, the training failed completely. Loss stagnated around 0.7 (random guessing), and accuracy refused to budge.
-
-After digging into the architecture, we found the culprit: **MobileBERT lacks the pre-classifier normalization layer found in standard BERT.**
-
-In standard BERT, the pooler output goes through a dense layer and a `Tanh` activation before hitting the classifier. In the default MobileBERT implementation, the raw hidden states were being fed directly into the classifier. This caused gradients to explode or vanish during fine-tuning.
-
-We had to patch the model architecture to inject a `LayerNorm` before the final classification head:
-
-```python
-# The critical fix for MobileBERT fine-tuning
-self.layer_norm = nn.LayerNorm(config.hidden_size)
-self.dropout = nn.Dropout(0.1)
-self.classifier = nn.Linear(config.hidden_size, config.num_labels)
+```text
+| Word(s)             | General Model | Domain Model |
+|---------------------|---------------|--------------|
+| Is                  | Incomplete    | Incomplete   |
+| Is it               | Incomplete    | Incomplete   |
+| Is it a             | Incomplete    | Incomplete   |
+| Is it a 250         | Incomplete    | Incomplete   |
+| Is it a 250 or      | Incomplete    | Incomplete   |
+| Is it a 250 or 350? | Complete      | Complete     |
 ```
 
-With this single change, the training dynamics normalized instantly, and the model converged rapidly.
+Both models held "Incomplete" steadily until the very last token. But look closely at that last token. It has a question mark.
 
-## Why Turn Detection Matters
+We asked a simple question: **What happens if the ASR system is slow to send punctuation?**
 
-Turn detection is a binary decision ("Complete" vs. "Incomplete"), but the cues that matter depend heavily on context. Casual chat looks nothing like a call center script. We wanted to measure how much accuracy we leave on the table when we *don't* train on the right domain.
+We stripped the punctuation from the test set and re-ran the evaluation.
 
-Imagine a support bot that says "Thanks for calling!" while a caller is still spelling their account number, or a three-second silence after "My account number is 12345." Both are turn-detection failures:
+*   Original: `"Is it a 250 or 350?"` → **Complete**
+*   Normalized: `"is it a 250 or 350"` → **Incomplete**
 
-* **False positives** → interrupting humans mid-sentence.
-* **False negatives** → awkward silence after they’re done.
+The results were devastating. Our "perfect" domain model's predictions flipped in **67% of cases** when punctuation was removed.
 
-## Key Findings Summary
+We hadn't built a semantic turn detector. We had built a **punctuation detector**.
 
-1.  **Domain-specific training works**: We saw a 12.5 percentage point improvement on call center data (87.5% → 100%).
-2.  **General models have decent cross-domain transfer**: Only a 1.1pp drop when moving from general to call center (88.6% → 87.5%). MobileBERT's pretraining provides a good baseline generalization.
-3.  **The trade-off is operational, not technical**: "Loss of generalization" is irrelevant (you don't use domain models out-of-domain). The real cost is the engineering work to run several models.
-4.  **MobileBERT needs LayerNorm for fine-tuning**: This was a critical bug fix. Without normalization, gradient explosion occurred. With it, we achieved excellent results.
-5.  **Channel-specific models also achieve 100%**: Both Agent and Customer models hit perfect accuracy, suggesting even finer-grained specialization could work, though at higher operational cost.
+The model had learned a simple rule:
+*   Ends with `.` or `?` → Complete
+*   No punctuation → Incomplete
 
-## Future Directions
+This is useless in production. ASR systems typically insert punctuation *after* they have determined a pause is significant. If our model waits for the punctuation to decide the turn is over, it's just echoing the ASR system's decision 50ms later. We aren't adding intelligence; we're adding latency.
 
-This experiment raised several interesting questions for future work:
+## Phase 3: Forcing Semantic Understanding
 
-*   **Data Efficiency**: We used ~73K call center examples. Could we get 95%+ accuracy with just 10K or 1K examples?
-*   **Hybrid Models**: Could we use multi-task learning or adapter layers to get the best of both worlds without managing multiple full models?
-*   **Other Domains**: Would we see similar gains in healthcare (doctor-patient) or technical support contexts?
-*   **Production Optimization**: Next steps would include ONNX export for faster inference, INT8 quantization, and potentially adding acoustic features (pitch, prosody) for ambiguous cases like "Okay" or "Yes".
+To build a model that actually *understands* when a sentence is grammatically or semantically complete, we had to blind it to the cheat codes.
 
-## The Operational Trade-off
+We retrained all our models on **normalized text**: lowercase, no punctuation.
+*   Original: `"Yeah, that's fine."`
+*   Normalized: `"yeah thats fine"`
 
-If domain-specific training is so effective, why doesn't everyone do it?
+If the model wanted to know if the sentence was done, it would have to learn that "that's fine" is a complete thought, whereas "that's fine if" is not.
 
-The trade-off isn't technical; it's operational. A general model is easy to deploy: one API, one endpoint, one maintenance cycle. Domain-specific models require you to manage a fleet of models—one for banking, one for healthcare, one for retail.
+### The Real Results
 
-But our experiment proves the value is there. For high-volume enterprise voice bots where customer experience is paramount, that 12.5 percentage point improvement is the difference between a "robotic" IVR and a fluid, human-like conversation.
+On the normalized test set, the truth came out.
 
-You can replicate our results, download the datasets, and see the normalization fix in our repo:
+*   **General Normalized**: 72.2% accuracy on call center data.
+*   **Domain Normalized**: **77.9% accuracy** on call center data.
 
-<CitationsList>
-  <Citation id="1" link="https://github.com/AnthusAI/turn-detector-fine-tuning">
-    Anthus AI. (2025). <i>Domain-Specific Fine-Tuning for Turn Detection</i>. GitHub.
-  </Citation>
-  <Citation id="2" link="https://huggingface.co/google/mobilebert-uncased">
-    Google. <i>MobileBERT: a Compact Task-Agnostic BERT for Resource-Limited Devices</i>. Hugging Face.
-  </Citation>
-</CitationsList>
+The 100% was a mirage. The real accuracy of semantic turn detection was roughly 78%.
+
+However, this result was actually *more* exciting. It proved that **models can learn turn completion from text alone**, without relying on punctuation. The domain-specific training still provided a **5.7 percentage point lift** (77.9% vs 72.2%).
+
+We had traded fake perfection for real, robust utility. This model could now work on raw ASR streams and provide an independent signal about turn completion.
+
+## Phase 4: Operationalizing the Imperfect
+
+So we have a model that is 78% accurate. Is that good enough?
+
+In a 20-turn conversation, an 80% accuracy rate implies 4 errors. Those errors come in two flavors:
+1.  **Interruptions**: Predicting "Complete" too early.
+2.  **Missed Turns**: Predicting "Incomplete" when the user is done.
+
+For customer service, interruptions are deadly. They make the bot feel aggressive and "broken." Missed turns just feel like lag.
+
+We analyzed the **Interruption Rate (IR)** of our new normalized model and found it was interrupting users in **22.4%** of turns. That's way too high.
+
+But we realized we could tune the **decision threshold**. By default, the model predicts "Complete" if confidence > 50%. By raising that bar, we can tell the model: "Only interrupt the user if you are *really* sure."
+
+<div className="center-full-image">
+    <BlogImage className="center-full-image"
+        images={props.pageContext.frontmatter.images}
+        name="turn-detection-threshold-optimization.png"
+        alt="Threshold optimization chart showing trade-off between interruptions and missed turns" />
+</div>
+
+By raising the threshold to **0.74**, we reduced the interruption rate from 12.4% to **5.1%**. The trade-off was a higher Missed Turn Rate (18.7%), meaning the bot would sometimes wait a bit longer to confirm the user was done. For a polite support bot, this is the right trade-off.
+
+## A Note on Training Infrastructure
+
+We approached this experiment with a hybrid workflow. For rapid debugging and code development, we ran training locally on MacBook Pros with M-series chips (Apple Silicon), which are surprisingly capable for fine-tuning smaller BERT models.
+
+However, when it came time to run the full suite of experiments—training four model variants across multiple phases (Original vs. Normalized)—we offloaded the work to AWS SageMaker. By spinning up `ml.g4dn.xlarge` instances on demand, we could launch all experiments simultaneously and get results in under an hour, rather than waiting for days of sequential local training.
+
+The codebase is designed to be infrastructure-agnostic. The training script relies on the standard Hugging Face `Trainer` API, so you can run the exact same code on your laptop or scale it up to the cloud if you don't have powerful local hardware.
+
+## The Lessons
+
+Our journey from "100% accuracy" to "78% accuracy" taught us three things about AI development:
+
+1.  **Distrust Perfection**: If a model scores 100%, it's probably cheating. In our case, it was overfitting to ASR punctuation artifacts.
+2.  **Test Like You Fly**: Our initial test set had perfect punctuation. Real-time ASR streams don't. Testing on normalized text revealed the model's true capabilities.
+3.  **Metrics Aren't Operations**: accuracy is a research metric. In production, you care about **Interruption Rate** vs. **Latency**. Threshold tuning allows you to convert a "mediocre" model into a highly effective product by choosing the right errors to minimize.
+
+You can replicate our results, download the datasets, and see the full code in our [GitHub repository](https://github.com/AnthusAI/turn-detector-fine-tuning).
