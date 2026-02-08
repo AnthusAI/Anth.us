@@ -1,0 +1,607 @@
+---
+title: "Cybernetic Development"
+slug: "cybernetic-development"
+date: "2026-02-07"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "Vibe Coding is the engine, but cybernetic development is the governor. Why the future of coding is managing agents with Behavior-Driven Design."
+preview_image: "./images/cybernetic-development.png"
+images:
+  - ./images/cybernetic-development.png
+state: draft
+tags:
+  - articles
+  - agile
+  - ai-coding
+  - bdd
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<div className="center-small-image">
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="cybernetic-development.png"
+    className="full"
+    alt="A neon cityscape blending human intuition with circuitry"
+  />
+</div>
+
+There is a widening gap in the world of AI software development. On one side, you have the "Vibe Coders": enthusiastic experimenters who can prompt a prototype into existence in minutes. They ride the wave of LLM generation, treating code like a disposable medium. It feels like magic. It feels fast. But all too often, it hits a wall—the "it runs on my machine" prototype that collapses under the weight of edge cases, security reviews, and maintenance realities.
+
+On the other side, there is a different class of developer. These were often the "10x developers" of the pre-AI era—the ones who obsessed over architecture, testing, and maintainability. They haven't been replaced by AI; they've become **100x developers**.
+
+They aren't just "coding faster." They are applying the hard-won lessons of the last 80 years of software engineering to a new, higher level of abstraction. They don't just prompt; they govern.
+
+More importantly, they decide what code should exist at all: what problems to solve in code, what problems to solve in process, and what problems to eliminate instead of "fix."
+
+This represents a **cybernetic approach to development**.
+
+## Retrieving "Cybernetics" from the 90s
+
+The word "cyber" got dragged through the mud in the 90s. It became a prefix for everything on the "Information Superhighway," evoking images of bad CGI hackers and leather trench coats. Before that, science fiction used it for cyborgs—part man, part machine.
+
+But beneath the "cyber-washing" lies a powerful, practical concept.
+
+Coined by Norbert Wiener in 1948 from the Greek *kybernētēs* (steersman), cybernetics is simply the study of **two systems interacting to steer a course**.
+
+A cybernetic system has two distinct parts:
+1.  **The Engine:** The force that drives the system forward (Energy).
+2.  **The Governor:** The feedback loop that steers the engine (Information).
+
+Cybernetics also gives us a constraint: **Ashby's Law of Requisite Variety**. A Governor can't reliably control a system that has more "states" than it can represent. If your Engine can generate a thousand variants overnight, your Governor must either match that variety (more specs, more checks) or reduce it (simplify, standardize, delete degrees of freedom).<Citation
+  data={{
+    type: "book",
+    title: "An Introduction to Cybernetics",
+    author: "W. Ross Ashby",
+    issued: { "date-parts": [[1956]] },
+  }}
+/>
+
+This mirrors the structure of the human brain itself. As Daniel Kahneman described in *Thinking, Fast and Slow*, we operate with two systems. **System 1** is fast, intuitive, and emotional (the Engine). **System 2** is slow, deliberate, and logical (the Governor).<Citation
+  data={{
+    type: "book",
+    title: "Thinking, Fast and Slow",
+    author: "Daniel Kahneman",
+    publisher: "Farrar, Straus and Giroux",
+    issued: { "date-parts": [[2011]] },
+  }}
+/>
+
+We are cybernetic systems. And now, we are externalizing that structure into our software development.
+
+*   **Vibe Coding (LLMs)** is the externalized **System 1**. It is pure intuition, pattern matching, and "vibes." It provides raw, explosive generative power.
+*   **Engineering Discipline (BDD/TDD)** is the externalized **System 2**. It provides the logic, constraints, and verification that the AI lacks.
+
+The 100x developer isn't just shoveling coal into the engine; they are designing the System 2 structure to govern the System 1 chaos.
+
+Even Andrej Karpathy, who coined the term "vibe coding" in early 2025<Citation
+  data={{
+    type: "webpage",
+    "container-title": "X (formerly Twitter)",
+    title: "Andrej Karpathy on Vibe Coding",
+    author: "Andrej Karpathy",
+    URL: "https://x.com/karpathy/status/1886192184808149383",
+    issued: { "date-parts": [[2025, 2, 2]] },
+  }}
+/>, recognized this shift just a year later. Reflecting on the concept's anniversary, he noted that while vibe coding started as a way to build "fun throwaway projects," the industry quickly moved toward something more rigorous. He called it **"Agentic Engineering"**—where you claim the leverage of agents without compromising on quality.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "X (formerly Twitter)",
+    title: "Andrej Karpathy on Vibe Coding Anniversary",
+    author: "Andrej Karpathy",
+    URL: "https://x.com/karpathy/status/2019137879310836075",
+    issued: { "date-parts": [[2026, 2, 4]] },
+  }}
+/>
+
+Karpathy's "Agentic Engineering" confirms the core thesis of a cybernetic approach to development. It validates that the future of software isn't about writing code; it is about steering it.
+
+## The Great Divergence: Guardrails vs. Razor Blades
+
+We are witnessing a divergence in the software world. On one path, teams are adopting tools like **Moltbot** or **Clawdbot**—systems that give an AI agent full access to the file system and network by default. It's intoxicating. It's also how you manufacture **AI Slop**: brittle, insecure software that collapses under its own weight.
+
+**AI Slop is uncoordinated debt.** In the old world, software decisions were slow, collaborative, and political (in a good way). Humans sat in breakrooms, overheard conversations, and aligned their code with the messy reality of the business. Bugs were caught early because context was shared.
+
+AI doesn't sit in the breakroom. It has no context outside its prompt. It optimizes for the narrow task, not the organizational reality.
+
+When you combine this lack of context with lightning speed, you get a massive **Blast Radius of Misalignment**. A single hallucinated design choice or leaky abstraction can propagate into thousands of files overnight. Instead of shifting left to catch bugs early, we are generating them at scale instantly.
+
+### From Bugs to Organizational Accidents
+
+In the pre-AI world, many failures looked like *bugs*: a wrong condition, a missing null check, an off-by-one. They were local, deterministic, and relatively reproducible.
+
+In multi-agent development, failures start to look like *operations*. They emerge from interactions: handoffs between agents, partial context, racing changes, misaligned incentives, and assumptions that hold in CI but fail in production. You can have immaculate unit tests and still ship a latent condition, because the failure doesn't live in any single function. It lives in the system.
+
+Safety researcher James Reason studied what he called **organizational accidents**: disasters that don't come from one dramatic mistake, but from many small weaknesses that quietly accumulate until they align. His **Swiss Cheese model** describes safety as layers of defense, each imperfect, each with holes. Accidents happen when the holes line up across layers.<Citation
+  data={{
+    type: "book",
+    title: "Human Error",
+    author: "James Reason",
+    publisher: "Cambridge University Press",
+    issued: { "date-parts": [[1990]] },
+  }}
+/>
+
+Reason also distinguished between:
+
+*   **Active failures:** the visible mistakes at the sharp end (a pilot error, a wrong button, a missed checklist).
+*   **Latent conditions:** the invisible system decisions that make those mistakes likely (training gaps, bad incentives, missing safeguards).<Citation
+  data={{
+    type: "book",
+    title: "Managing the Risks of Organizational Accidents",
+    author: "James Reason",
+    publisher: "Ashgate",
+    issued: { "date-parts": [[1997]] },
+  }}
+/>
+
+In agentic software, hallucinated imports and broken edge cases are **active failures**. But "give the agent full filesystem + network and hope" is a **latent condition**. So is merging without CI gates. So is shipping without canaries. So is optimizing for a metric that can be gamed.
+
+The cybernetic developer's job is to engineer the cheese: **defense in depth** that assumes the agent will be wrong sometimes—and makes it hard for a wrong thing to become a catastrophic thing.
+
+This phenomenon is known as **Jevons Paradox**. In 1865, economist William Stanley Jevons observed that as steam engines became more efficient with coal, coal consumption didn't go down—it went *up*, because steam engines became useful for more things.<Citation
+  data={{
+    type: "book",
+    title: "The Coal Question: An Inquiry Concerning the Progress of the Nation, and the Probable Exhaustion of Our Coal-Mines",
+    author: "William Stanley Jevons",
+    publisher: "Macmillan and Co.",
+    issued: { "date-parts": [[1865]] },
+  }}
+/>
+
+In the AI era, code is the new coal. As AI makes code generation cheaper, we won't write *less* code; we will write **exponentially more**. We will drown in features, microservices, and "ideas."
+
+This leads to the **Death of Reuse**. Why build a reusable library when you can just prompt a new version instantly? Instead of a "PyTorch Moment"—where the industry centralizes on high-quality shared infrastructure—we get a million shoddy, one-off implementations. We stop building cathedrals and start building favelas.
+
+The only way to survive Jevons Paradox is to artificially constrain the supply. The cybernetic developer fights this entropy by strictly limiting what is allowed to exist. They use the Governor to say "No" to the infinite supply of slop.
+
+On the other path, we have the **cybernetic developers**. They understand that the best AI solutions put guardrails around the agents. They use containerized sandboxes, deny network access by default, and provide only the tools the agent absolutely needs.
+
+## The Evolution of the Interface
+
+To understand this shift, we have to look at the history of how humans talk to machines. Computer programmers have followed a consistent pattern for more than 80 years: moving their thought processes to higher and higher levels of abstraction.
+
+1.  **Machine Code:** We started by toggling switches and writing binary.
+    ```text
+    01010101 00101010 11010101
+    ```
+
+2.  **Assembler:** We moved to mnemonics that mapped directly to the hardware.
+    ```assembly
+    MOV AX, 1
+    ADD AX, 2
+    ```
+
+3.  **High-Level Languages:** We abstracted the hardware away to write in logic.
+    ```c
+    int result = 1 + 2;
+    ```
+
+4.  **Very High-Level Languages:** Languages like Ruby pushed the abstraction further, aiming for "pseudocode" readability.
+    ```ruby
+    result = 1 + 2
+    ```
+
+5.  **Gherkin & Behavior Specification:** We are now moving to the next layer—describing *what* the system does, not *how* it does it, in structured English phrases.
+    ```gherkin
+    Given I have the number 1
+    When I add 2
+    Then the result should be 3
+    ```
+
+The interface is no longer the syntax tree; it is the **Behavior Specification** (Gherkin).
+
+"Vibe coding" is effectively a behavior specification: You tell the AI assistant what behavior you want. But the 100x gurus know the power of recording those specifications as executable, repeatable code that pairs hand-in-hand with the functional code.
+
+**Treating specifications as "tests" is the wrong mental model.** In this new world, functional code is a generated artifact of the specifications. The specifications truly come first.
+
+This used to be a pedantic, unrealistic ideal. Even religious practitioners of BDD rarely wrote specs first or achieved 100% test coverage because the friction was too high. But AI has removed that friction. If you just think about how fast you can make a prototype by vibe coding it on a Tuesday night, you are missing the huge part of what has changed.
+
+Gherkin sits at the perfect intersection for this moment: it is structured enough to be a rigorous constraint (Given/When/Then), but it is natural enough to be the native tongue of an LLM.
+
+*   **For the Human:** It allows you to define strict boundaries without getting lost in implementation details.
+*   **For the AI:** It provides clear, unambiguous instructions in the language it understands best (English), which it can then translate into the language it executes best (Code).
+
+This shift explains why a cybernetic approach to development is necessary *now*. When you operate at Level 5 (Intent), the "how" becomes invisible. You need a new mechanism to verify that the generated code actually matches the intent. That mechanism is the cybernetic loop.
+
+## The Principles of Cybernetic Development
+
+The secret of the new 100x developer is that they are *more* disciplined than their predecessors, not less. When code is generated "under the hood," the risk of rot increases. You can no longer rely on scanning every line with your eyes. You need agents and systems to do it for you.
+
+Here is how the core principles of Agile and Software Engineering apply when the implementation is invisible.
+
+### 1. Technical Excellence & 100% Test Coverage (Continuously Improve)
+
+> "Continuous attention to technical excellence and good design enhances agility." — *Agile Manifesto*
+
+In the old world, **100% test coverage** was often a fool's errand. It yielded diminishing returns. But in a world where an AI writes the implementation, 100% coverage becomes the **baseline requirement**.
+
+If the code isn't covered by a test (or a behavior spec), it effectively doesn't exist. It is non-deterministic matter. You can configure your agents and linters to treat *untested code as an error*.
+
+*   **Then:** "We have 80% coverage, that's good enough."
+*   **Now:** "The agent cannot merge this PR because coverage dropped to 99.8%."
+
+But coverage is a floor, not a shield. You can cover every line and still miss the thing that breaks in production: the bad assumption, the untested integration boundary, or the multi-agent coordination failure. In agentic systems, the visible "bug" is often just the last hole that lined up.
+
+So yes: enforce coverage. But demand *meaningful* coverage. Prefer behavior specs, invariants, and regression tests derived from real incidents over tests that exist only to satisfy a number.
+
+This aligns with our core value: **Continuously Improve**. You mitigate the risk of rapid change by making lots of small, verifiable changes—and by turning every failure into a new constraint the system must respect.
+
+### 2. Defense in Depth & Operational Feedback (Engineer the Swiss Cheese)
+
+In a world of multi-agent systems, the failure patterns start to resemble **organizational accidents** more than traditional software bugs. Many of the scariest failures are **latent conditions**: missing safeguards, oversized blast radii, ambiguous specs, and incentives that reward the wrong thing.
+
+The lesson of the Swiss Cheese model is not "write better code." It's **build layers of defense**, then continuously patch the holes.
+
+A cybernetic developer builds Governors at multiple layers:
+
+*   **Tool Governors:** Sandboxes, least-privilege permissions, and explicit tool access so agents can't accidentally turn a small mistake into a repo-wide incident.
+*   **Merge Governors:** Linting, type checks, unit tests, integration tests, and security checks that block bad changes before they land.
+*   **Release Governors:** Staging, canary deploys, feature flags, and automatic rollback so production becomes a *measured experiment*, not a leap of faith.
+*   **Runtime Governors:** Rate limits, timeouts, circuit breakers, validation, and kill switches that keep failures bounded.
+*   **Learning Governors:** Blameless postmortems and incident reviews that feed new tests, new specs, new guardrails—or sometimes a hard simplification that eliminates the failure mode entirely.
+
+This is where 100x judgment lives. When a system fails, the question isn't only "What code do we change?" It's "What layer should absorb this next time?" Sometimes the right fix is a unit test. Sometimes it's changing the spec. Sometimes it's removing agent permissions. Sometimes it's deleting the feature.
+
+### 3. Gherkin: The Language of the Governor
+
+This isn't a new idea. In 2006, Dan North introduced **Behavior-Driven Development (BDD)** to solve the confusion around TDD.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Dan North & Associates",
+    title: "Introducing BDD",
+    author: "Dan North",
+    URL: "https://dannorth.net/introducing-bdd/",
+    issued: { "date-parts": [[2006, 3, 1]] },
+  }}
+/> He realized that talking about "tests" confused people, but talking about "behavior" clarified intent. He introduced Gherkin—the `Given-When-Then` syntax—to make specifications readable by humans (stakeholders) but executable by machines.
+
+For years, BDD was a "nice to have" bridge between product managers and engineers. In the AI era, it is becoming the **primary source code**.
+
+Why? Because BDD is the perfect language for an AI agent.
+
+*   **It is human-readable:** You can audit the AI's understanding without reading the implementation code.
+*   **It is machine-executable:** It serves as a strict test that the AI cannot fake.
+*   **It is behaviorist:** It cares only about the output, effectively treating the AI-generated implementation as a black box (a "Skinner box" for code).
+
+When you are the Governor, you might not look at the implementation code at all. You interact primarily through language. Gherkin allows you to capture that language—your intent—and turn it into an executable contract.
+
+*   **Broad Constraints:** At the start, the guardrails are wide ("The app must start without crashing"). The AI has high agency to explore architectures and frameworks.
+*   **Narrowing Constraints:** As you iterate, you add more BDD scenarios. The guardrails tighten. The AI's agency is restricted to smaller and smaller implementation details, guiding it inevitably toward the specific outcome you need.
+
+This balance is key: You want the AI to have **agency**, but you need **constraints**. BDD is the mechanism that forces **eventual consistency** between the code and your intent.
+
+### 4. The New Power Players: Product Owners as Cybernetic Developers (Focus on Business Logic)
+
+If Gherkin is the interface, then the most powerful people in the room are no longer necessarily the ones who know the most C++ syntax. They are the **Product Managers, Executives, and Domain Experts**—the people who deeply understand the *goal*.
+
+This fulfills the prophecy made by Werner Vogels, CTO of Amazon, at AWS re:Invent 2017: **"All the code you will ever write is business logic."**<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Medium",
+    title: "All the Code You Will Ever Write Is Business Logic",
+    author: "Better Programming",
+    URL: "https://betterprogramming.pub/all-the-code-you-will-ever-write-is-business-logic-2dc0acf47cef",
+    issued: { "date-parts": [[2017, 11, 30]] },
+  }}
+/>
+
+Vogels argued that managed services would abstract away the "undifferentiated heavy lifting" of infrastructure. He was right, but he didn't foresee the second half of the equation: AI would abstract away the undifferentiated heavy lifting of the *syntax itself*.
+
+In this new world, the only code you should be *thinking* about is the business logic that solves real problems.
+
+In the past, these people had to rely on a translator (the engineer) to turn their vision into software. Now, they can communicate that vision directly to the Governor through Gherkin.
+
+```gherkin
+Feature: Premium File Upload
+
+  Scenario: User uploads a large file
+    Given a user with a "Premium" account
+    When they upload a file named "video.mp4" sized 500MB
+    Then the upload should complete successfully
+    And the file should be stored in the "premium-uploads" bucket
+    And a notification should be sent to the "analytics" service
+```
+
+*   **The Product Owner** defines the behavior (the Gherkin above).
+*   **The AI Agent** implements the logic to make that pass (likely in Ruby or Python, which are easy for the agent to reason about).
+*   **The cybernetic loop** verifies that the logic matches the behavior.
+
+You still need expertise "under the hood" to handle architectural decisions. For example, if you are building this on AWS, you might use **Infrastructure as Code** to define the resources.
+
+Here is where the 100x developer's knowledge shines. They know that **AWS CDK** allows you to define cloud infrastructure using familiar languages like Go. They can verify that the underlying structure supports the high-level intent.
+
+```go
+// Defining an S3 bucket and a Lambda trigger in AWS CDK (Go)
+func NewStack(scope constructs.Construct, id string, props *awscdk.StackProps) awscdk.Stack {
+    stack := awscdk.NewStack(scope, &id, props)
+
+    // The bucket for our premium uploads
+    bucket := awss3.NewBucket(stack, jsii.String("PremiumUploads"), &awss3.BucketProps{
+        Versioned: jsii.Bool(true),
+    })
+
+    // The lambda that processes the file
+    processor := awslambda.NewFunction(stack, jsii.String("Processor"), &awslambda.FunctionProps{
+        Runtime: awslambda.Runtime_GO_1_X(),
+        Handler: jsii.String("main"),
+        Code:    awslambda.Code_FromAsset(jsii.String("lambda"), nil),
+    })
+
+    // Trigger the lambda when a new object is created
+    bucket.AddEventNotification(
+        awss3.EventType_OBJECT_CREATED,
+        awss3notifications.NewLambdaDestination(processor),
+    )
+
+    return stack
+}
+```
+
+The Product Owner doesn't need to read this Go code. But the **cybernetic developer** knows it's there, ensures it's correct, and uses the Gherkin spec to verify that it actually does what the business needs.
+
+### 5. Everything as Code (Implement Infrastructure as Code)
+
+The cybernetic developer understands that **code is the only artifact that matters**, because code is the only thing the AI can reliably generate, version, and improve.
+
+This is the ultimate expression of the value: **Implement Infrastructure as Code**. Every aspect of a production system should be created and configured by code so that it's reproducible, not manually.
+
+In the Vibe Coding world, you might manually click through the AWS console to set up a database. In the cybernetic world, that is heresy. If you click it, you can't version it. If you can't version it, the AI can't manage it.
+
+*   **Infrastructure as Code (IaC):** You don't ask the AI to "help me set up a server." You ask it to "write the Terraform or CDK code to define a server."
+*   **Database as Code:** You don't manually create tables. You ask the AI to write migration scripts.
+*   **Agents as Code:** You don't just chat with an agent. You define the agent's prompts and tools in code, version-controlled alongside the app it builds.
+
+When **everything** is code—infrastructure, database, logic, and even the agents themselves—you unlock the full power of the swarm. A single developer can now orchestrate an entire enterprise IT department's worth of output, simply by managing the code artifacts that define it.
+
+#### Case Study: The $260 Migration
+
+Lee Robinson, VP of Developer Experience at Vercel, provided a perfect validation of this principle when he migrated cursor.com from a CMS back to raw code.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Lee Robinson",
+    title: "Coding Agents & Complexity Budgets",
+    author: "Lee Robinson",
+    URL: "https://leerob.com/agents",
+    issued: { "date-parts": [[2025, 12, 1]] },
+  }}
+/>
+
+He found that while the CMS was supposed to make things "easier" for non-developers, it actually created a "cost of abstraction" that blocked AI agents from being useful. "The cost of abstractions with AI is very high," he noted. "Over abstraction was always annoying and a code smell but now there’s an easy solution: spend tokens."
+
+By moving everything back to Markdown and Git—making it "code"—he was able to use agents to migrate the entire site in a weekend for just $260 in tokens. He deleted 322,000 lines of code and removed the complexity that was choking the system.
+
+This proves that **simplifying to code** isn't a step backward; it is the necessary step forward to unlock the cybernetic workforce.
+
+This highlights the **"Abstraction Tax"**—a concept Nate B. Jones identifies as the hidden cost of modern software. Tools built for human convenience (GUIs, wizards, CMS dashboards) are obstacles for agents. To enable cybernetic development, you must pay down this tax by exposing the system's primitives (files, state, config) directly to the swarm.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Nate's Newsletter",
+    title: "Executive Briefing: What Cursor’s $57K CMS Deletion Reveals About Where Agent Value Actually Lives",
+    author: "Nate B. Jones",
+    URL: "https://natesnewsletter.substack.com/p/executive-briefing-what-cursors-57k",
+    issued: { "date-parts": [[2025, 12, 14]] },
+  }}
+/>
+
+### 6. DRY (Don't Repeat Yourself) & Refactoring
+
+AI models love to repeat themselves. They will happily generate the same utility function in five different files. This creates a maintenance nightmare.
+
+The cybernetic developer aggressively manages this debt. They don't just "add features"; they task agents with **refactoring missions**: "Analyze the `src/utils` folder, identify duplicate logic, and consolidate it into a single shared library."
+
+Refactoring is no longer a chore you delay; it's a continuous, agent-driven process of pruning the garden.
+
+### 7. Simplicity, YAGNI, & Problem Elimination
+
+The human role in the cybernetic loop is **Constraint**. The temptation with AI is to over-engineer. "Build me a microservice architecture for this To-Do app." The AI will happily oblige, creating a monstrosity.
+
+You must be the guardian of Simplicity. You enforce YAGNI because the cost of *generating* code is near zero, but the cost of *owning* code is still high.
+
+But cybernetic development adds a sharper rule: **eliminate problems when you can.** The cheapest bug is the branch you never wrote. Deleting a feature, removing a configuration knob, or choosing a boring architecture reduces the number of states the Governor must control—and removes entire categories of failure.
+
+This is how you respond to Reason-style failures. When the system is too complex to fully anticipate, you don't just "test harder" forever. You reduce coupling. You reduce degrees of freedom. You make the safe path the default.
+
+This connects to the concept of <a href="/the-rise-of-single-use-software">Single-Use Software</a>. There is a time and place for disposable scripts (solving a one-off problem tonight). But applying that disposable mindset to long-term infrastructure is how you build a legacy of debt. The Cybernetic Developer knows the difference: generate the script, but **govern the system**.
+
+### 8. Limiting Work in Progress (Optimize Resource Usage)
+
+When you have infinite coding labor, the temptation is to start infinite projects. Why not have the AI build the website, the mobile app, and the admin dashboard all at once?
+
+Because **you are the bottleneck.**
+
+This touches on the value to **Optimize Resource Usage**. In the AI era, the scarce resource isn't compute; it is **human attention**. Burning your cognitive load on 20 stalled projects is the opposite of optimization.
+
+**Little's Law** teaches us that the more things you work on simultaneously, the slower each one finishes.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Wikipedia",
+    title: "Little's Law",
+    author: "Wikipedia contributors",
+    URL: "https://en.wikipedia.org/wiki/Little%27s_Law",
+    issued: { "date-parts": [[2024, 1, 1]] },
+  }}
+/> If you have 20 agents working on 20 features, the *cycle time* for any single feature explodes. You become overwhelmed with reviewing, testing, and integrating.
+
+The cybernetic developer enforces strict **Work in Progress (WIP)** limits. They force the system to finish one cybernetic loop (Spec -> Code -> Pass) before starting the next. This keeps the feedback loop tight and prevents the "illusion of progress" where everything is started but nothing is done.
+
+## Agents as Enforcers, Not Just Creators
+
+The most critical shift is elevating the AI agent from a "junior coder" to a "quality enforcer."
+
+*   **The Collaborator:** The agent that pairs with you to write features (Vibe Coding layer).
+*   **The Enforcer:** The agent that refuses to accept code that violates SOLID principles.
+*   **The Janitor:** The agent that wakes up at 3 AM to upgrade dependencies and run regression tests.
+
+This isn't just about speed; it is about survival.
+
+## The Lost Art of the Trenches: Primitive Fluency
+
+There is a paradox in this new world. The principles of cybernetic development—limiting WIP, managing technical debt, architectural restraint—were historically learned "in the trenches." You learned Little's Law not from a blog post, but by watching a project collapse because you tried to do too much at once.
+
+### Disney World vs. The Command Line
+
+In his 1999 essay *In the Beginning... Was the Command Line*, Neal Stephenson argued that Operating Systems are worldviews. He compared the GUI (Windows/Mac) to "Disney World"—a mediated reality where the messy plumbing is hidden behind pleasant metaphors. The Command Line, by contrast, is "unmediated reality"—unforgiving, but real.<Citation
+  data={{
+    type: "book",
+    title: "In the Beginning... Was the Command Line",
+    author: "Neal Stephenson",
+    publisher: "Avon Books",
+    issued: { "date-parts": [[1999]] },
+  }}
+/>
+
+"Vibe Coding" is the new Disney World. It is a sensory deprivation tank that hides the messy reality of code behind a pleasant chat interface. The Vibe Coder thinks software creation is just asking for what you want.
+
+The cybernetic developer refuses to live in Disney World. They know that eventually, the plumbing breaks.
+
+This is the **Law of Leaky Abstractions**: "All non-trivial abstractions, to some degree, are leaky."<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Joel on Software",
+    title: "The Law of Leaky Abstractions",
+    author: "Joel Spolsky",
+    URL: "https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/",
+    issued: { "date-parts": [[2002, 11, 11]] },
+  }}
+/>
+
+AI is the ultimate abstraction—it tries to abstract away the *act of thinking*. But it leaks. It hallucinates libraries that don't exist. It writes code that has race conditions.
+
+Sometimes, these leaks are actually **creative features**. When an AI hallucinates, it is connecting dots that don't exist—which is the definition of creativity ("What if there was an Uber for pet food?"). But in engineering, a leak is a bug. The cybernetic developer knows the difference: they use the hallucinations for brainstorming (System 1) but patch the leaks for production (System 2).
+
+They maintain **Primitive Fluency**—the ability to touch the bare metal—because they know that *someone* has to be there to fix the leaks when the abstraction fails.
+
+If the "trenches" are disappearing because AI handles the low-level implementation, where will the next generation of cybernetic developers come from?
+
+The answer lies in what Nate B. Jones calls **"Primitive Fluency."**
+
+The 100x developer doesn't need to be fluent in C++ syntax (the agent handles that). They need to be fluent in the **primitives of the system**: files, permissions, git states, database migrations, and rollback strategies.
+
+*   **Vibe Coder Skill:** Prompting "Fix the bug."
+*   **Cybernetic Developer Skill:** Understanding that the bug was caused by a race condition in the state management primitive and directing the agent to implement a mutex.
+
+If everyone enters the field through Vibe Coding—expecting instant results and ignoring the underlying primitives—we risk a crisis of competency. We will have millions of people who can generate a demo in an afternoon, but very few who can keep a system alive for a year.
+
+**The danger is the illusion of competence.** Vibe coding makes you feel like a senior engineer because you produced code. But without the governance of the cybernetic loop, you are just increasing risk at machine speed. You are building technical debt faster than any human team ever could.
+
+## The Miracle is Not That AI Writes Code
+
+The miracle is that **we can finally afford to be careful.**
+
+In the past, "best practices" were aspirational. We *should* have 100% test coverage. We *should* do a security audit on every commit. We *should* refactor for readability. But we didn't, because we had deadlines and finite human energy.
+
+AI turns craftsmanship into infrastructure.
+
+*   **Humans Provide:** Intent, Taste, and Values (The Governor).
+*   **AI Provides:** Exhaustive exploration, tireless implementation, and mechanical rigor (The Engine).
+
+The scarce resource is no longer code; it is **judgment**.
+
+The job of the programmer didn't disappear; it inverted. The value used to be "I can type correct syntax." Now the value is "I can specify, evaluate, and steer complex systems toward the right outcome."
+
+The new skill isn't syntax. It is **Primitive Fluency**—the ability to understand the artifacts that make the system reliable, shippable, and revertible.
+
+## The Economics of Verification
+
+The fundamental shift that AI brings is that the **marginal cost of generating code has dropped to near zero**.
+
+In the Vibe Coding model, you have infinite generation but manual verification (you reading the code, running the app, checking for bugs). This is an economic trap. As code volume explodes, your ability to verify it linearly collapses. You effectively "go bankrupt" on verification debt.
+
+In cybernetic development, you use BDD/TDD to drive the **marginal cost of verification down to near zero** as well. The automated tests *are* the cheap verification that balances the cheap generation.
+
+But not all verification is knowable upfront. Many agentic failures are emergent and only appear under real traffic, real data, and real organizational pressure. That’s why the cybernetic loop can’t stop at CI. You need runtime feedback loops—staged rollouts, telemetry, and postmortems—that turn production into a controlled experiment instead of a cliff.
+
+You cannot afford to use a 100x generator with a 1x verifier. You need a 100x verifier. That is what the cybernetic loop is.
+
+## The Mirror of the Mind
+
+Conway's Law states that software reflects the communication structure of the team that built it. In AI development, the "team" is often just **You + The Swarm**.
+
+Therefore, the software will purely reflect the **clarity of your thought**.
+
+If your Gherkin specs are fuzzy, the code will be hallucinated garbage. Vibe coding hides fuzzy thinking behind lucky generations. Cybernetic development *forces* clear thinking. The "100x developer" isn't a better coder; they are a **clearer thinker**.
+
+This connects back to the "Lost Art" section—the skill to learn isn't syntax, it is *articulation*.
+
+## A Fork in the Road
+
+Every day, the gap widens between the apprentices who are denied the chance to learn and the gurus who are accelerating away from them. Junior developers have fewer opportunities to gain the judgment that turns out to be the one useful thing humans have left to contribute.
+
+We are reaching a fork in the road.
+
+If we do not deliberately train the next generation in the principles of cybernetic development, humanity will be forced to depend on machines to create the software that dictates the boundaries of our lives—simply because there won't be enough qualified humans left who remember how to do it.
+
+## Vibe Coding is the Engine, but Governance is the Governor
+
+This isn't to say Vibe Coding is bad. It is vital. It is the creative spark, the rapid prototype, the joy of creation. But without a Governor, the Engine just redlines until it tears itself apart.
+
+This approach allows you to **Collaborate with AI Humanely**. We recognize that human time and attention are the most scarce resources. By offloading the implementation to the AI while keeping the governance with the human, we scale our attention without burning out.
+
+The 100x developer understands that **Vibe Coding is the first step, not the only step.** They use the vibe to explore, to brainstorm, to find the "what." But then they switch to the cybernetic loop to build the "how." They wrap that raw creativity in the safety harness of BDD, TDD, and solid engineering principles.
+
+They know that the goal isn't just to write code; it's to build a sustainable, valuable system that survives contact with reality.
+
+This mirrors the **"Centaur" model** of chess. After Deep Blue defeated Garry Kasparov, chess didn't die—it evolved. Players realized that a weak human + a weak computer + a strong process could defeat a strong computer alone.<Citation
+  data={{
+    type: "book",
+    title: "Deep Thinking: Where Machine Intelligence Ends and Human Creativity Begins",
+    author: "Garry Kasparov",
+    publisher: "PublicAffairs",
+    issued: { "date-parts": [[2017, 5, 2]] },
+  }}
+/>
+
+The cybernetic developer is the ultimate Centaur. They don't try to out-calculate the AI (write code faster); they use the AI to verify their strategic intent.
+
+*   **Vibe Coder:** Letting the Computer play alone.
+*   **Cybernetic Developer:** Human Intent + Machine Execution + Cybernetic Process.
+
+## Becoming the Governor
+
+The path to 100x isn't about buying a better AI tool. It's about mastering the systems that govern them.
+
+The danger of losing this mastery is what aviation calls the **"Glass Cockpit" problem**. As planes became fully automated ("Fly-by-wire"), pilots spent 99% of their time monitoring systems rather than flying. When the automation failed, they had lost the "stick-and-rudder" skills to recover the plane.<Citation
+  data={{
+    type: "report",
+    title: "Operational Use of Flight Path Management Systems",
+    author: "PARC/CAST Flight Deck Automation Working Group",
+    publisher: "Federal Aviation Administration",
+    issued: { "date-parts": [[2013, 9, 5]] },
+  }}
+/>
+
+If AI does 99% of the coding, the human developer risks losing their stick-and-rudder skills. **Primitive Fluency** is the manual override. It ensures that when the autopilot disconnects (or hallucinates), you can still fly the plane.
+
+This requires a shift in mindset: **Steer by Intent, Not by Metric.**
+
+This is a warning against **Goodhart's Law**: "When a measure becomes a target, it ceases to be a good measure."<Citation
+  data={{
+    type: "article-journal",
+    title: "Problems of Monetary Management: The U.K. Experience",
+    "container-title": "Papers in Monetary Economics",
+    author: "Charles Goodhart",
+    issued: { "date-parts": [[1975]] },
+  }}
+/>
+
+If you tell an AI to "maximize test coverage," it will write tests that assert `true == true`. It hits the metric (compass heading) but misses the destination (working software).
+
+The Governor's job is not to maximize the metric—that's the AI's job. The Governor's job is to ensure the ship is actually heading toward value, correcting for the drift between the metric and reality.
+
+1.  **Write Tests First (or Specs First):** Never let the AI write a line of implementation until you have defined the behavior in Gherkin or a test case.
+2.  **Enforce Meaningful Coverage:** Treat coverage as a gate, not the goal. Prefer behavior specs, invariants, and incident-driven regressions over metric padding.
+3.  **Engineer Defense in Depth:** Use sandboxes, CI gates, staged releases, observability, and rollback to prevent a single mistake from becoming a catastrophe.
+4.  **Refactor and Delete:** Use the AI to squash duplication, enforce YAGNI, and eliminate failure modes by reducing complexity.
+5.  **Demand Everything as Code:** Infrastructure, migrations, config, and even agent definitions belong in version control.
+6.  **Limit Work in Progress:** Finish the loop before starting the next one.
+
+Software creation is becoming a cybernetic loop between human intent and machine execution, and the new profession is the person who closes that loop responsibly.
+
+That’s not vibe coding. That’s systems leadership in a strange new universe.
+
+## References
+
+<CitationsList citationFormat="apa" />

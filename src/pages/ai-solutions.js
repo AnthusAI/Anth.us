@@ -5,6 +5,9 @@ import Seo from "../components/seo"
 import Solutions from "../components/solutions"
 import { Link } from 'gatsby';
 
+const contactUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"
+
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
     document.title = "AI Solutions";
@@ -25,20 +28,51 @@ const AISolutionsPage = ({ data }) => {
       <article>
         <div>
           <h1>Solving Problems Using AI</h1>
+          <img
+            src="/assets/images/ai-software-solutions.png"
+            alt="AI software solutions"
+            className="responsive-float-right-image"
+          />
           <p>
-            <img src="/assets/images/ai-software-solutions.png" alt="image-right" className="responsive-float-right-image" />
-            <p>You're under pressure to drive business efficiencies through artificial intelligence, and we know how. <mark>We transform businesses by turning ideas into real-world solutions.</mark> Our approach is built on industry best practices and decades of experience.</p>
-            <p>We excel at:</p>
-            <ul>
-              <li>Business process automation with AI/ML</li>
-              <li>Leveraging cloud and serverless for efficiency and reliability</li>
-              <li>Following industry best practices</li>
-              <li>Delivering solutions with high operational maturity</li>
-              <li>Ensuring regulatory compliance and auditability</li>
-            </ul>
-            <p>Our expertise makes your AI aspirations real. We design, implement, and support robust systems that drive efficiency and create new opportunities.</p>
+            You're under pressure to drive business efficiencies through artificial intelligence, and we know how.{" "}
+            <mark>We transform businesses by turning ideas into real-world solutions.</mark> Our approach is built on
+            industry best practices and decades of experience.
           </p>
-          <p>Ready to revolutionize your business? <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link">Let's talk about what we can do for you.</a></p>
+          <p>We excel at:</p>
+          <ul>
+            <li>Business process automation with AI/ML</li>
+            <li>Leveraging cloud and serverless for efficiency and reliability</li>
+            <li>Following industry best practices</li>
+            <li>Delivering solutions with high operational maturity</li>
+            <li>Ensuring regulatory compliance and auditability</li>
+          </ul>
+          <p>
+            Our expertise makes your AI aspirations real. We design, implement, and support robust systems that drive
+            efficiency and create new opportunities.
+          </p>
+
+          <h2>Our Approach: Cybernetic Development</h2>
+          <p>
+            We don’t just build AI features—we build the governors that make them safe to operate: clear
+            specifications, layered verification, staged releases, and feedback loops that incorporate production
+            learnings.
+          </p>
+          <ul>
+            <li>Specs first: define behavior before implementation.</li>
+            <li>Defense in depth: sandboxed tools, CI gates, staged rollouts, and fast rollback.</li>
+            <li>Operational feedback: telemetry and incident-driven regressions that tighten the loop over time.</li>
+            <li>Simplify and delete: reduce degrees of freedom to eliminate entire classes of failure.</li>
+          </ul>
+          <p>
+            Learn more in our article on{" "}
+            <Link to="/blog/cybernetic-development">Cybernetic Development</Link>, or{" "}
+            <a href={contactUrl}>contact us</a> to talk through your goals and constraints.
+          </p>
+
+          <p>
+            Ready to revolutionize your business?{" "}
+            <a href={contactUrl}>Let's talk about what we can do for you.</a>
+          </p>
           <div className="clear"></div>
           <h2>Featured Solutions</h2>
 
@@ -112,7 +146,7 @@ export const Head = () => {
   return (
     <Seo
       title="AI Solutions"
-      description="Explore efficient AI solutions for business: smart automation, conversational agents, and bespoke AI features, all integrated seamlessly with AWS. Discover how AI drives value and compliance in your operations."
+      description="Explore efficient AI solutions for business: smart automation, conversational agents, and bespoke AI features—built with guardrails and operational maturity for reliable production systems."
       image="serverless-ai-software-solutions.png"
     />
   )
