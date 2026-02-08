@@ -8,7 +8,7 @@ import Hero from "../components/hero"
 import * as styles from "../components/index.module.css"
 
 const mission = {
-  description: "Deliver <mark>serverless business solutions</mark> using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>."
+  description: "Deliver <mark>serverless business solutions</mark> using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We pair agentic speed with governance: specs, guardrails, and production feedback loops."
 }
 
 const values = [
@@ -26,15 +26,15 @@ const values = [
   },
   {
     text: "Continuously Improve",
-    description: "Enable rapid, iterative change through CI/CD and DevOps for code, and RLHF and MLOps for AI/ML.  Mitigate the risk of making changes by deploying lots of small, verifiable steps."
+    description: "Enable rapid, iterative change through CI/CD and DevOps. Mitigate the risk of change by making lots of small, verifiable changes—and by feeding production learnings back into tests and guardrails."
   },
   {
     text: "Collaborate with AI Humanely",
-    description: "<a href=\"/blog/people-skills-are-vital-for-leveraging-artificial-people/\">People skills are vital for leveraging artificial people.</a>  You can get a lot more out of AI tools if you know how to collaborate with people."
+    description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
   },
   {
     text: "Implement Infrastructure as Code",
-    description: "Leverage DevOps to implement Infrastructure as Code.  Every aspect of a production system should be created and configured by code so that it's reproducible, not manually."
+    description: "Leverage DevOps to implement Infrastructure as Code. Every aspect of a production system should be created and configured by code so that it's reproducible, not manually."
   },
   {
     text: "Commodify AI Models",
@@ -42,11 +42,13 @@ const values = [
   },
   {
     text: "Optimize Resource Usage",
-    description: "Balance efficiency with cost-effectiveness so that your idea will be sustainable and so that it can scale."
+    description: "Balance efficiency with cost-effectiveness.  When intelligence is cheap, the goal shifts from conserving compute to conserving context and cognitive load."
   }
 ];
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
+const contactUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"
 
 const IndexPage = () => {
 
@@ -223,6 +225,11 @@ const IndexPage = () => {
             We know how to solve your business problems using AI.  And we know how to scale it up.
           </p>
           <Link to="/ai-solutions" className="button">Learn More</Link>
+          <div className={styles.heroSecondary}>
+            <Link to="/blog/cybernetic-development" className={styles.heroSecondaryLink}>
+              Read: Cybernetic Development
+            </Link>
+          </div>
         </div>
       </Hero>
 
@@ -246,6 +253,35 @@ const IndexPage = () => {
           </li>
         ))}
       </ul>
+
+      <section className={styles.approachSection}>
+        <h2 className={styles.approachHeading}>Our Approach: Cybernetic Development</h2>
+        <div className={styles.approachContent}>
+          <div>
+            <p>
+              AI is an engine for generating code. The differentiator is the governor: the constraints,
+              feedback loops, and judgment that keep systems reliable in production.
+            </p>
+            <p>
+              Modern failures increasingly look less like isolated “bugs” and more like operational,
+              multi-system breakdowns. Great unit tests help—but they don’t cover every emergent scenario.
+              So we build layered defenses and close the loop with real-world feedback.
+            </p>
+            <ul>
+              <li>Specs first: define behavior before implementation.</li>
+              <li>Defense in depth: sandboxed tools, CI gates, staged rollouts, and fast rollback.</li>
+              <li>Operational feedback: telemetry and incident-driven regressions that tighten the loop over time.</li>
+              <li>Simplify and delete: reduce degrees of freedom to eliminate entire classes of failure.</li>
+            </ul>
+            <div className={styles.approachActions}>
+              <a href={contactUrl} className="button">Contact us</a>
+              <Link to="/blog/cybernetic-development" className={styles.approachSecondaryCta}>
+                Read Cybernetic Development
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <h2>Our Capabilities</h2>
 

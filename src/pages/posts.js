@@ -74,8 +74,8 @@ const PostsPage = () => {
 export const Head = () => {
   return (
     <Seo
-      title="Home"
-      description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS."
+      title="Posts"
+      description="Short posts on AI, software, and operations—focused on practical lessons and reliable systems."
       image="serverless-ai-software-solutions.png"
     />
   )

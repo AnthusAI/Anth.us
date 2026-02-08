@@ -29,6 +29,12 @@ const AboutPage = () => {
           <p>
             Our endurance over more than fourteen years is a testament to our commitment and capability in preventing business interruptions arising from downtime, software malfunctions, security incidents, or data losses.  <mark>The hackers never got us</mark>, despite being a <a href="https://twitter.com/RyanAlynPorter/status/890982980721790976">prime target</a>.  When a catastrophic failure struck an entire AWS data center, we relocated the entire system to a new data center within hours, ensuring that ticket scanning at nightclubs proceeded without a hitch.  We have navigated through massive DDoS attacks, primary database server failures, silent failures in third-party systems, and everything else you could imagine.  We always <mark>kept the revenue flowing</mark>.  Then we smoothly handed it off to the next team with no business interruption or impairment.
           </p>
+          <h2>How We Build Today</h2>
+          <p>
+            The AI era doesn’t remove the need for operational excellence—it raises the stakes. We use a cybernetic
+            approach: clear intent, layered safeguards, and production feedback loops that continuously harden the
+            system. Read more in <a href="/blog/cybernetic-development">Cybernetic Development</a>.
+          </p>
           <p>
             Now, we bring our depth of experience and technical agility to your projects. <mark>What can we develop and operate for you?</mark>
           </p>
