@@ -913,6 +913,43 @@ The new bottleneck is your **governance bandwidth**. If you can define 10 specs 
 
 This is the inversion: Instead of limiting WIP to match human capacity, you **expand governance capacity** to match AI throughput.
 
+#### Task Management: From Pair Programming to Delegation
+
+There's a critical piece of infrastructure that makes high-WIP governance possible: **task management systems** that live in your repository.
+
+When you're working with a single AI agent in a chat session, you're doing **pair programming**. It's valuable—two developers sitting in a room, closely collaborating on a problem. But it doesn't scale. You can't sit in a room pair programming with 10 different developers simultaneously.
+
+The shift from 10x to 100x requires a different interaction model: **management and delegation**. Instead of constant interactive engagement, you need to:
+
+*   **Delegate work** to multiple agents working in parallel
+*   **Track context** across multiple concurrent workstreams
+*   **Coordinate information** between agents without keeping everything in your head
+*   **Step back** from interactive sessions to review and prioritize at a higher level
+
+This is exactly what managers do when coordinating human contractors. They don't pair program with everyone. They use project management systems—Jira, Linear, or repository-based tools like [Taskulus](https://taskul.us) or [Beads](https://github.com/steveyegge/beads).
+
+Without a task management system, you're forced to:
+*   Keep all context in chat session history
+*   Remember which agent is working on what
+*   Manually track dependencies between work items
+*   Stay constantly engaged with every agent
+
+With a task management system in your repo, you can:
+*   Create 10 issues, assign them to different agents (or queue them)
+*   Each issue captures context, acceptance criteria, and links
+*   Agents can reference related issues and their outcomes
+*   You review status in batches, not one interactive session at a time
+
+This mirrors the Kanban/Continuous workflow that dominates modern software teams. You maintain a backlog of work, track WIP across the board, and optimize flow—not by limiting WIP artificially, but by ensuring the governance layer (you) can handle the throughput.
+
+**The paradigm shift:**
+*   **Pair Programming Paradigm:** Chat sessions, interactive collaboration, constant engagement
+*   **Delegation Paradigm:** Issue tracking, async work, batch review, office hours for exceptions
+
+Both are valuable. Pair programming (chat) is ideal for exploring ambiguous problems or debugging tricky issues. But when you want to scale to 50 features in parallel, you need delegation infrastructure.
+
+The task management system becomes the **shared memory** between you and your agent workforce—the place where context, decisions, and status live permanently, not trapped in chat history that scrolls away.
+
 #### When to Limit WIP
 
 There's one critical exception: **untrusted agents**. If your cybernetic loop is weak (poor specs, flaky tests, no CI gates), high WIP is suicide. You'll drown in bugs and rework.
