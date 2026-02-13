@@ -66,7 +66,7 @@ As planes became fully automated with "fly-by-wire" systems, pilots spent 99% of
 
 This isn't an argument against automation. It's an argument for **cybernetic systems**: automation paired with skilled governance. The pilot doesn't need to hand-fly every leg, but they must maintain the ability to override when the autopilot fails. They must understand the primitives underneath the abstraction.
 
-The same applies to AI coding. If AI does 99% of the work, the human developer risks losing their fundamental skills—what we'll call **Primitive Fluency**. The cybernetic developer maintains this fluency not to replace the AI, but to steer it effectively and recover when it hallucinates.
+The same applies to AI coding. If AI does 99% of the work, the human developer risks losing their fundamental skills—what Nate B. Jones calls **Primitive Fluency**. The cybernetic developer maintains this fluency not to replace the AI, but to steer it effectively and recover when it hallucinates.
 
 ### The Human Brain as Cybernetic System
 
@@ -529,6 +529,97 @@ This progressive tightening is the essence of cybernetic governance:
 This balance is key: You want the AI to have **agency**, but you need **constraints**. BDD is the mechanism that forces **eventual consistency** between the code and your intent.
 
 The Vibe Coder writes prompts and hopes. The cybernetic developer writes specifications and verifies. The difference is the difference between a demo that impresses on Tuesday and a system that ships on Thursday.
+
+#### Taskulus: Gherkin as Source Code
+
+Some projects take this philosophy to the extreme: treating Gherkin specifications as the **authoritative source code** and treating implementation code as **generated artifacts**.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Taskulus",
+    title: "Architecture",
+    URL: "https://taskul.us/architecture",
+    accessed: { "date-parts": [[2026, 2, 10]] },
+  }}
+/>
+
+[Taskulus](https://taskul.us) is an open-source project management tool built in both Python and Rust. The twist? Both implementations are constrained to pass the exact same Gherkin feature files. The specifications aren't derived from the code—they *define* the code.
+
+Here's a concrete example. The Gherkin specification defines project initialization behavior:
+
+```gherkin
+Feature: Project initialization
+  As a developer starting a new project
+  I want to initialize a Taskulus project directory
+  So that I can begin tracking issues alongside my code
+
+  Scenario: Initialize with default settings
+    Given an empty git repository
+    When I run "tsk init"
+    Then a "project" directory should exist
+    And a "project/issues" directory should exist and be empty
+```
+
+The Python implementation provides step definitions that make this spec executable:
+
+```python
+from pathlib import Path
+from behave import given, when, then
+
+@given("an empty git repository")
+def given_empty_git_repository(context):
+    repository_path = Path(context.temp_dir) / "repo"
+    repository_path.mkdir(parents=True, exist_ok=True)
+    ensure_git_repository(repository_path)
+    context.working_directory = repository_path
+
+@when('I run "tsk init"')
+def when_run_tsk_init(context):
+    run_cli(context, "tsk init")
+
+@then('a "project" directory should exist')
+def then_project_directory_exists(context):
+    project_dir = context.working_directory / "project"
+    assert project_dir.exists()
+```
+
+The Rust implementation provides completely different step definitions—but they must satisfy the *same* Gherkin spec:
+
+```rust
+use cucumber::{given, when, then, World};
+use std::path::PathBuf;
+
+#[given("an empty git repository")]
+fn given_empty_git_repository(world: &mut TaskulusWorld) {
+    let repo_path = world.temp_dir.path().join("repo");
+    fs::create_dir_all(&repo_path).expect("create repo dir");
+    Command::new("git")
+        .args(["init"])
+        .current_dir(&repo_path)
+        .output()
+        .expect("git init failed");
+    world.working_directory = Some(repo_path);
+}
+
+#[when(r#"I run "tsk init"#)]
+fn when_run_tsk_init(world: &mut TaskulusWorld) {
+    run_cli(world, "tsk init");
+}
+
+#[then(r#"a "project" directory should exist"#)]
+fn then_project_directory_exists(world: &mut TaskulusWorld) {
+    let project_dir = world.working_directory.join("project");
+    assert!(project_dir.exists());
+}
+```
+
+Notice what this achieves:
+
+*   **Behavioral Parity Enforced:** Both Python and Rust implementations must pass identical tests. Drift is impossible.
+*   **Spec-Driven Workflow:** Feature work starts with updating the `.feature` file. Implementations exist to satisfy specs.
+*   **Language-Agnostic Contracts:** The Gherkin sits in a shared `features/` directory. Both `python/behave.ini` and `rust/tests/cucumber.rs` point to the same source of truth.
+*   **Everything as Code:** The behavior specification *is* the code. The Python and Rust are just two different "compile targets" for the same high-level program.
+
+This is cybernetic development in its purest form: the human writes the high-level intent (Gherkin), and the implementations (whether written by AI or humans) are constrained to conform. The Governor defines behavior; the Engine implements it.
 
 ### 6. The New Power Players: Product Owners as Cybernetic Developers (Focus on Business Logic)
 
