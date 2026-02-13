@@ -659,7 +659,9 @@ Feature: Premium File Upload
 
 You still need expertise "under the hood" to handle architectural decisions. For example, if you are building this on AWS, you might use **Infrastructure as Code** to define the resources.
 
-Here is where the 100x developer's knowledge shines. They know that **AWS CDK** allows you to define cloud infrastructure using familiar languages like Go. They can verify that the underlying structure supports the high-level intent.
+Here is where the 100x developer's knowledge shines. They know that tools like **Terraform** (cloud-agnostic), **CloudFormation** (AWS-native), **Pulumi** (multi-language), or **AWS CDK** (programmable IaC) allow you to define cloud infrastructure as code. They can verify that the underlying structure supports the high-level intent.
+
+For example, using AWS CDK to define infrastructure in a familiar language like Go:
 
 ```go
 // Defining an S3 bucket and a Lambda trigger in AWS CDK (Go)
@@ -698,7 +700,7 @@ This is the ultimate expression of the value: **Implement Infrastructure as Code
 
 In the Vibe Coding world, you might manually click through the AWS console to set up a database. In the cybernetic world, that is heresy. If you click it, you can't version it. If you can't version it, the AI can't manage it.
 
-*   **Infrastructure as Code (IaC):** You don't ask the AI to "help me set up a server." You ask it to "write the Terraform or CDK code to define a server."
+*   **Infrastructure as Code (IaC):** You don't ask the AI to "help me set up a server." You ask it to "write the Terraform (or CloudFormation, Pulumi, CDK, or ARM/Bicep) code to define a server."
 *   **Database as Code:** You don't manually create tables. You ask the AI to write migration scripts.
 *   **Agents as Code:** You don't just chat with an agent. You define the agent's prompts and tools in code, version-controlled alongside the app it builds.
 
@@ -763,8 +765,8 @@ Lee Robinson's $260 migration proved this. By ripping out the CMS (a human-frien
 
 The cybernetic developer pays down this tax by:
 *   **Exposing primitives:** Preferring tools that offer both a GUI and a CLI/API
-*   **Choosing code over clicks:** Using Terraform over AWS Console, migration scripts over phpMyAdmin
-*   **Wrapping when necessary:** If you must use a GUI tool, wrap it with infrastructure code that captures its state (e.g., Terraform's `import` to codify existing resources)
+*   **Choosing code over clicks:** Using IaC tools (Terraform, CloudFormation, Pulumi) over cloud consoles, migration scripts over phpMyAdmin
+*   **Wrapping when necessary:** If you must use a GUI tool, wrap it with infrastructure code that captures its state (e.g., `terraform import` to codify existing resources)
 
 The goal is not to eliminate abstraction—abstractions are essential. The goal is to ensure abstractions are **transparent** and **bidirectional**: the agent can read the high-level intent and manipulate the low-level primitives.
 
@@ -774,7 +776,7 @@ Here's what this looks like across a real system:
 
 | Concern | Wrong (Clicks) | Right (Code) |
 |---------|---------------|--------------|
-| **Infrastructure** | AWS Console | Terraform, CDK, Pulumi |
+| **Infrastructure** | Cloud Consoles | Terraform, CloudFormation, Pulumi, CDK, ARM/Bicep |
 | **Database Schema** | phpMyAdmin | SQL migrations (Flyway, Liquibase) |
 | **API Definitions** | Postman Collections | OpenAPI specs in Git |
 | **Agent Prompts** | ChatGPT conversation | Prompt templates in code |
