@@ -1,41 +1,33 @@
 import * as React from "react";
+import AnthusFooter, {
+  defaultBrandLinks,
+  defaultCommunityLinks,
+  getPlatformLinks,
+} from "anthus-footer";
 import { StaticImage } from 'gatsby-plugin-image'
 
-const moreLinks = [
-  { text: "Contact us", url: "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"},
-  { text: "Follow us on GitHub", url: "https://github.com/AnthusAI" },
-  { text: "Connect on LinkedIn", url: "https://www.linkedin.com/in/ryanalynporter/" },
-  { text: "Join us on Discord", url: "https://discord.gg/uStyWraJ2M" }
-]
-
 const Footer = () => {
-
   return (
-    <footer>
-      <div className="fullWidth">
-        <div className="links">
-          {moreLinks.map((link, i) => (
-            <React.Fragment key={link.url}>
-              <a href={`${link.url}`}>{link.text}</a>
-              {i !== moreLinks.length - 1 && <> · </>}
-            </React.Fragment>
-          ))}
-        </div>
-        
-        <div className="contents">
-          <div className="logo">
-            <StaticImage
-              className="logo"
-              alt="Anthus?"
-              src="../images/icon.png"
-              placeholder="BLURRED"
-            />
-          </div>
-        </div>
-      </div>
-    </footer>
+    <AnthusFooter
+      siteId="anthus"
+      productName="Anthus AI Solutions"
+      subtitle="Anthus Platform"
+      description="Anthus builds AI-native systems with durable procedures, operational guardrails, and reusable platform components."
+      communityLinks={defaultCommunityLinks}
+      brandLinks={defaultBrandLinks}
+      platformLinks={getPlatformLinks()}
+      byline="Built by Anthus AI Solutions"
+      logo={
+        <StaticImage
+          className="logo"
+          alt="Anthus"
+          src="../images/icon.png"
+          placeholder="BLURRED"
+          width={96}
+        />
+      }
+    />
   );
-  
 };
 
 export default Footer;
