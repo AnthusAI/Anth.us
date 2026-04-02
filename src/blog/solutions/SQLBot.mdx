@@ -7,7 +7,7 @@ authors:
   - author: <a href="/ryan">Ryan Porter</a>
 tags: ["solutions", "featured"]
 preview_image: "./images/sqlbot.png"
-excerpt: "<p>SQLBot is a new kind of interface for your database. Instead of writing SQL queries yourself, you delegate high-level analytical tasks to an AI agent. It reasons through your request, executing a chain of queries and analyzing the results until it arrives at a complete answer—all while keeping your data safe with built-in safeguards. View the project on <a href='https://github.com/AnthusAI/SQLBot'>GitHub</a>.</p>"
+excerpt: "<p>SQLBot is a governed interface for database analysis. Instead of requiring every operator to write SQL, it lets an AI agent reason through analytical tasks on top of your dbt models and schema documentation, with read-only safeguards and validation built in. The result is faster access to answers without giving up control of the data layer. View the project on <a href='https://github.com/AnthusAI/SQLBot'>GitHub</a>.</p>"
 images: []
 state: published
 ---
@@ -18,9 +18,9 @@ state: published
 
 **"If you give an agent a tool, then nobody has to fish."**
 
-SQLBot is a new kind of interface for your database. Instead of writing SQL queries yourself, you delegate high-level analytical tasks to an AI agent. It reasons through your request, executing a chain of queries and analyzing the results until it arrives at a complete answer—all while keeping your data safe with built-in safeguards.
+SQLBot is a governed interface for your database. Instead of writing SQL queries yourself, you delegate high-level analytical tasks to an AI agent. It reasons through your request, executes the necessary sequence of queries, and analyzes the results while staying inside built-in safeguards.
 
-It represents the next logical layer on the modern data stack, building directly on the power of SQL and dbt.
+It builds on a pattern enterprise teams already understand: preserve the power of the existing data stack, document the business logic, and add a safer operator layer on top.
 
 ## The Problem with Raw SQL
 
@@ -95,7 +95,7 @@ Suddenly, business users can access complex database operations without needing 
 
 The real magic happens in dbt's `schema.yml` files—they're like institutional memory for your database. Wizards document what each table and column actually means in plain English, creating a shared vocabulary that makes databases accessible to entire teams.
 
-## SQLBot: Adding Intelligence & Safety
+## SQLBot: Adding Intelligence and Safety
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcSet="/images/sqlbot-arch-3-dark.png" />
@@ -103,14 +103,14 @@ The real magic happens in dbt's `schema.yml` files—they're like institutional 
   <img alt="SQLBot Layer: Intelligence and safety layer with AI agent on top of the stack" src="/images/sqlbot-arch-3.png" style={{ maxWidth: '600px', width: '100%', height: 'auto', display: 'block', margin: '2rem auto' }} />
 </picture>
 
-SQLBot adds the final layer: an AI agent that uses the structure dbt provides while keeping your data protected. The agent is armed with two crucial pieces of information from your dbt profile:
+SQLBot adds the final layer: an AI agent that uses the structure dbt provides while keeping your data protected. The agent relies on two crucial sources of context from your dbt project:
 
 - **The Schema (`schema.yml`)**: It reads your table and column descriptions to understand what your data means.
 - **The Macros (`macros/*.sql`)**: It learns your reusable business logic to solve complex tasks more efficiently.
 
-**Built-in Safeguards**: SQLBot includes read-only protections and query validation to prevent dangerous operations like `DROP`, `DELETE`, or `UPDATE` commands, ensuring your data stays safe while you focus on analysis rather than syntax.
+**Built-in Safeguards**: SQLBot includes read-only protections and query validation to prevent dangerous operations like `DROP`, `DELETE`, or `UPDATE` commands. That means the system can be useful to operators without becoming a write-enabled wildcard against production data.
 
-This layered approach gives you the best of all worlds: the raw power of SQL, the structure and reusability of dbt, the conversational intelligence of an AI Agent, and the peace of mind that comes with built-in safety controls.
+This layered approach gives you the best of all worlds: the raw power of SQL, the structure and reusability of dbt, the conversational intelligence of an AI agent, and the peace of mind that comes with built-in safety controls.
 
 ## The Result: A Real-World Example
 
@@ -195,7 +195,7 @@ SQLBot flips this model. Instead of writing SQL, you **delegate analysis**:
 2. **Let the agent work** - It writes, executes, and chains multiple queries safely
 3. **Get insights** - Receive synthesized answers with suggested next steps
 
-The result? You spend time on strategy and insights, not syntax and debugging.
+The result is that more people can ask better questions of the data without bypassing the controls and conventions that make the system maintainable.
 
 ## Key Features
 
@@ -207,6 +207,12 @@ The result? You spend time on strategy and insights, not syntax and debugging.
 - **Direct SQL Passthrough**: For experts, end any query with a semicolon (`;`) to bypass the agent and run it directly.
 - **Profile-Based**: Easily switch between different database environments (`--profile mycompany`).
 - **Broad Database Support**: Works with SQL Server, PostgreSQL, Snowflake, SQLite, and more.
+
+## Why This Fits the Anthus Pattern
+
+SQLBot is a good example of how we think about AI interfaces. The goal is not to remove the underlying system or hide the data model behind magic. The goal is to add a more useful operator layer while preserving structure, safeguards, and inspectability.
+
+That is the same broader pattern behind Anthus delivery work: durable systems first, AI leverage second.
 
 ## Data Export Capabilities
 

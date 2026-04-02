@@ -5,45 +5,67 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Hero from "../components/hero"
+import PlatformCards from "../components/platform-cards"
 import * as styles from "../components/index.module.css"
 
 const mission = {
-  description: "Deliver <mark>serverless business solutions</mark> using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We pair agentic speed with governance: specs, guardrails, and production feedback loops."
+  description: "Deliver <mark>governed AI-native systems</mark> that combine human judgment with automation across <mark>development, operations, evaluation, and communication</mark>. We pair agentic speed with durable procedures, evidence, and production feedback loops."
 }
 
 const values = [
   {
-    text: "Prioritize Solutions Over Tools",
-    description: "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>."
+    text: "Build Systems, Not Demos",
+    description: "The work has to survive production. We optimize for durable workflows, operator visibility, and measurable outcomes, not one-off prototypes."
   },
   {
-    text: "Design for Humans",
-    description: "Computers exist to help humans accomplish things.  Not the other way around.  Make it easy for the human, not the computer."
+    text: "Keep Humans in the Loop",
+    description: "Human judgment remains part of the system. We design approvals, review steps, and escalation paths as first-class capabilities, not afterthoughts."
   },
   {
-    text: "Focus on Business Logic",
-    description: "The only code you should be writing is the business logic that solves real problems.  <a href=\"/blog/langchain-by-example/\">Don't waste time reinventing wheels.</a>"
+    text: "Preserve Evidence and Context",
+    description: "Adaptive systems get fragile when their inputs and decisions are opaque. We favor inspectable corpora, durable workflow state, and explicit evaluation artifacts."
   },
   {
-    text: "Continuously Improve",
-    description: "Enable rapid, iterative change through CI/CD and DevOps. Mitigate the risk of change by making lots of small, verifiable changes—and by feeding production learnings back into tests and guardrails."
+    text: "Close the Feedback Loop",
+    description: "We treat production learnings as fuel for improvement. RLHF, evals, telemetry, and incident follow-up all feed back into the system."
   },
   {
-    text: "Collaborate with AI Humanely",
-    description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
+    text: "Standardize the Runtime",
+    description: "Reliable systems need stable shells, procedures, and deployment patterns. Reusable building blocks let us move faster without improvising the hard parts every time."
   },
   {
-    text: "Implement Infrastructure as Code",
-    description: "Leverage DevOps to implement Infrastructure as Code. Every aspect of a production system should be created and configured by code so that it's reproducible, not manually."
+    text: "Treat Models as Replaceable",
+    description: "Models are inputs to a system, not the system itself. We design workflows and products so model choice can change without breaking the business logic."
   },
   {
-    text: "Commodify AI Models",
-    description: "Treat AI models as replaceable, not magic black boxes.  In a world with no moats, <a href=\"/blog/a-world-with-no-moats/\">don't invest too much in any given castle.</a>"
+    text: "Automate the Boring Parts",
+    description: "The goal is not novelty. The goal is to move repetitive, high-volume work into reliable automation so humans can spend time on judgment and exceptions."
   },
   {
-    text: "Optimize Resource Usage",
-    description: "Balance efficiency with cost-effectiveness.  When intelligence is cheap, the goal shifts from conserving compute to conserving context and cognitive load."
+    text: "Favor Operational Discipline",
+    description: "Specs, rollback paths, auditability, and cost-aware architectures still matter in the AI era. The stakes are higher now, not lower."
   }
+];
+
+const platformRecipes = [
+  {
+    title: "Grounded research to video output",
+    components: ["Biblicus", "Tactus", "Babulus", "Korporus"],
+    description:
+      "Use Biblicus to manage the source corpus, Tactus to define the repeatable procedure, Babulus to generate the narrative output, and Korporus to host the resulting service as a coherent application.",
+  },
+  {
+    title: "Production agent service with operational discipline",
+    components: ["Tactus", "Plexus", "Korporus", "Caducus"],
+    description:
+      "Define the agent behavior in Tactus, evaluate and improve it through Plexus, run it inside Korporus, and monitor it through Caducus so the result behaves like a service instead of a demo.",
+  },
+  {
+    title: "Workflow-heavy human and AI collaboration",
+    components: ["Kanbus", "Tactus", "Plexus"],
+    description:
+      "Keep task memory and work orchestration durable in Kanbus, drive execution through Tactus procedures, and feed the resulting evaluation and feedback loops back into Plexus.",
+  },
 ];
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
@@ -84,15 +106,9 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      plexusLogo: file(relativePath: { eq: "plexus-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: CONSTRAINED, width: 1200)
-        }
-      }
-
       recentArticles: allMdx(
-        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] } } } 
-        sort: { fields: [frontmatter___date], order: DESC }
+        filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] }, content_type: { ne: "platform-product" } } } 
+        sort: { frontmatter: { date: DESC } }
         limit: 4
       ) {
         edges {
@@ -116,7 +132,7 @@ const IndexPage = () => {
 
       recentPosts: allMdx(
         filter: { frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } } } 
-        sort: { fields: [frontmatter___date], order: DESC }
+        sort: { frontmatter: { date: DESC } }
         limit: 4
       ) {
         edges {
@@ -147,7 +163,7 @@ const IndexPage = () => {
           }
           internal: { contentFilePath: { regex: "/solutions/" } }
         }
-        sort: { fields: [frontmatter___date], order: DESC }
+        sort: { frontmatter: { date: DESC } }
         limit: 4
       ) {
         edges {
@@ -169,37 +185,65 @@ const IndexPage = () => {
         }
       }
 
+      featuredPlatform: allMdx(
+        filter: {
+          frontmatter: {
+            content_type: { eq: "platform-product" }
+            state: { eq: "published" }
+          }
+        }
+        sort: { frontmatter: { platform_order: ASC } }
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              slug
+              excerpt
+              platform_category
+              platform_stage
+              external_url
+            }
+          }
+        }
+      }
+
     }
   `);
 
   const links = [
     {
-      text: "Smart Process Automation",
-      url: "/ai-solutions#smart-process-automation",
+      text: "RLHF and evaluation systems",
+      url: "/blog/call-criteria",
       image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
+      alt: "Workflow automation illustration",
       description:
-        "<mark>Delegate routine tasks</mark> to intelligent systems, freeing your team for higher-impact initiatives.",
+        "Build <mark>production-scale feedback loops</mark> for scorecards, classifiers, and agent workflows using systems like <code>Plexus</code>, with human review kept in the loop instead of bolted on after the fact.",
     },
     {
-      text: "AI-powered software features.",
-      url: "/ai-solutions#ai-software-features",
-      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
-      description:
-        "Infuse AI-driven capabilities into your cloud-based apps, mobile applications, or existing systems.",
-    },
-    {
-      text: "Serverless software solutions.",
-      url: "/ai-solutions#ai-enabled-projects",
-      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
-      description:
-        "Not all AI-enabled solutions use AI at runtime.  We have a <a href=\"/ai-solutions\">long and proven history</a> of building serverless architectures that deliver business value.",
-    },
-    {
-      text: "Conversational AI Agents",
+      text: "Operator copilots and agent workspaces",
       url: "/ai-solutions#conversational-ai-agents",
-      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
+      alt: "AI software feature illustration",
       description:
-        "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
+        "Give teams a place to <mark>run, supervise, and escalate</mark> long-running AI work with combinations like <code>Korporus</code>, <code>Tactus</code>, and <code>Caducus</code>.",
+    },
+    {
+      text: "Evidence-grounded automation pipelines",
+      url: "/ai-solutions#smart-process-automation",
+      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
+      alt: "AI enabled project illustration",
+      description:
+        "Turn messy documents, inboxes, and internal knowledge into <mark>reliable business workflows</mark> with corpora, retrieval, and durable procedures built on <code>Biblicus</code> and <code>Tactus</code>.",
+    },
+    {
+      text: "Programmable content and video systems",
+      url: "/platform",
+      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      alt: "Conversational AI agent illustration",
+      description:
+        "Automate demos, explainers, and publishing workflows with <mark>code-driven media pipelines</mark> using <code>Babulus</code> and <code>VideoML</code>, not one-off manual production.",
     },
   ]
 
@@ -219,12 +263,13 @@ const IndexPage = () => {
         />
         <div className="hero-overlay">
           <h1>
-            Depend on proven experts
+            Build AI systems that can survive production
           </h1>
           <p>
-            We know how to solve your business problems using AI.  And we know how to scale it up.
+            Anthus designs and operates governed AI-native services: durable procedures, evaluation loops, operator
+            workspaces, evidence-backed automation, and programmable media pipelines.
           </p>
-          <Link to="/ai-solutions" className="button">Learn More</Link>
+          <Link to="/ai-solutions" className="button">See solution patterns</Link>
           <div className={styles.heroSecondary}>
             <Link to="/blog/cybernetic-development" className={styles.heroSecondaryLink}>
               Read: Cybernetic Development
@@ -234,15 +279,26 @@ const IndexPage = () => {
       </Hero>
 
       <p className={styles.intro} id="our-values">
-        We've processed a quarter billion dollars in revenue at scale with nearly 100% uptime.
-        We've built production RLHF systems that transform core business processes through self-evolving AI agents.
-        We don't just talk about AI—we deliver it at scale.
+        Over the last two years, we have built production RLHF systems, agentic QA workflows, corpus-driven
+        automation pipelines, operator-facing AI applications, and code-first media systems. We have processed a
+        quarter billion dollars in revenue at scale with nearly 100% uptime, and we use that operational discipline to
+        make AI systems governable instead of fragile.
+      </p>
+
+      <p className={styles.intro}>
+        The philosophy behind Anthus has not changed. The same instincts that matter in compliance, ITSM, SDLC, and
+        mission-critical operations turn out to matter just as much in AI. What is different now is that we have
+        concrete products, systems, and client outcomes that demonstrate that point directly.
       </p>
 
       <h2 style={{ marginBottom: '1em' }}>Our Mission</h2>
       <p style={{ textAlign: 'center', marginBottom: '20px' }} dangerouslySetInnerHTML={{ __html: mission.description }}></p>
 
-      <h2 style={{ marginBottom: '1em' }}>Our Values</h2>
+      <h2 style={{ marginBottom: '1em' }}>Principles Validated in Production</h2>
+      <p className={styles.intro}>
+        These are not abstract preferences. They are the operating principles behind the systems we have already built
+        with the Anthus Platform and in client delivery work.
+      </p>
       <ul className={`${styles.list} ${styles.tight}`}>
         {values.map((value, index) => (
           <li key={index} className={styles.listItem}>
@@ -301,31 +357,31 @@ const IndexPage = () => {
       </ul>
 
       <section className={styles.plexusFeature}>
-        <h2>Production MLOps at Scale</h2>
-        <ul className='blog'>
-          <div className='blog-post-preview'>
-            <li className="clear-float">
-              <Link to="https://plexus.anth.us">
-                <GatsbyImage
-                  image={getImage(data.plexusLogo.childImageSharp.gatsbyImageData)}
-                  alt="Plexus Platform"
-                  className="right"
-                />
-                <h3>Plexus: The RLHF Data Flywheel</h3>
-              </Link>
-              <p>
-                We built what many consider the holy grail of AI: a production-scale RLHF system that continuously aligns itself with human feedback automatically over time. Plexus is our custom MLOps platform that powers this self-evolving data flywheel, managing the complete lifecycle of AI agents and classification models that get smarter with every interaction.
-              </p>
-              <ul className="branded">
-                <li>Two years of continuous production operation</li>
-                <li>Self-evolving AI agents that improve autonomously</li>
-                <li>Human-in-the-loop feedback drives continuous learning</li>
-                <li>Transforms core business processes at scale</li>
-              </ul>
-              <Link to="https://plexus.anth.us" className="button">Learn More</Link>
-            </li>
-          </div>
-        </ul>
+        <span className={styles.eyebrow}>PART OF</span>
+        <h2 className={styles.platformHeader}>The Anthus Platform</h2>
+        <p>
+          Solve complex business problems with AI and ML using a proven, reusable technology stack. We provide interoperable building blocks: <code>Korporus</code> hosts the application surface, <code>Tactus</code>
+          defines durable procedures, <code>Kanbus</code> coordinates workflow state, <code>Plexus</code> governs
+          evaluation and MLOps, <code>Biblicus</code> and <code>Virtuus</code> ground systems in inspectable data,
+          <code>Caducus</code> adds operational visibility, and <code>Babulus</code> extends the same code-first
+          philosophy into content and video output.
+        </p>
+        <PlatformCards items={data.featuredPlatform.edges} />
+        <div className={styles.platformRecipeGrid}>
+          {platformRecipes.map(recipe => (
+            <div key={recipe.title} className={styles.platformRecipeCard}>
+              <h3>{recipe.title}</h3>
+              <p className={styles.platformRecipeMeta}>{recipe.components.join(" + ")}</p>
+              <p>{recipe.description}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.approachActions}>
+          <Link to="/platform" className="button">Explore the platform</Link>
+          <Link to="/ai-solutions" className={styles.approachSecondaryCta}>
+            See solution patterns
+          </Link>
+        </div>
       </section>
 
       <h2>Featured Solutions</h2>
@@ -404,7 +460,7 @@ export const Head = () => {
   return (
     <Seo
       title="Home"
-      description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS."
+      description="Anthus builds governed AI-native systems with durable procedures, evaluation loops, operator workspaces, retrieval pipelines, and programmable media."
       image="serverless-ai-software-solutions.png"
     />
   )

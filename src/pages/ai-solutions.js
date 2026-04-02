@@ -3,10 +3,38 @@ import React, { useEffect } from 'react';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Solutions from "../components/solutions"
+import PlatformCards from "../components/platform-cards"
 import { Link } from 'gatsby';
 
 const contactUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"
+
+const solutionBlueprints = [
+  {
+    title: "Agentic internal tool or operator console",
+    stack: "Korporus + Tactus + Plexus + Caducus",
+    description:
+      "Use Korporus as the host shell, Tactus for durable procedures, Plexus for evaluation and feedback loops, and Caducus for operator-facing health signals.",
+  },
+  {
+    title: "Evidence-grounded research and extraction workflow",
+    stack: "Biblicus + Tactus + Plexus",
+    description:
+      "Use Biblicus to manage the corpus, Tactus to encode the repeatable extraction procedure, and Plexus to benchmark quality and keep the workflow improving.",
+  },
+  {
+    title: "Content, demo, or video automation pipeline",
+    stack: "Biblicus + Babulus + VideoML + Korporus",
+    description:
+      "Ground the source material in Biblicus, generate the output through Babulus and VideoML, and expose the workflow as a service inside Korporus when it needs a stable home.",
+  },
+  {
+    title: "Workflow-heavy delivery system with humans in the loop",
+    stack: "Kanbus + Tactus + Plexus + Korporus",
+    description:
+      "Track work and state in Kanbus, execute the procedure in Tactus, manage evaluation through Plexus, and wrap the result in Korporus when it becomes a broader application surface.",
+  },
+];
 
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
@@ -22,6 +50,7 @@ const AISolutionsPage = ({ data }) => {
   const integrations = data.solutions.edges.filter(({ node }) => 
     node.frontmatter.tags.includes('integrations')
   );
+  const platformProducts = data.platformProducts.edges;
 
   return (
     <Layout>
@@ -34,21 +63,25 @@ const AISolutionsPage = ({ data }) => {
             className="responsive-float-right-image"
           />
           <p>
-            You're under pressure to drive business efficiencies through artificial intelligence, and we know how.{" "}
-            <mark>We transform businesses by turning ideas into real-world solutions.</mark> Our approach is built on
-            industry best practices and decades of experience.
+            You're under pressure to turn AI into something measurable, governable, and actually useful. We know how to
+            do that because we have already done it in production: RLHF-driven QA systems, corpus-backed automation
+            pipelines, operator copilots, and hosted agent applications with clear control loops.
           </p>
-          <p>We excel at:</p>
+          <p>
+            That capability did not appear out of nowhere. It comes from years of operating business-critical systems
+            with strong expectations around uptime, auditability, change management, and service maturity.
+          </p>
+          <p>Today, our delivery work most often looks like:</p>
           <ul>
-            <li>Business process automation with AI/ML</li>
-            <li>Leveraging cloud and serverless for efficiency and reliability</li>
-            <li>Following industry best practices</li>
-            <li>Delivering solutions with high operational maturity</li>
-            <li>Ensuring regulatory compliance and auditability</li>
+            <li>Production RLHF and evaluation systems for high-stakes workflows</li>
+            <li>Evidence-grounded automation built from corpus and retrieval pipelines</li>
+            <li>Operator-facing agent applications with durable workflow state</li>
+            <li>Programmable content and video systems for demos, explainers, and publishing</li>
+            <li>Cloud-native delivery with strong operational maturity, auditability, and rollback paths</li>
           </ul>
           <p>
-            Our expertise makes your AI aspirations real. We design, implement, and support robust systems that drive
-            efficiency and create new opportunities.
+            We still do bespoke systems work, but the pattern is clearer now. The same platform pieces keep showing up
+            in successful engagements, which lets us move faster without pretending every project starts from zero.
           </p>
 
           <h2>Our Approach: Cybernetic Development</h2>
@@ -70,13 +103,44 @@ const AISolutionsPage = ({ data }) => {
           </p>
 
           <p>
-            Ready to revolutionize your business?{" "}
-            <a href={contactUrl}>Let's talk about what we can do for you.</a>
+            If you are trying to turn an AI idea into a system that can actually be operated,{" "}
+            <a href={contactUrl}>let&apos;s talk through the workflow, risk profile, and proof points you need.</a>
           </p>
           <div className="clear"></div>
+          <h2>The Anthus Platform</h2>
+
+          <p>
+            Solve complex business problems with AI and ML using a proven, reusable technology stack. These interoperable building blocks give our solutions a stronger operational foundation: durable procedures, MLOps control loops,
+            workload orchestration, knowledge systems, observability, and programmable media workflows.
+          </p>
+
+          <PlatformCards items={platformProducts} />
+
+          <p>
+            Start with <Link to="/platform">the platform overview</Link> if you want the product-map view, then come
+            back here for the client-facing solutions and case studies.
+          </p>
+
+          <h2>How solution language maps to the platform</h2>
+          <p>
+            Buyers usually describe the job to be done, not the internal stack. That is the right level to start from.
+            Under the hood, though, the same platform building blocks tend to reappear in different combinations.
+          </p>
+          <ul>
+            {solutionBlueprints.map(item => (
+              <li key={item.title}>
+                <strong>{item.title}:</strong> <code>{item.stack}</code>. {item.description}
+              </li>
+            ))}
+          </ul>
+          <p>
+            This is why the Anthus Platform matters: these are not isolated products. They are interchangeable parts we
+            combine into complete services with clearer specs, better monitoring, and stronger long-term maintainability.
+          </p>
+
           <h2>Featured Solutions</h2>
 
-          <p>Our recent work showcases AI-driven solutions that demonstrate production-ready implementations of agentic AI, RLHF systems, and intelligent automation:</p>
+          <p>These examples are not speculative positioning. They are concrete projects that show how we package evaluation, workflow, knowledge, monitoring, and delivery into working systems.</p>
 
           <Solutions
             className="smallImageList"
@@ -87,7 +151,10 @@ const AISolutionsPage = ({ data }) => {
 
           <h2>Portfolio</h2>
 
-          <p>Our journey spans decades of solving complex business challenges, from serverless architectures to AI-enabled systems:</p>
+          <p>
+            Our portfolio spans long-running operational systems, governed AI delivery work, and the platform
+            components that emerged from those environments:
+          </p>
 
           <Solutions
             className="smallImageList"
@@ -107,25 +174,28 @@ const AISolutionsPage = ({ data }) => {
           <h2>Types of solutions</h2>
 
           <h3 name="smart-process-automation">Smart Process Automation</h3>
-          <p>Your team of humans are expensive and you need them to spend their time <mark>driving business value</mark>. Everything about the calculus of what things are worth automating suddenly changed in 2023, and it's time to re-evaluate what menial tasks you can eliminate.</p>
-          <p>Privacy laws have changed a lot too, and new changes like the GDPR's "<a href="https://www.dataprotection.ie/en/individuals/know-your-rights/right-erasure-articles-17-19-gdpr">right to be forgotten</a>" has created a lot of work for a lot of companies. If you're a large enough company then you might be obligated to monitor a mailbox for unstructured email requests from humans, services and apps and respond to them within a regulated amount of time. You might need to document everything. Lots of companies have humans reading mailboxes once a day or once a week and manually responding to requests.</p>
-          <p><mark>This is what AI is for: Automating menial tasks</mark>. The amazing thing is how far the definition of "menial" has changed.</p>
-          <p>It's easy for an AI model to detect a GDPR 'forget me' request in an email and extract the required identifying information. We can build a process out of that. Our system can track the request emails that it detects, respond to the requestor, and notify you so that you can handle them. Or, we can build a process that fully automates deleting people from your data warehouses and data lakes and IT components. Or anything in between. How about a mostly-automated system with a human-in-the-loop approval process?</p>
-          <p>We know how to do that. Let's talk.</p>
+          <p>We use this label for high-volume workflows where the real challenge is not just classification, but building a durable end-to-end process around it. That usually means corpus inputs, explicit procedures, review gates, notifications, and a place for the system to live once it is running.</p>
+          <p>A concrete example is regulated or policy-heavy intake work: detect a request in unstructured communications, extract the required facts, route it correctly, preserve the evidence, and keep humans in the loop where judgment still matters.</p>
+          <p>That kind of solution often combines <code>Biblicus</code> for evidence and retrieval, <code>Tactus</code> for the durable procedure, and <code>Korporus</code> or <code>Caducus</code> when operators need a stable interface and visibility into what is happening.</p>
 
           <h3 id="conversational-ai-agents">Conversational AI Co-Pilot Agents</h3>
-          <p>With a background in crafting bespoke solutions, we excel at <mark>integrating conversational 'co-pilot' AI agents into existing systems</mark>, especially cloud-based systems on AWS. We showcased our expertise in the serverless event ticket sales system we operated for over 14 years. In the final year of this project in 2023, we introduced AI co-pilot technology using the <a href="https://openai.com/product">OpenAI API</a>, Slack, and a serverless application that could directly monitor and report on the AWS CloudWatch metrics and alarms from our system.</p>
-          <p>Copilot agents offer 24/7 availability and can save precious minutes during an operations crisis by helping operators to quickly diagnose problems. This constant support equips human operations teams with real-time information when needed, fostering a culture of agile and informed decision-making. Copilots can deliver cost-efficiency by automating routine tasks and reallocating resources towards more strategic, growth-focused activities.</p>
-          <p>Ready to elevate your operational efficiency with tailored Conversational AI solutions? We know how to <mark>connect the dots</mark> between the agents and your systems. Contact us to explore how our custom AI co-pilot integration can drive value for your business.</p>
+          <p>We no longer think of copilots as chat widgets bolted onto an application. The more interesting problem is giving operators a governed place to supervise long-running work, inspect evidence, escalate decisions, and keep the agent tied to the real state of the business.</p>
+          <p>That can look like a support copilot, an operations assistant, or an internal console for reviewing agent work. The common pattern is a hosted shell in <code>Korporus</code>, a durable procedure in <code>Tactus</code>, and evaluation plus feedback loops in <code>Plexus</code>.</p>
+          <p>This is how conversational interfaces become actual operator tools instead of demos.</p>
 
           <h3 id="ai-software-features">Tailored AI Features</h3>
-          <p>Artificial intelligence can be <mark>nearly invisible, but crucial</mark>. We faced a challenge recently in generating web restaurant menus because the system that stored the menu data didn't tag it with a language. How do you handle things like right-to-left languages on the web if you don't know what language you're displaying? How can we handle restaurant menus in Arabic?</p>
-          <p>Since the language of the restaurant menus was not and could not be tagged, we used AI to infer the language of each menu using <a href="https://aws.amazon.com/rekognition/">Amazon Rekognition</a>. AI made the system possible. It has performed flawlessly in production over time. It's not even fooled by "a la carte" on English menus.</p>
+          <p>Some of the highest-value AI work is nearly invisible to the end user. It is the classification, extraction, retrieval, summarization, or language-aware behavior that unlocks a product capability the underlying system could not reliably deliver on its own.</p>
+          <p>We have used that pattern in production for things like language inference, information extraction, and decision support. The important point is not that AI appears on the screen. The important point is that the product becomes more capable while remaining testable and operable.</p>
 
           <h3 id="ai-enabled-projects">AI-Enabled Projects</h3>
-          <p>Driving business efficiencies through artificial intelligence doesn't always require running AI models in production. <mark>AI makes hard things easy</mark>, and your business can benefit from bringing new capabilities within reach.</p>
+          <p>Some of our best work uses AI in the development and workflow layer rather than at runtime. AI makes hard systems easier to specify, evaluate, and evolve, even when the production architecture itself is mostly deterministic.</p>
+          <p>That is part of the Anthus point of view: use AI where it creates leverage, but keep the surrounding system durable, observable, and understandable.</p>
 
           <h2>The Process</h2>
+          <p>
+            The lifecycle below centers on <a href="https://plexus.anth.us">Plexus</a>, but in practice the broader
+            Anthus Platform supplies the runtime, workflow, knowledge, and monitoring layers around it.
+          </p>
           <figure>
             <Link to="https://plexus.anth.us">
               <img src="/assets/images/Anthus AI Application Lifecycle.png" alt="AI Application Lifecycle" />
@@ -146,7 +216,7 @@ export const Head = () => {
   return (
     <Seo
       title="AI Solutions"
-      description="Explore efficient AI solutions for business: smart automation, conversational agents, and bespoke AI features—built with guardrails and operational maturity for reliable production systems."
+      description="Explore Anthus AI solutions and the platform patterns behind them: durable procedures, MLOps, workflow state, corpus systems, monitoring, and programmable media."
       image="serverless-ai-software-solutions.png"
     />
   )
@@ -156,7 +226,7 @@ export const query = graphql`
   query {
     solutions: allMdx(
       filter: { frontmatter: { tags: { in: ["solutions"] } } }
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {
@@ -174,6 +244,26 @@ export const query = graphql`
               }
             }
             tags
+          }
+        }
+      }
+    }
+    platformProducts: allMdx(
+      filter: {
+        frontmatter: { content_type: { eq: "platform-product" }, state: { eq: "published" } }
+      }
+      sort: { frontmatter: { platform_order: ASC } }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            slug
+            excerpt
+            platform_category
+            platform_stage
+            external_url
           }
         }
       }

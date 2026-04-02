@@ -1,0 +1,39 @@
+---
+title: "Caducus"
+slug: "caducus"
+date: "2026-03-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["platform"]
+preview_image: "../images/platform-caducus.png"
+images:
+  - "../images/platform-caducus.png"
+excerpt: "Caducus is an application-health and operator-assistance system that turns noisy operational events into prioritized issue patterns, alerts, and level-zero triage support."
+state: published
+content_type: "platform-product"
+platform_category: "Observability"
+platform_order: 7
+platform_stage: "Emerging"
+external_url: "https://github.com/AnthusAI/Caducus"
+---
+
+## What it is
+
+Caducus is the beginning of an operator-agent layer for the Anthus Platform. It takes logs and operational events, clusters them into meaningful patterns, and surfaces a small radar of issues that matter now instead of forcing humans to dig through raw noise.
+
+## What it does
+
+- Ingests events and demo datasets into a normalized operational view.
+- Groups semantically related incidents into ranked issue patterns.
+- Highlights recency, recurrence, and size so operators can triage effectively.
+- Uses file-backed storage and semantic analysis components from the broader Anthus stack.
+
+## Why it matters
+
+Reliable AI systems need the same thing every other production system needs: operators who can understand what is happening quickly. Caducus is about shortening that path from "something is wrong" to "this is the pattern worth investigating first."
+
+## How it fits the Anthus Platform
+
+Caducus depends on [Virtuus](/platform/virtuus) for storage and [Biblicus](/platform/biblicus) concepts for semantic clustering and reinforcement memory. In the broader platform story, it represents the observability and operator-support layer that complements agent execution and MLOps.
+
+A common pattern is [Plexus](/platform/plexus) + [Korporus](/platform/korporus) + [Caducus](/platform/caducus): govern the system, run it in a standard shell, and give operators a clearer picture of what is happening in production.

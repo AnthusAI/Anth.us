@@ -23,6 +23,10 @@ module.exports = {
         link:'/about'
       },
       {
+        name:'Platform',
+        link:'/platform'
+      },
+      {
         name:'Articles',
         link:'/blog'
       },
