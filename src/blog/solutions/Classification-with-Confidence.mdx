@@ -7,7 +7,7 @@ authors:
   - author: <a href="/ryan">Ryan Porter</a>
 tags: ["solutions", "featured"]
 preview_image: "../images/llm-classifiers/freud-detector-fine-tuned.png"
-excerpt: "<p>A practical exploration of LLM fine-tuning for text classification. By fine-tuning GPT-4o-mini, we significantly improved classification accuracy and alignment to specific business requirements. The project demonstrates a production-ready approach to model alignment with confidence scoring that determines when human review is needed—a practical application of human-in-the-loop principles that balances automation with expert oversight. View the project on <a href='https://github.com/AnthusAI/Classification-with-Confidence'>GitHub</a>.</p>"
+excerpt: "<p>A practical example of aligning a classifier to business requirements with fine-tuning, evaluation, and confidence thresholds for human review. The point is not just better accuracy. It is building a classification workflow that knows when to automate, when to escalate, and how to improve over time. View the project on <a href='https://github.com/AnthusAI/Classification-with-Confidence'>GitHub</a>.</p>"
 images:
   - "../images/llm-classifiers/freud-detector-base.png"
   - "../images/llm-classifiers/freud-detector-fine-tuned.png"
@@ -20,7 +20,7 @@ import BlogImage from '../../components/blog-image';
 
 When building text classification systems, a key question emerges: how much can LLM fine-tuning improve classification accuracy compared to using base models with prompt engineering alone?
 
-This project demonstrates the practical application of **LLM fine-tuning** to align a classifier with specific business requirements. It's not groundbreaking research—it's a hands-on exploration of techniques that prove valuable in production systems.
+This project demonstrates the practical application of **LLM fine-tuning** to align a classifier with specific business requirements. More importantly, it shows how to turn classification into a governed workflow: measure performance, estimate confidence, and use that confidence to decide when human review is required.
 
 ## The Problem: When to Trust AI Decisions
 
@@ -64,23 +64,23 @@ The fine-tuned model demonstrates significantly improved accuracy, particularly 
 
 ## Why This Matters
 
-**LLM fine-tuning** is a high-value skill in the AI employment market because it demonstrates:
+For us, the value of **LLM fine-tuning** is not résumé signaling or model novelty. It is that better alignment creates better operating conditions for the surrounding system:
 
-- Understanding of the complete ML lifecycle, not just API consumption
-- Ability to align AI models to specific business requirements
-- More sophisticated approach than prompt engineering alone
-- Production-ready thinking about model performance and reliability
+- High-confidence cases can flow straight through
+- Low-confidence cases can be routed to human review
+- Teams get a cleaner tradeoff between speed and accuracy
+- Feedback from reviewed cases can be reused to improve the model
 
-These techniques enable:
+Those techniques enable:
 
-- Customization of models for specific business requirements
-- Improved accuracy on domain-specific terminology
+- Customization for domain-specific requirements
+- Better handling of edge cases and terminology
 - Reduced false positives and false negatives
 - Confidence scoring integrated into **adaptive systems**
 
 ### Fine-Tuning as Part of RLHF Systems
 
-Fine-tuning a classifier can be a key component of larger **RLHF (Reinforcement Learning from Human Feedback)** systems. When humans review AI decisions and provide feedback, that feedback can be used to fine-tune the model, creating a continuous learning loop:
+Fine-tuning a classifier can be a key component of larger **RLHF (Reinforcement Learning from Human Feedback)** systems. When humans review AI decisions and provide feedback, that feedback can be reused for better training and evaluation, creating a continuous learning loop:
 
 1. **AI makes predictions** with confidence scores
 2. **Humans review** low-confidence or flagged cases
@@ -88,7 +88,7 @@ Fine-tuning a classifier can be a key component of larger **RLHF (Reinforcement 
 4. **Model is fine-tuned** to align better with human decisions
 5. **System improves** over time, requiring less human review
 
-This is how you build **self-evolving AI agents** that get smarter through human feedback—a core component of production-scale RLHF systems. Fine-tuning isn't just a one-time improvement; it's a mechanism for continuous alignment with human judgment.
+This is how you build systems that get better through human feedback. Fine-tuning is not just a one-time optimization. It is one mechanism for keeping the model aligned to human judgment as the workflow evolves.
 
 ## Technical Implementation
 
@@ -110,11 +110,11 @@ What separates demos from production systems is attention to details like:
 - **Continuous evaluation**: Measuring performance on real-world data
 - **Human-in-the-loop integration**: Designing for human oversight where needed
 
-These aren't just academic exercises—they're the foundation of reliable AI systems that deliver business value.
+These are the controls that let a classifier participate in a real workflow instead of sitting in a notebook demo.
 
 ## Open Source
 
 The complete project is available on [GitHub](https://github.com/AnthusAI/Classification-with-Confidence), including training scripts, evaluation tools, and example datasets. It's designed to be a practical reference for anyone implementing similar classification systems.
 
-This work emerged from real-world challenges in building production AI systems, and we're sharing it to help others tackle similar problems.
+This work emerged from real-world challenges in building production AI systems, and we are sharing it as a concrete reference for teams trying to build classification workflows that remain testable and governable.
 

@@ -15,7 +15,7 @@ const RyansPage = ({ data }) => {
         <div className="resume">
           <h1>Ryan Porter</h1>
           <p>
-            Accomplished <mark>technology Leader and architectural innovator</mark> with a proven history of developing and operating mission-critical, high-availability systems that deliver business value.  Focused on delivering exciting AI applications through serverless cloud architectures.
+            Technology leader focused on building and operating <mark>mission-critical systems that survive production</mark>. The current Anthus work applies that same background to governed AI systems, RLHF-driven workflows, durable agent procedures, and platform products that turn those ideas into repeatable delivery patterns.
           </p>
 
           <div className="experience">
@@ -26,7 +26,9 @@ const RyansPage = ({ data }) => {
               <div className="location">Miami Beach, FL</div>
             </div>
             <p className="description">
-              Our team has been working together for over a decade, and we have been working on AI solutions for years now.  The Anthus name is the only new thing, as we fully focus on the intersection of software solutions and artificial intelligence.
+              Our team has been working together for over a decade. The Anthus name is new, but the delivery discipline
+              is not. Over the last two years, we have applied that foundation more directly through systems like
+              Plexus, Tactus, Biblicus, Korporus, and Babulus.
             </p>
           </div>
 
@@ -181,7 +183,7 @@ export const query = graphql`
   query {
     solutions: allMdx(
       filter: { frontmatter: { tags: { in: ["solutions"] } } }
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {

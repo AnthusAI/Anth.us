@@ -60,6 +60,21 @@
   margin-top: var(--space-4)
 }
 
+.eyebrow {
+  display: block;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.platformHeader {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 .tight {
   gap: 2em var(--size-gap);
   margin-top: 0;
@@ -122,6 +137,21 @@
   max-width: none;
   line-height: var(--line-height-loose);
   margin-top: var(--space-4)
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.platformHeader {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -210,6 +240,67 @@
   color: white;
   text-decoration: underline;
   font-weight: 600;
+}
+
+.capabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 1rem;
+  list-style: none;
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+}
+
+.capabilityItem {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.capabilityItem :global(.gatsby-image-wrapper) {
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.capabilityLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  display: block;
+}
+
+.capabilityDescription {
+  color: var(--color-text);
+  margin-bottom: 0;
+  margin-top: var(--space-1);
+}
+
+.platformRecipeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.platformRecipeCard {
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.platformRecipeCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.platformRecipeMeta {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 768px) {

@@ -58,8 +58,8 @@ const CollectionTemplate = ({ data }) => {
 export const pageQuery = graphql`
   query CollectionPageQuery {
     publishedPosts: allMdx(
-      filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] } } }
-      sort: { fields: [frontmatter___date], order: [DESC] }
+      filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] }, content_type: { ne: "platform-product" } } }
+      sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {
@@ -81,8 +81,8 @@ export const pageQuery = graphql`
     }
     draftPosts: allMdx(
       # filter: { frontmatter: { state: { eq: "draft" } } }
-      filter: { frontmatter: { state: { ne: "published" }, tags: { nin: ["solutions", "posts"] } } }
-    sort: { fields: [frontmatter___date], order: [DESC] }
+      filter: { frontmatter: { state: { ne: "published" }, tags: { nin: ["solutions", "posts"] }, content_type: { ne: "platform-product" } } }
+    sort: { frontmatter: { date: DESC } }
     ) {
       edges {
         node {
@@ -114,7 +114,7 @@ export const Head = () => {
   return (
     <Seo
       title="Blog"
-      description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS and Azure."
+      description="Articles from Anthus on governed AI systems, cybernetic development, RLHF, durable procedures, retrieval workflows, and the Anthus Platform."
       image="serverless-ai-software-solutions.png"
     />
   )

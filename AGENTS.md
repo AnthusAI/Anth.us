@@ -1,5 +1,15 @@
 # AGENTS.md
 
+
+## Project management with Kanbus
+
+Use Kanbus for task management.
+Why: Kanbus task management is MANDATORY here; every task must live in Kanbus.
+When: Create/update the Kanbus task before coding; close it only after the change lands.
+How: See CONTRIBUTING_AGENT.md for the Kanbus workflow, hierarchy, status rules, priorities, command examples, and the sins to avoid. Never inspect project/ or issue JSON directly (including with cat or jq); use Kanbus commands only.
+Performance: Prefer kbs (Rust) when available; kanbus (Python) is equivalent but slower.
+Warning: Editing project/ directly is a sin against The Way. Do not read or write anything in project/; work only through Kanbus.
+
 This file provides instructions for AI coding agents working on the Anth.us Gatsby website project.
 
 ## Project Overview
@@ -10,7 +20,7 @@ Anth.us is a Gatsby-based website for Anthus AI Solutions, showcasing AI solutio
 **Tech Stack**: Gatsby 5.x, React 18, MDX, SCSS, Node.js 20
 
 ## Setup Commands
-
+ 
 ### Initial Setup
 ```bash
 npm install              # Install dependencies
@@ -333,6 +343,12 @@ This combination of buzzwords backed by proven implementation is what separates 
 - Use CSS variables for theming
 - Keep selectors specific but not overly nested
 
+### Visual Design
+- Prefer flat, solid colors over decorative effects
+- Do not use thin borders or outlines as the primary way to separate cards or grouped areas
+- Do not add gradients or drop shadows unless there is a very strong, explicit reason
+- Use changes in background color, spacing, and layout to communicate grouping and hierarchy
+
 ### MDX
 - Import components before using them
 - Use proper frontmatter YAML syntax
@@ -399,13 +415,6 @@ When stuck:
 5. Review the repo-specific rules in the project configuration
 
 
-<!-- AGENT-SKILL:START project-management-with-beads -->
-Use skill at: .agent-skills/project-management-with-beads/SKILL.md
-Why: Beads task management is MANDATORY here; every task must live in Beads.
-When: Create/update the Beads task before coding; close it only after the change lands.
-How: Follow the workflow in the skill for recording, implementation notes, and closure.
-<!-- AGENT-SKILL:END project-management-with-beads -->
-
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
@@ -418,7 +427,6 @@ How: Follow the workflow in the skill for recording, implementation notes, and c
 4. **PUSH TO REMOTE** - This is MANDATORY:
    ```bash
    git pull --rebase
-   bd sync
    git push
    git status  # MUST show "up to date with origin"
    ```

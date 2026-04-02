@@ -17,6 +17,7 @@
             - **Blog Articles**: Long-form content about AI, technology, and solutions (`src/blog/*.mdx`)
             - **Posts**: Shorter updates and announcements (`src/blog/posts/*.mdx`)
             - **Solutions**: Detailed technical solutions (`src/blog/solutions/*.mdx`)
+            - **Platform Products**: Anthus Platform product pages rendered at `/platform/{slug}` from `src/blog/platform/*.mdx`
             - **Pages**: Static website pages (`src/pages/*.js`)
         </content>
     </section>
@@ -59,6 +60,39 @@
 
             Brief content here...
             ```
+        </content>
+    </section>
+
+    <section id="creating-platform-product">
+        <heading>Creating a Platform Product Page</heading>
+        <content>
+            Platform product pages describe first-party Anthus Platform components such as Plexus, Tactus, and VideoML.
+
+            1. Create the placeholder image first in `src/blog/images/` using a `platform-your-slug.png` filename.
+            2. Create a new `.mdx` file in `src/blog/platform/`.
+            3. Include frontmatter that uses the dedicated platform fields:
+            ```markdown
+            ---
+            title: "Product Name"
+            slug: "product-slug"
+            date: "YYYY-MM-DD"
+            authors:
+              - author: <a href="/ryan">Ryan Porter</a>
+            tags: ["platform"]
+            preview_image: "../images/platform-product-slug.png"
+            images:
+              - "../images/platform-product-slug.png"
+            excerpt: "One-sentence product summary."
+            state: published
+            content_type: "platform-product"
+            platform_category: "Platform Runtime"
+            platform_order: 1
+            platform_stage: "Active development"
+            external_url: "https://example.com"
+            ---
+            ```
+            4. Write the page as a product narrative, not as a blog article.
+            5. Explain what the product is, what it does, why it matters, and how it fits the Anthus Platform.
         </content>
     </section>
 

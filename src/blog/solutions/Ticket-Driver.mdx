@@ -7,9 +7,76 @@ authors:
   - author: <a href="/ryan">Ryan Porter</a>
   - author: and the <a href="https://chat.openai.com/g/g-MA4ZbLQBi-assistant-alpha"><i>Anthus</i></a> GPT
 tags: ["solutions"]
-excerpt: "<p>Modernized Venue Driver with a serverless architecture, improving reliability and efficiency by eliminating server management. Implemented a React frontend and GraphQL backend, dramatically improving system reliability and performance while reducing operational costs.</p>"
+excerpt: "<p>Modernized a mission-critical event ticketing system with a cloud-native, serverless architecture that reduced operational drag while preserving uptime, business continuity, and the hard-won logic of a long-running production platform. The work improved reliability and development velocity without treating modernization like a risky rewrite.</p>"
 images: []
 state: published
 ---
 
-[DRAFT]
+## Modernizing a Mission-Critical Ticketing System
+
+Ticket Driver was our effort to modernize a long-running ticketing platform without breaking the business that depended on it. This was not a greenfield application. It was a revenue-critical system with years of production history, operational edge cases, and institutional knowledge already embedded in it.
+
+That context matters. The hardest part of enterprise modernization is rarely writing new code. The hard part is preserving continuity while you improve the architecture underneath a live system.
+
+## The Challenge
+
+By the time we began this work, the broader platform already supported real hospitality operations at scale. It handled workflows around ticketing, reservations, guest lists, and related venue activity. Reliability was not optional. Downtime affected live operations and revenue.
+
+The architectural problem was familiar:
+
+- **Infrastructure overhead**: Traditional server management consumed time that should have gone to product and operations
+- **Bursty demand**: Traffic patterns followed events and venue activity rather than smooth, predictable load
+- **Evolution pressure**: The system needed a more modern frontend and service boundary without destabilizing core workflows
+- **Integration complexity**: Adjacent systems and data flows still had to keep working during the transition
+- **Operational risk**: A rewrite-style mindset would have introduced more danger than value
+
+We were not chasing novelty. We were looking for a more durable operating model.
+
+## Our Approach
+
+We moved the system toward a cloud-native, serverless architecture designed to reduce operational friction while improving resilience and maintainability. The modernization included a React frontend, a GraphQL backend, and a service model that reduced the need for persistent server management.
+
+The goal was straightforward:
+
+- Preserve proven business logic
+- Modernize the user and developer experience
+- Reduce infrastructure maintenance burden
+- Improve elasticity for real production load
+- Make future changes safer and easier to ship
+
+This kind of work is often described as a rewrite, but that word hides the real discipline involved. A live business system cannot be treated like a lab exercise. You need to understand the business rhythms, the failure modes, and the consequences of every migration step.
+
+## Why Serverless Was the Right Fit
+
+Serverless infrastructure mattered here because it matched the shape of the problem:
+
+- **Elastic scaling** for event-driven traffic spikes
+- **Lower infrastructure overhead** for the team operating the system
+- **Better fault isolation** across discrete services and workflows
+- **Improved cost efficiency** when load is variable
+- **Faster iteration** on components without treating the whole platform as one deployment unit
+
+This was not just a technology preference. It was an operational decision about how to keep a high-stakes system healthy over time.
+
+## Business Outcome
+
+The result was a more efficient and maintainable platform that continued to support revenue-producing operations while lowering operational drag. Reliability improved, development became less constrained by infrastructure management, and the system gained a better foundation for future evolution.
+
+Most importantly, the business did not have to absorb a disruptive break in continuity to get those benefits.
+
+## What This Project Demonstrates
+
+Ticket Driver is an important part of the Anthus story because it shows the operating instincts that now shape our AI and platform work:
+
+- **Continuity matters more than architectural purity**
+- **Cloud decisions should reduce risk, not just follow trends**
+- **Live systems need observability, rollback paths, and careful change management**
+- **Good modernization preserves what already works while improving what no longer scales**
+
+These are the same instincts that later made us effective at governed AI delivery. Before we were building RLHF systems and operator-facing agent workflows, we were already learning how to evolve production systems without making them fragile.
+
+## Continuity Into Anthus
+
+Ticket Driver helped reinforce a lesson we still use every day: production systems survive when engineering choices are accountable to operations. That lesson applies just as much to AI/ML systems as it does to ticketing and commerce systems.
+
+The technologies changed. The discipline did not.

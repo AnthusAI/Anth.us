@@ -14,7 +14,7 @@ const AboutPage = () => {
           <h1>About us</h1>
           <p>
             <img src="/assets/images/ryan-porter.png" alt="About Anthus" className="responsive-float-right-image" />
-            In 2009, <a href="/ryan">Ryan Porter</a> developed an innovative event ticket sales system for
+            In 2009, <a href="/ryan">Ryan Porter</a> developed an event ticket sales system for
             a <a href="https://en.wikipedia.org/wiki/Kaleidoscope_World_Tour">Tiësto world tour</a>, 
             sparking a business that generated up to $64 million annually
             for <mark>over fourteen years.</mark> We came together as a team as the business expanded, 
@@ -24,10 +24,31 @@ const AboutPage = () => {
             more than a decade, safeguarding an impeccable record in <mark>reliability and security</mark>.
           </p>
           <p>
-            Throughout our journey, we not only integrated various third-party platforms—including Salesforce, Marketo, Salesforce Marketing Cloud, Mailchimp, and Paytronix into our system but also successfully navigated through multiple technological revolutions. From embracing <mark>cloud computing</mark> to harnessing <mark>serverless architectures</mark> and deploying <mark>artificial intelligence</mark> applications, we continuously adapted and innovated while maintaining operational excellence and security. Even amidst rigorous audits from top-tier firms and scrutiny from our parent company, Madison Square Garden Entertainment, our innovative approaches to service management maturity and risk management consistently earned approval.
+            Throughout that journey, we integrated third-party platforms including Salesforce, Marketo, Salesforce
+            Marketing Cloud, Mailchimp, and Paytronix while navigating multiple technological shifts without giving up
+            operational rigor. Cloud infrastructure, serverless architectures, auditability, and disciplined service
+            management were not side concerns for us. They were already part of how we built and operated systems under
+            real business pressure.
           </p>
           <p>
             Our endurance over more than fourteen years is a testament to our commitment and capability in preventing business interruptions arising from downtime, software malfunctions, security incidents, or data losses.  <mark>The hackers never got us</mark>, despite being a <a href="https://twitter.com/RyanAlynPorter/status/890982980721790976">prime target</a>.  When a catastrophic failure struck an entire AWS data center, we relocated the entire system to a new data center within hours, ensuring that ticket scanning at nightclubs proceeded without a hitch.  We have navigated through massive DDoS attacks, primary database server failures, silent failures in third-party systems, and everything else you could imagine.  We always <mark>kept the revenue flowing</mark>.  Then we smoothly handed it off to the next team with no business interruption or impairment.
+          </p>
+          <h2>What That Experience Produces Now</h2>
+          <p>
+            Over the last two years, we have applied that same operating discipline to AI/ML delivery. We have built
+            production RLHF systems for call-center QA, durable agent procedures and operator-facing application shells,
+            corpus-driven retrieval and extraction workflows, and code-first media pipelines for demos and explainers.
+          </p>
+          <p>
+            That work is increasingly embodied in the <a href="/platform">Anthus Platform</a>: <a href="https://plexus.anth.us">Plexus</a> for
+            evaluation and MLOps, <a href="/platform/tactus">Tactus</a> for durable procedures, <a href="/platform/biblicus">Biblicus</a> for
+            corpus and retrieval workflows, <a href="/platform/korporus">Korporus</a> for hosted application shells, and
+            <a href="/platform/babulus"> Babulus</a> plus <a href="/platform/videoml">VideoML</a> for programmable content and video.
+          </p>
+          <p>
+            The same habits that matter in enterprise software engineering now show up in Anthus as governed AI systems:
+            compliance-friendly workflows, observable services, clear approval paths, and strong rollback and evaluation
+            discipline.
           </p>
           <h2>How We Build Today</h2>
           <p>
@@ -36,7 +57,8 @@ const AboutPage = () => {
             system. Read more in <a href="/blog/cybernetic-development">Cybernetic Development</a>.
           </p>
           <p>
-            Now, we bring our depth of experience and technical agility to your projects. <mark>What can we develop and operate for you?</mark>
+            Now, we bring those concrete systems and that same operational maturity to client work. <mark>What can we
+            develop and operate for you?</mark>
           </p>
         </div>
       </article>
@@ -53,7 +75,7 @@ export const Head = () => {
   return (
     <Seo
       title="About Us"
-      description="With a history of powering a multi-million dollar ticketing system and seamless integrations across platforms like Salesforce and Mailchimp, we bring unparalleled expertise in serverless architectures and AI to your projects."
+      description="Anthus combines long-running operational experience with concrete AI delivery work: RLHF systems, durable agent workflows, retrieval pipelines, hosted operator apps, and programmable media."
       image="serverless-ai-software-solutions.png"
     />
   )
