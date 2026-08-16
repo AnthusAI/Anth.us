@@ -1,0 +1,435 @@
+---
+title: "The Year Coding Became a Commodity"
+slug: "ai-coding-cost-collapse-2026"
+date: "2026-08-16"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "What happens when AI coders that are better than humans become a cheap commodity? Since 'vibe coding' was coined in 2025, that same capability has gotten about 10× cheaper — and the price drop coincided with agents learning to run autonomously for hours. The two effects multiply, and the bottleneck moved from implementation to specification."
+preview_image: "./images/ai-coding-cost-collapse-2026.png"
+images:
+  - ./images/ai-coding-cost-collapse-2026.png
+state: draft
+tags:
+  - articles
+  - ai
+  - economics
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+*What happens when AI coders that are better than humans become a cheap commodity?*
+
+A big thing is happening in 2026 in AI coding: after years of getting smarter, now coding models are getting cheaper. Since Andrej Karpathy coined "vibe coding" in February 2025, that same level of coding capability has gotten about 10× cheaper. The collapse accelerated in 2026 as a wave of Chinese models matched the big American AI labs on performance at roughly a tenth of the cost. DeepSeek R1 started the trend in January 2025. Through 2026, Kimi from Moonshot and GLM 5.2 from Z.ai followed, each landing within a few points of the US frontier at a fraction of the price.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Fortune",
+    title: "China's Moonshot, Z.AI, and DeepSeek are challenging U.S. AI labs—and beating them on cost",
+    URL: "https://fortune.com/2026/07/26/china-moonshot-deepseek-zai-kimi-challenging-us-ai-cost/",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 7, 26]] }
+  }}
+/> A $200-per-month coding habit only costs $20 now.
+
+That is the part most people have not noticed. The headline for years has been "the models got smarter." The headline for 2026 is <mark>last year's useful coding capability moved down the cost curve</mark>—often by an order of magnitude per year—while our buying habits and default model picks have not caught up.
+
+## The narrative flipped
+
+For years, the AI-coding story was about capability: longer context windows, better tool use, higher scores on SWE-bench. That story is still true at the frontier. But the more practical headline in 2026 is price-performance.
+
+You can now get **better performance than last year at roughly a tenth of last year's cost** for many everyday tasks: writing boilerplate, fixing lint errors, generating tests, explaining unfamiliar code, and resolving well-scoped repository issues. The model that felt "good enough" in 2024 or 2025 is not merely cheaper—it has been **displaced down the cost curve** by smaller, faster models that match or beat it on the work you actually do.
+
+The mistake is measuring progress only by "what is the smartest model?" The better question is: <mark>what does it cost to complete this class of engineering task at last year's quality bar?</mark>
+
+## What the big labs don't want you to know
+
+The tension underneath the cost collapse is the thing the big American AI labs least want you to hear: <mark>you do not need their expensive frontier models for most of your work.</mark>
+
+The "fast" model tier inverted. In 2025, "fast" meant a smaller, discount model—Haiku, Flash, mini—cheaper than the flagship. In 2026 it became a hot-rod tier: the new fast flagships cost *more* than the normal flagship, backed by extra hardware for speed. Anthropic's Fable 5 lists at $10/$50 per million tokens, twice Opus 5's $5/$25. OpenAI's GPT-5.6 Sol lists at $5/$30, and a new Ultrafast mode runs it at 14× speed for a premium.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "TechCrunch",
+    title: "OpenAI introduces 'Ultrafast,' a new mode that makes GPT-5.6 Sol work at 14x the speed",
+    URL: "https://techcrunch.com/2026/08/13/openai-introduces-ultrafast-a-new-mode-that-makes-gpt-5-6-sol-work-at-14x-the-speed/",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 8, 13]] }
+  }}
+/> Speed became the product the big labs are selling, not savings.
+
+The Chinese labs went the opposite direction. GLM 5.2 from Z.ai lists at $1.40/$4.40 and trails Claude Opus 4.8 by about 1% on the FrontierSWE coding benchmark. That is Opus-adjacent quality at Haiku money—roughly what Anthropic charges for Haiku 4.5 ($1/$5), but for near-frontier quality instead of discount quality.
+
+The big labs know that, which is why they use the tool itself to push you toward the expensive models. In April 2026, OpenAI removed the affordable Codex models—GPT-5.1 Codex mini and GPT-5.3 Codex—from the Codex tool's model picker and directs you to GPT-5.5 or GPT-5.4.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Codex Knowledge Base",
+    title: "The Codex Model Sunset: June–July 2026 Deprecation Timeline, Migration Paths, and Config Recipes",
+    URL: "https://codex.danielvaughan.com/2026/06/02/codex-model-sunset-june-july-2026-deprecation-timeline-migration-paths-config-recipes/",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 6, 2]] }
+  }}
+/> The default `gpt-5.6` alias routes to Sol, the most expensive tier.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "byteiota",
+    title: "GPT-5.6 Luna Drops 80%: Rethink Your Model Routing Now",
+    URL: "https://byteiota.com/gpt56-luna-price-cut-model-routing/",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> Use Sol for everything and you can easily spend <mark>thousands per month</mark>.
+
+The affordable combination the removal took off the table was the one that benefited people who pay for their own tokens: GPT-5.4 for planning, then GPT-5.3 Codex or GPT-5.1 Codex mini for execution. GPT-5.3 Codex handled pretty much any coding task if it was clearly planned out, and GPT-5.1 Codex mini was so cheap it was effectively free for project maintenance work like "commit this." That combination was such a good value that OpenAI removed it from the tool.
+
+The punchline for the individual developer: the big American companies always want to encourage you to get hooked on increasingly-expensive, slightly-more-capable models. What benefits most people who pay for their own tokens is to default to the affordable models where you can sustain a lot of use.
+
+## How to actually leverage it
+
+The simple version: just use Auto mode in Cursor. Cursor's Auto mode—its Cursor Router, shipped July 2026—has become at least as capable as Sonnet was just recently, at a fraction of the price. Auto Balance outperforms Opus 4.8 at about 41% lower cost, and Auto Intelligence lands near Fable-level satisfaction at about 60% lower.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Cursor",
+    title: "How Cursor Router chooses the right model for the task",
+    URL: "https://cursor.com/blog/how-cursor-router-works",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> Cursor's model-selection system classifies each request and routes complex tasks to more complex models. Cursor incentivizes you to use its own models—Composer 2.5, Grok 4.5—that are easier for it to serve, and that are often faster and more reliable than third-party APIs. Everyone wins. Just use Auto and stop thinking about model selection.
+
+The other big labs make you do the opposite. One way OpenAI gets people onto increasingly-expensive models is confusing model names. To get value out of the GPT-5.4 / GPT-5.3 Codex / GPT-5.1 Codex mini combination, you have to remember all those model numbers and what they mean: that GPT-5.2 is bigger and more expensive than GPT-5.1, that GPT-5.5 is more expensive than GPT-5.4, that GPT-5.6 Sol is on par with GPT-5.5. It is all, perhaps intentionally, very confusing. Your cost can increase by multiples almost overnight if you simply install the latest version of Codex and start using the default settings—the default `gpt-5.6` alias routes to Sol, the most expensive tier, and the affordable Codex models were removed from the picker in April 2026.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Codex Knowledge Base",
+    title: "The Codex Model Sunset: June–July 2026 Deprecation Timeline, Migration Paths, and Config Recipes",
+    URL: "https://codex.danielvaughan.com/2026/06/02/codex-model-sunset-june-july-2026-deprecation-timeline-migration-paths-config-recipes/",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 6, 2]] }
+  }}
+/> You have to constantly be in a "just say no" mindset to avoid that, and constantly monitor your costs to ensure some big AI lab hasn't tricked you into spending a lot more for a tiny improvement.
+
+The leverage, in one line: default to the affordable models where you can sustain a lot of use. In Cursor, that's Auto. In Codex, it's manually re-adding the affordable models and refusing the defaults. Either way, make the expensive frontier an opt-in, not an opt-out.
+
+## What the research actually measures
+
+A common failure mode in this debate is comparing **list prices per million tokens** and declaring victory. Reasoning models can look cheap per token while burning far more tokens to finish a coding task. Agent loops add retries, tool calls, test runs, and context re-ingestion. Real spend is task-shaped, not token-shaped.
+
+That is why a March 2026 revision of the MIT FutureTech / CSAIL paper *The Price of Progress: Price Performance and the Future of AI* matters.<Citation
+  data={{
+    type: "article-journal",
+    title: "The Price of Progress: Price Performance and the Future of AI",
+    author: ["Hans Gundlach", "Jayson Lynch", "Matthias Mertens", "Neil Thompson"],
+    "container-title": "arXiv",
+    DOI: "10.48550/arXiv.2511.23455",
+    URL: "https://arxiv.org/abs/2511.23455",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2025, 11]] }
+  }}
+/> The authors combine historical inference-price data with benchmark token use from Epoch AI's Benchmark Hub and evaluate **price-adjusted performance** across knowledge, math, and software engineering—not just raw API rates.
+
+Their headline finding: the cost of a given benchmark-performance level on the Pareto frontier has been falling roughly **5× to 10× per year** across GPQA-Diamond, AIME, and SWE-bench Verified. For software engineering specifically, SWE-bench Verified's sample is still small, so confidence intervals are wide—but the estimated annual price reduction is in the same ballpark, about **4.7× per year** on the cost-performance frontier.<Citation
+  data={{
+    type: "article-journal",
+    title: "The Price of Progress: Price Performance and the Future of AI",
+    author: ["Hans Gundlach", "Jayson Lynch", "Matthias Mertens", "Neil Thompson"],
+    "container-title": "arXiv",
+    DOI: "10.48550/arXiv.2511.23455",
+    URL: "https://arxiv.org/html/2511.23455v2",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2025, 11]] }
+  }}
+/>
+
+Methodologically, that matters for coding because they price a **benchmark run**—input, output, reasoning, and cached tokens—not a hypothetical single completion. A "cheap" reasoning model that thinks in 50,000 tokens is not cheap in the way a leaderboard screenshot suggests.
+
+One reason the "about 10×" figure in the lede is, if anything, conservative: it is an annual rate, and coding-specifically sits at the low end of the band. The SWE-bench point estimate is ~4.7× per year (with wide confidence intervals, because the sample is only 21 data points). Compounded over the roughly 18 months since "vibe coding" was coined, even that conservative 4.7× rate produces ~10×—almost exactly the round number in the lede. The overall 5×–10× band would compound to 12×–35× over the same window. So 10× since February 2025 is a defensible and arguably understated claim, not an optimistic one.
+
+They also estimate roughly **3× annual algorithmic efficiency** after attempting to strip out hardware price declines and competitive pricing effects among proprietary models. The interpretation includes better training data, distillation, mixture-of-experts architectures, and inference-side improvements—not just "GPUs got cheaper."
+
+<BlogImage images={props.pageContext.frontmatter.images} name="ai-coding-cost-collapse-2026.png" className="centered" alt="Title card: AI coding costs falling while fixed capability holds." />
+
+## Earlier warnings that this was coming
+
+MIT's 2026 analysis is the cleanest academic framing, but it did not come out of nowhere.
+
+Epoch AI's quality-adjusted inference price work found that, depending on task and target capability level, the price to reach a performance milestone was falling between **9× and 900× per year**, with a median around **50× annually**—including coding benchmarks like HumanEval.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Epoch AI",
+    title: "LLM inference prices have fallen rapidly but unequally across tasks",
+    URL: "https://epoch.ai/data-insights/llm-inference-price-trends",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> Epoch rightly cautions that the fastest estimates occurred over short recent windows and may not persist forever.
+
+The HumanEval illustration is still striking: GPT-4's 67% HumanEval level was on the order of **$37.50 per million tokens** in March 2023; by 2024, several models matched or exceeded that score at roughly **$0.10–$0.50 per million tokens**. That is not a full agent-cost comparison, but it shows how violently the capability/price frontier moved.
+
+The 2026 acceleration has names and dates. DeepSeek R1, released January 20, 2025, matched or exceeded OpenAI's o1 on AIME 2024, MATH-500, LiveCodeBench, and SWE-bench Verified while charging about **$0.55/$2.19** per million input/output tokens against o1's **$15/$60**—roughly 27× cheaper.<Citation
+  data={{
+    type: "article-journal",
+    title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+    "container-title": "arXiv",
+    URL: "https://arxiv.org/abs/2501.12948",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2025, 1]] }
+  }}
+/> GLM 5.2, from Z.ai (Zhipu AI), released June 16, 2026, trails Claude Opus 4.8 by about 1% on the FrontierSWE long-horizon coding benchmark while beating GPT-5.5 on it—and charges **$1.40/$4.40** per million tokens against Opus 4.8's **$5/$25**, roughly one sixth the cost.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Z.ai",
+    title: "GLM-5.2: Built for Long-Horizon Tasks",
+    URL: "https://z.ai/blog/glm-5.2",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 6, 16]] }
+  }}
+/> That is the concrete mechanism behind the abstract MIT trend: open-weight Chinese models landing within a few points of the American frontier at a fraction of the price, which in turn put competitive pressure on the closed US labs. Peer-to-peer, Chinese models run roughly three to five times cheaper, and only at the top of the US price stack does the multiple blow out past 20×.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Capital and Compute",
+    title: "China AI Pricing 2026: DeepSeek, Qwen, Kimi API Costs",
+    URL: "https://capitalandcompute.net/blog/china-ai-pricing/",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/>
+
+Stanford HAI's 2025 AI Index adds the broader substrate.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Stanford HAI",
+    title: "AI Index 2025: State of AI in 10 Charts",
+    URL: "https://hai.stanford.edu/news/ai-index-2025-state-of-ai-in-10-charts",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> The price of a model achieving GPT-3.5-equivalent MMLU performance fell from about **$20 per million tokens in November 2022 to $0.07 by October 2024**—more than a **280×** drop in roughly 18 months. The smallest model clearing 60% MMLU shrank from PaLM's 540B parameters to Phi-3-mini's 3.8B—a **142×** parameter reduction.
+
+That is not a coding-agent result specifically. But it explains why the coding market became price-sensitive so fast: broadly capable "good enough" models became small, cheap, and fast enough to serve as the workhorse inside agent loops, code review, test generation, and routine edits.
+
+## Dollars per resolved task, not dollars per token
+
+For engineering leaders, the MIT paper is the academic anchor. For day-to-day tool selection, agent benchmarks are more legible.
+
+*Dialogue-SWEBench*, a June 2026 benchmark from UC Santa Cruz, reports **dollars per resolved interactive repository task** on a dialogue-driven software engineering benchmark—not list price.<Citation
+  data={{
+    type: "article-journal",
+    title: "A Benchmark for Dialogue-Driven Coding Agents",
+    "container-title": "arXiv",
+    URL: "https://arxiv.org/html/2606.13995v1",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 6]] }
+  }}
+/> That is much closer to how a coding agent actually spends money.
+
+| Model / agent configuration | Resolved tasks | Cost per task |
+|---|---:|---:|
+| GPT-5 mini + schema-guided agent | 58.8% | $0.24 |
+| GPT-5 + schema-guided agent | 58.0% | $0.86 |
+| Qwen 3 Coder + schema-guided agent | 32.3% | $0.13 |
+| Devstral 2 Small + interactive agent | 42.2% | $0.30 |
+
+The standout observation: **GPT-5 mini rivals GPT-5 at a fraction of the cost** in this setting. The larger model retains an edge on the hardest tasks, but it is worse on simpler work—partly because it asks unnecessary questions and runs longer interactions.
+
+That is the mechanism behind the $200-to-$20 mental model. For a wide class of ordinary engineering work, the economically optimal model is moving **down** the capability ladder much faster than developers' default subscriptions are.
+
+## Not just cheaper — autonomous for longer
+
+Here is the part the price-performance story misses if you only read the token-pricing charts.
+
+The cost collapse did not arrive alone. It coincided with a parallel capability curve: agents getting able to operate autonomously for longer, in loops, instead of answering one prompt and stopping. And those two curves are not separate stories. They are the same story, and they multiply.
+
+The capability curve is real and dated. OpenAI's December 2025 Codex release was, in their own words, "the moment that people began to believe that using autonomous coding agents could be reliable"—driven by "a huge jump in how long the model could reliably follow instructions." A single 25-hour uninterrupted run produced 30,000 lines of code on 13 million tokens, with the model running its own verification steps at every milestone.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "OpenAI Developers",
+    title: "Run long horizon tasks with Codex",
+    URL: "https://developers.openai.com/blog/run-long-horizon-tasks-with-codex",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> METR's time-horizon metric—the length of task a frontier model can complete with 50% reliability—has been **doubling roughly every seven months since 2019**.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Addy Osmani",
+    title: "Long-running Agents",
+    URL: "https://addyosmani.com/blog/long-running-agents/",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/>
+
+So while the price of a fixed level of coding was falling 5×–10× per year, the length of task an agent could stay on was doubling every seven months. Two exponential curves, moving at the same time, in the same product cycle.
+
+## Why the two effects multiply
+
+The reason these two curves synergize rather than just sit side by side is that long autonomous loops are exactly the token-expensive work that only becomes affordable when tokens get cheap.
+
+An agent loop is not a chat. A chatbot returns one response. An agent plans, calls tools, verifies, retries, and re-reads its accumulated context on every step. Stanford's Digital Economy Lab gave this a name: the **"pricey context snowball."** Input tokens, not output tokens, drive the cost of agentic work, because the agent re-sends a growing context window on every step of a multi-step task.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Stanford Digital Economy Lab",
+    title: "How are AI agents spending your tokens?",
+    URL: "https://digitaleconomy.stanford.edu/news/how-are-ai-agents-spending-your-tokens/",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> A 50-turn session can run a 25:1 ratio of input to output tokens. The cost grows with the loop length, not the answer length.
+
+Hierarchies make it steeper. When Claude Code let subagents spawn their own subagents in mid-2026, a single top-level task could silently expand into a tree of dozens of agents, each carrying its own 200,000-token context window.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Web Developer",
+    title: "Claude Code Adds Nested Subagents and Experimental Agent Teams",
+    URL: "https://webdeveloper.com/news/claude-code-nested-subagents-agent-teams/",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> Delegating a milestone to a hierarchy of agents is, by construction, token-expensive work.
+
+That is why the price drop is the enabling half of the story, not just a savings story. <mark>Cheap tokens are what made the long loops and the agent hierarchies affordable.</mark> Before 2025, the loop length that made delegation viable was the loop length nobody could afford to run. After the price collapse, the same loop length became the default way to attempt real work.
+
+A July 2026 paper, *The Harness Effect*, measures the second lever directly: holding the model constant, swapping in a better orchestration layer cut cost per task by 41%—more than switching between the cheapest and most expensive model did. The harness moved cost per task more than model choice did.<Citation
+  data={{
+    type: "article-journal",
+    title: "The Harness Effect: How Orchestration Design Sets the Token Economics of Enterprise Agentic AI",
+    "container-title": "arXiv",
+    URL: "https://arxiv.org/html/2607.06906",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 7]] }
+  }}
+/> The price collapse and the orchestration maturity arrived together, and together they are what made delegation economically viable.
+
+## Delegating milestones, not lines
+
+Here is where the cost-collapse story turns into something more interesting than a cheaper invoice.
+
+The unit of work is no longer a developer writing a patch. It is a developer delegating a patch-shaped problem to a system of agents that can read the repo, reason about it, edit it, run it, test it, and surface a pull request that has already been iterated on.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "DevTools Academy",
+    title: "State of AI Coding Agents 2026",
+    URL: "https://www.devtoolsacademy.com/blog/state-of-ai-coding-agents-2026",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> The orchestration primitives for this arrived in 2024 and 2025: subagents with isolated context, git worktree isolation so parallel agents do not clobber each other's files, agent teams that share a task list and message each other, and `/batch` commands that fan a mechanical change across five to thirty workers at once.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Anthropic",
+    title: "Claude Code subagents and Agent Teams",
+    URL: "https://docs.claude.com/en/docs/claude-code/sub-agents",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> The harnesses matured. What was missing was the economics: running five concurrent agents on frontier models in 2024 was prohibitive for almost everyone outside a well-funded team.
+
+In 2026 it is not. The same price-performance curve that moved your coding habit down the cost ladder also moved the *per-agent* cost down the ladder. <mark>The $20 that used to buy one assistant now buys a small team of them running in parallel.</mark> Three to five concurrent agents is the documented sweet spot; the new Dynamic Workflows can fan out to tens or hundreds for genuinely fan-out work like running a benchmark suite across eighty model-prompt combinations.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Totalum",
+    title: "Claude Code subagents: the 2026 production playbook",
+    URL: "https://www.totalum.app/blog/claude-code-subagents-totalum",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 8]] }
+  }}
+/>
+
+That is the real headline of 2026 for AI coders. It is not "coding got cheaper." It is "the same budget now buys a team, and a team changes what you can attempt"—up to and including an entire milestone handed to a hierarchy of agents. Augment's Project Builder, for example, takes a large feature from a short description to a shipped feature, and frames the shift plainly: "the unit of engineering work is no longer the PR, it's the project."<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Augment Code",
+    title: "Accelerating large engineering projects with Cosmos",
+    URL: "https://www.augmentcode.com/blog/accelerating-large-engineering-projects-with-cosmos",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/>
+
+## Chore tasks that finally get done
+
+Every engineering team has a list of work that is obviously valuable and never gets done. Documentation drifts. Dependency upgrades sit in the backlog until something breaks. Tests get written for new code and never backfilled for old code. Security advisories get triaged when they're loud enough. Changelogs get written when someone remembers.
+
+These are the tasks that parallel agents are best at, because they are well-scoped, repeatable, and low-stakes enough to run under human review rather than by hand. And the tooling for them is now shipping.
+
+Documentation maintenance is the clearest example. Tools like Scribe read the actual structure of a codebase from the code graph, regenerate an accurate `AGENTS.md`, and open a merge request when the docs have drifted from the code—then keep watching and open another MR the next time they drift.<Citation
+  data={{
+    type: "software",
+    "container-title": "GitHub",
+    title: "Scribe: self-updating AGENTS.md from the code graph",
+    URL: "https://github.com/brn-mwai/scribe",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/> The pattern generalizes: a CI drift check compares the merge diff against the prose, an agent drafts a correction, and a human reviews and merges. The same loop applies to dependency upgrades, test backfills, changelog generation, and triaging security advisories.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Augment Code",
+    title: "Self-Updating Documentation: Docs Agents Keep in Sync",
+    URL: "https://www.augmentcode.com/guides/self-updating-documentation-docs-agents-sync",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/>
+
+The important discipline is that none of this auto-merges. The agents do the work that used to never get done; a human still decides whether it ships. <mark>The productivity dividend lands in the gap between "nobody had time" and "somebody reviewed it."</mark>
+
+## One person, big-team output
+
+The downstream effect of a team you can afford is that the team-size threshold for serious work drops.
+
+A production SaaS was built solo in thirty-two days using Claude Code across four terminal windows: 243,000 lines of code, 4,124 tests, and roughly $400 in infrastructure. The operator described it as the equivalent output of a ten-to-fifteen-person team working for a year, a twenty-to-twenty-five-times multiplier on productive hours—most of the gap being eliminated communication overhead, zero meetings, zero handoffs.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Justin Bartak",
+    title: "Production SaaS in 32 Days with Claude",
+    author: "Justin Bartak",
+    URL: "https://justinbartak.ai/blog/built-production-saas-32-days",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026]] }
+  }}
+/>
+
+A clinical-trial matching product is run by one person with four standing-role Claude Code sessions against a shared backlog: a CEO session that prioritizes, an SEO/content session that also watches traffic and files review tasks, and two full-stack engineer sessions working different tasks in parallel—each engineer session spanning what used to be four specialties in a single afternoon.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "DEV Community",
+    title: "Building a One-Person Software Shop with Claude Code",
+    URL: "https://dev.to/chncwang/building-a-one-person-software-shop-with-claude-code-1d6i",
+    accessed: { 'date-parts': [[2026, 8, 16]] },
+    issued: { 'date-parts': [[2026, 8]] }
+  }}
+/>
+
+The recurring observation from people doing this is the same: <mark>the bottleneck has completely shifted from implementation to specification.</mark> The developers who thrive in this setup are not the fastest coders. They are the clearest thinkers—the ones who can say what "done" means, who have the taste to reject working code, and who can make a thousand small decisions per day and get most of them right.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "LinkedIn",
+    title: "The 2026 devstack for ludicrous PR production (9-month experiment)",
+    author: "Robbie Allen",
+    URL: "https://www.linkedin.com/posts/robbieallen_the-2026-devstack-for-ludicrous-pr-production-activity-7437203987440865281-J5lB",
+    accessed: { 'date-parts': [[2026, 8, 16]] }
+  }}
+/>
+
+That is the human payoff of the cost collapse. It is not that you spend less. It is that one person, or a small team, can now produce work at the quality level of a much bigger team in the past—and the part of the job that is left to you is the part that was always the hard part.
+
+## The Jevons catch
+
+There is an honest other side to this, and it is the same paradox we wrote about when content got cheap.
+
+When a resource gets cheaper, you don't use less of it. You use more of it, because the cheapness enables new uses that weren't viable before. William Stanley Jevons noticed it with coal in 1865: Watt's efficient steam engine didn't reduce coal consumption, it increased it, because steam engines became economical for factories, trains, and pumps that would never have used them before.<Citation
+  data={{
+    type: "book",
+    title: "The Coal Question: An Inquiry Concerning the Progress of the Nation, and the Probable Exhaustion of Our Coal-Mines",
+    author: "William Stanley Jevons",
+    publisher: "Macmillan and Co.",
+    issued: { "date-parts": [[1865]] }
+  }}
+/>
+
+Coding in 2026 is the same curve, and the *Harness Effect* paper measures it directly: "falling per-token prices mask the pattern without fixing it; total spend rises anyway... tokens per task grow faster than task value." Because delegating a milestone to a hierarchy of agents is now economically viable, it becomes the new normal way to get business done. People depend on it for more and more tasks. And because they do more of it, total spend can rise even as the unit price falls.
+
+This is not an argument that you should "double down" on agents and hand them more resources—that would be advocacy. It is an observation about what actually happens when a capability collapses in price. <mark>Cheaper coding does not lower your bill. It changes what you can afford to attempt, and you attempt more of it.</mark> The same mechanism that delivers the delegation payoff is the mechanism that tends to raise total spend: the cheapness is what made the 20× volume affordable enough to become standard.
+
+So in some cases people will end up paying more for AI coding than they did when it was expensive—not because they are being wasteful, but because the cheapness is what made the new, larger workflow affordable enough to depend on. Same paradox, same mechanism, as the content piece and the flip-side security piece. Observed in the coding-agent domain itself.
+
+## The flip side of this curve
+
+There is a catch to all of this that is worth naming before it names itself. The same price-performance curve that is collapsing the cost of *writing* software is also collapsing the cost of *breaking* software. Exploit chains that used to require months of senior security-researcher time are moving down the same cost ladder. And the cheap, ubiquitous coding agents this article celebrates are themselves a new attack surface.
+
+That is a separate story, and we take it up in the companion piece: [Bugonomics: The Flip Side of Cheap AI Coding](/blog/bugonomics-cheap-exploits-2026/). The short version: the productivity dividend and the vulnerability dividend are the same curve, and you cannot have one without the other.
+
+## The shift in one sentence
+
+In 2026, the AI-coding story is less "models suddenly got smarter" than <mark>"last year's useful coding capability moved down the cost curve—and the same budget now buys a team."</mark> The price collapse coincided with agents learning to run autonomously for hours, and the two effects multiplied: cheap tokens made long loops and agent hierarchies affordable, and that made delegating entire milestones economically viable. The bottleneck moved from implementation to specification, and the part of the job left to you is the part that was always the hard part.
+
+The Jevons catch is real and honest: because that delegation is now viable, it becomes the new normal, and total spend can rise even as unit price falls. That is not a reason to retreat from agents. It is a reason to spend deliberately—on a team instead of a single assistant, and on judgment instead of tokens.
+
+## References
+
+<CitationsList citationFormat="apa" />
