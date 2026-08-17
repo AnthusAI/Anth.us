@@ -56,6 +56,31 @@ The "fast" model tier inverted. In 2025, "fast" meant a smaller, discount model�
   }}
 /> Speed became the product the big labs are selling, not savings.
 
+{/* VISUAL SPEC — the fast tier inverted (HTML comparisonChart, no asset) ---
+    Use the existing .comparisonChart CSS (see how-ai-agents-do-things.mdx
+    for a working example). Renders as real text: accessible, searchable,
+    nothing to generate.
+
+    LEFT  — "2025: fast meant cheap"
+      Haiku / Flash / mini
+      Smaller, distilled, discount tier
+      Priced BELOW the flagship
+    RIGHT — "2026: fast means premium"
+      Fable 5 — $10 / $50 per 1M
+      Opus 5 — $5 / $25 per 1M
+      GPT-5.6 Sol — $5 / $30, Ultrafast at 14x for a premium
+      Priced ABOVE the flagship
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">comparisonChart · the fast tier inverted · no asset needed</div>
+  <div className="container">
+    Two-column: <b>2025</b> — “fast” meant Haiku/Flash/mini, priced <i>below</i> the
+    flagship. <b>2026</b> — “fast” means Fable 5 at $10/$50 against Opus 5’s $5/$25,
+    priced <i>above</i> it. Reuses the existing <code>.comparisonChart</code> CSS.
+  </div>
+</div>
+
 The Chinese labs went the opposite direction. GLM 5.2 from Z.ai lists at $1.40/$4.40 and trails Claude Opus 4.8 by about 1% on the FrontierSWE coding benchmark. That is Opus-adjacent quality at Haiku money—roughly what Anthropic charges for Haiku 4.5 ($1/$5), but for near-frontier quality instead of discount quality.
 
 The big labs know that, which is why they use the tool itself to push you toward the expensive models. In April 2026, OpenAI removed the affordable Codex models—GPT-5.1 Codex mini and GPT-5.3 Codex—from the Codex tool's model picker and directs you to GPT-5.5 or GPT-5.4.<Citation
@@ -141,11 +166,70 @@ Their headline finding: the cost of a given benchmark-performance level on the P
   }}
 />
 
+{/* VISUAL SPEC — price-of-fixed-capability.png (matplotlib) --------------
+    THE article's central empirical claim, currently carried by prose only.
+    House style: matplotlib defaults, white ground, clear axis labels,
+    legend, red dashed annotation. 1200x630.
+
+    Chart: cost to reach a FIXED benchmark-performance level, over time.
+      x = date, roughly 2023 -> 2026
+      y = USD per benchmark task, LOG scale
+      three series from the MIT Price of Progress paper:
+        GPQA-Diamond, AIME, SWE-bench Verified
+      fit/annotate the slope on each; call out SWE-bench at ~4.7x/year
+      and note its wide confidence interval (only 21 data points)
+      red dashed vertical at Feb 2025 labelled "'vibe coding' coined"
+
+    The point the reader should take: the line goes DOWN steeply while the
+    capability level being priced is held CONSTANT.
+
+    Alt: "Log-scale chart of the cost to reach a fixed benchmark score from
+          2023 to 2026, falling roughly five to ten times per year."
+    Caption: "Same capability, falling price. The y-axis is logarithmic."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">matplotlib · price-of-fixed-capability.png · 1200×630</div>
+  <div className="container">
+    Log-scale decline of the cost to hit a <i>fixed</i> benchmark level, 2023→2026,
+    with GPQA / AIME / SWE-bench Verified series and the ~4.7×/yr SWE-bench slope
+    annotated. Marker at Feb 2025 for “vibe coding.”
+    <br /><b>Caption:</b> Same capability, falling price. The y-axis is logarithmic.
+  </div>
+</div>
+
 Methodologically, that matters for coding because they price a **benchmark run**—input, output, reasoning, and cached tokens—not a hypothetical single completion. A "cheap" reasoning model that thinks in 50,000 tokens is not cheap in the way a leaderboard screenshot suggests.
 
 One reason the "about 10×" figure in the lede is, if anything, conservative: it is an annual rate, and coding-specifically sits at the low end of the band. The SWE-bench point estimate is ~4.7× per year (with wide confidence intervals, because the sample is only 21 data points). Compounded over the roughly 18 months since "vibe coding" was coined, even that conservative 4.7× rate produces ~10×—almost exactly the round number in the lede. The overall 5×–10× band would compound to 12×–35× over the same window. So 10× since February 2025 is a defensible and arguably understated claim, not an optimistic one.
 
 They also estimate roughly **3× annual algorithmic efficiency** after attempting to strip out hardware price declines and competitive pricing effects among proprietary models. The interpretation includes better training data, distillation, mixture-of-experts architectures, and inference-side improvements—not just "GPUs got cheaper."
+
+{/* VISUAL PROMPT — ai-coding-cost-collapse-2026.png (HERO POSTER) -------
+    Replaces the current plain typographic placeholder card.
+    Style-match: src/blog/images/the-revolution-will-be-commodified.png
+    Square, 2048x2048.
+
+    PROMPT:
+    Bold propaganda-poster typography. White stencil spray-paint capital
+    letters on a heavily textured deep magenta surface (#D03382), the
+    texture reading as painted leather or scuffed concrete. Letters set on
+    a slight diagonal, tightly packed, filling the frame edge to edge.
+    High contrast, grungy overspray at the letter edges, subtle scuffs,
+    dust, and a soft diagonal highlight across the surface. Square format.
+    No imagery other than the text. Text reads:
+    "THE $200 HABIT NOW COSTS $20"
+
+    Alt: "Poster: The $200 habit now costs $20."
+--------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">Hero poster · ai-coding-cost-collapse-2026.png · 2048×2048</div>
+  <div className="container">
+    Magenta stencil propaganda poster reading <b>“THE $200 HABIT NOW COSTS $20.”</b>
+    Style-matched to <i>The Revolution Will Be Commodified</i>. Replaces the current
+    plain placeholder card and becomes the social preview image.
+  </div>
+</div>
 
 <BlogImage images={props.pageContext.frontmatter.images} name="ai-coding-cost-collapse-2026.png" className="centered" alt="Title card: AI coding costs falling while fixed capability holds." />
 
@@ -257,6 +341,37 @@ The capability curve is real and dated. OpenAI's December 2025 Codex release was
 
 So while the price of a fixed level of coding was falling 5×–10× per year, the length of task an agent could stay on was doubling every seven months. Two exponential curves, moving at the same time, in the same product cycle.
 
+{/* VISUAL SPEC — two-multiplying-curves.png (matplotlib) -----------------
+    The article's whole thesis in one figure. High priority.
+    Twin stacked panels sharing an x-axis of time (2023 -> 2026).
+    House style: matplotlib defaults, white ground, legend, red dashed
+    annotations. 1200x900 (taller than usual -- it is two panels).
+
+    TOP panel   — price of a fixed coding capability, LOG y, falling.
+                  annotate "5x-10x cheaper per year"
+    BOTTOM panel — METR task-horizon: length of task completable at 50%
+                  reliability, LOG y, rising. annotate "doubling every
+                  ~7 months". mark OpenAI's Dec 2025 Codex 25-hour run.
+
+    Optional third element: a small inset showing the PRODUCT of the two
+    (capability-hours per dollar) rising far faster than either alone --
+    that is the "they multiply" claim made literal.
+
+    Alt: "Two stacked log-scale charts: the price of fixed coding capability
+          falling while the length of task an agent can complete rises."
+    Caption: "Two exponentials, same product cycle. They multiply."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">matplotlib · two-multiplying-curves.png · 1200×900</div>
+  <div className="container">
+    Twin stacked panels on a shared time axis: price of fixed capability falling
+    (5–10×/yr) above, METR task-horizon doubling every ~7 months below. Optional
+    inset showing the product of the two.
+    <br /><b>Caption:</b> Two exponentials, same product cycle. They multiply.
+  </div>
+</div>
+
 ## Why the two effects multiply
 
 The reason these two curves synergize rather than just sit side by side is that long autonomous loops are exactly the token-expensive work that only becomes affordable when tokens get cheap.
@@ -270,6 +385,33 @@ An agent loop is not a chat. A chatbot returns one response. An agent plans, cal
     accessed: { 'date-parts': [[2026, 8, 16]] }
   }}
 /> A 50-turn session can run a 25:1 ratio of input to output tokens. The cost grows with the loop length, not the answer length.
+
+{/* VISUAL SPEC — the pricey context snowball (HTML blockDiagram) ---------
+    No asset needed. Use .blockDiagram + .container, following the pattern
+    in how-ai-agents-do-things.mdx.
+
+    Stacked rows, each a turn, with a proportional bar of re-sent context:
+      turn 1    |=                          |  small
+      turn 10   |==========                 |
+      turn 25   |========================   |
+      turn 50   |===========================|  full 200k window
+    Then a summary row: input:output tokens on a 50-turn session = 25:1
+
+    Bars can be plain characters or nested divs with percentage widths --
+    either renders as real text and needs no image generation.
+
+    The point: the agent re-sends a GROWING context on EVERY step, so cost
+    tracks loop length, not answer length.
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">blockDiagram · the pricey context snowball · no asset needed</div>
+  <div className="container">
+    Stacked turn rows (1 / 10 / 25 / 50) with proportional bars for the context
+    re-sent each step, closing on the 25:1 input-to-output ratio. Pure HTML/CSS,
+    reusing the existing <code>.blockDiagram</code> styling.
+  </div>
+</div>
 
 Hierarchies make it steeper. When Claude Code let subagents spawn their own subagents in mid-2026, a single top-level task could silently expand into a tree of dozens of agents, each carrying its own 200,000-token context window.<Citation
   data={{
@@ -326,6 +468,40 @@ In 2026 it is not. The same price-performance curve that moved your coding habit
     issued: { 'date-parts': [[2026, 8]] }
   }}
 />
+
+{/* VISUAL PROMPT — robot-workstation-army.png (photoreal, generated) -----
+    The one piece of cinematic art in this article. Lands on the line above:
+    the $20 that used to buy one assistant now buys a small team of them.
+    Register: the-simulation-told-them-they-would-win.png -- cinematic,
+    desaturated, cool-toned, shallow depth of field. 3:2 or square.
+
+    PROMPT:
+    Wide cinematic photograph of a vast dim open-plan office that reads like
+    a server hall. Endless identical rows of humanoid industrial robots
+    seated at cheap matching developer workstations, each robot tethered to
+    its desk by a thick braided cable. Monitors glow with dense code. Cool
+    teal and green light, deep shadows, shallow depth of field falling off
+    into darkness at the back of the frame. Industrial scale, quietly
+    dystopian, no visible humans. Photorealistic, 35mm, slight film grain.
+
+    Note the deliberate tonal edge: this section is celebrating cheap
+    parallel agents, and the image is faintly unsettling. That tension is
+    the point -- it sets up the Jevons catch a few sections later.
+
+    Alt: "Endless rows of identical robots tethered to developer
+          workstations in a dim industrial office."
+    Caption: "The same budget, a different unit of work."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">photoreal · robot-workstation-army.png · 3:2 or square</div>
+  <div className="container">
+    Endless rows of humanoid robots tethered by cable to identical developer
+    workstations in a dim, teal-lit industrial office. Cinematic, no humans,
+    quietly dystopian — the unease is deliberate, setting up the Jevons catch.
+    <br /><b>Caption:</b> The same budget, a different unit of work.
+  </div>
+</div>
 
 That is the real headline of 2026 for AI coders. It is not "coding got cheaper." It is "the same budget now buys a team, and a team changes what you can attempt"—up to and including an entire milestone handed to a hierarchy of agents. Augment's Project Builder, for example, takes a large feature from a short description to a shipped feature, and frames the shift plainly: "the unit of engineering work is no longer the PR, it's the project."<Citation
   data={{
