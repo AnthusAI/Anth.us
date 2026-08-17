@@ -8,6 +8,9 @@ excerpt: "In 2023 we argued for using the dumbest model the problem will bear. I
 preview_image: "./images/maximize-value-not-intelligence.png"
 images:
   - ./images/maximize-value-not-intelligence.png
+  - ./images/classifiers/profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png
+  - ./images/value-over-time.png
+  - ./images/value-frontier.png
 state: draft
 tags:
   - articles
@@ -32,9 +35,46 @@ In December 2023 we wrote about a text classifier that did not work as a busines
   }}
 /> The requirement was 95% accuracy at under $200 per million classifications. GPT-4 hit the accuracy easily and cost about $1,700 per million. A great demo and a dead venture.
 
-The fix was not a better model. It was a worse one. We went down the ladder—GPT-3.5, then Ada 2 embeddings with logistic regression, then BERT running free in a Colab notebook—and only stopped when Word2Vec finally dropped below the accuracy bar. The thesis was <mark>use the dumbest model that the problem will bear</mark>, and the only way to find that point is to go one step too far and come back.
+The fix was not a better model. It was a worse one. We went down the ladder—GPT-3.5, then Ada 2 embeddings with logistic regression, then BERT running free in a Colab notebook—and only stopped at Word2Vec, where accuracy fell far enough that the remaining savings stopped being worth it. The thesis was <mark>use the dumbest model that the problem will bear</mark>, and the only way to find that point is to go one step too far and come back.
+
+Here is that argument as it appeared in 2023, in one chart—the same four models, ranked by the only number that mattered:
+
+<BlogImage images={props.pageContext.frontmatter.images} name="profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png" className="centered" alt="Bar chart from the 2023 article showing profit per million classifications across GPT-4, GPT-3.5, Ada 2 and BERT, with the cheapest adequate model earning the most." />
+
+GPT-4 is the most capable model on that chart and the only one that loses money—about $1,500 per million classifications. The winner was the least sophisticated model that still cleared the accuracy bar, and it happened to be free.
 
 That discipline still holds in 2026. But two things changed underneath it, and together they changed what the question even is.
+
+{/* VISUAL PROMPT — maximize-value-not-intelligence.png (HERO POSTER) -----
+    Same magenta poster family as the cost-collapse hero. The slogan is the
+    title, which is itself a callback to the 2023 article -- so this poster
+    is doing double duty as the visual rhyme for the sequel framing.
+    Square, 2048x2048.
+
+    PROMPT:
+    Bold propaganda-poster typography. White stencil spray-paint capital
+    letters on a heavily textured deep magenta surface (#D03382), the
+    texture reading as painted leather or scuffed concrete. Letters set on
+    a slight diagonal, tightly packed, filling the frame edge to edge. High
+    contrast, grungy overspray at the letter edges, subtle scuffs, dust, and
+    a soft diagonal highlight across the surface. Square format. No imagery
+    other than the text. Text reads: "MAXIMIZE VALUE NOT INTELLIGENCE"
+
+    Consider setting "NOT INTELLIGENCE" smaller or in a struck-through /
+    overpainted treatment, so the poster carries the argument, not just the
+    title.
+
+    Alt: "Poster: Maximize value, not intelligence."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">Hero poster · maximize-value-not-intelligence.png · 2048×2048</div>
+  <div className="container">
+    Magenta stencil poster reading <b>“MAXIMIZE VALUE NOT INTELLIGENCE.”</b>
+    Optionally treat “NOT INTELLIGENCE” as overpainted or struck through so the
+    poster carries the argument rather than just repeating the title.
+  </div>
+</div>
 
 <BlogImage images={props.pageContext.frontmatter.images} name="maximize-value-not-intelligence.png" className="centered" alt="Title card: Maximize Value, Not Intelligence." />
 
@@ -57,6 +97,10 @@ Value is capability divided by cost, and the numerator moved too. The cheap tier
 
 This article is about collecting the windfall: which providers to buy, how to route between them, and—the part that actually matters—which jobs in your project and your business just crossed the line from "not worth automating" to "obviously worth automating."
 
+<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="centered" alt="Line chart showing a coding-value index climbing from 1x in February 2025 to roughly 10x, and possibly as high as 32x, by August 2026, based on the MIT Price-of-Progress annual rate." />
+
+That is what the windfall looks like plotted against time: not a discount that shows up once, but a curve that keeps compounding while you are not looking at it.
+
 ## There is a scoreboard now
 
 In 2023 you had to build the cost-versus-accuracy chart yourself. In 2026 somebody publishes it.
@@ -69,19 +113,22 @@ BenchLM's coding-value leaderboard divides each model's weighted coding score by
     URL: "https://benchlm.ai/best/best-value-coding",
     accessed: { 'date-parts': [[2026, 8, 17]] }
   }}
-/> Ranked that way, the leaderboard you have been reading is nearly upside down:
+/> Ranked that way, the leaderboard you have been reading is nearly upside down.
+
+BenchLM's raw list of 84 models is topped by names you would never actually run: sub-15B-parameter models scoring in the 20s and 30s on coding, cheap enough that dividing by their price makes the ratio enormous. That is a real ranking artifact, not a buying recommendation—a model that cannot hold together a multi-file change is not a value pick at any price. Restricted to models with a coding score that clears a usable bar for real repository work, here is the same leaderboard:
 
 | Rank | Model | Coding score | Output price / 1M | Value score |
 | ---: | :-- | --: | --: | --: |
-| 1 | Poolside Laguna S 2.1 | 53.7 | $0.20 | **268.6** |
-| 2 | Ministral 3 3B | 21.0 | $0.10 | 209.8 |
-| 3 | Ministral 3 14B | 33.5 | $0.20 | 167.65 |
-| 9 | GPT-5.6 Luna | 73.0 | $1.20 | 60.85 |
+| 9 | GPT-5.6 Luna | 73.0 | $1.20 | **60.85** |
 | 21 | Gemini 3.1 Flash-Lite | 41.9 | $1.50 | 27.96 |
 | 56 | GPT-5.6 Terra | 65.4 | $12.00 | 5.45 |
 | 73 | GPT-5.6 Sol | 78.7 | $30.00 | 2.62 |
 
-Sol is the best coder on this list and ranks 73rd out of 84 by value. Luna gives up about 7% of Sol's raw coding score and returns roughly <mark>23× the coding capability per dollar</mark>.
+That rising curve is the trend. This next chart is a single frame from it—today's four real options, compared to each other right now, not a timeline:
+
+<BlogImage images={props.pageContext.frontmatter.images} name="value-frontier.png" className="centered" alt="Bar chart of coding value score (weighted score divided by output price per million tokens) for GPT-5.6 Luna, Gemini 3.1 Flash-Lite, GPT-5.6 Terra, and GPT-5.6 Sol, with Luna's bar roughly 23 times taller than Sol's." />
+
+Sol is the best coder on BenchLM's full field of 84 models and ranks 73rd by value. Luna gives up about 7% of Sol's raw coding score and returns roughly <mark>23× the coding capability per dollar</mark>.
 
 The Luna number moved recently and sharply. On July 30, 2026, OpenAI cut Luna by about 80% to $0.20 input and $1.20 output per million tokens, trimmed Terra by about 20% to $2 and $12, and left Sol untouched at $5 and $30.<Citation
   data={{
@@ -95,11 +142,13 @@ The Luna number moved recently and sharply. On July 30, 2026, OpenAI cut Luna by
 
 Note what happened to the middle. On this scoreboard Terra is *dominated*: Luna beats it on coding score and costs a tenth as much. A balanced tier that is worse and pricier than the budget tier is not a compromise, it is a default you should stop accepting.
 
+Flash-Lite is dominated too, and by a wider margin—Luna beats it on both coding score (73.0 vs. 41.9) and price ($1.20 vs. $1.50). Of the four models capable of real repository work, only two are worth choosing between: Luna for almost everything, Sol when the task justifies it. Terra and Flash-Lite are not a cheaper option and not a safer one. They are just worse.
+
 ## Don't optimize the wrong ratio
 
 Now the correction, because a naive reading of that table will cost you money.
 
-BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. Laguna S 2.1 tops the value chart with a coding score of 53.7—respectable, and nowhere near enough for a lot of real repository work. Ministral 3 3B ranks second with a coding score of 21. Divide by a small enough number and anything looks like a bargain.
+BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. That is exactly why the raw leaderboard needed filtering before it was worth a table above—divide by a small enough price and almost anything looks like a bargain, including models nobody should point at a real repository. But the correction goes one layer deeper than "exclude the toy models." Even restricted to Luna, Flash-Lite, Terra, and Sol, a bare Score/$ ranking is a starting point, not a shopping list.
 
 This is exactly the 2023 lesson, and it is worth being precise about it, because it is usually remembered wrong. <mark>We did not choose BERT because it was the cheapest. We chose it because it was the cheapest thing that still cleared the bar.</mark> Word2Vec was cheaper still and we rejected it. The bar came first; the price optimization happened underneath it.
 
@@ -114,15 +163,71 @@ Which means four numbers, tracked per model and per task class:
 
 A model that is 6× cheaper and leaves you fifteen minutes of cleanup is not cheaper. In 2023 we ran an evaluation set and read the cost-per-million off a chart. The 2026 equivalent is instrumenting your actual workflow, because agent cost is task-shaped, not token-shaped.
 
-## Three tiers, and when to leave one
+## Two tiers, and when to leave one
 
-Sort the market into three tiers and the routing rules fall out.
+Once you exclude the toy-scale models and the two dominated ones, the market sorts itself into two tiers and the routing rules fall out.
 
-**Ultra-cheap** (Laguna, Ministral, the small Flash-class models) wins on raw score per dollar. Use it for mechanical, well-specified, high-volume work where a failure is cheap and obvious: constrained edits, formatting, classification, commit messages, the tenth retry of a fan-out job.
-
-**High-capability value** (Luna today) is where most real repository work belongs. It is strong enough to navigate a repo, run tests, and iterate, and cheap enough that you do not think before running it. This should be your default, and for most solo developers it is the whole story.
+**Value** (Luna today) is where almost all real repository work belongs. It is strong enough to navigate a repo, run tests, and iterate, and cheap enough that you do not think before running it. This is your default, and for most solo developers it is the whole story.
 
 **Premium** (Sol, the top Claude variants) buys the highest absolute completion rate. Reserve it for tasks whose expected failure cost is high: ambiguous specifications, cross-cutting architecture, fragile migrations, security-sensitive changes.
+
+There is no useful ultra-cheap tier sitting below Luna—not because cheap models do not exist, but because the ones cheap enough to matter are not good enough to trust with a real change, and the ones good enough to trust are Luna or better. If you find a genuine exception—a narrow, high-volume, low-stakes job where a smaller model clears your bar and Luna is overkill—route it there. Do not go looking for one on the strength of a leaderboard rank alone.
+
+{/* VISUAL SPEC — two tiers + routing loop (two visuals, one section) ----
+
+    (a) THE TWO TIERS — HTML .comparisonChart, no asset needed. This is
+        exactly the shape .comparisonChart already handles (see
+        how-ai-agents-do-things.mdx for a working two-column example) --
+        no need to extend it to three columns anymore.
+          VALUE        Luna
+                       wins: strong agentic coding at low cost
+                       run: your default -- real repository work
+          PREMIUM      Sol, top Claude variants
+                       wins: highest absolute completion rate
+                       run: ambiguous, architectural, security-sensitive
+        Consider a footnote row under both columns: "Terra and Flash-Lite:
+        dominated on both axes -- skip."
+
+    (b) THE ROUTING LOOP — PlantUML activity diagram -> routing-loop.svg
+        Toolchain already present (src/blog/diagrams/, plantuml_diagrams).
+
+        @startuml
+        start
+        if (ambiguous / architectural / security-sensitive?) then (yes)
+          :start at PREMIUM;
+          stop
+        endif
+        :run on the VALUE tier;
+        repeat
+          if (objective failure signal?) then (no)
+            :accept the change;
+            stop
+          endif
+          :feed the failing test output + the diff;
+          :retry -- state has changed;
+        repeat while (attempts < 3 AND measurable progress?) is (yes)
+        :escalate one tier;
+        stop
+        @enduml
+
+        The two labels that matter: "state has changed" on the retry edge
+        (a blind retry is not a repair loop) and "objective failure signal"
+        on the branch (CI red, tests failing, changed-file threshold).
+
+    Alt (b): "Activity diagram of a cheap-first routing policy with a
+              bounded repair loop and evidence-gated escalation."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">HTML comparisonChart + PlantUML activity · two visuals</div>
+  <div className="container">
+    <b>(a)</b> Value vs. Premium side by side — what each wins on and what to run on
+    it. Fits the existing two-column <code>.comparisonChart</code> as-is.
+    <br /><b>(b)</b> <code>routing-loop.svg</code> — cheap-first activity diagram with a
+    bounded repair loop. Key labels: “state has changed” on the retry edge, and
+    “objective failure signal” on the branch.
+  </div>
+</div>
 
 The cheap tier's cost advantage is enormous enough to absorb a lot of failure. At a 25× price ratio, you can run roughly twenty-four Luna attempts before you have spent what one Sol attempt costs. Five retries on the cheap tier costs about a fifth of one attempt on the flagship.
 
@@ -192,6 +297,38 @@ Agent loops are input-dominated. Stanford's Digital Economy Lab named this the "
 
 Cached input costs roughly a tenth of fresh input. Since input is the dominant term, <mark>cache discipline moves your bill more than model choice does</mark>—and it is free. Keep a stable prefix (system prompt, project conventions, file tree) at the front of the context so it stays cacheable, and stop reordering it between calls. Do the long session in one sitting rather than three, now that the TTL is five minutes and not an hour.
 
+{/* VISUAL SPEC — cache-economics.png (matplotlib, two small panels) ------
+    Supports the claim that cache discipline moves the bill MORE than model
+    choice -- which is counterintuitive enough to deserve a picture.
+    1200x500, two panels side by side.
+
+    LEFT — where the tokens actually are.
+      Stacked bar for a 50-turn agent session: input vs output tokens,
+      at the documented 25:1 ratio. The output sliver should be visibly
+      tiny. Label: "cost tracks the input column".
+
+    RIGHT — what each token costs.
+      Grouped bars, Luna: fresh input $0.20/1M, cached input $0.02/1M,
+      output $1.20/1M. Annotate the 10x cache discount.
+
+    Read together: the dominant column is the one with the 10x discount
+    available on it. That is the argument, and neither panel makes it alone.
+
+    Alt: "Two charts: a 50-turn session's tokens are dominated by input,
+          and cached input costs about a tenth of fresh input."
+    Caption: "The big column is the discounted one. That is the whole trick."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">matplotlib · cache-economics.png · 1200×500 · two panels</div>
+  <div className="container">
+    Left: a 50-turn session's tokens at 25:1 input-to-output, so the output sliver
+    is visibly tiny. Right: fresh vs cached input, ~10× apart. The two panels only
+    make the argument together.
+    <br /><b>Caption:</b> The big column is the discounted one. That is the whole trick.
+  </div>
+</div>
+
 The orchestration layer matters for the same reason. Holding the model constant, a July 2026 paper found that swapping in a better harness cut cost per task by 41%—more than switching between the cheapest and most expensive model did.<Citation
   data={{
     type: "article-journal",
@@ -256,6 +393,48 @@ In 2023, the classifier had a break-even: $200 per million. Below that it was a 
 
 These are not glamorous. That is the point. They are the work that is perpetually valuable and perpetually last in the queue.
 
+{/* VISUAL SPEC — break-even-crossing.png (matplotlib) --------------------
+    The conceptual centerpiece of this article, and a deliberate visual
+    echo of the 2023 piece's $200-per-million break-even line. If only one
+    chart gets made for this section, make it this one.
+    House style, 1200x630.
+
+    x = date, ~2023 -> 2026
+    y = all-in cost per completed task (model + tools + retries), LOG
+    ONE falling curve: the all-in cost of having an agent do a bounded
+    chore end to end.
+    ONE horizontal dashed line: "what it is worth to you to have this done
+    at all" -- deliberately drawn as a BAND, not a line, because the value
+    differs per chore and pretending otherwise would be false precision.
+
+    Annotate where individual chores cross the band, earliest to latest:
+      changelog generation -> docs drift -> dependency upgrades ->
+      test backfill -> first-pass code review
+    Shade everything left of the crossings "not worth automating" and
+    everything right "obviously worth automating".
+
+    The sentence it should replace: "that number just went from 'no' to
+    'obviously yes' without anyone announcing it."
+
+    Alt: "A falling all-in cost-per-task curve crossing a band representing
+          the value of a chore getting done, with chores annotated at their
+          crossing points."
+    Caption: "Nobody announces the crossing. You just notice the backlog
+              stopped growing."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">matplotlib · break-even-crossing.png · 1200×630 · high priority</div>
+  <div className="container">
+    A falling all-in cost-per-task curve crossing a <i>band</i> (not a line — the
+    value differs per chore) for “worth having done at all,” with individual chores
+    annotated at their crossing points. Direct visual echo of the 2023 article's
+    $200/million break-even.
+    <br /><b>Caption:</b> Nobody announces the crossing. You just notice the backlog
+    stopped growing.
+  </div>
+</div>
+
 | Job | Tier | Cadence | Human gate |
 | :-- | :-- | :-- | :-- |
 | Docs drifted from code | cheap | on merge | review the MR |
@@ -281,6 +460,41 @@ Documentation is the cleanest example because the tooling already exists. Tools 
 /> The pattern generalizes to every row above: a trigger, a bounded agent task on the cheapest tier that clears the bar, and a pull request a human looks at.
 
 That last clause is not decoration. <mark>None of this auto-merges.</mark> The productivity lands in the gap between "nobody had time" and "somebody reviewed it," and deleting the review does not widen the gap—it just moves the failures into production.
+
+{/* VISUAL PROMPT — the-backlog-worked.png (photoreal, generated) --------
+    The warm counterpart to the companion articles' two cold images. This
+    article is the constructive one of the three, and its cinematic piece
+    should feel like relief rather than menace -- the backlog finally
+    moving, quietly, at 3am.
+
+    PROMPT:
+    Cinematic photograph of a dim back office at night. Towering stacks of
+    dusty paper trays, folders and unopened boxes fill the frame, receding
+    into shadow. In one warm pool of light from a single desk lamp, a small
+    articulated robot arm is methodically filing one sheet of paper into a
+    tray. Everything else is still and dark. Warm amber key light against
+    cool blue shadow, shallow depth of field, no people. Photorealistic,
+    35mm, slight film grain. Calm, patient, slightly hopeful.
+
+    Deliberate contrast: the cost-collapse article gets an army, the
+    security article gets a corridor of doors, this one gets a single small
+    machine quietly doing the work nobody had time for. Same visual family,
+    opposite emotional register.
+
+    Alt: "A small robot arm filing paper under a desk lamp, surrounded by
+          towering stacks of untouched paperwork in a dark office."
+    Caption: "The work nobody had time for, finally getting done."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">photoreal · the-backlog-worked.png · 3:2 or square</div>
+  <div className="container">
+    A single small robot arm filing paper in a warm pool of lamplight, surrounded by
+    towering dark stacks of untouched work. Deliberately the warm one of the three
+    cinematic images — army, corridor, and this: same family, opposite register.
+    <br /><b>Caption:</b> The work nobody had time for, finally getting done.
+  </div>
+</div>
 
 The same shift scales past one person's chores. A clinical-trial matching product is run by a single operator with four standing Claude Code sessions against a shared backlog: one that prioritizes, one that watches traffic and files content tasks, and two working engineering tasks in parallel.<Citation
   data={{
