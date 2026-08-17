@@ -2,12 +2,21 @@
  * Configure your Gatsby site with this file.
  *
  * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
+ *
+ * This file is ESM (.mjs) because remark-gfm — and most of the modern
+ * remark/unified ecosystem — is published as ESM only.
  */
+
+import path from 'path'
+import { fileURLToPath } from 'url'
+import remarkGfm from 'remark-gfm'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
-module.exports = {
+export default {
   siteMetadata: {
     title: `Anthus`,
     description: `Depend on proven experts to build and operate AI-enabled systems with guardrails, verification, and operational excellence.`,
@@ -82,6 +91,9 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
