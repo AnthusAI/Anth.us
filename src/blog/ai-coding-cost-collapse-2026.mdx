@@ -83,19 +83,33 @@ The punchline for the individual developer: the big American companies always wa
 
 ## How to actually leverage it
 
-The simple version: just use Auto mode in Cursor. Cursor's Auto mode—its Cursor Router, shipped July 2026—has become at least as capable as Sonnet was just recently, at a fraction of the price. Auto Balance outperforms Opus 4.8 at about 41% lower cost, and Auto Intelligence lands near Fable-level satisfaction at about 60% lower.<Citation
+The tempting version is "just use Auto mode in Cursor and stop thinking about model selection." Check the pricing page before you do, because Auto is not the savings button it looks like.
+
+Two details matter. First, the Cursor Router—the system that classifies each request and picks a model for it—runs on **Teams and Enterprise plans**. Individual Pro users do not get it. Second, Auto Balance and Auto Intelligence are billed at the selected model's actual API rates, plus a Cursor Token Rate of $0.25 per million tokens whenever it picks a third-party model. Only Auto Cost charges a flat rate regardless of what it selects.<Citation
   data={{
     type: "webpage",
     "container-title": "Cursor",
-    title: "How Cursor Router chooses the right model for the task",
-    URL: "https://cursor.com/blog/how-cursor-router-works",
-    accessed: { 'date-parts': [[2026, 8, 16]] }
+    title: "Models and Pricing",
+    URL: "https://cursor.com/docs/models-and-pricing",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
   }}
-/> Cursor's model-selection system classifies each request and routes complex tasks to more complex models. Cursor incentivizes you to use its own models—Composer 2.5, Grok 4.5—that are easier for it to serve, and that are often faster and more reliable than third-party APIs. Everyone wins. Just use Auto and stop thinking about model selection.
+/>
+
+So for an individual developer, Auto is a mode that is *willing to spend more*. It can route you into a premium model and add a markup on top, and pinning the model yourself is frequently cheaper. Cursor's own Composer 2.5 lists at $0.50 input and $2.50 output per million—cheap, fast, and the model Cursor most wants to serve you.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Cursor",
+    title: "Models and Pricing",
+    URL: "https://cursor.com/docs/models-and-pricing",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/>
+
+<mark>Auto is not the affordable default; it is another opt-out you have to notice.</mark> Set the model deliberately: something like Composer 2.5 or GPT-5.6 Luna for the bulk of the work, and reach for a premium model when the task actually warrants it.
 
 The other big labs make you do the opposite. One way OpenAI gets people onto increasingly-expensive models is confusing model names. To get value out of the GPT-5.4 / GPT-5.3 Codex / GPT-5.1 Codex mini combination, you have to remember all those model numbers and what they mean: that GPT-5.2 is bigger and more expensive than GPT-5.1, that GPT-5.5 is more expensive than GPT-5.4, and that GPT-5.6 Sol is the premium ultrafast tier. It is all, perhaps intentionally, very confusing. Your cost can increase by multiples almost overnight if you simply install the latest version of the tools and blindly accept the defaults. You have to constantly be in a "just say no" mindset to avoid that, and continually monitor your costs to ensure some big AI lab hasn't tricked you into spending a lot more for a tiny improvement.
 
-The leverage, in one line: default to the affordable models where you can sustain a lot of use. In Cursor, that's Auto. In Codex, it's manually re-adding the affordable models and refusing the defaults. Either way, make the expensive frontier an opt-in, not an opt-out.
+The leverage, in one line: default to the affordable models where you can sustain a lot of use, and pick them by hand. In Cursor, that means pinning the model instead of trusting Auto. In Codex, it means manually re-adding the affordable models and refusing the defaults. Either way, make the expensive frontier an opt-in, not an opt-out.
 
 ## What the research actually measures
 
@@ -407,19 +421,24 @@ Coding in 2026 is the same curve, and the *Harness Effect* paper measures it dir
 
 This is not an argument that you should "double down" on agents and hand them more resources—that would be advocacy. It is an observation about what actually happens when a capability collapses in price. <mark>Cheaper coding does not lower your bill. It changes what you can afford to attempt, and you attempt more of it.</mark> The same mechanism that delivers the delegation payoff is the mechanism that tends to raise total spend: the cheapness is what made the 20× volume affordable enough to become standard.
 
-So in some cases people will end up paying more for AI coding than they did when it was expensive—not because they are being wasteful, but because the cheapness is what made the new, larger workflow affordable enough to depend on. Same paradox, same mechanism, as the content piece and the flip-side security piece. Observed in the coding-agent domain itself.
+So in some cases people will end up paying more for AI coding than they did when it was expensive—not because they are being wasteful, but because the cheapness is what made the new, larger workflow affordable enough to depend on. Same paradox, same mechanism, as the content piece—observed this time in the coding-agent domain itself.
 
 ## The flip side of this curve
 
 There is a catch to all of this that is worth naming before it names itself. The same price-performance curve that is collapsing the cost of *writing* software is also collapsing the cost of *breaking* software. Exploit chains that used to require months of senior security-researcher time are moving down the same cost ladder. And the cheap, ubiquitous coding agents this article celebrates are themselves a new attack surface.
 
-That is a separate story, and we take it up in the companion piece: [Bugonomics: The Flip Side of Cheap AI Coding](/blog/bugonomics-cheap-exploits-2026/). The short version: the productivity dividend and the vulnerability dividend are the same curve, and you cannot have one without the other.
+That is a separate story, and we take it up in the companion piece: [Bugonomics: The Flip Side of Cheap Coding](/blog/bugonomics-cheap-exploits-2026/). The short version: the productivity dividend and the vulnerability dividend are the same curve, and you cannot have one without the other.
 
 ## The shift in one sentence
 
 In 2026, the AI-coding story is less "models suddenly got smarter" than <mark>"last year's useful coding capability moved down the cost curve—and the same budget now buys a team."</mark> The price collapse coincided with agents learning to run autonomously for hours, and the two effects multiplied: cheap tokens made long loops and agent hierarchies affordable, and that made delegating entire milestones economically viable. The bottleneck moved from implementation to specification, and the part of the job left to you is the part that was always the hard part.
 
 The Jevons catch is real and honest: because that delegation is now viable, it becomes the new normal, and total spend can rise even as unit price falls. That is not a reason to retreat from agents. It is a reason to spend deliberately—on a team instead of a single assistant, and on judgment instead of tokens.
+
+## Companion pieces
+
+- [Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence/) — the practical half: which providers to buy, how to route between tiers, and which jobs just became worth automating.
+- [Bugonomics: The Flip Side of Cheap Coding](/blog/bugonomics-cheap-exploits-2026/) — the same curve applied to breaking software.
 
 ## References
 

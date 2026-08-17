@@ -173,6 +173,44 @@ dt,
 th {
   font-weight: 600;
 }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-sm);
+  line-height: 1.45;
+  // Narrow screens: let a wide table scroll on its own rather than
+  // forcing the page to scroll horizontally.
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+table thead th {
+  text-align: left;
+  padding: var(--space-2);
+  border-bottom: 2px solid var(--color-primary);
+  white-space: nowrap;
+}
+table tbody td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-mark-start);
+  vertical-align: top;
+}
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+table tbody tr:hover {
+  background: var(--color-mark-end);
+}
+@media (min-width: 720px) {
+  table {
+    display: table;
+    white-space: normal;
+  }
+  table tbody td {
+    white-space: normal;
+  }
+}
 ol li,
 ul li {
   padding-left: 0;
@@ -601,7 +639,8 @@ article {
     font-size: smaller;
   }
   .citation {
-    height: 100%;
+    display: inline;
+    vertical-align: baseline;
     font-size: var(--font-sm);
 
     &::before {
