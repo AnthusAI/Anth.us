@@ -93,16 +93,7 @@ The simple version: just use Auto mode in Cursor. Cursor's Auto mode—its Curso
   }}
 /> Cursor's model-selection system classifies each request and routes complex tasks to more complex models. Cursor incentivizes you to use its own models—Composer 2.5, Grok 4.5—that are easier for it to serve, and that are often faster and more reliable than third-party APIs. Everyone wins. Just use Auto and stop thinking about model selection.
 
-The other big labs make you do the opposite. One way OpenAI gets people onto increasingly-expensive models is confusing model names. To get value out of the GPT-5.4 / GPT-5.3 Codex / GPT-5.1 Codex mini combination, you have to remember all those model numbers and what they mean: that GPT-5.2 is bigger and more expensive than GPT-5.1, that GPT-5.5 is more expensive than GPT-5.4, that GPT-5.6 Sol is on par with GPT-5.5. It is all, perhaps intentionally, very confusing. Your cost can increase by multiples almost overnight if you simply install the latest version of Codex and start using the default settings—the default `gpt-5.6` alias routes to Sol, the most expensive tier, and the affordable Codex models were removed from the picker in April 2026.<Citation
-  data={{
-    type: "webpage",
-    "container-title": "Codex Knowledge Base",
-    title: "The Codex Model Sunset: June–July 2026 Deprecation Timeline, Migration Paths, and Config Recipes",
-    URL: "https://codex.danielvaughan.com/2026/06/02/codex-model-sunset-june-july-2026-deprecation-timeline-migration-paths-config-recipes/",
-    accessed: { 'date-parts': [[2026, 8, 16]] },
-    issued: { 'date-parts': [[2026, 6, 2]] }
-  }}
-/> You have to constantly be in a "just say no" mindset to avoid that, and constantly monitor your costs to ensure some big AI lab hasn't tricked you into spending a lot more for a tiny improvement.
+The other big labs make you do the opposite. One way OpenAI gets people onto increasingly-expensive models is confusing model names. To get value out of the GPT-5.4 / GPT-5.3 Codex / GPT-5.1 Codex mini combination, you have to remember all those model numbers and what they mean: that GPT-5.2 is bigger and more expensive than GPT-5.1, that GPT-5.5 is more expensive than GPT-5.4, and that GPT-5.6 Sol is the premium ultrafast tier. It is all, perhaps intentionally, very confusing. Your cost can increase by multiples almost overnight if you simply install the latest version of the tools and blindly accept the defaults. You have to constantly be in a "just say no" mindset to avoid that, and continually monitor your costs to ensure some big AI lab hasn't tricked you into spending a lot more for a tiny improvement.
 
 The leverage, in one line: default to the affordable models where you can sustain a lot of use. In Cursor, that's Auto. In Codex, it's manually re-adding the affordable models and refusing the defaults. Either way, make the expensive frontier an opt-in, not an opt-out.
 
@@ -160,7 +151,7 @@ Epoch AI's quality-adjusted inference price work found that, depending on task a
 
 The HumanEval illustration is still striking: GPT-4's 67% HumanEval level was on the order of **$37.50 per million tokens** in March 2023; by 2024, several models matched or exceeded that score at roughly **$0.10–$0.50 per million tokens**. That is not a full agent-cost comparison, but it shows how violently the capability/price frontier moved.
 
-The 2026 acceleration has names and dates. DeepSeek R1, released January 20, 2025, matched or exceeded OpenAI's o1 on AIME 2024, MATH-500, LiveCodeBench, and SWE-bench Verified while charging about **$0.55/$2.19** per million input/output tokens against o1's **$15/$60**—roughly 27× cheaper.<Citation
+This recent acceleration has names and dates. DeepSeek R1, released January 20, 2025, matched or exceeded OpenAI's o1 on AIME 2024, MATH-500, LiveCodeBench, and SWE-bench Verified while charging about **$0.55/$2.19** per million input/output tokens against o1's **$15/$60**—roughly 27× cheaper.<Citation
   data={{
     type: "article-journal",
     title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
