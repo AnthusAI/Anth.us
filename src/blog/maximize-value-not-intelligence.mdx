@@ -1,0 +1,352 @@
+---
+title: "Maximize Value, Not Intelligence"
+slug: "maximize-value-not-intelligence"
+date: "2026-08-17"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "In 2023 we argued for using the dumbest model the problem will bear. In 2026 there are public coding-value leaderboards, the cheap tier got genuinely good, and the interesting question changed: not which model to buy, but which jobs just became worth automating."
+preview_image: "./images/maximize-value-not-intelligence.png"
+images:
+  - ./images/maximize-value-not-intelligence.png
+state: draft
+tags:
+  - articles
+  - ai
+  - economics
+  - how-to
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+*Prices collapsed. Value skyrocketed. Here is what to actually buy.*
+
+In December 2023 we wrote about a text classifier that did not work as a business.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Anth.us",
+    title: "Maximize Profit, Not Intelligence",
+    author: "Ryan Porter",
+    URL: "https://anth.us/blog/maximize-profit-not-intelligence/",
+    issued: { 'date-parts': [[2023, 12, 22]] }
+  }}
+/> The requirement was 95% accuracy at under $200 per million classifications. GPT-4 hit the accuracy easily and cost about $1,700 per million. A great demo and a dead venture.
+
+The fix was not a better model. It was a worse one. We went down the ladder—GPT-3.5, then Ada 2 embeddings with logistic regression, then BERT running free in a Colab notebook—and only stopped when Word2Vec finally dropped below the accuracy bar. The thesis was <mark>use the dumbest model that the problem will bear</mark>, and the only way to find that point is to go one step too far and come back.
+
+That discipline still holds in 2026. But two things changed underneath it, and together they changed what the question even is.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="maximize-value-not-intelligence.png" className="centered" alt="Title card: Maximize Value, Not Intelligence." />
+
+## The other half of the ratio
+
+Our companion piece measured one term: [the price of a fixed level of coding capability](/blog/ai-coding-cost-collapse-2026/) has been falling roughly 5× to 10× per year.<Citation
+  data={{
+    type: "article-journal",
+    title: "The Price of Progress: Price Performance and the Future of AI",
+    author: ["Hans Gundlach", "Jayson Lynch", "Matthias Mertens", "Neil Thompson"],
+    "container-title": "arXiv",
+    DOI: "10.48550/arXiv.2511.23455",
+    URL: "https://arxiv.org/abs/2511.23455",
+    accessed: { 'date-parts': [[2026, 8, 17]] },
+    issued: { 'date-parts': [[2025, 11]] }
+  }}
+/> That is the denominator.
+
+Value is capability divided by cost, and the numerator moved too. The cheap tier did not merely get cheaper—it got *good*. That is the difference between a discount and a windfall. A discount lets you do the same work for less. <mark>A windfall changes which work is worth doing at all.</mark>
+
+This article is about collecting the windfall: which providers to buy, how to route between them, and—the part that actually matters—which jobs in your project and your business just crossed the line from "not worth automating" to "obviously worth automating."
+
+## There is a scoreboard now
+
+In 2023 you had to build the cost-versus-accuracy chart yourself. In 2026 somebody publishes it.
+
+BenchLM's coding-value leaderboard divides each model's weighted coding score by its output-token price, which surfaces capability per dollar instead of capability alone.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "BenchLM",
+    title: "Best Value LLM for Coding — Cost-Adjusted Rankings",
+    URL: "https://benchlm.ai/best/best-value-coding",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/> Ranked that way, the leaderboard you have been reading is nearly upside down:
+
+| Rank | Model | Coding score | Output price / 1M | Value score |
+| ---: | :-- | --: | --: | --: |
+| 1 | Poolside Laguna S 2.1 | 53.7 | $0.20 | **268.6** |
+| 2 | Ministral 3 3B | 21.0 | $0.10 | 209.8 |
+| 3 | Ministral 3 14B | 33.5 | $0.20 | 167.65 |
+| 9 | GPT-5.6 Luna | 73.0 | $1.20 | 60.85 |
+| 21 | Gemini 3.1 Flash-Lite | 41.9 | $1.50 | 27.96 |
+| 56 | GPT-5.6 Terra | 65.4 | $12.00 | 5.45 |
+| 73 | GPT-5.6 Sol | 78.7 | $30.00 | 2.62 |
+
+Sol is the best coder on this list and ranks 73rd out of 84 by value. Luna gives up about 7% of Sol's raw coding score and returns roughly <mark>23× the coding capability per dollar</mark>.
+
+The Luna number moved recently and sharply. On July 30, 2026, OpenAI cut Luna by about 80% to $0.20 input and $1.20 output per million tokens, trimmed Terra by about 20% to $2 and $12, and left Sol untouched at $5 and $30.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Finout",
+    title: "GPT-5.6 Pricing 2026: Sol, Terra and Luna Tiers Explained",
+    URL: "https://www.finout.io/blog/gpt-5.6-pricing-2026-sol-terra-and-luna-tiers-explained",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/> A 25× price gap between the cheap tier and the flagship is not a rounding error in your routing policy. It is the routing policy.
+
+Note what happened to the middle. On this scoreboard Terra is *dominated*: Luna beats it on coding score and costs a tenth as much. A balanced tier that is worse and pricier than the budget tier is not a compromise, it is a default you should stop accepting.
+
+## Don't optimize the wrong ratio
+
+Now the correction, because a naive reading of that table will cost you money.
+
+BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. Laguna S 2.1 tops the value chart with a coding score of 53.7—respectable, and nowhere near enough for a lot of real repository work. Ministral 3 3B ranks second with a coding score of 21. Divide by a small enough number and anything looks like a bargain.
+
+This is exactly the 2023 lesson, and it is worth being precise about it, because it is usually remembered wrong. <mark>We did not choose BERT because it was the cheapest. We chose it because it was the cheapest thing that still cleared the bar.</mark> Word2Vec was cheaper still and we rejected it. The bar came first; the price optimization happened underneath it.
+
+Score-per-token is a discovery tool. It tells you which models deserve a trial. It is not the metric you run your shop on, because it ignores everything that happens after the tokens are billed: retries, tool calls, test runs, and your own attention. The metric that matters is **accepted changes divided by the sum of model cost, tool cost, and human repair time.**
+
+Which means four numbers, tracked per model and per task class:
+
+- **Merge rate** — did the agent produce a change you accepted without major repair?
+- **All-in cost per accepted change** — not token cost. Include retries and sandbox time.
+- **Human minutes per accepted change** — usually the largest term, and the one nobody logs.
+- **Escalation rate** — what fraction of tasks fell through the cheap tier to an expensive one?
+
+A model that is 6× cheaper and leaves you fifteen minutes of cleanup is not cheaper. In 2023 we ran an evaluation set and read the cost-per-million off a chart. The 2026 equivalent is instrumenting your actual workflow, because agent cost is task-shaped, not token-shaped.
+
+## Three tiers, and when to leave one
+
+Sort the market into three tiers and the routing rules fall out.
+
+**Ultra-cheap** (Laguna, Ministral, the small Flash-class models) wins on raw score per dollar. Use it for mechanical, well-specified, high-volume work where a failure is cheap and obvious: constrained edits, formatting, classification, commit messages, the tenth retry of a fan-out job.
+
+**High-capability value** (Luna today) is where most real repository work belongs. It is strong enough to navigate a repo, run tests, and iterate, and cheap enough that you do not think before running it. This should be your default, and for most solo developers it is the whole story.
+
+**Premium** (Sol, the top Claude variants) buys the highest absolute completion rate. Reserve it for tasks whose expected failure cost is high: ambiguous specifications, cross-cutting architecture, fragile migrations, security-sensitive changes.
+
+The cheap tier's cost advantage is enormous enough to absorb a lot of failure. At a 25× price ratio, you can run roughly twenty-four Luna attempts before you have spent what one Sol attempt costs. Five retries on the cheap tier costs about a fifth of one attempt on the flagship.
+
+But do not read that as permission to retry blindly, because <mark>retries are not independent</mark>. A model that took a wrong path will happily take it again unless something in its input changed. The policy that actually works is a *bounded repair loop that changes state*: feed the failing test output, feed the diff it just produced, feed the compiler error—then try again, at most two or three times. Escalate on an objective signal, not on a feeling: CI still red, tests still failing, no measurable progress between attempts, changed-file count blowing past a threshold.
+
+And skip the ladder entirely when the task announces itself as hard. Ambiguous, architectural, and security-sensitive work should start at the top. The cheap-first default is a policy for the bulk of your queue, not a religion.
+
+## What to actually buy
+
+The durable framework is four moves in order: **tier, route, cache, measure.** Tiering and routing are above. The other two are where solo developers leave the most money on the table.
+
+### Buy on your variance, not your peak
+
+The most important thing to understand about 2026 pricing is that flat-rate subscriptions are quietly being re-metered.
+
+April 2026 was the turn. GitHub restructured its individual Copilot tiers and paused new signups on April 20, moving premium model access behind multipliers and more restrictive tiering. Cursor pushed frontier models behind Max Mode for legacy Team and Enterprise plans. And Anthropic cut the server-side prompt cache TTL from one hour to five minutes—no price change on paper, but long coding sessions now rebuild context far more often, and you pay for every rebuild.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Activated Thinker",
+    title: "The Flat-Rate AI Coding Subscription Era Is Ending: What GitHub Copilot, Claude Code, and Cursor Changed in April 2026",
+    URL: "https://medium.com/activated-thinker/the-flat-rate-ai-coding-subscription-era-is-ending-what-github-copilot-claude-code-and-cursor-9763e043a63a",
+    accessed: { 'date-parts': [[2026, 8, 17]] },
+    issued: { 'date-parts': [[2026, 4]] }
+  }}
+/>
+
+That last one is the tell. <mark>The most consequential price increase of 2026 was a cache setting, not a price.</mark>
+
+So when a plan says "flat rate," find out which of three things it means:<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Standard Compute",
+    title: "Flat-Rate AI Coding Plans Compared (2026): Who's Actually Unlimited?",
+    URL: "https://standardcompute.com/flat-rate-ai-coding-plans",
+    accessed: { 'date-parts': [[2026, 8, 17]] },
+    issued: { 'date-parts': [[2026, 7, 17]] }
+  }}
+/>
+
+- **Metered with rolling windows** — Claude Pro/Max, ChatGPT Plus/Pro, Cursor Pro. A subscription price with session or weekly limits that agentic workloads exhaust quickly.
+- **A capped value multiplier** — DevPass, Cursor Ultra. Your subscription buys roughly two to three times its price in provider-rate usage, and then it stops. This is a discount, not unlimited.
+- **Genuinely unlimited** — Featherless, Standard Compute. Real, but open-weight models only, with concurrency and context restrictions.
+
+The buying rule: **pay for variance, not for peak.** If your usage is steady and daily, a subscription converts an unpredictable bill into a fixed one and that is worth real money. If your usage is bursty—three heavy days a month—metered API tokens through an aggregator will beat any subscription, because you are not paying for the twenty-seven quiet days.
+
+For a single-model shop, a single-vendor plan is hard to beat. Z.ai's GLM Coding Plan runs about $18, $72, and $160 per month for Lite, Pro, and Max, discounted roughly 10/20/30% for monthly, quarterly, and yearly commitments, with allowances of about 80, 400, and 1,600 prompts per five-hour window respectively. It drives Claude Code, Cline, and Roo Code directly.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "AI Pricing Guru",
+    title: "GLM Coding Plan Pricing: Lite $18, Pro $72, Max $160",
+    URL: "https://www.aipricing.guru/z-ai-subscription-pricing/",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/> That is near-frontier coding quality at a price that used to buy autocomplete.
+
+### Caching is the biggest lever you are not pulling
+
+Agent loops are input-dominated. Stanford's Digital Economy Lab named this the "pricey context snowball": the agent re-sends a growing context window on every step, and a fifty-turn session can run a 25:1 ratio of input to output tokens.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Stanford Digital Economy Lab",
+    title: "How are AI agents spending your tokens?",
+    URL: "https://digitaleconomy.stanford.edu/news/how-are-ai-agents-spending-your-tokens/",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/>
+
+Cached input costs roughly a tenth of fresh input. Since input is the dominant term, <mark>cache discipline moves your bill more than model choice does</mark>—and it is free. Keep a stable prefix (system prompt, project conventions, file tree) at the front of the context so it stays cacheable, and stop reordering it between calls. Do the long session in one sitting rather than three, now that the TTL is five minutes and not an hour.
+
+The orchestration layer matters for the same reason. Holding the model constant, a July 2026 paper found that swapping in a better harness cut cost per task by 41%—more than switching between the cheapest and most expensive model did.<Citation
+  data={{
+    type: "article-journal",
+    title: "The Harness Effect: How Orchestration Design Sets the Token Economics of Enterprise Agentic AI",
+    "container-title": "arXiv",
+    URL: "https://arxiv.org/html/2607.06906",
+    accessed: { 'date-parts': [[2026, 8, 17]] },
+    issued: { 'date-parts': [[2026, 7]] }
+  }}
+/>
+
+And for anything that does not need an answer right now—the whole chore catalog below—batch it. OpenAI's Batch and Flex processing runs at half rate, which puts Luna at $0.10 input and $0.60 output per million.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "OpenAI",
+    title: "Advancing the price-performance frontier with GPT-5.6",
+    URL: "https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6/",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/>
+
+### What we'd buy today
+
+Timestamped deliberately. **This table is accurate as of August 2026 and will rot.** Re-check it quarterly—the whole point of the price collapse is that the right answer keeps moving.
+
+| Job | Pick | Why | Rough cost |
+| :-- | :-- | :-- | :-- |
+| Daily driver, in-editor | Composer 2.5, pinned manually | $0.50/$2.50 per 1M, fast, and Cursor's own model — but set it yourself, don't use Auto | usage |
+| Daily driver, single vendor | GLM Coding Plan (Lite or Pro) | Near-frontier coding at autocomplete prices; drives Claude Code directly | $18–$72/mo |
+| Bulk chore runner | Luna via API, batch mode | $0.10/$0.60 per 1M batched — the cheapest capable-enough tier | usage |
+| Bursty or multi-model | OpenRouter | No monthly minimum; one key across labs | usage |
+| Escalation tier | Sol, or a top Claude variant | Skip Terra — it's dominated on both axes | usage, gated |
+| Metering and budget caps | LiteLLM proxy | Per-agent budgets; makes the four metrics collectable | free/self-host |
+
+Two non-obvious calls there. The first is skipping the middle tier: if your cheap tier fails, the evidence that made it fail is usually enough to justify going straight to the top rather than paying twice on the way up. The second is pinning the model by hand, which deserves its own warning.
+
+### "Auto" is not a synonym for "cheap"
+
+It is natural to assume the router modes are the frugal choice. Read the pricing page before you assume it.
+
+In Cursor, the Cursor Router—the thing that actually classifies each request and picks a model for it—runs on **Teams and Enterprise plans**. Individual Pro users do not have it. And of the Auto modes, only Auto Cost charges a flat rate regardless of what it picks; Auto Balance and Auto Intelligence bill at the selected model's real API rates, plus a Cursor Token Rate of $0.25 per million tokens whenever the pick is a third-party model.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Cursor",
+    title: "Models and Pricing",
+    URL: "https://cursor.com/docs/models-and-pricing",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/>
+
+Read that again in buying terms: <mark>Auto is a mode that is willing to spend more on your behalf, with a markup.</mark> It is a convenience feature, not a savings feature, and for an individual developer it can comfortably cost more than pinning a model yourself.
+
+Pinning is not hard, and it is the whole discipline of this article in one setting. Composer 2.5 at $0.50 input and $2.50 output is cheap, fast, and Cursor's own model. Luna is cheaper still on output. Pick one for the bulk of your work, choose the other when the shape of the task calls for it, and escalate deliberately instead of letting a router escalate for you.
+
+The general rule generalizes past Cursor: **any feature that picks the model for you is a feature that can pick an expensive one.** Find out whether it is optimizing for your bill or for your satisfaction, because those are different objectives and only one of them is yours.
+
+## The jobs that just crossed the line
+
+Here is where the value boom stops being a smaller invoice and starts being a different business.
+
+In 2023, the classifier had a break-even: $200 per million. Below that it was a venture; above it, a demo. Every chore on your backlog has the same structure. It is worth automating when the all-in agent cost plus your review time comes in under the value of the thing simply getting done—and for a long list of jobs, <mark>that number just went from "no" to "obviously yes" without anyone announcing it.</mark>
+
+These are not glamorous. That is the point. They are the work that is perpetually valuable and perpetually last in the queue.
+
+| Job | Tier | Cadence | Human gate |
+| :-- | :-- | :-- | :-- |
+| Docs drifted from code | cheap | on merge | review the MR |
+| Dependency upgrades | cheap | weekly | review the MR + CI |
+| Test backfill for old code | value | nightly batch | review the MR |
+| Changelog and release notes | cheap | per release | edit before publish |
+| Security advisory triage | value | on advisory | you decide severity |
+| Flaky-test quarantine | cheap | nightly | review the quarantine list |
+| Mechanical migration sweeps | cheap | one-off, fan-out | review per-file diffs |
+| First-pass code review | value | per PR | it comments, you decide |
+| Support ticket triage + draft reply | cheap | continuous | **you send it, not the agent** |
+| Bug report → reproduction case | value | on report | confirm the repro |
+| Release notes → newsletter draft | cheap | per release | you publish |
+
+Documentation is the cleanest example because the tooling already exists. Tools like Scribe read a codebase's structure from the code graph, regenerate an accurate `AGENTS.md`, and open a merge request when the docs have drifted—then keep watching and open another one next time.<Citation
+  data={{
+    type: "software",
+    "container-title": "GitHub",
+    title: "Scribe: self-updating AGENTS.md from the code graph",
+    URL: "https://github.com/brn-mwai/scribe",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/> The pattern generalizes to every row above: a trigger, a bounded agent task on the cheapest tier that clears the bar, and a pull request a human looks at.
+
+That last clause is not decoration. <mark>None of this auto-merges.</mark> The productivity lands in the gap between "nobody had time" and "somebody reviewed it," and deleting the review does not widen the gap—it just moves the failures into production.
+
+The same shift scales past one person's chores. A clinical-trial matching product is run by a single operator with four standing Claude Code sessions against a shared backlog: one that prioritizes, one that watches traffic and files content tasks, and two working engineering tasks in parallel.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "DEV Community",
+    title: "Building a One-Person Software Shop with Claude Code",
+    URL: "https://dev.to/chncwang/building-a-one-person-software-shop-with-claude-code-1d6i",
+    accessed: { 'date-parts': [[2026, 8, 17]] },
+    issued: { 'date-parts': [[2026, 8]] }
+  }}
+/> The interesting part is not the parallelism. It is that a one-person business now has roles.
+
+## What $20, $100, and $500 actually buy
+
+Concrete stacks, same caveat as the pick table—accurate August 2026, re-check quarterly. The "can't do" column is the honest one.
+
+| | ~$20/month | ~$100/month | ~$500/month |
+| :-- | :-- | :-- | :-- |
+| **Daily driver** | GLM Lite, *or* Composer 2.5 pinned | GLM Pro + Luna API | Per-seat plan + Luna API |
+| **Parallel agents** | 1 | 2–3 | 5–10 |
+| **Chore automation** | 1–2 jobs, weekly | 4–6 jobs, nightly batch | full catalog, continuous |
+| **Escalation budget** | none — you are the escalation | ~$20/mo of premium calls | metered, gated on CI failure |
+| **Metering** | read the dashboard | LiteLLM proxy | proxy + per-agent budget caps |
+| **Can't do** | sustained parallel work; you will hit session windows | long premium-tier investigations | pretend review capacity is free |
+
+The failure mode at every tier is the same, and it is not overspending. It is buying capacity you have no ability to review. Three agents producing pull requests faster than one person can read them is not three times the throughput—it is a queue with a person at the end of it.
+
+## The security tax
+
+Every row in that catalog is a new non-human identity holding credentials to your repository, your cloud, or your inbox. That is not a reason to skip them. It is a line item.
+
+The cheap tier is exactly where the temptation to skip scoping is strongest, because each agent feels too small to matter. Recent work on LLM-in-the-loop vulnerabilities found they are consistently harder and costlier to repair than conventional flaws, with prompt-injection cases repaired correctly on the first attempt only 28.57% of the time.<Citation
+  data={{
+    type: "article-journal",
+    title: "Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities",
+    "container-title": "arXiv",
+    URL: "https://arxiv.org/abs/2605.28893",
+    accessed: { 'date-parts': [[2026, 8, 17]] },
+    issued: { 'date-parts': [[2026, 5]] }
+  }}
+/>
+
+Scope each agent to the minimum access its job needs, treat everything it ingests—error logs, issues, docs, web pages—as untrusted input to a privileged executor, and keep an inventory. We take this up properly in the companion piece: [Bugonomics: The Flip Side of Cheap Coding](/blog/bugonomics-cheap-exploits-2026/).
+
+## The Jevons resolution
+
+Our first companion ended on an honest catch: cheaper coding does not lower your bill, because the cheapness is what makes the larger workflow affordable enough to depend on. Total spend rises even as unit price falls.
+
+That is true, and here is the resolution. <mark>If value per dollar rose 20× and your spend rose 3×, you won.</mark> Spending more is frequently the correct response to a price collapse—it is what "the same budget now buys a team" means in practice.
+
+The failure mode is not spending more. It is spending more *without measuring the return*—which is precisely the 2023 mistake, the one where you ship a beautiful GPT-4 classifier and never check the cost per million until the invoice arrives. The four metrics above exist so that "we spend more on agents than we did last year" is a sentence you can finish with a number instead of a shrug.
+
+## The shift in one sentence
+
+In 2023 the answer was to find the dumbest model the problem would bear and stop paying for the rest. In 2026 that is still the answer, with two amendments: <mark>it is a routing policy now, not a one-time pick</mark>, and the real dividend is not a cheaper invoice—it is the pile of work that was never worth doing becoming worth doing.
+
+Buy on your variance. Cache like it is free money, because it is. Default to the value tier and make the frontier opt-in. And spend the savings on the boring, valuable, perpetually-deferred jobs that just crossed their break-even, with a human still reading every diff.
+
+Maximize value, not intelligence.
+
+## Companion pieces
+
+- [The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026/) — why the price of coding capability collapsed, and why the cost curve and the autonomy curve multiply.
+- [Bugonomics: The Flip Side of Cheap Coding](/blog/bugonomics-cheap-exploits-2026/) — the same curve applied to breaking software, and the coding agent as an attack surface.
+- [Maximize Profit, Not Intelligence](/blog/maximize-profit-not-intelligence/) — the 2023 original, where the ladder only went down.
+
+## References
+
+<CitationsList citationFormat="apa" />

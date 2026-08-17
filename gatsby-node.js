@@ -1,5 +1,24 @@
 const path = require('path');
 
+// MDX is compiled as a separate webpack entry; without a fixed resolution path,
+// gatsby-citation-manager (and sometimes React) can be bundled twice. That yields
+// two different CitationsContext objects, so <Citation> in MDX never sees the
+// template's <CitationsProvider> during SSG ("Citation must be used within a CitationsProvider").
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        react: path.resolve(__dirname, 'node_modules/react'),
+        'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+        'gatsby-citation-manager': path.resolve(
+          __dirname,
+          'node_modules/gatsby-citation-manager'
+        ),
+      },
+    },
+  });
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
