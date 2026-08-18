@@ -98,7 +98,7 @@ Value is capability divided by cost, and the numerator moved too. The cheap tier
 
 This article is about collecting the windfall: which providers to buy, how to route between them, and—the part that actually matters—which jobs in your project and your business just crossed the line from "not worth automating" to "obviously worth automating."
 
-<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="full" alt="Line chart showing a price-performance index for fixed coding benchmark capability per dollar, climbing from 1x in February 2025 to roughly 10x, and possibly as high as 32x, by August 2026, based on the MIT Price-of-Progress annual rate of price reduction." />
+<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="full" alt="Line chart showing a price-performance index for fixed coding benchmark capability per dollar, climbing from 1x in February 2025 to roughly 10x, and possibly as high as 35x, by August 2026, based on the MIT Price-of-Progress annual rate of price reduction." />
 
 That is what the windfall looks like plotted against time: the MIT paper's estimated annual **decline in the price of a fixed benchmark score**, inverted into a capability-per-dollar index. It is not a claim that models got 10× smarter on their own—the denominator moved while the benchmark bar stayed put.
 
@@ -114,7 +114,9 @@ BenchLM's coding-value leaderboard divides each model's weighted coding score by
     URL: "https://benchlm.ai/best/best-value-coding",
     accessed: { 'date-parts': [[2026, 8, 17]] }
   }}
-/> Ranked that way, the leaderboard you have been reading is nearly upside down. A few rows from BenchLM as of August 2026:
+/> Ranked that way, the leaderboard you have been reading is nearly upside down.
+
+BenchLM's raw list of 84 models is topped by names you would never actually run: sub-15B-parameter models scoring in the 20s and 30s on coding, cheap enough that dividing by their price makes the ratio enormous. That is a real ranking artifact, not a buying recommendation—a model that cannot hold together a multi-file change is not a value pick at any price. Restricted to models with a coding score that clears a usable bar for real repository work, here is the same leaderboard as of August 2026:
 
 | Rank | Model | Coding score | Output price / 1M | Value score |
 | ---: | :-- | --: | --: | --: |
@@ -165,7 +167,7 @@ Flash-Lite is dominated too, and by a wider margin—Luna beats it on both codin
 
 Now the correction, because a naive reading of that table will cost you money.
 
-BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. A bare Score/$ ranking is a starting point, not a shopping list.
+BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. That is exactly why the raw leaderboard needed filtering before it was worth a table above—divide by a small enough price and almost anything looks like a bargain, including models nobody should point at a real repository. But the correction goes one layer deeper than “exclude the toy models.” Even restricted to models that can hold a real repository together, a bare Score/$ ranking is a starting point, not a shopping list.
 
 This is exactly the 2023 lesson, and it is worth being precise about it, because it is usually remembered wrong. <mark>We did not choose BERT because it was the cheapest. We chose it because it was the cheapest thing that still cleared the bar.</mark> Word2Vec was cheaper still and we rejected it. The bar came first; the price optimization happened underneath it.
 
