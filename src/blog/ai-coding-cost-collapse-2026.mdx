@@ -111,7 +111,7 @@ The punchline for the individual developer: the big American companies always wa
 
 The tempting version is "just use Auto mode in Cursor and stop thinking about model selection." Check the pricing page before you do, because Auto is not the savings button it looks like.
 
-Two details matter. First, the Cursor Router—the system that classifies each request and picks a model for it—runs on **Teams and Enterprise plans**. Individual Pro users do not get it. Second, Auto Balance and Auto Intelligence are billed at the selected model's actual API rates, plus a Cursor Token Rate of $0.25 per million tokens whenever it picks a third-party model. Only Auto Cost charges a flat rate regardless of what it selects.<Citation
+Two details matter. First, **Auto is available on Pro**, but not all Auto modes price the same: only **Auto Cost** charges a flat rate regardless of what it picks. **Auto Balance** and **Auto Intelligence** bill at the routed model's actual API rates, plus a Cursor Token Rate of **$0.25 per million tokens** whenever the pick is a third-party model—often **2–4×** more expensive than pinning Composer 2.5 or Luna yourself. Second, the **Cursor Router**—the deeper request-classification system that picks models on Teams and Enterprise—is **not on individual Pro plans**.<Citation
   data={{
     type: "webpage",
     "container-title": "Cursor",
@@ -201,7 +201,7 @@ Their headline finding: the cost of a given benchmark-performance level on the P
 
 Methodologically, that matters for coding because they price a **benchmark run**—input, output, reasoning, and cached tokens—not a hypothetical single completion. A "cheap" reasoning model that thinks in 50,000 tokens is not cheap in the way a leaderboard screenshot suggests.
 
-One reason the "about 10×" figure in the lede is, if anything, conservative: it is an annual rate, and coding-specifically sits at the low end of the band. The SWE-bench point estimate is ~4.7× per year (with wide confidence intervals, because the sample is only 21 data points). Compounded over the roughly 18 months since "vibe coding" was coined, even that conservative 4.7× rate produces ~10×—almost exactly the round number in the lede. The overall 5×–10× band would compound to 12×–35× over the same window. So 10× since February 2025 is a defensible and arguably understated claim, not an optimistic one.
+One reason the "about 10×" figure in the lede is, if anything, conservative: it compounds MIT's estimated **annual price reduction for a fixed benchmark score**, not a claim that models got 10× smarter on their own. For software engineering specifically, the SWE-bench point estimate is ~4.7× per year in price-performance (with wide confidence intervals, because the sample is only 21 data points). Compounded over the roughly 18 months since "vibe coding" was coined in February 2025, even that conservative rate produces ~10×—almost exactly the round number in the lede. The overall 5×–10× band would compound to 12×–35× over the same window.
 
 They also estimate roughly **3× annual algorithmic efficiency** after attempting to strip out hardware price declines and competitive pricing effects among proprietary models. The interpretation includes better training data, distillation, mixture-of-experts architectures, and inference-side improvements—not just "GPUs got cheaper."
 
