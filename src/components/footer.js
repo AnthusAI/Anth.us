@@ -17,7 +17,6 @@ const Footer = () => {
   return (
     <AnthusFooter
       siteId="anthus"
-      subtitle="Anthus Platform"
       description="Anthus builds AI-native systems with durable procedures, operational guardrails, and reusable platform components."
       communityLinks={defaultCommunityLinks}
       brandLinks={brandLinks}
@@ -27,7 +26,6 @@ const Footer = () => {
         title: 'Anthus',
         titleHref: '/',
         titleExternal: false,
-        linksTitleHref: '/platform',
       }}
       logo={
         <a href="/" aria-label="Anthus home">
