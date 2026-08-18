@@ -114,16 +114,6 @@
   font-size: 0.8em;
 }
 
-.textCenter {
-  text-align: center;
-}
-
-.intro {
-  max-width: none;
-  line-height: var(--line-height-loose);
-  margin-top: var(--space-4)
-}
-
 @media (min-width: 640px) {
   .postsList {
     grid-template-columns: repeat(2, 1fr);
