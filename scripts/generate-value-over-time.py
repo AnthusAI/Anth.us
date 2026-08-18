@@ -7,8 +7,12 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
 
-FIG_W_IN = 1880 / 150
-FIG_H_IN = 720 / 150
+# 1200x630 at DPI 150. The title is wrapped rather than set as one long line:
+# with bbox_inches="tight", a single-line title wider than the axes drags the
+# saved canvas out with it (that is how this chart previously ended up 2916px
+# wide, a 4.3:1 letterbox that rendered as a sliver in the article column).
+FIG_W_IN = 1200 / 150
+FIG_H_IN = 630 / 150
 DPI = 150
 OUT = "src/blog/images/value-over-time.png"
 
@@ -37,47 +41,20 @@ RELEASE_EVENTS = [
     (datetime(2026, 7, 30), "Luna price cut"),
 ]
 
-CLUSTER_GAP_DAYS = 12
-MIN_LABEL_Y = 1.06
-BAND_CLEARANCE_DIVISORS = {
-    1: (1.18,),
-    2: (1.12, 1.95),
-    3: (1.12, 1.48, 2.05),
-}
-
-
-def assign_cluster_slots(events):
-    """Return (rank, cluster_size) for staggered labels below the band at each date."""
-    slots = []
-    index = 0
-    while index < len(events):
-        cluster_end = index + 1
-        while cluster_end < len(events):
-            gap_days = (events[cluster_end][0] - events[cluster_end - 1][0]).days
-            if gap_days < CLUSTER_GAP_DAYS:
-                cluster_end += 1
-            else:
-                break
-        count = cluster_end - index
-        for offset in range(count):
-            slots.append((offset, count))
-        index = cluster_end
-    return slots
-
-
-def divisors_for_cluster_size(cluster_size):
-    if cluster_size in BAND_CLEARANCE_DIVISORS:
-        return BAND_CLEARANCE_DIVISORS[cluster_size]
-    return tuple(1.12 + index * 0.35 for index in range(cluster_size))
-
-
-def label_y_below_band(x_num, cluster_rank, cluster_size, chart_start_num):
-    years_at_x = (x_num - chart_start_num) / 365.25
-    band_floor = BAND_LOW_RATE**years_at_x
-    divisors = divisors_for_cluster_size(cluster_size)
-    divisor = divisors[min(cluster_rank, len(divisors) - 1)]
-    return max(MIN_LABEL_Y, band_floor / divisor)
-
+# Labels sit horizontally in stacked rows in the open wedge under the band.
+# Rotated labels were unreadable here: nine releases land inside six months and
+# two of them (Kimi K2.5 / GPT-5.3 Codex) are four days apart, which is only a
+# few pixels -- no vertical stagger separates marks that close, so they have to
+# be packed into rows by their real rendered width.
+LABEL_FONTSIZE = 7.5
+# Rows are generated on demand rather than fixed: nine labels inside six months
+# can need more rows than any hand-written list provides, and a fixed list forces
+# the overflow to share one row (which is exactly how GPT-5.6 family and Luna
+# price cut ended up printed on top of each other).
+LABEL_ROW_BASE = 1.11
+LABEL_ROW_RATIO = 1.30
+LABEL_PAD_DAYS = 8
+RIGHT_GUTTER_DAYS = 26
 
 start_num = mdates.date2num(START)
 end_num = mdates.date2num(END)
@@ -110,77 +87,127 @@ ax.plot(
     zorder=3,
 )
 
-cluster_slots = assign_cluster_slots(RELEASE_EVENTS)
-for (when, label), (cluster_rank, cluster_size) in zip(RELEASE_EVENTS, cluster_slots):
+ax.set_yscale("log")
+ax.set_ylim(1, 40)
+ax.set_xlim(start_num, end_num + RIGHT_GUTTER_DAYS)
+
+# Axis limits must be final before measuring: text extents are converted through
+# transData, so any later limit change would invalidate every measured width.
+fig.canvas.draw()
+renderer = fig.canvas.get_renderer()
+inv = ax.transData.inverted()
+
+
+def label_width_in_days(text_value, weight):
+    probe = ax.text(start_num, 2, text_value, fontsize=LABEL_FONTSIZE, fontweight=weight)
+    extent = probe.get_window_extent(renderer=renderer)
+    probe.remove()
+    left = inv.transform((0, 0))[0]
+    right = inv.transform((extent.width, 0))[0]
+    return right - left
+
+
+def row_y(row_index):
+    return LABEL_ROW_BASE * (LABEL_ROW_RATIO**row_index)
+
+
+def place_labels(events):
+    """Assign each label a row and an anchor side so no two labels overlap."""
+    occupied = []
+    placements = []
+    for when, text_value in events:
+        x = mdates.date2num(when)
+        weight = "bold" if text_value == "Luna price cut" else "normal"
+        width = label_width_in_days(text_value, weight) + LABEL_PAD_DAYS
+        # Flip to a left-extending label when a right-extending one would spill
+        # past the plot edge, which is what clipped the July releases before.
+        align_right = x + width > end_num + RIGHT_GUTTER_DAYS
+        low, high = (x - width, x) if align_right else (x, x + width)
+        for row_index, spans in enumerate(occupied):
+            if all(high <= lo or low >= hi for lo, hi in spans):
+                spans.append((low, high))
+                placements.append((row_index, align_right))
+                break
+        else:
+            occupied.append([(low, high)])
+            placements.append((len(occupied) - 1, align_right))
+    return placements
+
+
+for (when, text_value), (row_index, align_right) in zip(
+    RELEASE_EVENTS, place_labels(RELEASE_EVENTS)
+):
     x = mdates.date2num(when)
-    label_y = label_y_below_band(x, cluster_rank, cluster_size, start_num)
-    highlight = label == "Luna price cut"
+    highlight = text_value == "Luna price cut"
     ax.axvline(
         x,
         color=HIGHLIGHT_COLOR if highlight else MARKER_COLOR,
         linestyle="--",
-        linewidth=1.2 if highlight else 1,
+        linewidth=1.2 if highlight else 0.9,
+        alpha=1.0 if highlight else 0.55,
         zorder=0,
     )
     ax.text(
         x,
-        label_y,
-        label,
-        rotation=90,
-        va="top",
-        ha="right",
-        fontsize=8 if len(label) > 14 else 8.5,
+        row_y(row_index),
+        f"{text_value} " if align_right else f" {text_value}",
+        va="center",
+        ha="right" if align_right else "left",
+        fontsize=LABEL_FONTSIZE,
         color=HIGHLIGHT_COLOR if highlight else "#666666",
         fontweight="bold" if highlight else "normal",
         zorder=4,
-        clip_on=True,
     )
 
 end_years = (end_num - start_num) / 365.25
 end_conservative = CONSERVATIVE_RATE**end_years
 end_band_high = BAND_HIGH_RATE**end_years
 
+# Sits below its line, in white space -- offset upward it landed inside the band.
 ax.annotate(
-    "~10× conservative",
+    f"~{end_conservative:.1f}× conservative",
     xy=(end_num, end_conservative),
-    xytext=(-12, 8),
-    textcoords="offset points",
-    fontsize=11,
-    color=LINE_COLOR,
-    fontweight="bold",
-)
-ax.annotate(
-    "up to ~32×",
-    xy=(end_num, end_band_high),
-    xytext=(-8, 6),
+    xytext=(-6, -30),
     textcoords="offset points",
     fontsize=10,
     color=LINE_COLOR,
+    fontweight="bold",
+    ha="right",
+    va="top",
+)
+# Computed, not hard-coded: this previously read "up to ~32x" while the title
+# claimed 35x, because the annotation string was left stale when the window moved.
+ax.annotate(
+    f"up to ~{end_band_high:.0f}×",
+    xy=(end_num, end_band_high),
+    xytext=(-6, 7),
+    textcoords="offset points",
+    fontsize=9,
+    color=LINE_COLOR,
+    ha="right",
 )
 
 ax.set_title(
-    'Fixed coding benchmark capability per dollar has climbed roughly 10×—and possibly 35×—since "vibe coding" was coined',
-    fontsize=20,
+    "Fixed coding benchmark capability per dollar has climbed\n"
+    'roughly 10×—and possibly 35×—since "vibe coding" was coined',
+    fontsize=13,
     fontweight="bold",
-    pad=16,
+    pad=12,
 )
 ax.set_ylabel(
-    "Price-performance index\n(fixed benchmark score per dollar,\nFeb 2025 = 1×)",
-    fontsize=11,
+    "Price-performance index\n(fixed benchmark score per dollar, Feb 2025 = 1×)",
+    fontsize=9,
     linespacing=1.35,
 )
-ax.set_yscale("log")
-ax.set_ylim(1, 40)
 ax.set_yticks([1, 2, 5, 10, 20, 35])
 ax.set_yticklabels(["1×", "2×", "5×", "10×", "20×", "35×"])
+ax.tick_params(labelsize=9)
 ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
 ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
-ax.set_xlim(start_num, end_num)
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 ax.grid(axis="y", linestyle=":", alpha=0.35, which="both")
-ax.legend(loc="upper left", frameon=False, fontsize=10)
+ax.legend(loc="upper left", frameon=False, fontsize=8.5)
 
-plt.subplots_adjust(bottom=0.14, top=0.88, left=0.08, right=0.97)
-fig.savefig(OUT, facecolor="white", bbox_inches="tight", pad_inches=0.15)
+fig.savefig(OUT, facecolor="white", bbox_inches="tight", pad_inches=0.12)
 print(f"Wrote {OUT}")
