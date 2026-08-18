@@ -9,6 +9,8 @@ preview_image: "./images/ai-coding-cost-collapse-2026.png"
 images:
   - ./images/ai-coding-cost-collapse-2026.png
   - ./images/value-frontier.png
+  - ./images/price-of-fixed-capability.png
+  - ./images/two-multiplying-curves.png
 state: draft
 tags:
   - articles
@@ -21,7 +23,7 @@ import { Citation, CitationsList } from 'gatsby-citation-manager';
 
 *What happens when AI coders that are better than humans become a cheap commodity?*
 
-A big thing is happening in 2026 in AI coding: after years of getting smarter, now coding models are getting cheaper. Since Andrej Karpathy coined "vibe coding" in February 2025, that same level of coding capability has gotten about 10× cheaper. The collapse accelerated in 2026 as a wave of Chinese models matched the big American AI labs on performance at roughly a tenth of the cost. DeepSeek R1 started the trend in January 2025. Through 2026, Kimi from Moonshot and GLM 5.2 from Z.ai followed, each landing within a few points of the US frontier at a fraction of the price.<Citation
+A big thing is happening in 2026 in AI coding: after years of getting smarter, now coding models are getting cheaper. Since Andrej Karpathy coined "vibe coding" in February 2025, that same level of coding capability has gotten about 10× cheaper. The race to the bottom accelerated in 2026 as a wave of Chinese models matched the big American AI labs on performance at roughly a tenth of the cost. DeepSeek R1 started the trend in January 2025. Through 2026, Kimi from Moonshot and GLM 5.2 from Z.ai followed, each landing within a few points of the US frontier at a fraction of the price.<Citation
   data={{
     type: "webpage",
     "container-title": "Fortune",
@@ -189,15 +191,13 @@ Their headline finding: the cost of a given benchmark-performance level on the P
     Caption: "Same capability, falling price. The y-axis is logarithmic."
 ---------------------------------------------------------------------- */}
 
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">matplotlib · price-of-fixed-capability.png · 1200×630</div>
-  <div className="container">
-    Log-scale decline of the cost to hit a <i>fixed</i> benchmark level, 2023→2026,
-    with GPQA / AIME / SWE-bench Verified series and the ~4.7×/yr SWE-bench slope
-    annotated. Marker at Feb 2025 for “vibe coding.”
-    <br /><b>Caption:</b> Same capability, falling price. The y-axis is logarithmic.
-  </div>
-</div>
+{/* VISUAL — price-of-fixed-capability.png · scripts/generate-price-of-fixed-capability.py */}
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="price-of-fixed-capability.png"
+  className="full"
+  alt="Log-scale chart of the cost to reach a fixed benchmark score from 2023 to 2026, falling roughly five to ten times per year across GPQA-Diamond, AIME, and SWE-bench Verified."
+/>
 
 Methodologically, that matters for coding because they price a **benchmark run**—input, output, reasoning, and cached tokens—not a hypothetical single completion. A "cheap" reasoning model that thinks in 50,000 tokens is not cheap in the way a leaderboard screenshot suggests.
 
@@ -394,15 +394,13 @@ So while the price of a fixed level of coding was falling 5×–10× per year, t
     Caption: "Two exponentials, same product cycle. They multiply."
 ---------------------------------------------------------------------- */}
 
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">matplotlib · two-multiplying-curves.png · 1200×900</div>
-  <div className="container">
-    Twin stacked panels on a shared time axis: price of fixed capability falling
-    (5–10×/yr) above, METR task-horizon doubling every ~7 months below. Optional
-    inset showing the product of the two.
-    <br /><b>Caption:</b> Two exponentials, same product cycle. They multiply.
-  </div>
-</div>
+{/* VISUAL — two-multiplying-curves.png · scripts/generate-two-multiplying-curves.py */}
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="two-multiplying-curves.png"
+  className="full"
+  alt="Two stacked log-scale charts: the price of fixed coding capability falling while the length of task an agent can complete at fifty percent reliability rises, with an inset showing the product curve climbing faster than either alone."
+/>
 
 ## Why the two effects multiply
 
