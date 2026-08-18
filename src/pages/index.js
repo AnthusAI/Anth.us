@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Hero from "../components/hero"
+import PlatformCards from "../components/platform-cards"
 import * as styles from "../components/index.module.css"
 
 const mission = {
@@ -46,6 +47,27 @@ const values = [
   }
 ];
 
+const platformRecipes = [
+  {
+    title: "Grounded research to video output",
+    components: ["Biblicus", "Tactus", "Babulus", "Korporus"],
+    description:
+      "Use Biblicus to manage the source corpus, Tactus to define the repeatable procedure, Babulus to generate the narrative output, and Korporus to host the resulting service as a coherent application.",
+  },
+  {
+    title: "Production agent service with operational discipline",
+    components: ["Tactus", "Plexus", "Korporus", "Caducus"],
+    description:
+      "Define the agent behavior in Tactus, evaluate and improve it through Plexus, run it inside Korporus, and monitor it through Caducus so the result behaves like a service instead of a demo.",
+  },
+  {
+    title: "Workflow-heavy human and AI collaboration",
+    components: ["Kanbus", "Tactus", "Plexus"],
+    description:
+      "Keep task memory and work orchestration durable in Kanbus, drive execution through Tactus procedures, and feed the resulting evaluation and feedback loops back into Plexus.",
+  },
+];
+
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
 const contactUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"
@@ -84,9 +106,28 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      plexusLogo: file(relativePath: { eq: "plexus-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: CONSTRAINED, width: 1200)
+
+      featuredPlatform: allMdx(
+        filter: {
+          frontmatter: {
+            content_type: { eq: "platform-product" }
+            state: { eq: "published" }
+          }
+        }
+        sort: { frontmatter: { platform_order: ASC } }
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              slug
+              excerpt
+              platform_category
+              platform_stage
+              external_url
+            }
+          }
         }
       }
 
@@ -301,31 +342,31 @@ const IndexPage = () => {
       </ul>
 
       <section className={styles.plexusFeature}>
-        <h2>Production MLOps at Scale</h2>
-        <ul className='blog'>
-          <div className='blog-post-preview'>
-            <li className="clear-float">
-              <Link to="https://plexus.anth.us">
-                <GatsbyImage
-                  image={getImage(data.plexusLogo.childImageSharp.gatsbyImageData)}
-                  alt="Plexus Platform"
-                  className="right"
-                />
-                <h3>Plexus: The RLHF Data Flywheel</h3>
-              </Link>
-              <p>
-                We built what many consider the holy grail of AI: a production-scale RLHF system that continuously aligns itself with human feedback automatically over time. Plexus is our custom MLOps platform that powers this self-evolving data flywheel, managing the complete lifecycle of AI agents and classification models that get smarter with every interaction.
-              </p>
-              <ul className="branded">
-                <li>Two years of continuous production operation</li>
-                <li>Self-evolving AI agents that improve autonomously</li>
-                <li>Human-in-the-loop feedback drives continuous learning</li>
-                <li>Transforms core business processes at scale</li>
-              </ul>
-              <Link to="https://plexus.anth.us" className="button">Learn More</Link>
-            </li>
-          </div>
-        </ul>
+        <span className={styles.eyebrow}>PART OF</span>
+        <h2 className={styles.platformHeader}>The Anthus Platform</h2>
+        <p>
+          Solve complex business problems with AI and ML using a proven, reusable technology stack. We provide interoperable building blocks: <code>Korporus</code> hosts the application surface, <code>Tactus</code>
+          defines durable procedures, <code>Kanbus</code> coordinates workflow state, <code>Plexus</code> governs
+          evaluation and MLOps, <code>Biblicus</code> and <code>Virtuus</code> ground systems in inspectable data,
+          <code>Caducus</code> adds operational visibility, and <code>Babulus</code> extends the same code-first
+          philosophy into content and video output.
+        </p>
+        <PlatformCards items={data.featuredPlatform.edges} />
+        <div className={styles.platformRecipeGrid}>
+          {platformRecipes.map(recipe => (
+            <div key={recipe.title} className={styles.platformRecipeCard}>
+              <h3>{recipe.title}</h3>
+              <p className={styles.platformRecipeMeta}>{recipe.components.join(" + ")}</p>
+              <p>{recipe.description}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.approachActions}>
+          <Link to="/platform" className="button">Explore the platform</Link>
+          <Link to="/ai-solutions" className={styles.approachSecondaryCta}>
+            See solution patterns
+          </Link>
+        </div>
       </section>
 
       <h2>Featured Solutions</h2>

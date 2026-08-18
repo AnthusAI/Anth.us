@@ -1,0 +1,39 @@
+---
+title: "Babulus"
+slug: "babulus"
+date: "2026-03-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["platform"]
+preview_image: "../images/platform-babulus.png"
+images:
+  - "../images/platform-babulus.png"
+excerpt: "Babulus is an AI-agent-driven marketing automation system that treats video production as code, with narration-first workflows, generated assets, and deterministic previews."
+state: published
+content_type: "platform-product"
+platform_category: "Media Automation"
+platform_order: 8
+platform_stage: "Alpha"
+external_url: "https://github.com/AnthusAI/Babulus"
+---
+
+## What it is
+
+Babulus is the authoring layer for Anthus's programmable media workflows. Instead of hiding video production in manual editor sessions, it uses a TypeScript DSL, generated scripts, generated audio, and render pipelines so content creation can move through code review and automation.
+
+## What it does
+
+- Defines scenes, narration, cues, music, and effects as source code.
+- Generates script and timeline artifacts for preview and rendering workflows.
+- Integrates with provider-based audio generation and media services.
+- Supports a control-plane plus worker-plane architecture for previewing and rendering at scale.
+
+## Why it matters
+
+Marketing automation usually breaks down at the moment creative assets have to be rebuilt by hand. Babulus narrows that gap. It lets teams automate repeatable video production without losing the ability to inspect, diff, review, and approve the result.
+
+## How it fits the Anthus Platform
+
+Babulus sits on top of [VideoML](/platform/videoml), which supplies the underlying video pipeline and rendering toolchain. Together they extend the Anthus Platform beyond agents and infrastructure into narrative systems, demos, feature explainers, and product communications.
+
+A common pattern is [Biblicus](/platform/biblicus) + [Babulus](/platform/babulus) + [VideoML](/platform/videoml): use a living corpus as the source of truth, then generate repeatable explainers, launch assets, and video outputs from code.
