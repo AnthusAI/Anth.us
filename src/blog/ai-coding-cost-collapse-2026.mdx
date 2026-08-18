@@ -205,30 +205,38 @@ One reason the "about 10×" figure in the lede is, if anything, conservative: it
 
 They also estimate roughly **3× annual algorithmic efficiency** after attempting to strip out hardware price declines and competitive pricing effects among proprietary models. The interpretation includes better training data, distillation, mixture-of-experts architectures, and inference-side improvements—not just "GPUs got cheaper."
 
-{/* VISUAL PROMPT — ai-coding-cost-collapse-2026.png (HERO POSTER) -------
-    Replaces the current plain typographic placeholder card.
-    Style-match: src/blog/images/the-revolution-will-be-commodified.png
-    Square, 2048x2048.
+{/* VISUAL — ai-coding-cost-collapse-2026.png (HERO: SIGNATURE CHART) ---
+    NOT a stencil poster. This article's argument IS a data trend -- the
+    price of a fixed capability level falling off a cliff -- so the chart is
+    the most honest and most informative thing that can sit in a feed. A
+    slogan tells a scroller nothing; a falling log-scale curve tells them
+    the entire thesis before they click.
 
-    PROMPT:
-    Bold propaganda-poster typography. White stencil spray-paint capital
-    letters on a heavily textured deep magenta surface (#D03382), the
-    texture reading as painted leather or scuffed concrete. Letters set on
-    a slight diagonal, tightly packed, filling the frame edge to edge.
-    High contrast, grungy overspray at the letter edges, subtle scuffs,
-    dust, and a soft diagonal highlight across the surface. Square format.
-    No imagery other than the text. Text reads:
-    "THE $200 HABIT NOW COSTS $20"
+    SOURCE: scripts/generate-price-of-fixed-capability.py already produces
+    exactly this figure. Do not re-derive it. Render a HERO TREATMENT of the
+    same data:
+      - 1200x630 (social card ratio, no square version needed)
+      - title baked into the image, larger than the in-article version,
+        since the card is often seen without the headline beside it
+      - drop the in-article axis detail that will not survive thumbnailing;
+        keep the shape, the log scale, and one annotated number
+      - keep the "same capability, falling price" framing explicit
 
-    Alt: "Poster: The $200 habit now costs $20."
+    The in-article copy of the chart stays where it is. This is a second
+    render at social-card proportions, not a move.
+
+    Alt: "The cost of reaching a fixed benchmark score falling roughly five
+    to ten times per year from 2023 to 2026, on a log scale."
 --------------------------------------------------------------------- */}
 
 <div className="blockDiagram visualPlaceholder">
-  <div className="title">Hero poster · ai-coding-cost-collapse-2026.png · 2048×2048</div>
+  <div className="title">Hero · ai-coding-cost-collapse-2026.png · 1200×630 · signature chart</div>
   <div className="container">
-    Magenta stencil propaganda poster reading <b>“THE $200 HABIT NOW COSTS $20.”</b>
-    Style-matched to <i>The Revolution Will Be Commodified</i>. Replaces the current
-    plain placeholder card and becomes the social preview image.
+    Chart, not poster — this article's argument <i>is</i> the trend, so the falling
+    log-scale curve states the thesis before anyone clicks. Hero treatment of
+    <b>price-of-fixed-capability</b>, which <code>scripts/generate-price-of-fixed-capability.py</code>
+    already produces: title baked in, axis detail thinned so it survives
+    thumbnailing, one annotated number. The in-article copy stays put.
   </div>
 </div>
 
