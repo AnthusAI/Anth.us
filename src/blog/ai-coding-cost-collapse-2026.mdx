@@ -8,6 +8,7 @@ excerpt: "What happens when AI coders that are better than humans become a cheap
 preview_image: "./images/ai-coding-cost-collapse-2026.png"
 images:
   - ./images/ai-coding-cost-collapse-2026.png
+  - ./images/value-frontier.png
 state: draft
 tags:
   - articles
@@ -102,7 +103,7 @@ The big labs know that, which is why they use the tool itself to push you toward
   }}
 /> Use Sol for everything and you can easily spend <mark>thousands per month</mark>.
 
-The affordable combination the removal took off the table was the one that benefited people who pay for their own tokens: GPT-5.4 for planning, then GPT-5.3 Codex or GPT-5.1 Codex mini for execution. GPT-5.3 Codex handled pretty much any coding task if it was clearly planned out, and GPT-5.1 Codex mini was so cheap it was effectively free for project maintenance work like "commit this." That combination was such a good value that OpenAI removed it from the tool.
+The affordable combination the removal took off the table was the one that benefited people who pay for their own tokens: GPT-5.4 for planning, then GPT-5.3 Codex or GPT-5.1 Codex mini for execution. GPT-5.3 Codex handled pretty much any coding task if it was clearly planned out—BenchLM scores it at **63.5** on coding but only **4.5** on the value index (rank **#61**) because output runs **$14** per million—and GPT-5.1 Codex mini was so cheap it was effectively free for project maintenance work like "commit this." That combination was such a good value that OpenAI removed it from the tool.
 
 The punchline for the individual developer: the big American companies always want to encourage you to get hooked on increasingly-expensive, slightly-more-capable models. What benefits most people who pay for their own tokens is to default to the affordable models where you can sustain a lot of use.
 
@@ -120,7 +121,7 @@ Two details matter. First, the Cursor Router—the system that classifies each r
   }}
 />
 
-So for an individual developer, Auto is a mode that is *willing to spend more*. It can route you into a premium model and add a markup on top, and pinning the model yourself is frequently cheaper. Cursor's own Composer 2.5 lists at $0.50 input and $2.50 output per million—cheap, fast, and the model Cursor most wants to serve you.<Citation
+So for an individual developer, Auto is a mode that is *willing to spend more*. It can route you into a premium model and add a markup on top, and pinning the model yourself is frequently cheaper. Cursor's own Composer 2.5 lists at $0.50 input and $2.50 output per million—value rank **#25** on BenchLM's coding-value index, at **21.1** score/$—cheap, fast, and the model Cursor most wants to serve you.<Citation
   data={{
     type: "webpage",
     "container-title": "Cursor",
@@ -276,6 +277,37 @@ This recent acceleration has names and dates. DeepSeek R1, released January 20, 
     accessed: { 'date-parts': [[2026, 8, 16]] }
   }}
 />
+
+You can put a number on that split. BenchLM's coding-value index divides each model's weighted coding score by its output-token price.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "BenchLM",
+    title: "Best Value LLM for Coding — Cost-Adjusted Rankings",
+    URL: "https://benchlm.ai/best/best-value-coding",
+    accessed: { 'date-parts': [[2026, 8, 17]] }
+  }}
+/> On that scoreboard, as of August 2026:
+
+| Model | Coding score | Output $/1M | Value score | Rank |
+| :-- | --: | --: | --: | --: |
+| GPT-5.6 Luna | 73.0 | $1.20 | **60.9** | #9 |
+| Gemini 3.1 Flash-Lite | 41.9 | $1.50 | 28.0 | #21 |
+| Composer 2.5 | 52.7 | $2.50 | **21.1** | #25 |
+| Kimi K2.5 | 56.5 | $3.00 | 18.8 | #31 |
+| GLM 5.2 | 63.8 | $4.40 | **14.5** | #37 |
+| Kimi K2.6 | 50.2 | $4.00 | 12.6 | #42 |
+| Claude Haiku 4.5 | 46.6 | $5.00 | 9.3 | #47 |
+| Claude Sonnet 5 | 68.5 | $10.00 | 6.9 | #52 |
+| GPT-5.6 Terra | 65.4 | $12.00 | 5.5 | #56 |
+| Kimi K3 | 78.0 | $15.00 | 5.2 | #58 |
+| GPT-5.3 Codex | 63.5 | $14.00 | 4.5 | #61 |
+| Claude Opus 5 | 78.1 | $25.00 | 3.1 | #69 |
+| GPT-5.6 Sol | 78.7 | $30.00 | 2.6 | #73 |
+| Claude Fable 5 | 80.9 | $50.00 | 1.6 | #79 |
+
+<BlogImage images={props.pageContext.frontmatter.images} name="value-frontier.png" className="full" alt="Bar chart of coding value score rising from Claude Fable 5 through fourteen models to GPT-5.6 Luna, annotated with Luna delivering roughly 23 times Sol's coding value per dollar." />
+
+The values climb steeply down the cost ladder. Luna is the recent standout—especially after OpenAI's July 2026 price cut—while Claude and OpenAI flagships (Fable, Opus, Sol) cluster at the bottom of the index. The [companion buyer's guide](/blog/maximize-value-not-intelligence/) walks through how to route between them.
 
 Stanford HAI's 2025 AI Index adds the broader substrate.<Citation
   data={{
