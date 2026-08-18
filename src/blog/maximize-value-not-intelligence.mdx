@@ -421,13 +421,99 @@ These are not glamorous. That is the point. They are the work that is perpetuall
   images={props.pageContext.frontmatter.images}
   name="break-even-crossing.png"
   className="full"
-  alt="A falling all-in cost-per-task curve crossing a band representing the value of a chore getting done, with chores annotated at their crossing points."
+  alt="A timeline from 2023 to 2026, one dot per job, rising through four bands. Mechanical work joins first: keeping docs current, dependency upgrades, writing missing tests. Then judgment calls: code review, sorting security alerts, answering support tickets, mapping where data flows. Then acting on its own: resolving IT requests, penetration testing, watching for new threats, emergency security patching. Then deciding what to build: proposing what to build, running experiments, and building features before you ask. The set grows larger and more sophisticated over time."
 />
 
 *Nobody announces the crossing. You just notice the backlog stopped growing.*
 
+### The second crossing: automation you build on automation
+
+The chart has a second panel for a reason. Price explains the first row of that
+list and none of the second.
+
+Automated penetration testing was never one price cut away. Neither was
+continuous threat intelligence. What both needed was a current, machine-readable
+map of how data actually moves through your system—which services touch which
+data, which flows cross a trust boundary, where personal data comes to rest.
+Nobody maintained that by hand. The diagram was stale the week after the
+offsite, so the work that depended on it stayed theoretical no matter what
+tokens cost.
+
+<mark>Once mapping your data flows becomes a chore an agent does on every merge,
+it stops being a document and becomes an interface.</mark> A pen-test agent that
+can read the current flow map does not have to guess where the trust boundaries
+are—it gets told, continuously. Threat intelligence stops being a firehose of
+advisories and starts being a filter: *this* CVE touches *that* service, which
+sits on the path to the customer records, so it matters this week and the other
+four hundred do not.
+
+That is the compounding. The first automation produces an artifact. The artifact
+is what makes the second automation possible. And the second one produces
+artifacts of its own—a current inventory of reachable attack surface, a ranked
+list of what is actually exposed—that a third layer can stand on.
+
+The sharpest version of this is the emergency case, and it is a genuinely
+different thing from the routine one. Automated dependency upgrades are a
+convenience: a bot opens a PR, CI runs, you merge it Thursday. <mark>Automated
+*emergency* response is a capability—an agent that wakes at 3 a.m. to a zero-day
+in a package three levels deep in your tree, determines from the flow map
+whether the vulnerable path is actually reachable in your system, and either
+ships the patch or makes the call to take the affected service offline until a
+human is awake.</mark> That decision needs the dependency graph, the data-flow
+map, and the reachability analysis to all already exist, maintained, current.
+Each was somebody's abandoned side project until the cost of keeping it current
+fell through the floor.
+
+Which is the part worth internalizing: the interesting jobs are usually not the
+ones that got cheap. They are the ones that got *possible*, because something
+underneath them got cheap first. When you are deciding what to automate next,
+the question is not only "what does this save me"—it is "what does having this,
+current and machine-readable, let me build on top of it."
+
+### When the agent starts writing the backlog
+
+Everything above is defensive. Triage, patching, quarantine, drift—work that
+keeps the lights on and you out of trouble. Worth automating, and none of it
+changes what your company is.
+
+The thing worth paying attention to is not defensive at all.
+
+The pattern goes like this. An agent reads your customer communications—support
+tickets, sales calls, churn interviews, the feature requests buried in threads
+nobody re-reads—and does what a product owner does with them. It notices that
+the same friction got described five different ways by five different customers.
+It turns that into a proposal. It ranks the proposals by the value they would
+unlock against what they would cost to build. Then it builds the top few.
+<mark>The product owner wakes up to a list of features that already exist,
+waiting to be approved.</mark>
+
+Look at what has to be true underneath for that to work. The customer
+conversations have to be somewhere an agent can read them. The codebase has to
+be navigable. The test suite has to be trustworthy enough that an unattended
+change can actually be believed. That is the same compounding again: this is not
+one clever product, it is four boring capabilities that each stopped being
+expensive, stacked.
+
+And look at where the human went. Not out of the loop—**up** it. The judgment
+being asked of a product owner in that loop is no longer "write this ticket" or
+"groom this backlog." It is "was this the right thing to build." That is a
+harder question and a more valuable one, and it is the only part of the job that
+was ever really theirs.
+
+This is the direction the whole shift points. First the agents did the chores.
+Then they decided which chores were worth doing. Now they are starting to
+propose the work itself—and the scarce thing is no longer the labor, it is
+knowing which proposals deserve a yes.
+
 | Job | Tier | Cadence | Human gate |
 | :-- | :-- | :-- | :-- |
+| Data-flow & privacy mapping | value | on merge | review boundary changes |
+| Automated pen-test sweeps | value | nightly, scoped | you triage findings |
+| Threat-intel filtering vs. your flow map | cheap | continuous | you decide what escalates |
+| Emergency zero-day response | premium | on advisory | **it can patch or shut down; you set the blast radius** |
+| Routine IT requests, end to end | cheap | continuous | you set what it may grant |
+| Feature ideas from customer signal | value | nightly | you approve the ranking |
+| Top-ranked features built for review | premium | continuous | **you approve before anything ships** |
 | Docs drifted from code | cheap | on merge | review the MR |
 | Dependency upgrades | cheap | weekly | review the MR + CI |
 | Test backfill for old code | value | nightly batch | review the MR |
