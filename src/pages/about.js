@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'gatsby';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
@@ -35,6 +36,24 @@ const AboutPage = () => {
             approach: clear intent, layered safeguards, and production feedback loops that continuously harden the
             system. Read more in <a href="/blog/cybernetic-development">Cybernetic Development</a>.
           </p>
+
+          <h2>Spinoffs</h2>
+          <p>
+            Running AI agents all day created a problem of its own: the bottleneck moved from writing the code to
+            monitoring and steering the agents running it. Sitting in front of a terminal all day is not the answer.
+            That workflow problem became a hardware venture. We spun up{" "}
+            <strong>Anthus Microelectronics</strong> to build the desk displays that grew out of it — handbuilt
+            microelectronics running a custom handbuilt (AI-assisted) OS, real and handmade even where AI
+            accelerated the build.
+          </p>
+          <p>
+            The first product is <strong>B0rd</strong>: a standalone LED-matrix desk display for glanceable
+            information — launch countdowns, agent status, notifications, an idle clock — that you can read from
+            across the room instead of a screen you have to sit in front of. Matching units even stay in sync
+            without pairing or a hub. See the <Link to="/blog/b0rd">B0rd solution page</Link> or visit{" "}
+            <a href="https://b0rd.info">b0rd.info</a> for the product site.
+          </p>
+
           <p>
             Now, we bring our depth of experience and technical agility to your projects. <mark>What can we develop and operate for you?</mark>
           </p>
