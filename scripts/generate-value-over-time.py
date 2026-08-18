@@ -106,7 +106,7 @@ ax.plot(
     conservative,
     color=LINE_COLOR,
     linewidth=2.6,
-    label="Conservative rate (SWE-bench, ~4.7×/yr)",
+    label="Conservative rate (SWE-bench price reduction, ~4.7×/yr)",
     zorder=3,
 )
 
@@ -159,13 +159,13 @@ ax.annotate(
 )
 
 ax.set_title(
-    'Coding value has climbed roughly 10×—and possibly 35×—since "vibe coding" was coined',
+    'Fixed coding benchmark capability per dollar has climbed roughly 10×—and possibly 35×—since "vibe coding" was coined',
     fontsize=20,
     fontweight="bold",
     pad=16,
 )
 ax.set_ylabel(
-    "Coding value index\n(capability per dollar,\nFeb 2025 = 1×)",
+    "Price-performance index\n(fixed benchmark score per dollar,\nFeb 2025 = 1×)",
     fontsize=11,
     linespacing=1.35,
 )

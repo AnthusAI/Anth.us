@@ -98,9 +98,9 @@ Value is capability divided by cost, and the numerator moved too. The cheap tier
 
 This article is about collecting the windfall: which providers to buy, how to route between them, and—the part that actually matters—which jobs in your project and your business just crossed the line from "not worth automating" to "obviously worth automating."
 
-<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="full" alt="Line chart showing a coding-value index climbing from 1x in February 2025 to roughly 10x, and possibly as high as 32x, by August 2026, based on the MIT Price-of-Progress annual rate." />
+<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="full" alt="Line chart showing a price-performance index for fixed coding benchmark capability per dollar, climbing from 1x in February 2025 to roughly 10x, and possibly as high as 32x, by August 2026, based on the MIT Price-of-Progress annual rate of price reduction." />
 
-That is what the windfall looks like plotted against time: not a discount that shows up once, but a curve that keeps compounding while you are not looking at it.
+That is what the windfall looks like plotted against time: the MIT paper's estimated annual **decline in the price of a fixed benchmark score**, inverted into a capability-per-dollar index. It is not a claim that models got 10× smarter on their own—the denominator moved while the benchmark bar stayed put.
 
 ## There is a scoreboard now
 
@@ -387,7 +387,7 @@ Two non-obvious calls there. The first is skipping the middle tier: if your chea
 
 It is natural to assume the router modes are the frugal choice. Read the pricing page before you assume it.
 
-In Cursor, the Cursor Router—the thing that actually classifies each request and picks a model for it—runs on **Teams and Enterprise plans**. Individual Pro users do not have it. And of the Auto modes, only Auto Cost charges a flat rate regardless of what it picks; Auto Balance and Auto Intelligence bill at the selected model's real API rates, plus a Cursor Token Rate of $0.25 per million tokens whenever the pick is a third-party model.<Citation
+In Cursor, **Auto mode is on Pro plans**—but only **Auto Cost** charges a flat rate regardless of what it picks. **Auto Balance** and **Auto Intelligence** bill at the selected model's real API rates, plus a Cursor Token Rate of **$0.25 per million tokens** whenever the pick is a third-party model—often **2–4×** more expensive than pinning Composer 2.5 or Luna yourself. The **Cursor Router**—the deeper request-classification system on Teams and Enterprise—is **not** what individual Pro users get.<Citation
   data={{
     type: "webpage",
     "container-title": "Cursor",
@@ -515,7 +515,7 @@ The failure mode at every tier is the same, and it is not overspending. It is bu
 
 Every row in that catalog is a new non-human identity holding credentials to your repository, your cloud, or your inbox. That is not a reason to skip them. It is a line item.
 
-The cheap tier is exactly where the temptation to skip scoping is strongest, because each agent feels too small to matter. Recent work on LLM-in-the-loop vulnerabilities found they are consistently harder and costlier to repair than conventional flaws, with prompt-injection cases repaired correctly on the first attempt only 28.57% of the time.<Citation
+The cheap tier is exactly where the temptation to skip scoping is strongest, because each agent feels too small to matter. Recent work on LLM-in-the-loop vulnerabilities found they are consistently harder to repair with automated agents than conventional flaws—an average **10.8 percentage-point drop** in Pass@1 repair rate—and three categories, Generated Query Execution, Agent Action, and Model Output Rendering, frequently come back with <mark>0% repair success</mark> across most agent–model configurations.<Citation
   data={{
     type: "article-journal",
     title: "Towards Demystifying and Repairing LLM-in-the-Loop Vulnerabilities",
