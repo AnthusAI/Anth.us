@@ -11,6 +11,7 @@ images:
   - ./images/classifiers/profit_per_million_GPT-4_GPT-3.5_Ada_2_BERT.png
   - ./images/value-over-time.png
   - ./images/value-frontier.png
+  - ./images/break-even-crossing.png
 state: draft
 tags:
   - articles
@@ -97,7 +98,7 @@ Value is capability divided by cost, and the numerator moved too. The cheap tier
 
 This article is about collecting the windfall: which providers to buy, how to route between them, and—the part that actually matters—which jobs in your project and your business just crossed the line from "not worth automating" to "obviously worth automating."
 
-<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="centered" alt="Line chart showing a coding-value index climbing from 1x in February 2025 to roughly 10x, and possibly as high as 32x, by August 2026, based on the MIT Price-of-Progress annual rate." />
+<BlogImage images={props.pageContext.frontmatter.images} name="value-over-time.png" className="full" alt="Line chart showing a coding-value index climbing from 1x in February 2025 to roughly 10x, and possibly as high as 32x, by August 2026, based on the MIT Price-of-Progress annual rate." />
 
 That is what the windfall looks like plotted against time: not a discount that shows up once, but a curve that keeps compounding while you are not looking at it.
 
@@ -113,24 +114,40 @@ BenchLM's coding-value leaderboard divides each model's weighted coding score by
     URL: "https://benchlm.ai/best/best-value-coding",
     accessed: { 'date-parts': [[2026, 8, 17]] }
   }}
-/> Ranked that way, the leaderboard you have been reading is nearly upside down.
-
-BenchLM's raw list of 84 models is topped by names you would never actually run: sub-15B-parameter models scoring in the 20s and 30s on coding, cheap enough that dividing by their price makes the ratio enormous. That is a real ranking artifact, not a buying recommendation—a model that cannot hold together a multi-file change is not a value pick at any price. Restricted to models with a coding score that clears a usable bar for real repository work, here is the same leaderboard:
+/> Ranked that way, the leaderboard you have been reading is nearly upside down. A few rows from BenchLM as of August 2026:
 
 | Rank | Model | Coding score | Output price / 1M | Value score |
 | ---: | :-- | --: | --: | --: |
-| 9 | GPT-5.6 Luna | 73.0 | $1.20 | **60.85** |
-| 21 | Gemini 3.1 Flash-Lite | 41.9 | $1.50 | 27.96 |
-| 56 | GPT-5.6 Terra | 65.4 | $12.00 | 5.45 |
-| 73 | GPT-5.6 Sol | 78.7 | $30.00 | 2.62 |
+| 9 | GPT-5.6 Luna | 73.0 | $1.20 | **60.9** |
+| 21 | Gemini 3.1 Flash-Lite | 41.9 | $1.50 | 28.0 |
+| 25 | Composer 2.5 | 52.7 | $2.50 | **21.1** |
+| 31 | Kimi K2.5 | 56.5 | $3.00 | 18.8 |
+| 37 | GLM 5.2 | 63.8 | $4.40 | **14.5** |
+| 42 | Kimi K2.6 | 50.2 | $4.00 | 12.6 |
+| 47 | Claude Haiku 4.5 | 46.6 | $5.00 | 9.3 |
+| 52 | Claude Sonnet 5 | 68.5 | $10.00 | 6.9 |
+| 56 | GPT-5.6 Terra | 65.4 | $12.00 | 5.5 |
+| 58 | Kimi K3 | 78.0 | $15.00 | 5.2 |
+| 61 | GPT-5.3 Codex | 63.5 | $14.00 | **4.5** |
+| 69 | Claude Opus 5 | 78.1 | $25.00 | 3.1 |
+| 73 | GPT-5.6 Sol | 78.7 | $30.00 | 2.6 |
+| 79 | Claude Fable 5 | 80.9 | $50.00 | 1.6 |
 
-That rising curve is the trend. This next chart is a single frame from it—today's four real options, compared to each other right now, not a timeline:
+*Value score = weighted coding score ÷ output price per million tokens. Source: [BenchLM coding-value leaderboard](https://benchlm.ai/best/best-value-coding), verified August 17, 2026.*
 
-<BlogImage images={props.pageContext.frontmatter.images} name="value-frontier.png" className="centered" alt="Bar chart of coding value score (weighted score divided by output price per million tokens) for GPT-5.6 Luna, Gemini 3.1 Flash-Lite, GPT-5.6 Terra, and GPT-5.6 Sol, with Luna's bar roughly 23 times taller than Sol's." />
+That rising curve is the trend. This next chart is a single frame from it—the models you are actually choosing between in August 2026, not a timeline:
 
-Sol is the best coder on BenchLM's full field of 84 models and ranks 73rd by value. Luna gives up about 7% of Sol's raw coding score and returns roughly <mark>23× the coding capability per dollar</mark>.
+{/* VISUAL SPEC — value-frontier.png (matplotlib) -------------------------
+    scripts/generate-value-frontier.py · 1880×780 @150dpi (2× article width).
+    Uniform gray bars. Straight Sol→Luna chord + label (same as 9d67bb0).
+    Includes Claude Haiku/Sonnet/Opus/Fable. className="full" in MDX.
+---------------------------------------------------------------------- */}
 
-The Luna number moved recently and sharply. On July 30, 2026, OpenAI cut Luna by about 80% to $0.20 input and $1.20 output per million tokens, trimmed Terra by about 20% to $2 and $12, and left Sol untouched at $5 and $30.<Citation
+<BlogImage images={props.pageContext.frontmatter.images} name="value-frontier.png" className="full" alt="Bar chart of coding value score rising from Claude Fable 5 through fourteen models to GPT-5.6 Luna, with a straight annotation showing Luna delivers roughly 23 times Sol's coding value per dollar." />
+
+The values climb steeply as you move down the cost ladder. Sol is among the best raw coders on BenchLM and ranks 73rd by value; Luna gives up about 7% of Sol's raw coding score and returns roughly <mark>23× the coding capability per dollar</mark>. Anthropic's ladder tells the same story upside-down: Fable 5 leads the Claude coding ranks and still scores only **1.6** on value ($50 output), while Haiku 4.5 at $5 output lands at **9.3**—better than Sonnet or Opus on this index, and still nowhere near Luna. That gap is the story: coding value per dollar is rising fast across the board, and Luna is the recent standout—especially after OpenAI cut its price.
+
+On July 30, 2026, OpenAI cut Luna by about 80% to $0.20 input and $1.20 output per million tokens, trimmed Terra by about 20% to $2 and $12, and left Sol untouched at $5 and $30.<Citation
   data={{
     type: "webpage",
     "container-title": "Finout",
@@ -142,13 +159,13 @@ The Luna number moved recently and sharply. On July 30, 2026, OpenAI cut Luna by
 
 Note what happened to the middle. On this scoreboard Terra is *dominated*: Luna beats it on coding score and costs a tenth as much. A balanced tier that is worse and pricier than the budget tier is not a compromise, it is a default you should stop accepting.
 
-Flash-Lite is dominated too, and by a wider margin—Luna beats it on both coding score (73.0 vs. 41.9) and price ($1.20 vs. $1.50). Of the four models capable of real repository work, only two are worth choosing between: Luna for almost everything, Sol when the task justifies it. Terra and Flash-Lite are not a cheaper option and not a safer one. They are just worse.
+Flash-Lite is dominated too, and by a wider margin—Luna beats it on both coding score (73.0 vs. 41.9) and price ($1.20 vs. $1.50). The Claude and OpenAI flagship tiers cluster at the bottom of the value index; the budget tier at the top is where the numbers moved in 2026.
 
 ## Don't optimize the wrong ratio
 
 Now the correction, because a naive reading of that table will cost you money.
 
-BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. That is exactly why the raw leaderboard needed filtering before it was worth a table above—divide by a small enough price and almost anything looks like a bargain, including models nobody should point at a real repository. But the correction goes one layer deeper than "exclude the toy models." Even restricted to Luna, Flash-Lite, Terra, and Sol, a bare Score/$ ranking is a starting point, not a shopping list.
+BenchLM says it plainly: value rankings favor cheap models even when absolute performance is modest. A bare Score/$ ranking is a starting point, not a shopping list.
 
 This is exactly the 2023 lesson, and it is worth being precise about it, because it is usually remembered wrong. <mark>We did not choose BERT because it was the cheapest. We chose it because it was the cheapest thing that still cleared the bar.</mark> Word2Vec was cheaper still and we rejected it. The bar came first; the price optimization happened underneath it.
 
@@ -185,8 +202,8 @@ There is no useful ultra-cheap tier sitting below Luna—not because cheap model
           PREMIUM      Sol, top Claude variants
                        wins: highest absolute completion rate
                        run: ambiguous, architectural, security-sensitive
-        Consider a footnote row under both columns: "Terra and Flash-Lite:
-        dominated on both axes -- skip."
+        Consider a footnote row under both columns: "Terra, Flash-Lite, Kimi K3,
+        GPT-5.3 Codex: dominated on value — skip unless the task demands it."
 
     (b) THE ROUTING LOOP — PlantUML activity diagram -> routing-loop.svg
         Toolchain already present (src/blog/diagrams/, plantuml_diagrams).
@@ -356,9 +373,10 @@ Timestamped deliberately. **This table is accurate as of August 2026 and will ro
 
 | Job | Pick | Why | Rough cost |
 | :-- | :-- | :-- | :-- |
-| Daily driver, in-editor | Composer 2.5, pinned manually | $0.50/$2.50 per 1M, fast, and Cursor's own model — but set it yourself, don't use Auto | usage |
-| Daily driver, single vendor | GLM Coding Plan (Lite or Pro) | Near-frontier coding at autocomplete prices; drives Claude Code directly | $18–$72/mo |
-| Bulk chore runner | Luna via API, batch mode | $0.10/$0.60 per 1M batched — the cheapest capable-enough tier | usage |
+| Daily driver, in-editor | Composer 2.5, pinned manually | Value rank **#25** (21.1 score/$); $0.50/$2.50 per 1M — set it yourself, don't use Auto | usage |
+| Daily driver, single vendor | GLM Coding Plan (Lite or Pro) | GLM 5.2 at **14.5** score/$ (rank #37); near-frontier coding at autocomplete prices | $18–$72/mo |
+| Open-weight / Moonshot API | Kimi K2.5 | Value rank **#31** (18.8 score/$); K3 (#58, 5.2) when you need frontier coding | usage |
+| Bulk chore runner | Luna via API, batch mode | **60.9** score/$ (rank #9); $0.10/$0.60 per 1M batched | usage |
 | Bursty or multi-model | OpenRouter | No monthly minimum; one key across labs | usage |
 | Escalation tier | Sol, or a top Claude variant | Skip Terra — it's dominated on both axes | usage, gated |
 | Metering and budget caps | LiteLLM proxy | Per-agent budgets; makes the four metrics collectable | free/self-host |
@@ -381,7 +399,7 @@ In Cursor, the Cursor Router—the thing that actually classifies each request a
 
 Read that again in buying terms: <mark>Auto is a mode that is willing to spend more on your behalf, with a markup.</mark> It is a convenience feature, not a savings feature, and for an individual developer it can comfortably cost more than pinning a model yourself.
 
-Pinning is not hard, and it is the whole discipline of this article in one setting. Composer 2.5 at $0.50 input and $2.50 output is cheap, fast, and Cursor's own model. Luna is cheaper still on output. Pick one for the bulk of your work, choose the other when the shape of the task calls for it, and escalate deliberately instead of letting a router escalate for you.
+Pinning is not hard, and it is the whole discipline of this article in one setting. Composer 2.5 at $0.50 input and $2.50 output scores **21.1** on the value index—rank #25, ahead of GLM 5.2 and every US flagship tier. Luna is cheaper still on output at **60.9**. GLM 5.2 and Kimi K2.5 are credible third choices if you want a single-vendor API or an open-weight path. Pick one for the bulk of your work, escalate to Sol or K3 when the task justifies it, and never default to Codex or Terra just because the tool suggested them.
 
 The general rule generalizes past Cursor: **any feature that picks the model for you is a feature that can pick an expensive one.** Find out whether it is optimizing for your bill or for your satisfaction, because those are different objectives and only one of them is yours.
 
@@ -393,47 +411,18 @@ In 2023, the classifier had a break-even: $200 per million. Below that it was a 
 
 These are not glamorous. That is the point. They are the work that is perpetually valuable and perpetually last in the queue.
 
-{/* VISUAL SPEC — break-even-crossing.png (matplotlib) --------------------
-    The conceptual centerpiece of this article, and a deliberate visual
-    echo of the 2023 piece's $200-per-million break-even line. If only one
-    chart gets made for this section, make it this one.
-    House style, 1200x630.
-
-    x = date, ~2023 -> 2026
-    y = all-in cost per completed task (model + tools + retries), LOG
-    ONE falling curve: the all-in cost of having an agent do a bounded
-    chore end to end.
-    ONE horizontal dashed line: "what it is worth to you to have this done
-    at all" -- deliberately drawn as a BAND, not a line, because the value
-    differs per chore and pretending otherwise would be false precision.
-
-    Annotate where individual chores cross the band, earliest to latest:
-      changelog generation -> docs drift -> dependency upgrades ->
-      test backfill -> first-pass code review
-    Shade everything left of the crossings "not worth automating" and
-    everything right "obviously worth automating".
-
-    The sentence it should replace: "that number just went from 'no' to
-    'obviously yes' without anyone announcing it."
-
-    Alt: "A falling all-in cost-per-task curve crossing a band representing
-          the value of a chore getting done, with chores annotated at their
-          crossing points."
-    Caption: "Nobody announces the crossing. You just notice the backlog
-              stopped growing."
+{/* VISUAL — break-even-crossing.png · scripts/generate-break-even-crossing.py
+    Implemented: falling cost curve × value band × five chore crossings.
 ---------------------------------------------------------------------- */}
 
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">matplotlib · break-even-crossing.png · 1200×630 · high priority</div>
-  <div className="container">
-    A falling all-in cost-per-task curve crossing a <i>band</i> (not a line — the
-    value differs per chore) for “worth having done at all,” with individual chores
-    annotated at their crossing points. Direct visual echo of the 2023 article's
-    $200/million break-even.
-    <br /><b>Caption:</b> Nobody announces the crossing. You just notice the backlog
-    stopped growing.
-  </div>
-</div>
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="break-even-crossing.png"
+  className="full"
+  alt="A falling all-in cost-per-task curve crossing a band representing the value of a chore getting done, with chores annotated at their crossing points."
+/>
+
+*Nobody announces the crossing. You just notice the backlog stopped growing.*
 
 | Job | Tier | Cadence | Human gate |
 | :-- | :-- | :-- | :-- |
@@ -513,7 +502,7 @@ Concrete stacks, same caveat as the pick table—accurate August 2026, re-check 
 
 | | ~$20/month | ~$100/month | ~$500/month |
 | :-- | :-- | :-- | :-- |
-| **Daily driver** | GLM Lite, *or* Composer 2.5 pinned | GLM Pro + Luna API | Per-seat plan + Luna API |
+| **Daily driver** | GLM Lite or Kimi K2.5, *or* Composer 2.5 pinned | GLM Pro + Luna API | Per-seat plan + Luna API |
 | **Parallel agents** | 1 | 2–3 | 5–10 |
 | **Chore automation** | 1–2 jobs, weekly | 4–6 jobs, nightly batch | full catalog, continuous |
 | **Escalation budget** | none — you are the escalation | ~$20/mo of premium calls | metered, gated on CI failure |
