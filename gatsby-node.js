@@ -22,16 +22,23 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  // Query for blog files
-  const blogResult = await graphql(`
+  const contentResult = await graphql(`
     {
       allMdx(
-        sort: { frontmatter: { date: DESC } },
-        filter: { fields: { sourceName: { eq: "blog" } } }) {
+        sort: { frontmatter: { date: DESC } }
+        filter: { fields: { sourceName: { eq: "blog" } } }
+      ) {
         nodes {
           id
           frontmatter {
+            title
             slug
+            excerpt
+            tags
+            content_type
+            platform_category
+            platform_stage
+            external_url
           }
           internal {
             contentFilePath
@@ -40,82 +47,74 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `);
-    console.log("blogResult: ", blogResult);
-  
-  if (blogResult.errors) {
-    console.error(blogResult.errors);
+
+  if (contentResult.errors) {
+    console.error(contentResult.errors);
     throw new Error("Error querying for blog files.");
   }
-  
-  // Create blog post pages
-  const postTemplate = path.resolve(`./src/templates/blog-post.jsx`)
-  const posts = blogResult.data.allMdx.nodes
-  posts.forEach(node => {
+
+  const allNodes = contentResult.data.allMdx.nodes;
+  const isPlatformNode = node =>
+    node.frontmatter.content_type === 'platform-product' ||
+    node.internal.contentFilePath.includes('/platform/');
+  const platformNodes = allNodes.filter(isPlatformNode);
+  const blogNodes = allNodes.filter(node => !isPlatformNode(node));
+
+  const postTemplate = path.resolve(`./src/templates/blog-post.jsx`);
+  blogNodes.forEach(node => {
     console.log(`Creating page: /blog/${node.frontmatter.slug}`);
     createPage({
       path: `blog/` + node.frontmatter.slug,
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
-        id: node.id
+        id: node.id,
       },
     });
   });
 
-  // Query for blog tags
-  const blogTagsResult = await graphql(`
-    {
-      allMdx(filter: { fields: { sourceName: { eq: "blog" } } }) {
-        group(field: frontmatter___tags) {
-          fieldValue
-          edges {
-            node {
-              id
-              frontmatter {
-                slug
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-  
-  console.log("blogTagsResult: ", blogTagsResult);
-  
-  if (blogTagsResult.errors) {
-    console.error(blogTagsResult.errors);
-    throw new Error("Error querying for blog tags.");
-  }
-  
-  // Create tag-based collection pages for blog
-  const collectionTemplate = path.resolve(`./src/templates/blog-tag.jsx`)
-  blogTagsResult.data.allMdx.group.forEach(tag => {
-    console.log(`Creating tag collection page: /blog/${tag.fieldValue}`);
+  const platformTemplate = path.resolve(`./src/templates/platform-product.jsx`);
+  platformNodes.forEach(node => {
+    console.log(`Creating page: /platform/${node.frontmatter.slug}`);
     createPage({
-      path: `blog/${tag.fieldValue}`,
+      path: `platform/` + node.frontmatter.slug,
+      component: `${platformTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+      context: {
+        id: node.id,
+        platformPage: node.frontmatter,
+      },
+    });
+  });
+
+  const tagsByName = new Map();
+  blogNodes.forEach(node => {
+    (node.frontmatter.tags || []).forEach(tag => {
+      const current = tagsByName.get(tag) || [];
+      current.push(node.id);
+      tagsByName.set(tag, current);
+    });
+  });
+
+  const collectionTemplate = path.resolve(`./src/templates/blog-tag.jsx`);
+  tagsByName.forEach((ids, tag) => {
+    console.log(`Creating tag collection page: /blog/${tag}`);
+    createPage({
+      path: `blog/${tag}`,
       component: collectionTemplate,
       context: {
-        tag: tag.fieldValue,
-        ids: tag.edges.map(edge => edge.node.id),
+        tag,
+        ids,
       },
     });
   });
 
-  // Create a page to list all blog posts
-
-  // MYSTERY: 
   const allBlogsTemplate = path.resolve(`./src/templates/blog.jsx`);
   createPage({
     path: `blog/`,
     component: allBlogsTemplate,
-    context: {
-      // You can pass additional context if needed
-    },
+    context: {},
   });
-
 };
 
-// Add metadata to nodes to identify their source.
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
   if (node.internal.type === 'Mdx') {
@@ -134,7 +133,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 };
 
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions
+  const { createTypes } = actions;
   const typeDefs = `
     type Mdx implements Node {
       frontmatter: Frontmatter
@@ -151,6 +150,11 @@ exports.createSchemaCustomization = ({ actions }) => {
       assistants: [Assistant]
       preview_image: File @fileByRelativePath
       images: [File] @fileByRelativePath
+      content_type: String
+      platform_category: String
+      platform_order: Int
+      platform_stage: String
+      external_url: String
     }
     type Author {
       author: String
@@ -158,6 +162,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Assistant {
       assistant: String
     }
-  `
-  createTypes(typeDefs)
-}
+  `;
+  createTypes(typeDefs);
+};

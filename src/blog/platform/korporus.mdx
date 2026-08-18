@@ -1,0 +1,39 @@
+---
+title: "Korporus"
+slug: "korporus"
+date: "2026-03-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["platform"]
+preview_image: "../images/platform-korporus.png"
+images:
+  - "../images/platform-korporus.png"
+excerpt: "Korporus is the Anthus application shell and AI-agent operating environment: a federated, containerized host for platform apps, shared UX chrome, and modular web interfaces."
+state: published
+content_type: "platform-product"
+platform_category: "Platform Runtime"
+platform_order: 2
+platform_stage: "Active development"
+external_url: "https://github.com/AnthusAI/Korporus"
+---
+
+## What it is
+
+Korporus is the OS-shaped layer of the Anthus Platform. It provides a shell that can host independently built web applications through module federation and web-component contracts, so the platform can grow as a suite instead of collapsing into one giant coupled app.
+
+## What it does
+
+- Loads independently deployed modules into a shared application shell.
+- Standardizes app manifests, slots, chrome, and settings patterns.
+- Supports containerized deployment and shared operational infrastructure.
+- Provides a natural host environment for platform interfaces and workers.
+
+## Why it matters
+
+When a platform grows, the user experience can either become fragmented or monolithic. Korporus is the compromise we want: one runtime and one shell, with modular apps that can still evolve independently.
+
+## How it fits the Anthus Platform
+
+Korporus is the surface where the rest of the platform can come together. [Plexus](/platform/plexus) services can sit behind it. [Kanbus](/platform/kanbus), [Tactus](/platform/tactus), and future operator or knowledge interfaces can appear inside it. It is the most literal expression of the phrase "Anthus Platform."
+
+A common pattern is [Korporus](/platform/korporus) + [Tactus](/platform/tactus) + [Caducus](/platform/caducus): host the service in a shared shell, run durable procedures inside it, and make the live system legible to operators.

@@ -212,6 +212,45 @@
   font-weight: 600;
 }
 
+.eyebrow {
+  display: block;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.platformHeader {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.platformRecipeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.platformRecipeCard {
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.platformRecipeCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.platformRecipeMeta {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 768px) {
   .plexusContent {
     grid-template-columns: 1fr;

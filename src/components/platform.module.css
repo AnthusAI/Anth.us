@@ -1,0 +1,173 @@
+.hero {
+  margin: 2rem 0;
+  padding: 1.75rem 1.5rem;
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.platformHeader {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.05rem;
+  line-height: var(--line-height-loose);
+  max-width: 60rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.secondaryLink {
+  font-weight: 600;
+  text-decoration: none;
+  align-self: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+  padding: 1rem;
+  list-style: none;
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+}
+
+.card {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitleLink {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(102, 51, 153, 0.16);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.cardActions a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.mapGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.mapColumn {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--color-background-secondary);
+}
+
+.mapColumn h3 {
+  margin-top: 0;
+}
+
+.mapColumn ul {
+  margin-bottom: 0;
+}
+
+.section {
+  margin: 2rem 0;
+}
+
+.sectionHeading {
+  margin-bottom: 0.5rem;
+}
+
+.featureList {
+  margin: 1rem 0 0;
+}
+
+.recipeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.recipeCard {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--color-background-secondary);
+}
+
+.recipeCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.productHeroImage {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.productBackLink {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 1.25rem 1rem;
+  }
+}
