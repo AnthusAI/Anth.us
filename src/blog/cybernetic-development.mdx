@@ -530,31 +530,31 @@ This balance is key: You want the AI to have **agency**, but you need **constrai
 
 The Vibe Coder writes prompts and hopes. The cybernetic developer writes specifications and verifies. The difference is the difference between a demo that impresses on Tuesday and a system that ships on Thursday.
 
-#### Taskulus: Gherkin as Source Code
+#### Kanbus: Gherkin as Source Code
 
 Some projects take this philosophy to the extreme: treating Gherkin specifications as the **authoritative source code** and treating implementation code as **generated artifacts**.<Citation
   data={{
     type: "webpage",
-    "container-title": "Taskulus",
+    "container-title": "Kanbus",
     title: "Architecture",
-    URL: "https://taskul.us/architecture",
+    URL: "https://kanb.us/architecture",
     accessed: { "date-parts": [[2026, 2, 10]] },
   }}
 />
 
-[Taskulus](https://taskul.us) is an open-source project management tool built in both Python and Rust. The twist? Both implementations are constrained to pass the exact same Gherkin feature files. The specifications aren't derived from the code—they *define* the code.
+[Kanbus](https://kanb.us) is an open-source issue tracker built in both Python and Rust, designed so that agents can participate in the backlog alongside you. The twist? Both implementations are constrained to pass the exact same Gherkin feature files. The specifications aren't derived from the code—they *define* the code.
 
 Here's a concrete example. The Gherkin specification defines project initialization behavior:
 
 ```gherkin
 Feature: Project initialization
   As a developer starting a new project
-  I want to initialize a Taskulus project directory
+  I want to initialize a Kanbus project directory
   So that I can begin tracking issues alongside my code
 
   Scenario: Initialize with default settings
     Given an empty git repository
-    When I run "tsk init"
+    When I run "kanbus init"
     Then a "project" directory should exist
     And a "project/issues" directory should exist and be empty
 ```
@@ -572,9 +572,9 @@ def given_empty_git_repository(context):
     ensure_git_repository(repository_path)
     context.working_directory = repository_path
 
-@when('I run "tsk init"')
-def when_run_tsk_init(context):
-    run_cli(context, "tsk init")
+@when('I run "kanbus init"')
+def when_run_kanbus_init(context):
+    run_cli(context, "kanbus init")
 
 @then('a "project" directory should exist')
 def then_project_directory_exists(context):
@@ -589,7 +589,7 @@ use cucumber::{given, when, then, World};
 use std::path::PathBuf;
 
 #[given("an empty git repository")]
-fn given_empty_git_repository(world: &mut TaskulusWorld) {
+fn given_empty_git_repository(world: &mut KanbusWorld) {
     let repo_path = world.temp_dir.path().join("repo");
     fs::create_dir_all(&repo_path).expect("create repo dir");
     Command::new("git")
@@ -600,13 +600,13 @@ fn given_empty_git_repository(world: &mut TaskulusWorld) {
     world.working_directory = Some(repo_path);
 }
 
-#[when(r#"I run "tsk init"#)]
-fn when_run_tsk_init(world: &mut TaskulusWorld) {
-    run_cli(world, "tsk init");
+#[when(r#"I run "kanbus init"#)]
+fn when_run_kanbus_init(world: &mut KanbusWorld) {
+    run_cli(world, "kanbus init");
 }
 
 #[then(r#"a "project" directory should exist"#)]
-fn then_project_directory_exists(world: &mut TaskulusWorld) {
+fn then_project_directory_exists(world: &mut KanbusWorld) {
     let project_dir = world.working_directory.join("project");
     assert!(project_dir.exists());
 }
@@ -628,11 +628,11 @@ If Gherkin is the interface, then the most powerful people in the room are no lo
 This fulfills the prophecy made by Werner Vogels, CTO of Amazon, at AWS re:Invent 2017: **"All the code you will ever write is business logic."**<Citation
   data={{
     type: "webpage",
-    "container-title": "Medium",
+    "container-title": "Better Programming",
     title: "All the Code You Will Ever Write Is Business Logic",
-    author: "Better Programming",
+    author: "Anna Geller",
     URL: "https://betterprogramming.pub/all-the-code-you-will-ever-write-is-business-logic-2dc0acf47cef",
-    issued: { "date-parts": [[2017, 11, 30]] },
+    accessed: { "date-parts": [[2026, 2, 10]] },
   }}
 />
 
@@ -706,13 +706,13 @@ In the Vibe Coding world, you might manually click through the AWS console to se
 
 When **everything** is code—infrastructure, database, logic, and even the agents themselves—you unlock the full power of the swarm. A single developer can now orchestrate an entire enterprise IT department's worth of output by managing the code artifacts that define it. What does this mean in practice? Instead of manually configuring dozens of servers, databases, and services—clicking through consoles, running one-off scripts, maintaining institutional knowledge in someone's head—everything becomes declarative code files that live in version control. Your Terraform files *are* your infrastructure. Your migration scripts *are* your database schema. Your Gherkin specs *are* your requirements. Once everything is code, AI agents can read it, modify it, test it, and deploy it—all without human intervention in the mechanical steps. You govern by editing the source of truth; the swarm handles the execution.
 
-#### The Spectrum: From Tactus to N8N to Code
+#### The Spectrum: From Prompt-to-App to N8N to Code
 
 Not every problem needs the same level of abstraction. The cybernetic developer understands where each tool fits:
 
-**Tactus (Prompt-to-App):** At the extreme end, tools like Tactus promise "describe your app in a prompt, get a working product." This works beautifully for **disposable prototypes**—the weekend hackathon project, the internal tool that three people will use once. The abstraction tax is acceptable because there's no maintenance burden.
+**Prompt-to-App Generators:** At the extreme end, tools like Lovable and Bolt.new promise "describe your app in a prompt, get a working product." This works beautifully for **disposable prototypes**—the weekend hackathon project, the internal tool that three people will use once. The abstraction tax is acceptable because there's no maintenance burden.
 
-But Tactus-style tools hit a wall when you need:
+But prompt-to-app tools hit a wall when you need:
 *   Custom business logic that doesn't fit templates
 *   Integration with legacy systems
 *   Performance optimization beyond the default path
@@ -724,7 +724,7 @@ The limitation: N8N workflows are hard for AI agents to modify. The visual parad
 
 **Agents as Code (AaC):** This is where cybernetic development lives. You define your automation in actual code—Python, TypeScript, Go—using frameworks that make agent behavior explicit and testable.
 
-For example, instead of a Tactus prompt ("Build me a customer onboarding flow"), you write:
+For example, instead of prompting a generator ("Build me a customer onboarding flow"), you write:
 
 ```python
 # agents/onboarding_agent.py
@@ -752,6 +752,8 @@ class OnboardingAgent:
 ```
 
 This is pure code. An AI agent can read it, test it, refactor it, and extend it. It's versionable, auditable, and composable. Most importantly, it's **governable**—you can wrap it in tests, monitor it in production, and rollback when it fails.
+
+This is the pattern we've been building toward in [Tactus](https://tactus.anth.us/), our own DSL for defining agent procedures as versioned, testable code. The idea is *bounded autonomy*: imperative code for the steps that must be deterministic, agent turns for the steps that benefit from judgment, and a runtime that keeps a long-running procedure from losing its place. It's still alpha and the syntax is still moving, but the shape of the thing is the point—when the procedure is code, the governor has something to hold onto.
 
 #### The Abstraction Tax
 
@@ -800,7 +802,7 @@ Lee Robinson, VP of Developer Experience at Vercel, provided a perfect validatio
 
 He found that while the CMS was supposed to make things "easier" for non-developers, it actually created a "cost of abstraction" that blocked AI agents from being useful. "The cost of abstractions with AI is very high," he noted. "Over abstraction was always annoying and a code smell but now there’s an easy solution: spend tokens."
 
-By moving everything back to Markdown and Git—making it "code"—he was able to use agents to migrate the entire site in a weekend for just $260 in tokens. He deleted 322,000 lines of code and removed the complexity that was choking the system.
+By moving everything back to Markdown and Git—making it "code"—he was able to use agents to migrate the entire site in three days for just $260 in tokens. He deleted 322,000 lines of code and removed the complexity that was choking the system.
 
 This proves that **simplifying to code** isn't a step backward; it is the necessary step forward to unlock the cybernetic workforce.
 
@@ -926,7 +928,7 @@ The shift from 10x to 100x requires a different interaction model: **management 
 *   **Coordinate information** between agents without keeping everything in your head
 *   **Step back** from interactive sessions to review and prioritize at a higher level
 
-This is exactly what managers do when coordinating human contractors. They don't pair program with everyone. They use project management systems—Jira, Linear, or repository-based tools like [Taskulus](https://taskul.us) or [Beads](https://github.com/steveyegge/beads).
+This is exactly what managers do when coordinating human contractors. They don't pair program with everyone. They use project management systems—Jira, Linear, or repository-based tools like [Kanbus](https://kanb.us) or [Beads](https://github.com/steveyegge/beads).
 
 Without a task management system, you're forced to:
 *   Keep all context in chat session history
