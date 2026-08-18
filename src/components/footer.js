@@ -21,7 +21,7 @@ const Footer = () => {
       communityLinks={defaultCommunityLinks}
       brandLinks={brandLinks}
       platformLinks={getPlatformLinks()}
-      byline="Built by Anthus AI Solutions"
+      showBottomRow={false}
       localSection={{
         title: 'Anthus',
         titleHref: '/',
