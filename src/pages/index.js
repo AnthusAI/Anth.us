@@ -11,30 +11,14 @@ const mission = {
   description: "Deliver <mark>serverless business solutions</mark> using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We pair agentic speed with governance: specs, guardrails, and production feedback loops."
 }
 
+// Trimmed from eight to four. The four dropped ones — Design for Humans, Focus on
+// Business Logic, Continuously Improve, Infrastructure as Code — are good engineering
+// practice but no longer differentiate anyone in 2026, and eight of them put a lot of
+// page between the hero and the first concrete thing.
 const values = [
   {
     text: "Prioritize Solutions Over Tools",
     description: "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>."
-  },
-  {
-    text: "Design for Humans",
-    description: "Computers exist to help humans accomplish things.  Not the other way around.  Make it easy for the human, not the computer."
-  },
-  {
-    text: "Focus on Business Logic",
-    description: "The only code you should be writing is the business logic that solves real problems.  <a href=\"/blog/langchain-by-example/\">Don't waste time reinventing wheels.</a>"
-  },
-  {
-    text: "Continuously Improve",
-    description: "Enable rapid, iterative change through CI/CD and DevOps. Mitigate the risk of change by making lots of small, verifiable changes—and by feeding production learnings back into tests and guardrails."
-  },
-  {
-    text: "Collaborate with AI Humanely",
-    description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
-  },
-  {
-    text: "Implement Infrastructure as Code",
-    description: "Leverage DevOps to implement Infrastructure as Code. Every aspect of a production system should be created and configured by code so that it's reproducible, not manually."
   },
   {
     text: "Commodify AI Models",
@@ -43,6 +27,10 @@ const values = [
   {
     text: "Optimize Resource Usage",
     description: "Balance efficiency with cost-effectiveness.  When intelligence is cheap, the goal shifts from conserving compute to conserving context and cognitive load."
+  },
+  {
+    text: "Collaborate with AI Humanely",
+    description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
   }
 ];
 
@@ -172,34 +160,44 @@ const IndexPage = () => {
     }
   `);
 
+  // Four capability domains, not use cases. Each links to published proof rather than to
+  // an /ai-solutions fragment: that page is 2023 copy, and one of the old anchors never
+  // resolved anyway (it uses name= rather than id=).
+  //
+  // The order builds: a model on its own, the harness around it, the measurement that
+  // tells you either is working, and the loop that improves it unattended.
   const links = [
     {
-      text: "Smart Process Automation",
-      url: "/ai-solutions#smart-process-automation",
-      image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
-      description:
-        "<mark>Delegate routine tasks</mark> to intelligent systems, freeing your team for higher-impact initiatives.",
-    },
-    {
-      text: "AI-powered software features.",
-      url: "/ai-solutions#ai-software-features",
+      text: "ML Models",
+      url: "/blog/domain-specific-turn-detection/",
       image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
+      alt: "Custom and fine-tuned machine learning models",
       description:
-        "Infuse AI-driven capabilities into your cloud-based apps, mobile applications, or existing systems.",
+        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, and prove that it clears it.",
     },
     {
-      text: "Serverless software solutions.",
-      url: "/ai-solutions#ai-enabled-projects",
-      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
-      description:
-        "Not all AI-enabled solutions use AI at runtime.  We have a <a href=\"/ai-solutions\">long and proven history</a> of building serverless architectures that deliver business value.",
-    },
-    {
-      text: "Conversational AI Agents",
-      url: "/ai-solutions#conversational-ai-agents",
+      text: "Agent Systems",
+      url: "/blog/give-an-agent-a-tool/",
       image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      alt: "Agent systems, tools, and orchestration",
       description:
-        "Elevate your efficiency by integrating a conversational AI co-pilot, enabling <mark>dialogues with your business operations</mark>.",
+        "A model is half a system.  The other half is the harness: the tools it can reach, the procedures it follows, the guardrails it runs inside, and the ability to work for hours <mark>without losing the plot</mark>.",
+    },
+    {
+      text: "Evaluation",
+      url: "/blog/classification-with-confidence/",
+      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
+      alt: "Evaluation, scorecards, and measurement",
+      description:
+        "The part nobody asks for and every working system needs.  Scorecards, rubrics, and thresholds that turn <mark>&ldquo;it seems good&rdquo; into a number you can watch move</mark>.",
+    },
+    {
+      text: "Self-Aligning Automation",
+      url: "/blog/call-criteria/",
+      image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
+      alt: "Unattended automation with a human in the loop",
+      description:
+        "Unattended business process automation with a human in the loop.  Reviewers correct it and say why; the system <mark>turns the explanation into a stated policy</mark> and applies it from then on.",
     },
   ]
 
@@ -218,11 +216,14 @@ const IndexPage = () => {
           className="hero-image hero-image-wide"
         />
         <div className="hero-overlay">
+          {/* Kept close to the length of the old headline on purpose. The hero overlay is
+              sized for roughly this much text; a longer H1 wraps to four lines and clips off
+              the top of the image at mobile widths. */}
           <h1>
-            Depend on proven experts
+            Systems that learn why
           </h1>
           <p>
-            We know how to solve your business problems using AI.  And we know how to scale it up.
+            Not just what you labeled.  Explanations become policies, and accuracy climbs on its own.
           </p>
           <Link to="/ai-solutions" className="button">Learn More</Link>
           <div className={styles.heroSecondary}>
@@ -233,26 +234,35 @@ const IndexPage = () => {
         </div>
       </Hero>
 
-      <p className={styles.intro} id="our-values">
-        We've processed a quarter billion dollars in revenue at scale with nearly 100% uptime.
-        We've built production RLHF systems that transform core business processes through self-evolving AI agents.
-        We don't just talk about AI—we deliver it at scale.
+      {/* Dates rather than durations: "two years of continuous operation" was written
+          against a March 2024 start and had quietly gone stale. A start date never rots. */}
+      <p className={styles.intro}>
+        A quarter billion dollars in revenue processed at scale, with nearly 100% uptime.
+        Custom classifiers and fine-tuned models in production since 2023.
+        A self-aligning RLHF system running continuously since March 2024, SOC&nbsp;2 Type&nbsp;II.
+        We don't talk about AI&mdash;we operate it.
       </p>
 
-      <h2 style={{ marginBottom: '1em' }}>Our Mission</h2>
-      <p style={{ textAlign: 'center', marginBottom: '20px' }} dangerouslySetInnerHTML={{ __html: mission.description }}></p>
+      <h2>What We Do</h2>
 
-      <h2 style={{ marginBottom: '1em' }}>Our Values</h2>
-      <ul className={`${styles.list} ${styles.tight}`}>
-        {values.map((value, index) => (
-          <li key={index} className={styles.listItem}>
-            <p className={styles.listItemTitle}>{value.text}</p>
-            <p className={styles.listItemDescription}
-            dangerouslySetInnerHTML={{ __html: value.description }}>
-            </p>
+      <ul className={styles.list}>
+        {links.map(link => (
+          <li key={link.url} className={styles.listItem}>
+            <Link
+              className={styles.listItemLink}
+              to={`${link.url}`}
+            >
+              <GatsbyImage image={link.image} alt={link.alt} />
+              <h3>{link.text}</h3>
+            </Link>
+            <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: link.description }}></p>
           </li>
         ))}
       </ul>
+
+      <p className={`${styles.intro} ${styles.textCenter}`}>
+        Most people arrive asking for one of these.  <mark>Working systems need all four.</mark>
+      </p>
 
       <section className={styles.approachSection}>
         <h2 className={styles.approachHeading}>Our Approach: Cybernetic Development</h2>
@@ -283,25 +293,24 @@ const IndexPage = () => {
         </div>
       </section>
 
-      <h2>Our Capabilities</h2>
+      <h2 style={{ marginBottom: '1em' }}>Our Mission</h2>
+      <p style={{ textAlign: 'center', marginBottom: '20px' }} dangerouslySetInnerHTML={{ __html: mission.description }}></p>
 
-      <ul className={styles.list}>
-        {links.map(link => (
-          <li key={link.url} className={styles.listItem}>
-            <Link
-              className={styles.listItemLink}
-              to={`${link.url}`}
-            >
-              <GatsbyImage image={link.image} alt="Smart Process Automation" />
-              <h3>{link.text}</h3>
-            </Link>
-            <p className={styles.listItemDescription} dangerouslySetInnerHTML={{ __html: link.description }}></p>
+      {/* a-world-with-no-moats.mdx links to /#our-values, so this id has to stay put. */}
+      <h2 style={{ marginBottom: '1em' }} id="our-values">Our Values</h2>
+      <ul className={`${styles.list} ${styles.tight}`}>
+        {values.map((value, index) => (
+          <li key={index} className={styles.listItem}>
+            <p className={styles.listItemTitle}>{value.text}</p>
+            <p className={styles.listItemDescription}
+            dangerouslySetInnerHTML={{ __html: value.description }}>
+            </p>
           </li>
         ))}
       </ul>
 
       <section className={styles.plexusFeature}>
-        <h2>Production MLOps at Scale</h2>
+        <h2>The Loop That Keeps It Aligned</h2>
         <ul className='blog'>
           <div className='blog-post-preview'>
             <li className="clear-float">
@@ -311,16 +320,20 @@ const IndexPage = () => {
                   alt="Plexus Platform"
                   className="right"
                 />
-                <h3>Plexus: The RLHF Data Flywheel</h3>
+                <h3>Plexus: where the alignment actually happens</h3>
               </Link>
               <p>
-                We built what many consider the holy grail of AI: a production-scale RLHF system that continuously aligns itself with human feedback automatically over time. Plexus is our custom MLOps platform that powers this self-evolving data flywheel, managing the complete lifecycle of AI agents and classification models that get smarter with every interaction.
+                Plexus is our MLOps platform for building and operating classification models and
+                agents at production scale.  It runs the feedback loop: reviewers correct the
+                system's decisions and record <em>why</em>, and those explanations become stated
+                policies the system applies from then on.  Accuracy climbs without an engineer
+                rewriting prompts.
               </p>
               <ul className="branded">
-                <li>Two years of continuous production operation</li>
-                <li>Self-evolving AI agents that improve autonomously</li>
-                <li>Human-in-the-loop feedback drives continuous learning</li>
-                <li>Transforms core business processes at scale</li>
+                <li>In continuous production since March 2024</li>
+                <li>Hundreds of classification models, millions of interactions</li>
+                <li>SOC 2 Type II, end-to-end encrypted</li>
+                <li>Human corrections and their reasoning drive continuous alignment</li>
               </ul>
               <Link to="https://plexus.anth.us" className="button">Learn More</Link>
             </li>
@@ -377,13 +390,15 @@ const IndexPage = () => {
                 className={styles.postsListItemLink}
                 to={`/blog/${node.frontmatter.slug}`}
               >
-                <p>
+                {/* Was a <p> wrapping <div>s, which is invalid nesting and threw a
+                    validateDOMNesting warning on every render. */}
+                <div>
                   <div>{node.frontmatter.excerpt}</div>
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>{formatDate(node.frontmatter.date)}</div>
                     <div><i>more...</i></div>
                   </div>
-                </p>
+                </div>
                 <GatsbyImage image={getImage(node.frontmatter.preview_image)} alt={node.frontmatter.excerpt} />
               </Link>
             </div>
@@ -404,7 +419,7 @@ export const Head = () => {
   return (
     <Seo
       title="Home"
-      description="Depend on proven experts with a history of operational excellence for reliable serverless AI solutions on AWS."
+      description="Anthus builds self-aligning AI systems: custom models, agent harnesses, evaluation loops, and unattended automation with a human in the loop. In production since 2023."
       image="serverless-ai-software-solutions.png"
     />
   )
