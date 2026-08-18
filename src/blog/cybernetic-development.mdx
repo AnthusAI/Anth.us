@@ -19,12 +19,42 @@ tags:
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
+{/* VISUAL PROMPT — cybernetic-development.png (HERO POSTER) -------------
+    Fourth member of the stencil-poster family (cost collapse = magenta,
+    bugonomics = oxblood, maximize value = magenta). This one stays in brand
+    magenta #D03382 so it reads as the flagship of the set, not a variant.
+
+    The current file at this path is a 6KB text-on-white placeholder, and it
+    is also the preview_image -- it is the social card anywhere this is
+    shared. Replacing it is the highest-value visual on the page.
+
+    PROMPT:
+    Bold propaganda-poster typography. White stencil spray-paint capital
+    letters on a heavily textured deep magenta surface (#D03382), the texture
+    reading as painted leather or scuffed concrete. Letters set on a slight
+    diagonal, tightly packed, filling the frame edge to edge. High contrast,
+    grungy overspray at the letter edges, subtle scuffs, dust, and a soft
+    diagonal highlight across the surface. Square format. No imagery other
+    than the text. Text reads: "GOVERN, DON'T PROMPT"
+
+    Alt: "Poster: Govern, don't prompt."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">Hero poster · cybernetic-development.png · 2048×2048</div>
+  <div className="container">
+    Stencil propaganda poster reading <b>“GOVERN, DON'T PROMPT.”</b> Brand magenta,
+    same family as the three economics heroes. Replaces the current 6KB
+    text-on-white placeholder, which is also the social preview card.
+  </div>
+</div>
+
 <div className="center-small-image">
   <BlogImage
     images={props.pageContext.frontmatter.images}
     name="cybernetic-development.png"
     className="full"
-    alt="A neon cityscape blending human intuition with circuitry"
+    alt="Title card: Cybernetic Development."
   />
 </div>
 
@@ -50,6 +80,43 @@ A cybernetic system has two distinct parts:
 1.  **The Engine:** The force that drives the system forward (Energy).
 2.  **The Governor:** The feedback loop that steers the engine (Information).
 
+{/* VISUAL — Engine / Governor loop · HTML blockDiagram · no asset ---------
+    THE diagram of this article. Everything downstream is an elaboration of
+    it, and right now the central metaphor is carried entirely by prose.
+    Build in HTML (preferred house style, cf. how-ai-agents-do-things.mdx)
+    using blockDiagram + container + row, so it themes with the site and
+    needs no image pipeline.
+
+    STRUCTURE:
+      Left box  — ENGINE (Energy): LLM generation. Fast, prolific, tireless,
+                  no opinion about whether the output is correct.
+      Right box — GOVERNOR (Information): specs, tests, CI gates, telemetry.
+                  Slow, opinionated, measures against intent.
+      Arrow left->right labelled "output", arrow right->left labelled
+      "correction" so the loop visibly closes. The closed loop IS the point.
+
+    Optionally show the pathology as a second, greyed row: an Engine with no
+    return arrow, labelled "vibe coding" -- an open loop.
+
+    Keep it two boxes and two arrows. The temptation is to add the whole
+    SDLC; resist it. This diagram earns its place by being the simplest
+    possible statement of the thesis.
+
+    Alt: "The Engine generates; the Governor measures the output against
+    intent and feeds corrections back. A closed loop."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">HTML blockDiagram · Engine / Governor loop · no asset</div>
+  <div className="container">
+    Two boxes and two arrows. <b>Engine</b> (LLM generation — fast, prolific, no
+    opinion about correctness) sends <i>output</i> to <b>Governor</b> (specs, tests,
+    CI gates, telemetry), which sends <i>correction</i> back. Optional greyed row
+    below shows the pathology: an engine with no return arrow, labelled “vibe
+    coding.” The closed loop is the whole thesis — keep it to two boxes.
+  </div>
+</div>
+
 ### The Glass Cockpit Problem: A Warning from Aviation
 
 Before we go further, we need to understand the risk of pure automation. Aviation teaches us a critical lesson through what's called the **"Glass Cockpit" problem**.
@@ -67,6 +134,38 @@ As planes became fully automated with "fly-by-wire" systems, pilots spent 99% of
 This isn't an argument against automation. It's an argument for **cybernetic systems**: automation paired with skilled governance. The pilot doesn't need to hand-fly every leg, but they must maintain the ability to override when the autopilot fails. They must understand the primitives underneath the abstraction.
 
 The same applies to AI coding. If AI does 99% of the work, the human developer risks losing their fundamental skills—what Nate B. Jones calls **Primitive Fluency**. The cybernetic developer maintains this fluency not to replace the AI, but to steer it effectively and recover when it hallucinates.
+
+{/* VISUAL PROMPT — glass-cockpit.png (PHOTOREAL) ------------------------
+    Mood and concept piece, in the register of
+    the-simulation-told-them-they-would-win.png: cinematic, desaturated,
+    cool-toned, shallow depth of field. Deeper in the body, not a hero.
+
+    The image has to carry the specific idea, not just "airplane": the
+    automation is working perfectly and the human has drifted out of the
+    loop. Hands OFF the yoke is the whole shot.
+
+    PROMPT:
+    Cinematic night interior of a modern airliner glass cockpit, shot from
+    behind and between the two seats. Six large flight displays glow softly
+    in blue and green, every readout nominal. Both pilots' hands rest in
+    their laps, well away from the yokes. No visible faces. Cool desaturated
+    palette, deep shadows, shallow depth of field with the instruments sharp
+    and the crew falling soft. Quiet, uneventful, faintly uneasy.
+    Photorealistic, 35mm, slight film grain. 3:2.
+
+    Alt: "A modern glass cockpit at night, all displays nominal, both
+    pilots' hands resting away from the controls."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">photoreal · glass-cockpit.png · 3:2</div>
+  <div className="container">
+    Night glass cockpit from behind the seats, every display nominal, both pilots'
+    hands resting <b>away from the yokes</b>. The automation is working and the human
+    has drifted out of the loop — hands-off is the entire shot. Cool, desaturated,
+    shallow focus; same register as the war-game piece.
+  </div>
+</div>
 
 ### The Human Brain as Cybernetic System
 
@@ -86,6 +185,43 @@ We are cybernetic systems. And now, we are externalizing that structure into our
 *   **Engineering Discipline (BDD/TDD)** is the externalized **System 2**. It provides the logic, constraints, and verification that the AI lacks.
 
 The 100x developer isn't just shoveling coal into the engine; they are designing the System 2 structure to govern the System 1 chaos.
+
+{/* VISUAL — System 1 / System 2 externalized · HTML · no asset ----------
+    A mapping table rendered as two side-by-side panels, using the row +
+    container vocabulary. Cheap to build, no asset, and it does real work:
+    it makes the Kahneman parallel legible at a glance instead of asking the
+    reader to hold four terms in their head at once.
+
+    STRUCTURE — two columns, four aligned rows:
+
+      IN THE BRAIN            EXTERNALIZED IN SOFTWARE
+      System 1                Vibe Coding (LLMs)
+      fast, intuitive          raw generative power
+      pattern matching         "vibes", no verification
+      -> the ENGINE            -> the ENGINE
+
+      System 2                Engineering Discipline (BDD/TDD)
+      slow, deliberate         specs, tests, CI gates
+      logical, effortful       constraints and verification
+      -> the GOVERNOR          -> the GOVERNOR
+
+    Tint the System 1 / Vibe Coding column and the System 2 / Discipline
+    column differently, and reuse the same two tints wherever Engine and
+    Governor appear elsewhere on the page so the colour coding carries.
+
+    Alt: "System 1 maps to vibe coding and the engine; System 2 maps to
+    engineering discipline and the governor."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">HTML two-panel · System 1 / System 2 mapping · no asset</div>
+  <div className="container">
+    Two columns — <b>in the brain</b> vs <b>externalized in software</b> — with aligned
+    rows: System 1 → vibe coding → the Engine; System 2 → engineering discipline →
+    the Governor. Tint the two columns and reuse those same tints for Engine and
+    Governor elsewhere on the page so the colour coding carries across diagrams.
+  </div>
+</div>
 
 Even Andrej Karpathy, who coined the term "vibe coding" in early 2025<Citation
   data={{
@@ -364,6 +500,43 @@ A cybernetic developer builds Governors at multiple layers:
 *   **Release Governors:** Staging, canary deploys, feature flags, and automatic rollback so production becomes a *measured experiment*, not a leap of faith.
 *   **Runtime Governors:** Rate limits, timeouts, circuit breakers, validation, and kill switches that keep failures bounded.
 *   **Learning Governors:** Blameless postmortems and incident reviews that feed new tests, new specs, new guardrails—or sometimes a hard simplification that eliminates the failure mode entirely.
+
+{/* VISUAL — Five governors as Swiss cheese · HTML · no asset ------------
+    Reason's Swiss Cheese model, but populated with THIS article's five
+    layers rather than the generic textbook version. That specificity is the
+    reason to draw it: the reader can see which layer would have caught
+    their last incident.
+
+    STRUCTURE — five stacked horizontal slices, each a container, in order:
+      Tool Governors      sandboxes, least privilege, explicit tool access
+      Merge Governors     lint, types, unit + integration tests, security
+      Release Governors   staging, canary, feature flags, auto-rollback
+      Runtime Governors   rate limits, timeouts, breakers, kill switches
+      Learning Governors  blameless postmortems feeding new specs + tests
+
+    Punch 2-3 gaps per slice at DIFFERENT horizontal offsets. Draw one
+    arrow that threads cleanly through every gap and exits the bottom --
+    that is the incident nobody caught, and it is the only part of the
+    picture that argues for layering.
+
+    If the offset-holes rendering gets fiddly in pure CSS, an SVG is a fine
+    fallback; it is a static figure either way. Do NOT reach for a stock
+    Swiss-cheese illustration -- the labels are the value.
+
+    Alt: "Five stacked layers of governors with misaligned gaps, and a
+    single failure path threading through all five."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">HTML or SVG · five-governors Swiss cheese · no asset</div>
+  <div className="container">
+    Reason's model populated with <b>this article's five layers</b> — tool, merge,
+    release, runtime, learning — rather than the generic textbook version. Gaps at
+    staggered offsets, plus one arrow threading through all five: the incident
+    nobody caught. The labels are the value; a stock cheese illustration would not
+    earn its place.
+  </div>
+</div>
 
 This is where 100x judgment lives. When a system fails, the question isn't only "What code do we change?" It's "What layer should absorb this next time?" Sometimes the right fix is a unit test. Sometimes it's changing the spec. Sometimes it's removing agent permissions. Sometimes it's deleting the feature.
 
@@ -755,6 +928,40 @@ This is pure code. An AI agent can read it, test it, refactor it, and extend it.
 
 This is the pattern we've been building toward in [Tactus](https://tactus.anth.us/), our own DSL for defining agent procedures as versioned, testable code. The idea is *bounded autonomy*: imperative code for the steps that must be deterministic, agent turns for the steps that benefit from judgment, and a runtime that keeps a long-running procedure from losing its place. It's still alpha and the syntax is still moving, but the shape of the thing is the point—when the procedure is code, the governor has something to hold onto.
 
+{/* VISUAL — The abstraction spectrum · HTML · no asset ------------------
+    The three tiers the section just walked through, as one figure. Reuse
+    the technologyStack container vocabulary from how-ai-agents-do-things.
+
+    STRUCTURE — three stacked tiers, most abstracted at the top:
+
+      PROMPT-TO-APP     Lovable, Bolt.new
+                        human-legible: high | agent-manipulable: low
+      VISUAL WORKFLOW   N8N
+                        human-legible: high | agent-manipulable: medium
+      AGENTS AS CODE    Python / TypeScript / Go, Tactus
+                        human-legible: medium | agent-manipulable: high
+
+    Two thin gauges per tier -- "human-legible" and "agent-manipulable" --
+    running in opposite directions down the stack. That inversion IS the
+    abstraction tax, and it sets up the section heading that follows.
+
+    Keep the vendor names light; they will age. The tiers will not.
+
+    Alt: "Three tiers of abstraction. Moving down from prompt-to-app to
+    agents-as-code, human legibility falls and agent manipulability rises."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">HTML technologyStack · abstraction spectrum · no asset</div>
+  <div className="container">
+    Three tiers — <b>prompt-to-app → visual workflow → agents as code</b> — each with
+    two thin gauges, <i>human-legible</i> and <i>agent-manipulable</i>, running in
+    opposite directions down the stack. That inversion is the abstraction tax, and
+    it sets up the heading that follows. Keep vendor names light; they age, the
+    tiers don't.
+  </div>
+</div>
+
 #### The Abstraction Tax
 
 The key insight: **abstractions optimized for humans are obstacles for agents**.
@@ -930,6 +1137,40 @@ The shift from 10x to 100x requires a different interaction model: **management 
 
 This is exactly what managers do when coordinating human contractors. They don't pair program with everyone. They use project management systems—Jira, Linear, or repository-based tools like [Kanbus](https://kanb.us) or [Beads](https://github.com/steveyegge/beads).
 
+{/* VISUAL — Pair programming vs. delegation · HTML · no asset -----------
+    Two topologies side by side. This is the structural argument for why
+    10x -> 100x requires a task system, and it is much faster to see than
+    to read.
+
+    LEFT — "Pair programming" (1:1)
+      one human, one agent, a thick two-way arrow between them.
+      Caption: every unit of work costs a unit of your attention.
+
+    RIGHT — "Delegation" (1:N)
+      one human -> a TASK SYSTEM box (issues in the repo) -> four or five
+      agents fanning out. Thin arrows from each agent back INTO the task
+      system, not back to the human. That asymmetry is the whole point:
+      the task system absorbs the coordination the human used to hold.
+
+    Draw the human the same size in both panels. The temptation is to make
+    the right-hand human bigger to suggest leverage; don't -- the human is
+    the constant, the fan-out is the variable.
+
+    Alt: "Left, one human paired with one agent. Right, one human directing
+    a task system that fans out to several agents, which report back into
+    the task system rather than to the human."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">HTML two-panel · pair programming vs. delegation · no asset</div>
+  <div className="container">
+    Left: <b>1:1</b>, one human and one agent, thick two-way arrow — every unit of
+    work costs a unit of attention. Right: <b>1:N</b>, human → task system → several
+    agents, with agents reporting back <i>into the task system</i>, not to the human.
+    That asymmetry is the argument. Keep the human the same size in both panels.
+  </div>
+</div>
+
 Without a task management system, you're forced to:
 *   Keep all context in chat session history
 *   Remember which agent is working on what
@@ -1056,6 +1297,48 @@ In the Vibe Coding model, you have infinite generation but manual verification (
 In cybernetic development, you use BDD/TDD to drive the **marginal cost of verification down to near zero** as well. The automated tests *are* the cheap verification that balances the cheap generation.
 
 But not all verification is knowable upfront. Many agentic failures are emergent and only appear under real traffic, real data, and real organizational pressure. That’s why the cybernetic loop can’t stop at CI. You need runtime feedback loops—staged rollouts, telemetry, and postmortems—that turn production into a controlled experiment instead of a cliff.
+
+{/* VISUAL — verification-debt.png · matplotlib · 1200x630 --------------
+    The one place in this article where a plotted chart beats a diagram,
+    because the argument is explicitly about two rates diverging.
+
+    House chart style: matplotlib defaults, white ground, clear axis labels,
+    legend, red dashed annotation for the "here's the point" marker.
+    (cf. turn-detection-threshold-optimization.png, images/classifiers/*)
+
+      x = time / project lifetime
+      y = units of code, LOG scale
+
+      Curve A "Generation capacity"  -- steep exponential. Cheap tokens.
+      Curve B "Manual verification"  -- near-flat linear. One human reading.
+      Curve C "Automated verification (BDD/TDD + runtime feedback)"
+                                     -- tracks A closely, slightly below.
+
+      Shade A-minus-B and label it "verification debt". Annotate the point
+      where A crosses B as "you are now shipping code nobody has read."
+
+    The figure has to make ONE thing obvious: the gap is not a constant, it
+    compounds. Curve C is the resolution -- it is the only line that keeps
+    pace, and it is the cybernetic loop.
+
+    ILLUSTRATIVE -- say so on the figure, as break-even-crossing.png does.
+    These are rates and shapes, not measured project data.
+
+    Alt: "Generation capacity rises exponentially while manual verification
+    stays flat; the widening gap is verification debt. Automated
+    verification is the only line that keeps pace."
+---------------------------------------------------------------------- */}
+
+<div className="blockDiagram visualPlaceholder">
+  <div className="title">matplotlib · verification-debt.png · 1200×630</div>
+  <div className="container">
+    Log-scale. <b>Generation capacity</b> climbs exponentially; <b>manual verification</b>
+    stays flat; the shaded gap between them is <b>verification debt</b>, annotated
+    where it crosses into “you are now shipping code nobody has read.” A third
+    curve — automated verification — is the only line that keeps pace, which is the
+    resolution. Mark it <i>illustrative</i> on the figure, as the break-even chart does.
+  </div>
+</div>
 
 You cannot afford to use a 100x generator with a 1x verifier. You need a 100x verifier. That is what the cybernetic loop is.
 
