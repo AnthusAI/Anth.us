@@ -942,6 +942,36 @@ footer {
   background: rgb(208,51,130);
   background: linear-gradient(172deg, #fff 0%, #85CEFA 3%, var(--color-gradient-end) 10%, var(--color-gradient-start) 64%, var(--color-gradient-start) 100%);
   color: var(--color-inverted-text);
+  text-align: left;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    text-align: left;
+  }
+
+  h2 {
+    padding: 0;
+    min-height: unset;
+    line-height: 1.25;
+  }
+
+  a.logo,
+  .logo,
+  div.logo {
+    text-align: left;
+    margin: 0;
+    max-width: none;
+  }
+
+  .gatsby-image-wrapper.logo {
+    margin-left: 0;
+    margin-right: auto;
+  }
 
   .links {
     width: 100%;
