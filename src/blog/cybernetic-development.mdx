@@ -59,40 +59,26 @@ A cybernetic system has two distinct parts:
 1.  **The Engine:** The force that drives the system forward (Energy).
 2.  **The Governor:** The feedback loop that steers the engine (Information).
 
-{/* VISUAL — Engine / Governor loop · HTML blockDiagram · no asset ---------
-    THE diagram of this article. Everything downstream is an elaboration of
-    it, and right now the central metaphor is carried entirely by prose.
-    Build in HTML (preferred house style, cf. how-ai-agents-do-things.mdx)
-    using blockDiagram + container + row, so it themes with the site and
-    needs no image pipeline.
+{/* Engine / Governor loop. Stacked vertically rather than left-right so it
+    holds up at 375px without new CSS: .row has no mobile stacking rule in
+    layout.scss, and this is simple enough not to need one. */}
 
-    STRUCTURE:
-      Left box  — ENGINE (Energy): LLM generation. Fast, prolific, tireless,
-                  no opinion about whether the output is correct.
-      Right box — GOVERNOR (Information): specs, tests, CI gates, telemetry.
-                  Slow, opinionated, measures against intent.
-      Arrow left->right labelled "output", arrow right->left labelled
-      "correction" so the loop visibly closes. The closed loop IS the point.
-
-    Optionally show the pathology as a second, greyed row: an Engine with no
-    return arrow, labelled "vibe coding" -- an open loop.
-
-    Keep it two boxes and two arrows. The temptation is to add the whole
-    SDLC; resist it. This diagram earns its place by being the simplest
-    possible statement of the thesis.
-
-    Alt: "The Engine generates; the Governor measures the output against
-    intent and feeds corrections back. A closed loop."
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">HTML blockDiagram · Engine / Governor loop · no asset</div>
-  <div className="container">
-    Two boxes and two arrows. <b>Engine</b> (LLM generation — fast, prolific, no
-    opinion about correctness) sends <i>output</i> to <b>Governor</b> (specs, tests,
-    CI gates, telemetry), which sends <i>correction</i> back. Optional greyed row
-    below shows the pathology: an engine with no return arrow, labelled “vibe
-    coding.” The closed loop is the whole thesis — keep it to two boxes.
+<div className="blockDiagram">
+  <div className="title">The Cybernetic Loop</div>
+  <div className="container technologyStack">
+    <b>Engine</b>
+    <p>LLM generation. Fast, prolific, tireless&mdash;no opinion about whether the output is correct.</p>
+  </div>
+  <div style={{ textAlign: 'center', color: 'var(--color-text)', fontSize: 'var(--font-sm)', margin: '0.5em 0' }}>
+    <div>&darr; output</div>
+    <div>&uarr; correction</div>
+  </div>
+  <div className="container technologyStack">
+    <b>Governor</b>
+    <p>Specs, tests, CI gates, telemetry. Slow, opinionated&mdash;measures the output against intent.</p>
+  </div>
+  <div style={{ textAlign: 'center', color: 'var(--color-text)', opacity: 0.6, fontSize: 'var(--font-sm)', marginTop: '0.75em' }}>
+    Skip the loop and it stops being cybernetic&mdash;it's just an Engine running open: <i>vibe coding</i>.
   </div>
 </div>
 
