@@ -1079,11 +1079,17 @@ footer {
   article {
     .draft-overlay-text {
       font-size: 8em;
-    }  
+    }
   }
   .blockDiagram {
     // font-size: var(--font-sm);
     padding: 0 var(--space-1) var(--space-1) var(--space-1);
+    // .row lays its children out left-to-right with no wrap at any width.
+    // Two side-by-side containers with real sentences will overflow well
+    // before 375px, so stack them at this breakpoint instead.
+    .row {
+      flex-direction: column;
+    }
     .container {
       padding: var(--space-1);
       .messages {
