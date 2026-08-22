@@ -1055,6 +1055,26 @@ footer {
         }
       }
     }
+
+    // The overlay is pinned to `right: 50%` at wider sizes, which leaves it
+    // about 136px wide on a 440px viewport. A 51px headline cannot fit that,
+    // so it wrapped to four lines and grew taller than the 400px image --
+    // and because it is centred with translateY(-50%), the excess spilled off
+    // BOTH the top and the bottom. Give it the full width here, scale the type
+    // down, and anchor to the top so any overflow can only ever go one way.
+    .hero-overlay {
+      right: var(--size-gutter);
+      top: var(--space-4);
+      transform: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-size: var(--font-xl);
+    }
+
+    p {
+      font-size: var(--font-size);
+    }
   }
   article {
     .draft-overlay-text {

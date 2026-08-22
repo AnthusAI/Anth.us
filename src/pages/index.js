@@ -9,17 +9,33 @@ import PlatformCards from "../components/platform-cards"
 import * as styles from "../components/index.module.css"
 
 const mission = {
-  description: "Deliver <mark>serverless business solutions</mark> using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We pair agentic speed with governance: specs, guardrails, and production feedback loops."
+  description: "Deliver <mark>reliable, secure, and efficient</mark> business solutions using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We build them to keep working when nobody is watching."
 }
 
-// Trimmed from eight to four. The four dropped ones — Design for Humans, Focus on
-// Business Logic, Continuously Improve, Infrastructure as Code — are good engineering
-// practice but no longer differentiate anyone in 2026, and eight of them put a lot of
-// page between the hero and the first concrete thing.
 const values = [
   {
     text: "Prioritize Solutions Over Tools",
     description: "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>."
+  },
+  {
+    text: "Design for Humans",
+    description: "Computers exist to help humans accomplish things.  Not the other way around.  Make it easy for the human, not the computer."
+  },
+  {
+    text: "Focus on Business Logic",
+    description: "The only code you should be writing is the business logic that solves real problems.  <a href=\"/blog/langchain-by-example/\">Don't waste time reinventing wheels.</a>"
+  },
+  {
+    text: "Continuously Improve",
+    description: "Enable rapid, iterative change through CI/CD and DevOps—then let the systems improve themselves. <mark>Self-optimizing classifiers and self-steering agent systems</mark> get better from production feedback without waiting for an engineer to notice."
+  },
+  {
+    text: "Collaborate with AI Humanely",
+    description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
+  },
+  {
+    text: "Implement Infrastructure as Code",
+    description: "Leverage DevOps, <mark>MLOps, and LLMOps</mark> to implement Infrastructure as Code. Every part of a production system—including the models, their training runs, and their evaluations—should be created by code so it's reproducible, not clicked together by hand."
   },
   {
     text: "Commodify AI Models",
@@ -28,10 +44,6 @@ const values = [
   {
     text: "Optimize Resource Usage",
     description: "Balance efficiency with cost-effectiveness.  When intelligence is cheap, the goal shifts from conserving compute to conserving context and cognitive load."
-  },
-  {
-    text: "Collaborate with AI Humanely",
-    description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
   }
 ];
 
@@ -232,31 +244,10 @@ const IndexPage = () => {
   //
   // The order builds: a model on its own, the harness around it, the measurement that
   // tells you either is working, and the loop that improves it unattended.
+  // Ordered by what leads: self-aligning automation first, then the knowledge
+  // base it reasons over, then the harness around the model, then the models
+  // themselves. Each links to published proof.
   const links = [
-    {
-      text: "ML Models",
-      url: "/blog/domain-specific-turn-detection/",
-      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
-      alt: "Custom and fine-tuned machine learning models",
-      description:
-        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, and prove that it clears it.",
-    },
-    {
-      text: "Agent Systems",
-      url: "/blog/give-an-agent-a-tool/",
-      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
-      alt: "Agent systems, tools, and orchestration",
-      description:
-        "A model is half a system.  The other half is the harness: the tools it can reach, the procedures it follows, the guardrails it runs inside, and the ability to work for hours <mark>without losing the plot</mark>.",
-    },
-    {
-      text: "Evaluation",
-      url: "/blog/classification-with-confidence/",
-      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
-      alt: "Evaluation, scorecards, and measurement",
-      description:
-        "The part nobody asks for and every working system needs.  Scorecards, rubrics, and thresholds that turn <mark>&ldquo;it seems good&rdquo; into a number you can watch move</mark>.",
-    },
     {
       text: "Self-Aligning Automation",
       url: "/blog/call-criteria/",
@@ -264,6 +255,30 @@ const IndexPage = () => {
       alt: "Unattended automation with a human in the loop",
       description:
         "Unattended business process automation with a human in the loop.  Reviewers correct it and say why; the system <mark>turns the explanation into a stated policy</mark> and applies it from then on.",
+    },
+    {
+      text: "Knowledge Bases",
+      url: "https://github.com/AnthusAI/Biblicus",
+      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
+      alt: "Knowledge bases with learned ontologies and taxonomies",
+      description:
+        "Your agents are only as good as what they can look up.  We build knowledge bases with <mark>ontologies and taxonomies that learn from your data</mark>, refining their own structure instead of going stale the week after someone hand-built them.",
+    },
+    {
+      text: "Agent Systems",
+      url: "/blog/give-an-agent-a-tool/",
+      image: getImage(data.conversationalAIAgent.childImageSharp.gatsbyImageData),
+      alt: "Agent systems, tools, and orchestration",
+      description:
+        "A model is half a system.  The other half is the harness: the tools it can reach, the procedures it follows, the limits it runs inside, and the ability to work for hours <mark>without losing the plot</mark>.",
+    },
+    {
+      text: "Machine Learning",
+      url: "/blog/domain-specific-turn-detection/",
+      image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
+      alt: "Custom and fine-tuned machine learning models",
+      description:
+        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS\u2014training, serving, and evaluation included.",
     },
   ]
 
@@ -286,10 +301,10 @@ const IndexPage = () => {
               sized for roughly this much text; a longer H1 wraps to four lines and clips off
               the top of the image at mobile widths. */}
           <h1>
-            Systems that learn why
+            Depend on proven experts
           </h1>
           <p>
-            Not just what you labeled.  Explanations become policies, and accuracy climbs on its own.
+            We solve your business problems with AI, then run it in production—where it gets more accurate.
           </p>
           <Link to="/ai-solutions" className="button">Learn More</Link>
           <div className={styles.heroSecondary}>
@@ -303,9 +318,8 @@ const IndexPage = () => {
       {/* Dates rather than durations: "two years of continuous operation" was written
           against a March 2024 start and had quietly gone stale. A start date never rots. */}
       <p className={styles.intro}>
-        A quarter billion dollars in revenue processed at scale, with nearly 100% uptime.
-        Custom classifiers and fine-tuned models in production since 2023.
-        A self-aligning RLHF system running continuously since March 2024, SOC&nbsp;2 Type&nbsp;II.
+        <mark>A quarter billion dollars</mark> in revenue processed at scale, at nearly 100% uptime.{" "}
+        <mark>180 billion tokens</mark> of production LLM workload.
         We don't talk about AI&mdash;we operate it.
       </p>
 
@@ -327,7 +341,7 @@ const IndexPage = () => {
       </ul>
 
       <p className={`${styles.intro} ${styles.textCenter}`}>
-        Most people arrive asking for one of these.  <mark>Working systems need all four.</mark>
+        Clients usually arrive asking about one of these.  <mark>The work rarely stays in one box.</mark>
       </p>
 
       <section className={styles.approachSection}>

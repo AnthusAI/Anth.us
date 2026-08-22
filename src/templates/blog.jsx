@@ -58,7 +58,13 @@ const CollectionTemplate = ({ data }) => {
 export const pageQuery = graphql`
   query CollectionPageQuery {
     publishedPosts: allMdx(
-      filter: { frontmatter: { state: { eq: "published" }, tags: { nin: ["solutions", "posts"] } } }
+      filter: {
+        frontmatter: {
+          state: { eq: "published" }
+          tags: { nin: ["solutions", "posts"] }
+          content_type: { ne: "platform-product" }
+        }
+      }
       sort: { fields: [frontmatter___date], order: [DESC] }
     ) {
       edges {
@@ -80,9 +86,14 @@ export const pageQuery = graphql`
       }
     }
     draftPosts: allMdx(
-      # filter: { frontmatter: { state: { eq: "draft" } } }
-      filter: { frontmatter: { state: { ne: "published" }, tags: { nin: ["solutions", "posts"] } } }
-    sort: { fields: [frontmatter___date], order: [DESC] }
+      filter: {
+        frontmatter: {
+          state: { ne: "published" }
+          tags: { nin: ["solutions", "posts"] }
+          content_type: { ne: "platform-product" }
+        }
+      }
+      sort: { fields: [frontmatter___date], order: [DESC] }
     ) {
       edges {
         node {

@@ -19,51 +19,21 @@ tags:
 import BlogImage from '../components/blog-image';
 import { Citation, CitationsList } from 'gatsby-citation-manager';
 
-{/* VISUAL PROMPT — cybernetic-development.png (HERO) --------------------
-    NOT a stencil poster. The house character is the recurring white robot
-    with glowing magenta eyes (cf. give-an-agent-a-tool.png, the homepage
-    hero, the homepage capability grid). Slogan posters carry no information
-    in a feed; a concept scene does, and it is warmer.
-
-    The scene writes itself from the article's own etymology: cybernetics is
-    from the Greek kybernetes, "steersman." So: a ship's wheel, with BOTH a
-    human hand and the robot's hand on it. Not the robot steering alone (that
-    is the glass-cockpit failure, which gets its own image later) and not the
-    human alone. Both hands, same wheel. That is the Engine and the Governor
-    in one frame, and it is the whole thesis.
-
-    The current file at this path is a 6KB text-on-white placeholder, and it
-    is also the preview_image -- the social card anywhere this is shared.
-    Replacing it is the highest-value visual on the page.
-
-    PROMPT:
-    Photorealistic close shot of a polished wooden ship's wheel at sea. A
-    human hand grips one spoke; the white ceramic hand of a small robot with
-    glowing magenta eyes grips the adjacent spoke. Both are steering
-    together. Warm low sun, soft ocean bokeh behind, shallow depth of field,
-    the wheel and both hands sharp. Calm and purposeful, not tense. Square,
-    2048x2048.
-
-    Alt: "A human hand and a robot's hand steering a ship's wheel together."
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">Hero · cybernetic-development.png · 2048×2048 · robot concept scene</div>
-  <div className="container">
-    House robot, not a poster. <b>A human hand and the robot's hand on the same
-    ship's wheel</b> — straight from the article's etymology, <i>kybernētēs</i>, steersman.
-    Both hands matter: the robot alone is the glass-cockpit failure, the human alone
-    is the old world. Engine and Governor in one frame. Replaces the 6KB placeholder
-    that currently serves as the social card.
-  </div>
-</div>
+{/* HERO — cybernetic-development.png. Generated via Midjourney, installed.
+    Nested control, not parallel steering: the viewer (the reader) is the
+    outermost governor, gripping a wheel mounted on the robot's back; the
+    robot, facing forward and never showing its face, steers the ship's own
+    helm in turn. Governance one level removed from the thing actually being
+    steered -- a sharper reading of kybernetes than two hands on one wheel,
+    and it composes: nothing stops another loop from mounting a wheel on
+    the reader's back. */}
 
 <div className="center-small-image">
   <BlogImage
     images={props.pageContext.frontmatter.images}
     name="cybernetic-development.png"
     className="full"
-    alt="Title card: Cybernetic Development."
+    alt="First-person view of a human's hands steering a wheel mounted on the back of a white robot, which itself steers the ship's helm at the bow."
   />
 </div>
 
