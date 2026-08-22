@@ -197,7 +197,10 @@
 }
 
 .heroSecondaryLink {
-  color: white;
+  /* Was pure white, which is unreadable against this hero image at every
+     viewport width -- the art is light on the left where the text sits.
+     Match the dark colour the hero h1 and paragraph already use. */
+  color: var(--color-text);
   text-decoration: underline;
   font-weight: 600;
 }
