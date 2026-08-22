@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Hero from "../components/hero"
+import PlatformCards from "../components/platform-cards"
 import * as styles from "../components/index.module.css"
 
 const mission = {
@@ -32,6 +33,27 @@ const values = [
     text: "Collaborate with AI Humanely",
     description: "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people."
   }
+];
+
+const platformRecipes = [
+  {
+    title: "Grounded research to video output",
+    components: ["Biblicus", "Tactus", "Babulus", "Korporus"],
+    description:
+      "Use Biblicus to manage the source corpus, Tactus to define the repeatable procedure, Babulus to generate the narrative output, and Korporus to host the resulting service as a coherent application.",
+  },
+  {
+    title: "Production agent service with operational discipline",
+    components: ["Tactus", "Plexus", "Korporus", "Caducus"],
+    description:
+      "Define the agent behavior in Tactus, evaluate and improve it through Plexus, run it inside Korporus, and monitor it through Caducus so the result behaves like a service instead of a demo.",
+  },
+  {
+    title: "Workflow-heavy human and AI collaboration",
+    components: ["Kanbus", "Tactus", "Plexus"],
+    description:
+      "Keep task memory and work orchestration durable in Kanbus, drive execution through Tactus procedures, and feed the resulting evaluation and feedback loops back into Plexus.",
+  },
 ];
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
@@ -72,9 +94,28 @@ const IndexPage = () => {
           gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      plexusLogo: file(relativePath: { eq: "plexus-logo.png" }) {
-        childImageSharp {
-          gatsbyImageData(layout: CONSTRAINED, width: 1200)
+
+      featuredPlatform: allMdx(
+        filter: {
+          frontmatter: {
+            content_type: { eq: "platform-product" }
+            state: { eq: "published" }
+          }
+        }
+        sort: { frontmatter: { platform_order: ASC } }
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              slug
+              excerpt
+              platform_category
+              platform_stage
+              external_url
+            }
+          }
         }
       }
 
@@ -147,6 +188,31 @@ const IndexPage = () => {
               slug
               excerpt
               display_date
+              preview_image {
+                childImageSharp {
+                  gatsbyImageData(layout: CONSTRAINED)
+                }
+              }
+            }
+          }
+        }
+      }
+
+      b0rdSolution: allMdx(
+        filter: {
+          frontmatter: {
+            slug: { eq: "b0rd" }
+            state: { eq: "published" }
+          }
+        }
+        limit: 1
+      ) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              slug
               preview_image {
                 childImageSharp {
                   gatsbyImageData(layout: CONSTRAINED)
@@ -310,36 +376,69 @@ const IndexPage = () => {
       </ul>
 
       <section className={styles.plexusFeature}>
-        <h2>The Loop That Keeps It Aligned</h2>
-        <ul className='blog'>
-          <div className='blog-post-preview'>
-            <li className="clear-float">
-              <Link to="https://plexus.anth.us">
-                <GatsbyImage
-                  image={getImage(data.plexusLogo.childImageSharp.gatsbyImageData)}
-                  alt="Plexus Platform"
-                  className="right"
-                />
-                <h3>Plexus: where the alignment actually happens</h3>
-              </Link>
-              <p>
-                Plexus is our MLOps platform for building and operating classification models and
-                agents at production scale.  It runs the feedback loop: reviewers correct the
-                system's decisions and record <em>why</em>, and those explanations become stated
-                policies the system applies from then on.  Accuracy climbs without an engineer
-                rewriting prompts.
-              </p>
-              <ul className="branded">
-                <li>In continuous production since March 2024</li>
-                <li>Hundreds of classification models, millions of interactions</li>
-                <li>SOC 2 Type II, end-to-end encrypted</li>
-                <li>Human corrections and their reasoning drive continuous alignment</li>
-              </ul>
-              <Link to="https://plexus.anth.us" className="button">Learn More</Link>
-            </li>
-          </div>
-        </ul>
+        <span className={styles.eyebrow}>PART OF</span>
+        <h2 className={styles.platformHeader}>The Anthus Platform</h2>
+        <p>
+          Solve complex business problems with AI and ML using a proven, reusable technology stack. We provide interoperable building blocks: <code>Korporus</code> hosts the application surface, <code>Tactus</code>
+          defines durable procedures, <code>Kanbus</code> coordinates workflow state, <code>Plexus</code> governs
+          evaluation and MLOps, <code>Biblicus</code> and <code>Virtuus</code> ground systems in inspectable data,
+          <code>Caducus</code> adds operational visibility, and <code>Babulus</code> extends the same code-first
+          philosophy into content and video output.
+        </p>
+        <PlatformCards items={data.featuredPlatform.edges} />
+        <div className={styles.platformRecipeGrid}>
+          {platformRecipes.map(recipe => (
+            <div key={recipe.title} className={styles.platformRecipeCard}>
+              <h3>{recipe.title}</h3>
+              <p className={styles.platformRecipeMeta}>{recipe.components.join(" + ")}</p>
+              <p>{recipe.description}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.approachActions}>
+          <Link to="/platform" className="button">Explore the platform</Link>
+          <Link to="/ai-solutions" className={styles.approachSecondaryCta}>
+            See solution patterns
+          </Link>
+        </div>
       </section>
+
+      {data.b0rdSolution.edges.length > 0 && (
+        <section className={styles.plexusFeature}>
+          <span className={styles.eyebrow}>SPINOFF</span>
+          <h2 className={styles.platformHeader}>B0rd — desk displays for agent monitoring</h2>
+          <ul className="blog">
+            <div className="blog-post-preview">
+              <li className="clear-float">
+                <Link to="/blog/b0rd">
+                  <GatsbyImage
+                    image={getImage(data.b0rdSolution.edges[0].node.frontmatter.preview_image)}
+                    alt="B0rd LED matrix desk display"
+                    className="right"
+                  />
+                  <h3>Glanceable signal when agents run all day</h3>
+                </Link>
+                <p>
+                  <strong>Anthus Microelectronics</strong> grew out of the same workflow problem: when coding agents
+                  run for hours, the bottleneck moves to monitoring and steering them. B0rd is a standalone LED-matrix
+                  desk display — launch countdowns, agent status, notifications, an idle clock — readable from across
+                  the room. Handbuilt hardware running a handbuilt (AI-assisted) OS. Matching units stay in sync
+                  without pairing or a hub.
+                </p>
+                <ul className="branded">
+                  <li>Standalone appliance — browser setup, no app store</li>
+                  <li>Glanceable cues for long-running agent sessions</li>
+                  <li>In sync by design across matching units</li>
+                </ul>
+                <Link to="/blog/b0rd" className="button">Read the B0rd story</Link>
+                <a href="https://b0rd.info" className={styles.approachSecondaryCta} style={{ marginLeft: "1rem" }}>
+                  b0rd.info
+                </a>
+              </li>
+            </div>
+          </ul>
+        </section>
+      )}
 
       <h2>Featured Solutions</h2>
       <ul className='blog'>

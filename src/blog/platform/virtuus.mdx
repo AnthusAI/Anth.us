@@ -1,0 +1,39 @@
+---
+title: "Virtuus"
+slug: "virtuus"
+date: "2026-03-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["platform"]
+preview_image: "../images/platform-virtuus.png"
+images:
+  - "../images/platform-virtuus.png"
+excerpt: "Virtuus is the Anthus structured-data layer: a filesystem-native virtual table engine for JSON records with just-in-time indexing and fast query access after load."
+state: published
+content_type: "platform-product"
+platform_category: "Data and Knowledge"
+platform_order: 6
+platform_stage: "Active development"
+external_url: "https://github.com/AnthusAI/Virtuus"
+---
+
+## What it is
+
+Virtuus represents a recurring Anthus design choice: keep the source of truth simple, visible, and portable. It treats directories of JSON files as indexed tables, which makes structured data queryable in environments where a heavyweight always-on database is the wrong fit.
+
+## What it does
+
+- Represents records as per-file JSON while preserving table-like query semantics.
+- Supports primary keys, secondary indexes, associations, search, and pagination.
+- Optimizes for cold-start-friendly workloads where data is loaded once and queried often.
+- Provides Python and Rust implementations around the same behavioral model.
+
+## Why it matters
+
+Not every agent workload wants a remote database. Some need to run in isolated, resumable, or regulated environments where the filesystem is the practical durable substrate. Virtuus exists for that class of problem.
+
+## How it fits the Anthus Platform
+
+Virtuus is a foundational infrastructure component. [Caducus](/platform/caducus) already uses it for event storage. [Tactus](/platform/tactus) procedures and other isolated workers can use it when they need fast local queries without depending on a central service. It makes the rest of the platform more portable.
+
+A common pattern is [Virtuus](/platform/virtuus) + [Tactus](/platform/tactus) + [Caducus](/platform/caducus): keep structured state local, make the worker portable, and retain enough query power for analysis and triage.

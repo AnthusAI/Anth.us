@@ -28,6 +28,10 @@ export default {
         link:'/ai-solutions'
       },
       {
+        name:'Platform',
+        link:'/platform'
+      },
+      {
         name:'About',
         link:'/about'
       },

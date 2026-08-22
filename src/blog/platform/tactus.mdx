@@ -1,0 +1,39 @@
+---
+title: "Tactus"
+slug: "tactus"
+date: "2026-03-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["platform"]
+preview_image: "../images/platform-tactus.png"
+images:
+  - "../images/platform-tactus.png"
+excerpt: "Tactus is a programming language and runtime for durable AI-agent procedures, with sandboxing, built-in BDD specifications, checkpointing, and human-in-the-loop controls as first-class concepts."
+state: published
+content_type: "platform-product"
+platform_category: "Agent Execution"
+platform_order: 3
+platform_stage: "Alpha"
+external_url: "https://github.com/AnthusAI/Tactus"
+---
+
+## What it is
+
+Tactus is Anthus's answer to the question, "What should agent software look like when reliability matters?" It is a language and runtime for building tool-using AI procedures that can pause, resume, checkpoint, call models, and ask for human intervention without forcing developers to reinvent that control flow in every project.
+
+## What it does
+
+- Defines agent procedures in a durable, sandboxed DSL built for tool use.
+- Makes checkpointing and resume behavior transparent instead of bolted on.
+- Treats human approval, review, and intervention as native language concepts.
+- Includes BDD-style specifications and evaluation workflows directly in the development loop.
+
+## Why it matters
+
+Many agent tools optimize for the first demo. Tactus optimizes for the moment you need the procedure to be inspectable, testable, restartable, and safe to operate in real environments. That makes it strategically important to Anthus, and important enough to feature separately on the site.
+
+## How it fits the Anthus Platform
+
+Tactus is the procedural core of the platform. It can call [Plexus](/platform/plexus) through MCP, use [Biblicus](/platform/biblicus) for grounded retrieval, rely on [Virtuus](/platform/virtuus) for local structured data, and fit naturally inside [Korporus](/platform/korporus) as part of a larger application runtime.
+
+A common pattern is [Biblicus](/platform/biblicus) + [Tactus](/platform/tactus) + [Plexus](/platform/plexus): gather evidence, encode the repeatable procedure, then benchmark and improve the workflow over time.

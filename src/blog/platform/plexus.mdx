@@ -1,0 +1,39 @@
+---
+title: "Plexus"
+slug: "plexus"
+date: "2026-03-27"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags: ["platform"]
+preview_image: "../images/platform-plexus.png"
+images:
+  - "../images/platform-plexus.png"
+excerpt: "Plexus is the Anthus MLOps platform and agent incubator: the system that evaluates, deploys, and continuously improves AI agents with human feedback in the loop."
+state: published
+content_type: "platform-product"
+platform_category: "Platform Runtime"
+platform_order: 1
+platform_stage: "Production"
+external_url: "https://plexus.anth.us"
+---
+
+## What it is
+
+Plexus is the control plane for production AI systems at Anthus. It turns model prompts, classifiers, and agent procedures into versioned operational assets with evaluation, deployment controls, and feedback loops that can keep improving after launch.
+
+## What it does
+
+- Manages scorecards, procedures, and evaluation workflows as durable configuration.
+- Connects human review directly to retraining and alignment workflows.
+- Supports regression testing, benchmarking, and controlled rollout of changes.
+- Exposes platform capabilities through MCP so other agent systems can operate against it safely.
+
+## Why it matters
+
+Most teams can get a demo working. The difficult part is operating an adaptive system without losing track of what changed, why it changed, and whether the new version is better. Plexus is where Anthus puts that operational discipline.
+
+## How it fits the Anthus Platform
+
+Plexus sits near the center of the stack. [Tactus](/platform/tactus) can call into it through MCP. [Korporus](/platform/korporus) can host interfaces and workers around it. [Biblicus](/platform/biblicus), [Virtuus](/platform/virtuus), and [Caducus](/platform/caducus) support adjacent knowledge, storage, and operator workflows.
+
+A common pattern is [Tactus](/platform/tactus) + [Plexus](/platform/plexus) + [Caducus](/platform/caducus): define the procedure, evaluate and improve it, then keep operators informed once it is live.
