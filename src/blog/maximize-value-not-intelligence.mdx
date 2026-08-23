@@ -12,6 +12,7 @@ images:
   - ./images/value-over-time.png
   - ./images/value-frontier.png
   - ./images/break-even-crossing.png
+  - ./images/the-backlog-worked.png
 state: published
 tags:
   - articles
@@ -548,40 +549,21 @@ Documentation is the cleanest example because the tooling already exists. Tools 
 
 That last clause is not decoration. <mark>None of this auto-merges.</mark> The productivity lands in the gap between "nobody had time" and "somebody reviewed it," and deleting the review does not widen the gap—it just moves the failures into production.
 
-{/* VISUAL PROMPT — the-backlog-worked.png (photoreal, generated) --------
-    The warm counterpart to the companion articles' two cold images. This
-    article is the constructive one of the three, and its cinematic piece
-    should feel like relief rather than menace -- the backlog finally
-    moving, quietly, at 3am.
+{/* Generated via Midjourney, installed. Deliberate contrast with the other
+    two economics articles' cinematic pieces: cost-collapse gets an army,
+    bugonomics gets a corridor of doors, this one gets a single small robot
+    quietly doing the work nobody had time for -- same family, opposite
+    emotional register. */}
 
-    PROMPT:
-    Cinematic photograph of a dim back office at night. Towering stacks of
-    dusty paper trays, folders and unopened boxes fill the frame, receding
-    into shadow. In one warm pool of light from a single desk lamp, a small
-    articulated robot arm is methodically filing one sheet of paper into a
-    tray. Everything else is still and dark. Warm amber key light against
-    cool blue shadow, shallow depth of field, no people. Photorealistic,
-    35mm, slight film grain. Calm, patient, slightly hopeful.
-
-    Deliberate contrast: the cost-collapse article gets an army, the
-    security article gets a corridor of doors, this one gets a single small
-    machine quietly doing the work nobody had time for. Same visual family,
-    opposite emotional register.
-
-    Alt: "A small robot arm filing paper under a desk lamp, surrounded by
-          towering stacks of untouched paperwork in a dark office."
-    Caption: "The work nobody had time for, finally getting done."
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">photoreal · the-backlog-worked.png · 3:2 or square</div>
-  <div className="container">
-    A single small robot arm filing paper in a warm pool of lamplight, surrounded by
-    towering dark stacks of untouched work. Deliberately the warm one of the three
-    cinematic images — army, corridor, and this: same family, opposite register.
-    <br /><b>Caption:</b> The work nobody had time for, finally getting done.
-  </div>
-</div>
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="the-backlog-worked.png"
+  className="full"
+  alt="A small pink-eyed robot filing paper under a warm desk lamp at night, surrounded by towering stacks of untouched paperwork in a dark office."
+/>
+<p style={{ textAlign: 'center', fontStyle: 'italic', color: '#6B6B6B', marginTop: '-1em' }}>
+  The work nobody had time for, finally getting done.
+</p>
 
 The same shift scales past one person's chores. A clinical-trial matching product is run by a single operator with four standing Claude Code sessions against a shared backlog: one that prioritizes, one that watches traffic and files content tasks, and two working engineering tasks in parallel.<Citation
   data={{
