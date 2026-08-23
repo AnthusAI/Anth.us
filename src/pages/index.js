@@ -278,7 +278,7 @@ const IndexPage = () => {
       image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       alt: "Custom and fine-tuned machine learning models",
       description:
-        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS\u2014training, serving, and evaluation included.",
+        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS—training, serving, and evaluation included.",
     },
   ]
 
