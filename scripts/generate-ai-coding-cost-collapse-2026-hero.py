@@ -54,12 +54,18 @@ for label, start_cost, annual_decay, color in SERIES:
 swe_start = series_at(START, SERIES[2][1], SERIES[2][2])
 swe_end = series_at(END, SERIES[2][1], SERIES[2][2])
 
+# The emphasized line is SWE-bench, so the label has to state SWE-bench's own
+# rate (4.7x/yr). An earlier version pointed this same leader line at the
+# SWE-bench endpoint while labelling it with MIT's overall 5x-10x band -- a
+# band SWE-bench actually falls BELOW. The general band belongs in the body
+# copy, not on an arrow aimed at the one series that contradicts it.
 ax.annotate(
-    "5×-10× cheaper\nper year",
+    "SWE-bench Verified\n~4.7× cheaper per year",
     xy=(end_num, swe_end),
-    xytext=(-100, 30),
+    xytext=(-150, 62),
     textcoords="offset points",
-    fontsize=15,
+    fontsize=14,
+    ha="left",
     color=SERIES[2][3],
     fontweight="bold",
     arrowprops=dict(arrowstyle="-", color="#9B1B30", lw=1.2),
