@@ -307,11 +307,6 @@ const IndexPage = () => {
             We solve your business problems with AI, then run it in production—where it gets more accurate.
           </p>
           <Link to="/ai-solutions" className="button">Learn More</Link>
-          <div className={styles.heroSecondary}>
-            <Link to="/blog/cybernetic-development" className={styles.heroSecondaryLink}>
-              Read: Cybernetic Development
-            </Link>
-          </div>
         </div>
       </Hero>
 

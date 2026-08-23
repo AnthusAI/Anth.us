@@ -1066,6 +1066,20 @@ footer {
       right: var(--size-gutter);
       top: var(--space-4);
       transform: none;
+
+      // Full width now runs text across the whole image -- including the
+      // robot on the right, which the headline/subhead sat directly on top
+      // of. Object-position can't fix this generally (chased that once
+      // already this session; the subject moves, the text doesn't). A scrim
+      // behind the text keeps it legible regardless of what's underneath.
+      // Block-level (not inline + box-decoration-break) so existing vertical
+      // margins between h1/p/button keep working as they already do.
+      h1, p {
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 0.4em;
+        padding: 0.2em 0.4em;
+        width: fit-content;
+      }
     }
 
     h1, h2, h3, h4 {
