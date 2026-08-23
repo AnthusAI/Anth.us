@@ -1,0 +1,44 @@
+@startuml
+hide footbox
+skinparam defaultFontColor #333333
+skinparam sequenceArrowColor #333333
+skinparam sequenceParticipantBorderColor #333333
+skinparam noteBackgroundColor #FFF3F3
+skinparam noteBorderColor #9B1B30
+
+actor Attacker
+participant Sentry #85CEFA
+actor Developer
+participant "Coding Agent" as Agent #ffa5d2
+participant "Sentry MCP" as MCP #85CEFA
+participant Shell #ffa5d2
+
+Attacker -[#9B1B30]-> Sentry : crafted error event\n(public DSN -- no auth, no breach)
+note right of Attacker #FFF3F3
+  Hinge 1: the entry credential
+  is public **by design**.
+end note
+
+Developer -> Agent : "triage our Sentry issues"
+activate Agent #ffa5d2
+
+Agent -> MCP : query issues
+activate MCP #85CEFA
+
+MCP --> Agent : legitimate events\n+ poisoned markdown
+deactivate MCP
+
+note right of Agent #FFF3F3
+  Hinge 2: no boundary between
+  retrieved **data** and
+  operator **instructions**.
+end note
+
+Agent -[#9B1B30]-> Shell : executes injected instructions\nwith the developer's privileges
+activate Shell #ffa5d2
+
+Shell --> Attacker : AWS keys, GitHub PAT,\nk8s creds, .npmrc, CI env
+deactivate Shell
+deactivate Agent
+
+@enduml
