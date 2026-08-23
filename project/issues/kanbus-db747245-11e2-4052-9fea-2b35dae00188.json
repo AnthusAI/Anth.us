@@ -1,0 +1,31 @@
+{
+  "id": "kanbus-db747245-11e2-4052-9fea-2b35dae00188",
+  "title": "Article 2: Bugonomics - the security flip side of cheap AI coding",
+  "description": "",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "41b67d6f-68f6-4864-af78-d574f9ca104b",
+      "author": "ryan",
+      "text": "Article 2 drafted and verified. src/blog/bugonomics-cheap-exploits-2026.mdx: opens by callback to Article 1, Bugonomics (exploit chains approaching commodity), Jevons echo (cheaper offense = more offense), Agentjacking with concrete Sentry MCP example, LLM-in-the-Loop taxonomy, NHI governance shift (CVSS -> blast radius), symmetric frontier caveat, practical takeaways, cross-link to Article 1. Hero image created. Build passes (exit 0); citations render. state: draft.",
+      "created_at": "2026-08-16T13:34:09.603509Z"
+    },
+    {
+      "id": "926edb75-738f-493b-95cf-790adfb61a51",
+      "author": "ryan",
+      "text": "Article 2 aligned with evolved framing. Opening callback now references Article 1's evolved thesis (price collapse + autonomy synergy + same-domain Jevons catch: cheaper coding -> more coding -> total spend can rise). Article 2 positioned as the flip side: same curve applied across to a different activity (cheaper offense -> more offense). Jevons echo section updated to reference that Article 1 already showed the same-domain version, and this is the flip-side (more dangerous). Jevons book citation kept. Serves HTTP 200. state: draft.",
+      "created_at": "2026-08-16T14:57:57.182113Z"
+    }
+  ],
+  "created_at": "2026-08-16T13:27:06.707111Z",
+  "updated_at": "2026-08-16T14:57:57.182113Z",
+  "closed_at": null,
+  "custom": {}
+}

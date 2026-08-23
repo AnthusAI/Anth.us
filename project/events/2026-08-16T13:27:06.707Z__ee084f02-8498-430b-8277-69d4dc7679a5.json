@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "ee084f02-8498-430b-8277-69d4dc7679a5",
+  "issue_id": "kanbus-db747245-11e2-4052-9fea-2b35dae00188",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-16T13:27:06.707Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Article 2: Bugonomics - the security flip side of cheap AI coding"
+  }
+}
