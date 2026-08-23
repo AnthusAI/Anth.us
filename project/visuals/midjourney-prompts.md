@@ -57,11 +57,16 @@ Photorealistic close shot of a small friendly white ceramic robot with glowing m
 `src/blog/images/trying-every-door.png` · 3:2 · caption: *"What got cheap was not
 breaking in. It was trying."*
 
-Carries **volume, not menace**. It does not matter that almost every door is
-locked — the arms are free.
+**Revised** — the original "robotic arm gripping the handle" (no body) rendered
+literally: arms growing out of the doors, which reads as broken, not uncanny.
+Swapped to the full house robot standing at each door — an embodied figure the
+model can actually render coherently at that repetition. Also dropped "quietly
+menacing": house rule is the robot stays friendly even here. Carries **volume,
+not menace** — it does not matter that almost every door is locked, there are as
+many robots as there are doors.
 
 ```
-Wide cinematic photograph looking down an impossibly long corridor lined on both sides with identical closed metal doors receding into darkness. At every single door an identical robotic arm grips the handle, all turning at once. Cold blue-grey light, hard shadows, deep one-point perspective, shallow depth of field at the far end. No people. 35mm, slight film grain, quietly menacing. --ar 3:2 --profile pyq37xu
+Wide cinematic photograph looking down an impossibly long corridor lined on both sides with identical closed metal doors receding into darkness. At every single door stands an identical small white robot with glowing magenta eyes, each calmly reaching for its door handle. Cold blue-grey light, hard shadows, deep one-point perspective, shallow depth of field at the far end. No people. Orderly, patient, endless. 35mm, slight film grain. --ar 3:2 --profile pyq37xu
 ```
 
 ---
