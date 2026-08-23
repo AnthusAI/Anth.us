@@ -1,0 +1,27 @@
+@startuml
+scale 2
+skinparam defaultFontColor #333333
+skinparam activityBorderColor #333333
+skinparam activityBackgroundColor #E8F0F7
+skinparam activityDiamondBackgroundColor #FFF3F3
+skinparam activityDiamondBorderColor #9B1B30
+skinparam arrowColor #333333
+
+start
+if (ambiguous / architectural /\nsecurity-sensitive?) then (yes)
+  :start at PREMIUM;
+  stop
+endif
+:run on the VALUE tier;
+repeat
+  if (objective failure signal?\n(CI red, tests failing,\nchanged-file threshold)) then (no)
+    :accept the change;
+    stop
+  endif
+  :feed the failing test output\n+ the diff;
+  -[#9B1B30]-> **state has changed**;
+  :retry;
+repeat while (attempts < 3 AND\nmeasurable progress?) is (yes)
+:escalate one tier;
+stop
+@enduml

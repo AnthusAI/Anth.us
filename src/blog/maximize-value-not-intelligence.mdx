@@ -13,6 +13,7 @@ images:
   - ./images/value-frontier.png
   - ./images/break-even-crossing.png
   - ./images/the-backlog-worked.png
+  - ./diagrams/routing-loop.png
 state: published
 tags:
   - articles
@@ -169,61 +170,42 @@ Once you exclude the toy-scale models and the two dominated ones, the market sor
 
 There is no useful ultra-cheap tier sitting below Luna—not because cheap models do not exist, but because the ones cheap enough to matter are not good enough to trust with a real change, and the ones good enough to trust are Luna or better. If you find a genuine exception—a narrow, high-volume, low-stakes job where a smaller model clears your bar and Luna is overkill—route it there. Do not go looking for one on the strength of a leaderboard rank alone.
 
-{/* VISUAL SPEC — two tiers + routing loop (two visuals, one section) ----
+{/* (a) Reuses the existing .comparisonChart CSS, same pattern as
+    ai-coding-cost-collapse-2026.mdx's "fast tier inverted" and the
+    reference in how-ai-agents-do-things.mdx. */}
 
-    (a) THE TWO TIERS — HTML .comparisonChart, no asset needed. This is
-        exactly the shape .comparisonChart already handles (see
-        how-ai-agents-do-things.mdx for a working two-column example) --
-        no need to extend it to three columns anymore.
-          VALUE        Luna
-                       wins: strong agentic coding at low cost
-                       run: your default -- real repository work
-          PREMIUM      Sol, top Claude variants
-                       wins: highest absolute completion rate
-                       run: ambiguous, architectural, security-sensitive
-        Consider a footnote row under both columns: "Terra, Flash-Lite, Kimi K3,
-        GPT-5.3 Codex: dominated on value — skip unless the task demands it."
-
-    (b) THE ROUTING LOOP — PlantUML activity diagram -> routing-loop.svg
-        Toolchain already present (src/blog/diagrams/, plantuml_diagrams).
-
-        @startuml
-        start
-        if (ambiguous / architectural / security-sensitive?) then (yes)
-          :start at PREMIUM;
-          stop
-        endif
-        :run on the VALUE tier;
-        repeat
-          if (objective failure signal?) then (no)
-            :accept the change;
-            stop
-          endif
-          :feed the failing test output + the diff;
-          :retry -- state has changed;
-        repeat while (attempts < 3 AND measurable progress?) is (yes)
-        :escalate one tier;
-        stop
-        @enduml
-
-        The two labels that matter: "state has changed" on the retry edge
-        (a blind retry is not a repair loop) and "objective failure signal"
-        on the branch (CI red, tests failing, changed-file threshold).
-
-    Alt (b): "Activity diagram of a cheap-first routing policy with a
-              bounded repair loop and evidence-gated escalation."
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">HTML comparisonChart + PlantUML activity · two visuals</div>
-  <div className="container">
-    <b>(a)</b> Value vs. Premium side by side — what each wins on and what to run on
-    it. Fits the existing two-column <code>.comparisonChart</code> as-is.
-    <br /><b>(b)</b> <code>routing-loop.svg</code> — cheap-first activity diagram with a
-    bounded repair loop. Key labels: “state has changed” on the retry edge, and
-    “objective failure signal” on the branch.
+<div className="comparisonChart">
+  <div className="left-side">
+    <h4>Value &mdash; Luna</h4>
+    <ul className="branded">
+      <li>Wins: strong agentic coding at low cost</li>
+      <li>Run: your default &mdash; real repository work</li>
+    </ul>
+  </div>
+  <div className="separator"></div>
+  <div className="right-side">
+    <h4>Premium &mdash; Sol, top Claude variants</h4>
+    <ul className="branded">
+      <li>Wins: highest absolute completion rate</li>
+      <li>Run: ambiguous, architectural, security-sensitive</li>
+    </ul>
   </div>
 </div>
+<p style={{ textAlign: 'center', fontStyle: 'italic', color: '#6B6B6B', marginTop: '-0.5em' }}>
+  Terra, Flash-Lite, Kimi K3, GPT-5.3 Codex: dominated on value &mdash; skip unless the task demands it.
+</p>
+
+{/* (b) Generated via PlantUML (public render server), scale 2 for crisp
+    text at .centered's 66% width. Both hinge labels from the brief are
+    present: "objective failure signal" as the branch's own question text,
+    "state has changed" as a colored edge label on the retry transition. */}
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="routing-loop.png"
+  className="centered"
+  alt="Activity diagram of a cheap-first routing policy: ambiguous, architectural, or security-sensitive work starts at the premium tier; everything else runs on the value tier with a bounded repair loop that feeds back the failing test output and diff, retries up to three times while making measurable progress, and escalates one tier on an objective failure signal."
+/>
 
 The cheap tier's cost advantage is enormous enough to absorb a lot of failure. At a 25× price ratio, you can run roughly twenty-four Luna attempts before you have spent what one Sol attempt costs. Five retries on the cheap tier costs about a fifth of one attempt on the flagship.
 
