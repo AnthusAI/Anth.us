@@ -9,7 +9,7 @@ import PlatformCards from "../components/platform-cards"
 import * as styles from "../components/index.module.css"
 
 const mission = {
-  description: "Deliver <mark>reliable, secure, and efficient</mark> business solutions using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We build them to keep working when nobody is watching."
+  description: "Deliver <mark>reliable, secure, and efficient</mark> business solutions using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We build systems that keep working when nobody is watching."
 }
 
 const values = [
@@ -35,7 +35,7 @@ const values = [
   },
   {
     text: "Implement Infrastructure as Code",
-    description: "Leverage DevOps, <mark>MLOps, and LLMOps</mark> to implement Infrastructure as Code. Every part of a production system—including the models, their training runs, and their evaluations—should be created by code so it's reproducible, not clicked together by hand."
+    description: "Leverage DevOps to implement Infrastructure as Code, and <mark>MLOps and LLMOps</mark> to do the same for the models. Every part of a production system—including training runs and evaluations—should be created by code so it's reproducible, not clicked together by hand."
   },
   {
     text: "Commodify AI Models",
