@@ -249,20 +249,20 @@ const IndexPage = () => {
   // themselves. Each links to published proof.
   const links = [
     {
-      text: "Self-Aligning Automation",
-      url: "/blog/call-criteria/",
-      image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
-      alt: "Unattended automation with a human in the loop",
-      description:
-        "Unattended business process automation with a human in the loop.  Reviewers correct it and say why; the system <mark>turns the explanation into a stated policy</mark> and applies it from then on.",
-    },
-    {
       text: "Knowledge Bases",
       url: "https://github.com/AnthusAI/Biblicus",
-      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
+      image: getImage(data.smartProcessAutomation.childImageSharp.gatsbyImageData),
       alt: "Knowledge bases with learned ontologies and taxonomies",
       description:
         "Your agents are only as good as what they can look up.  We build knowledge bases with <mark>ontologies and taxonomies that learn from your data</mark>, refining their own structure instead of going stale the week after someone hand-built them.",
+    },
+    {
+      text: "Self-Aligning Automation",
+      url: "/blog/call-criteria/",
+      image: getImage(data.aiEnabledProjects.childImageSharp.gatsbyImageData),
+      alt: "Unattended automation with a human in the loop",
+      description:
+        "Unattended business process automation with a human in the loop.  Reviewers correct it and say why; the system <mark>turns the explanation into a stated policy</mark> and applies it from then on.",
     },
     {
       text: "Agent Systems",
