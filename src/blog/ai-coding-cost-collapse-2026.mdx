@@ -60,28 +60,28 @@ The "fast" model tier inverted. In 2025, "fast" meant a smaller, discount model�
   }}
 /> Speed became the product the big labs are selling, not savings.
 
-{/* VISUAL SPEC — the fast tier inverted (HTML comparisonChart, no asset) ---
-    Use the existing .comparisonChart CSS (see how-ai-agents-do-things.mdx
-    for a working example). Renders as real text: accessible, searchable,
-    nothing to generate.
+{/* Reuses the existing .comparisonChart CSS -- see the working example in
+    how-ai-agents-do-things.mdx. Real text, not an image: accessible,
+    searchable, nothing to generate. */}
 
-    LEFT  — "2025: fast meant cheap"
-      Haiku / Flash / mini
-      Smaller, distilled, discount tier
-      Priced BELOW the flagship
-    RIGHT — "2026: fast means premium"
-      Fable 5 — $10 / $50 per 1M
-      Opus 5 — $5 / $25 per 1M
-      GPT-5.6 Sol — $5 / $30, Ultrafast at 14x for a premium
-      Priced ABOVE the flagship
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">comparisonChart · the fast tier inverted · no asset needed</div>
-  <div className="container">
-    Two-column: <b>2025</b> — “fast” meant Haiku/Flash/mini, priced <i>below</i> the
-    flagship. <b>2026</b> — “fast” means Fable 5 at $10/$50 against Opus 5’s $5/$25,
-    priced <i>above</i> it. Reuses the existing <code>.comparisonChart</code> CSS.
+<div className="comparisonChart">
+  <div className="left-side">
+    <h4>2025: Fast Meant Cheap</h4>
+    <ul className="branded">
+      <li>Haiku, Flash, mini</li>
+      <li>Smaller, distilled, discount tier</li>
+      <li>Priced <b>below</b> the flagship</li>
+    </ul>
+  </div>
+  <div className="separator"></div>
+  <div className="right-side">
+    <h4>2026: Fast Means Premium</h4>
+    <ul className="branded">
+      <li>Fable 5 &mdash; $10 / $50 per 1M</li>
+      <li>Opus 5 &mdash; $5 / $25 per 1M</li>
+      <li>GPT-5.6 Sol &mdash; $5 / $30, Ultrafast at 14&times; for a premium</li>
+      <li>Priced <b>above</b> the flagship</li>
+    </ul>
   </div>
 </div>
 
@@ -396,30 +396,32 @@ An agent loop is not a chat. A chatbot returns one response. An agent plans, cal
   }}
 /> A 50-turn session can run a 25:1 ratio of input to output tokens. The cost grows with the loop length, not the answer length.
 
-{/* VISUAL SPEC — the pricey context snowball (HTML blockDiagram) ---------
-    No asset needed. Use .blockDiagram + .container, following the pattern
-    in how-ai-agents-do-things.mdx.
+{/* Inline-style proportional bars, same technique as the abstraction-
+    spectrum gauges in cybernetic-development.mdx. No asset -- pure HTML/CSS
+    inside the existing .blockDiagram/.container styling. Illustrative
+    proportions toward a 200k-token window, not a measured trace. */}
 
-    Stacked rows, each a turn, with a proportional bar of re-sent context:
-      turn 1    |=                          |  small
-      turn 10   |==========                 |
-      turn 25   |========================   |
-      turn 50   |===========================|  full 200k window
-    Then a summary row: input:output tokens on a 50-turn session = 25:1
-
-    Bars can be plain characters or nested divs with percentage widths --
-    either renders as real text and needs no image generation.
-
-    The point: the agent re-sends a GROWING context on EVERY step, so cost
-    tracks loop length, not answer length.
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">blockDiagram · the pricey context snowball · no asset needed</div>
+<div className="blockDiagram">
+  <div className="title">The Context Snowball</div>
   <div className="container">
-    Stacked turn rows (1 / 10 / 25 / 50) with proportional bars for the context
-    re-sent each step, closing on the 25:1 input-to-output ratio. Pure HTML/CSS,
-    reusing the existing <code>.blockDiagram</code> styling.
+    {[
+      ['Turn 1', 2, '~4K tokens'],
+      ['Turn 10', 35, '~70K tokens'],
+      ['Turn 25', 75, '~150K tokens'],
+      ['Turn 50', 100, '~200K (full window)'],
+    ].map(([label, pct, note]) => (
+      <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '0.7em', margin: '0.4em 0', fontSize: '0.9em' }}>
+        <span style={{ width: '5em', flexShrink: 0 }}>{label}</span>
+        <span style={{ flex: 1, height: '12px', borderRadius: '6px', backgroundColor: '#E6E6E6', display: 'inline-block', overflow: 'hidden' }}>
+          <span style={{ display: 'block', height: '100%', width: `${pct}%`, backgroundColor: '#9B1B30', borderRadius: '6px' }} />
+        </span>
+        <span style={{ width: '11em', flexShrink: 0, textAlign: 'right', color: '#6B6B6B', whiteSpace: 'nowrap' }}>{note}</span>
+      </div>
+    ))}
+    <p style={{ textAlign: 'center', fontStyle: 'italic', color: '#6B6B6B', marginTop: '0.9em', marginBottom: 0 }}>
+      Every turn re-sends the whole conversation. On a 50-turn session, that's roughly
+      <b> 25 input tokens for every 1 output token</b> &mdash; illustrative, not a measured trace.
+    </p>
   </div>
 </div>
 
