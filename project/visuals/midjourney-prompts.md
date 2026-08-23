@@ -57,16 +57,26 @@ Photorealistic close shot of a small friendly white ceramic robot with glowing m
 `src/blog/images/trying-every-door.png` · 3:2 · caption: *"What got cheap was not
 breaking in. It was trying."*
 
-**Revised** — the original "robotic arm gripping the handle" (no body) rendered
-literally: arms growing out of the doors, which reads as broken, not uncanny.
-Swapped to the full house robot standing at each door — an embodied figure the
-model can actually render coherently at that repetition. Also dropped "quietly
-menacing": house rule is the robot stays friendly even here. Carries **volume,
-not menace** — it does not matter that almost every door is locked, there are as
-many robots as there are doors.
+**Third attempt.** Attempt 1: "robotic arm gripping the handle," no body —
+rendered literally, arms growing out of the doors. Attempt 2: swapped to the full
+house robot "standing at" each door — same fusion in a new shape, most robots
+rendered merged into the door surface instead of standing in front of it. This
+looks like a Midjourney tendency: dense identical figures tightly interleaved
+with dense identical architecture in a deep one-point-perspective corridor wants
+to fuse regardless of which noun is doing the fusing.
+
+This attempt adds explicit physical separation to the positive prompt (a stated
+gap, "freestanding," reaching "without touching") plus a `--no` targeting the
+exact failure mode directly. **If this also fuses**, stop iterating on wording —
+change the composition instead: 2-3 robots in sharp foreground focus with the
+rest of the corridor implied in blur, not dozens all in hard focus down one
+vanishing line.
+
+Carries **volume, not menace** — it does not matter that almost every door is
+locked, there are as many robots as there are doors.
 
 ```
-Wide cinematic photograph looking down an impossibly long corridor lined on both sides with identical closed metal doors receding into darkness. At every single door stands an identical small white robot with glowing magenta eyes, each calmly reaching for its door handle. Cold blue-grey light, hard shadows, deep one-point perspective, shallow depth of field at the far end. No people. Orderly, patient, endless. 35mm, slight film grain. --ar 3:2 --profile pyq37xu
+Wide cinematic photograph of a long institutional corridor lined on both sides with identical closed metal doors, receding into darkness in one-point perspective. On the floor in front of each door, standing a full step away with a clear visible gap between it and the door, is an identical small white robot with glowing magenta eyes. Each robot is freestanding, fully separate from the door surface -- not attached to it, not emerging from it. One arm is extended, reaching toward the handle without touching it. Cold blue-grey light, hard shadows, shallow depth of field at the far end. No people. Orderly, patient, endless. Photorealistic, 35mm, slight film grain. --ar 3:2 --profile pyq37xu --no merged with door, fused, growing from door, attached to door, embedded in door
 ```
 
 ---
