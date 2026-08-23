@@ -1,0 +1,67 @@
+{
+  "id": "kanbus-35cf8ed6-e09a-4d11-bc61-c93b3cda7780",
+  "title": "Article: AI coding cost collapse 2026",
+  "description": "",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "1ffa9347-9bc3-4322-b39d-5f836339ac19",
+      "author": "ryan",
+      "text": "Draft article at src/blog/ai-coding-cost-collapse-2026.mdx (state: draft). Hero image at src/blog/images/ai-coding-cost-collapse-2026.png. Covers MIT CSAIL price-performance paper, Epoch AI, Stanford AI Index, Dialogue-SWEBench agent costs, and $200→$20 framing with caveats.",
+      "created_at": "2026-08-16T12:35:18.099878Z"
+    },
+    {
+      "id": "16512d36-7015-466a-b05f-6304f7624f27",
+      "author": "ryan",
+      "text": "Direction update: Article 1 refocused from pure economics to orchestration-lifestyle piece (cost collapse -> parallel agent teams -> chore tasks -> one-person big-team output). Will forward-link to a new Article 2 (Bugonomics/security). Drafting both in tandem as a coherent paired set sharing the MIT price-performance anchor.",
+      "created_at": "2026-08-16T13:27:06.654991Z"
+    },
+    {
+      "id": "b3b454be-5597-4682-b799-55ca79dd0ae7",
+      "author": "ryan",
+      "text": "Article 1 refocused and verified. src/blog/ai-coding-cost-collapse-2026.mdx now runs cost-collapse -> 'same budget buys a team' -> orchestration primitives -> chore tasks (docs/security/deps/tests) -> one-person big-team output (32-day SaaS, clinical-trial shop) -> frontier caveat -> forward link to Article 2. Build passes (exit 0); citations render. state: draft.",
+      "created_at": "2026-08-16T13:34:09.549911Z"
+    },
+    {
+      "id": "48ff6680-44ac-4c14-905b-0656a47c67ba",
+      "author": "ryan",
+      "text": "Article 1 fully rewritten with evolved thesis. New arc: vibe-coding intro (10x since Feb 2025) -> MIT research + '10x is conservative' note -> Dialogue-SWEBench -> NEW 'Not just cheaper - autonomous for longer' (Codex Dec 2025, METR 7-month doubling) -> NEW 'Why the two effects multiply' (pricey context snowball, nested subagent token multiplication, Harness Effect) -> REFRAMED 'Delegating milestones, not lines' (Augment Project Builder: unit of work is the project not the PR) -> chore tasks -> one-person big-team output -> NEW 'The Jevons catch' (honest: cheaper coding -> more coding -> total spend can rise; callback to existing Jevons article; not advocacy) -> caveat -> flip-side link to Article 2 -> closing. Serves HTTP 200. state: draft.",
+      "created_at": "2026-08-16T14:55:29.436263Z"
+    },
+    {
+      "id": "946a0141-21cd-4d16-8cae-28bde88d7073",
+      "author": "ryan",
+      "text": "Replaced the 'caveat' section with 'What the big labs don't want you know' per user direction (no hedging). New section: the tension = you don't need their expensive frontier models; cheap models undercut the big labs' business model; big labs pushing prices UP (Fable 5 $10/$50, Sol $5/$30 vs Opus 5 $5/$25 - the 'fast' tier inverted from discount to premium); Chinese labs going opposite (GLM 5.2 $1.40/$4.40 = Opus-adjacent performance at Haiku money). Haiku vs GLM-5.2 comparison: Haiku 4.5 $1/$5 (Anthropic cheapest) vs GLM-5.2 $1.40/$4.40 (~Haiku money, ~Opus quality; coding agent ~$222/mo vs Opus ~$1,025, Haiku ~$205). Punchline: GLM 5.2 costs Haiku money for Opus quality; route bulk to cheap models, reserve frontier for the hard tail. Serves HTTP 200, 0 MDX errors.",
+      "created_at": "2026-08-16T15:11:24.843430Z"
+    },
+    {
+      "id": "1863b1c1-2626-4738-8313-5f77998ad364",
+      "author": "ryan",
+      "text": "Moved 'What the big labs don't want you to know' up to right after the intro (before the research section) and rewrote it shorter/more direct per user direction. New short version: (1) the 'fast' tier inverted - in 2025 fast meant cheap discount (Haiku/Flash/mini), in 2026 it became a hot-rod tier costing MORE than the normal flagship (Fable 5 $10/$50 = 2x Opus 5; GPT-5.6 Sol $5/$30; Ultrafast 14x speed at premium) [cited TechCrunch]; (2) Chinese labs opposite - GLM 5.2 $1.40/$4.40 = Opus-adjacent quality at Haiku money; (3) the UI push - OpenAI removed affordable Codex models (GPT-5.1 Codex mini, GPT-5.3 Codex) from the Codex tool Apr 2026, default gpt-5.6 alias routes to Sol [cited]; (4) the affordable combo the removal took off the table - GPT-5.4 planning + GPT-5.3 Codex/5.1 Codex mini execution, 5.1 mini 'basically free' for maintenance like 'commit this'; (5) punchline - default to affordable models where you can sustain a lot of use. Removed the old long Haiku-vs-GLM/Fable-Sol pricing-table version that was near the end. Serves HTTP 200, 0 MDX errors.",
+      "created_at": "2026-08-16T15:38:22.046597Z"
+    },
+    {
+      "id": "139dbf89-b491-430f-834b-4c635b1c1452",
+      "author": "ryan",
+      "text": "Added 'How to actually leverage it' section right after 'What the big labs don't want to know' (the actionable response to the tension). Content: (1) Nancy Reagan 1980s 'just say no' metaphor - using big-lab tools means constantly declining their push to expensive models [cited Wikipedia Just Say No]; (2) the push is built into the tools - Claude Code defaults to Opus 5, 'best' alias = Fable 5 (the two most expensive tiers) [cited Claude Code model-config]; (3) Codex - to use affordably, manually re-add GPT-5.3 Codex and GPT-5.1 Codex mini as custom models in ~/.codex/config.toml [cited ChatGPT Learn config]; default gpt-5.6 alias = Sol; (4) Cursor embraces the value trend - brings DeepSeek R1/Kimi/GLM 5.2 as custom models, and fine-tuned proprietary Composer from Kimi K2.5 open-weights [cited TechCrunch]; (5) leverage in one line: default to affordable models, make expensive frontier opt-in not opt-out. All claims fact-checked: Just Say No (1982), Composer 2 from Kimi K2.5 (Cursor admitted after being caught), Codex custom model_providers supported. Serves HTTP 200, 0 MDX errors.",
+      "created_at": "2026-08-16T15:39:43.272456Z"
+    },
+    {
+      "id": "dffa9060-0687-435d-a2e7-da75de3067cc",
+      "author": "ryan",
+      "text": "Rewrote 'How to actually leverage it' per user direction. New message: the simple path is 'just use Auto mode' in Cursor. Cursor Router (shipped July 22, 2026) >= Sonnet-level at a fraction of price (Auto Balance outperforms Opus 4.8 at ~41% lower cost; Auto Intelligence near Fable satisfaction at ~60% lower) [cited Cursor blog]; routes complex tasks to complex models; Cursor incentivizes its own models (Composer 2.5, Grok 4.5) that are easier/faster to serve; everyone wins; stop thinking about model selection. Contrast: OpenAI's confusing naming (5.1/5.2/5.3/5.4/5.5/Sol - you have to remember the ordering; Sol ~ 5.5) forces the 'just say no' mindset; cost can jump multiples overnight with latest Codex defaults (default gpt-5.6 alias = Sol; affordable Codex models removed April 2026) [cited Codex sunset]; constantly monitor costs to avoid being tricked into spending more for a tiny improvement. Leverage in one line: default to affordable models - in Cursor that's Auto, in Codex that's manually re-adding affordable models + refusing defaults; make expensive frontier opt-in not opt-out. Serves HTTP 200, 0 MDX errors.",
+      "created_at": "2026-08-16T15:41:53.300461Z"
+    }
+  ],
+  "created_at": "2026-08-16T12:34:49.542947Z",
+  "updated_at": "2026-08-16T15:41:53.300461Z",
+  "closed_at": null,
+  "custom": {}
+}
