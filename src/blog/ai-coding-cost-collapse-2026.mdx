@@ -11,6 +11,7 @@ images:
   - ./images/value-frontier.png
   - ./images/price-of-fixed-capability.png
   - ./images/two-multiplying-curves.png
+  - ./images/robot-workstation-army.png
 state: published
 tags:
   - articles
@@ -507,39 +508,19 @@ In 2026 it is not. The same price-performance curve that moved your coding habit
   }}
 />
 
-{/* VISUAL PROMPT — robot-workstation-army.png (photoreal, generated) -----
-    The one piece of cinematic art in this article. Lands on the line above:
-    the $20 that used to buy one assistant now buys a small team of them.
-    Register: the-simulation-told-them-they-would-win.png -- cinematic,
-    desaturated, cool-toned, shallow depth of field. 3:2 or square.
+{/* Generated via Midjourney, installed. Faintly unsettling on purpose --
+    this section celebrates cheap parallel agents, and that tension sets up
+    the Jevons catch a few sections later. */}
 
-    PROMPT:
-    Wide cinematic photograph of a vast dim open-plan office that reads like
-    a server hall. Endless identical rows of humanoid industrial robots
-    seated at cheap matching developer workstations, each robot tethered to
-    its desk by a thick braided cable. Monitors glow with dense code. Cool
-    teal and green light, deep shadows, shallow depth of field falling off
-    into darkness at the back of the frame. Industrial scale, quietly
-    dystopian, no visible humans. Photorealistic, 35mm, slight film grain.
-
-    Note the deliberate tonal edge: this section is celebrating cheap
-    parallel agents, and the image is faintly unsettling. That tension is
-    the point -- it sets up the Jevons catch a few sections later.
-
-    Alt: "Endless rows of identical robots tethered to developer
-          workstations in a dim industrial office."
-    Caption: "The same budget, a different unit of work."
----------------------------------------------------------------------- */}
-
-<div className="blockDiagram visualPlaceholder">
-  <div className="title">photoreal · robot-workstation-army.png · 3:2 or square</div>
-  <div className="container">
-    Endless rows of humanoid robots tethered by cable to identical developer
-    workstations in a dim, teal-lit industrial office. Cinematic, no humans,
-    quietly dystopian — the unease is deliberate, setting up the Jevons catch.
-    <br /><b>Caption:</b> The same budget, a different unit of work.
-  </div>
-</div>
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="robot-workstation-army.png"
+  className="full"
+  alt="Endless rows of identical pink-eyed robots tethered by cable to developer workstations, monitors glowing with code, in a dim teal-lit industrial office."
+/>
+<p style={{ textAlign: 'center', fontStyle: 'italic', color: '#6B6B6B', marginTop: '-1em' }}>
+  The same budget, a different unit of work.
+</p>
 
 That is the real headline of 2026 for AI coders. It is not "coding got cheaper." It is "the same budget now buys a team, and a team changes what you can attempt"—up to and including an entire milestone handed to a hierarchy of agents. Augment's Project Builder, for example, takes a large feature from a short description to a shipped feature, and frames the shift plainly: "the unit of engineering work is no longer the PR, it's the project."<Citation
   data={{
