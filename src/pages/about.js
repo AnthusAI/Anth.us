@@ -50,8 +50,9 @@ const AboutPage = () => {
             The first product is <strong>B0rd</strong>: a standalone LED-matrix desk display for glanceable
             information — launch countdowns, agent status, notifications, an idle clock — that you can read from
             across the room instead of a screen you have to sit in front of. Matching units even stay in sync
-            without pairing or a hub. See the <Link to="/blog/b0rd">B0rd solution page</Link> or visit{" "}
-            <a href="https://b0rd.info">b0rd.info</a> for the product site.
+            without pairing or a hub. See the <Link to="/blog/b0rd">B0rd solution page</Link>, visit{" "}
+            <a href="https://b0rd.info">b0rd.info</a> for the product site, or browse the{" "}
+            <a href="https://www.etsy.com/shop/AnthusMicronics">Etsy shop</a>.
           </p>
 
           <p>
