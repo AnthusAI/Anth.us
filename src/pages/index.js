@@ -443,6 +443,13 @@ const IndexPage = () => {
                 <a href="https://b0rd.info" className={styles.approachSecondaryCta} style={{ marginLeft: "1rem" }}>
                   b0rd.info
                 </a>
+                <a
+                  href="https://www.etsy.com/shop/AnthusMicronics"
+                  className={styles.approachSecondaryCta}
+                  style={{ marginLeft: "1rem" }}
+                >
+                  Etsy shop
+                </a>
               </li>
             </div>
           </ul>
