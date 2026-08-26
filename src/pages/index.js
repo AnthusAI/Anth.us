@@ -317,13 +317,11 @@ const IndexPage = () => {
           className="hero-image hero-image-wide"
         />
         <div className="hero-overlay">
-          {/* Kept close to the length of the old headline on purpose. The hero overlay is
-              sized for roughly this much text; a longer H1 wraps to four lines and clips off
-              the top of the image at mobile widths. */}
-          <h1>Depend on proven experts</h1>
+          <h1>Build continuous intelligence</h1>
           <p>
-            We solve your business problems with AI, then run it in
-            production—where it gets more accurate.
+            Anthus AI Solutions delivers scalable, secure software architecture
+            powered by production-scale machine learning models and
+            self-evolving AI agents.
           </p>
           <Link to="/ai-solutions" className="button">
             Learn More
