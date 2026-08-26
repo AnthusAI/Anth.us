@@ -27,7 +27,7 @@ Our site features two main types of blog content:
 
 ## Diagrams
 
-This project uses a Ruby [pre-processor](https://github.com/endymion/plantuml_diagrams/tree/main) for generating PlantUML diagrams.  To use it, first install it:
+This project uses a Ruby [pre-processor](https://github.com/endymion/plantuml_diagrams/tree/main) for generating PlantUML diagrams. To use it, first install it:
 
     $ bundle install
 

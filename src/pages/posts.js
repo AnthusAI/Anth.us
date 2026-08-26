@@ -1,18 +1,18 @@
 import * as React from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 
 const PostsPage = () => {
-
   const data = useStaticQuery(graphql`
     query {
-
       recentPosts: allMdx(
-        filter: { frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } } } 
+        filter: {
+          frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } }
+        }
         sort: { fields: [frontmatter___date], order: DESC }
         limit: 8
       ) {
@@ -36,7 +36,7 @@ const PostsPage = () => {
         }
       }
     }
-  `);
+  `)
 
   return (
     <Layout>
@@ -52,11 +52,18 @@ const PostsPage = () => {
                 <p>
                   <div>{node.frontmatter.excerpt}</div>
                   <div className={styles.listItemRight}>
-                    <div className={styles.listItemDate}>{formatDate(node.frontmatter.date)}</div>
-                    <div><i>more...</i></div>
+                    <div className={styles.listItemDate}>
+                      {formatDate(node.frontmatter.date)}
+                    </div>
+                    <div>
+                      <i>more...</i>
+                    </div>
                   </div>
                 </p>
-                <GatsbyImage image={getImage(node.frontmatter.preview_image)} alt={node.frontmatter.excerpt} />
+                <GatsbyImage
+                  image={getImage(node.frontmatter.preview_image)}
+                  alt={node.frontmatter.excerpt}
+                />
               </Link>
             </div>
           </li>
@@ -64,7 +71,7 @@ const PostsPage = () => {
       </ul>
     </Layout>
   )
-};
+}
 
 /**
  * Head export to define metadata for the page
@@ -83,7 +90,7 @@ export const Head = () => {
 
 export default PostsPage
 
-const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString(undefined, options);
+const formatDate = dateString => {
+  const options = { year: "numeric", month: "long", day: "numeric" }
+  return new Date(dateString).toLocaleDateString(undefined, options)
 }
