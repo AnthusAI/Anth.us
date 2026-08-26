@@ -71,3 +71,6 @@ yarn-error.log
 .vscode
 project/.overlay/
 project-local/
+.worktrees/
+wa/
+wb/
