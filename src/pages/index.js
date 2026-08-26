@@ -317,10 +317,11 @@ const IndexPage = () => {
           className="hero-image hero-image-wide"
         />
         <div className="hero-overlay">
-          <h1>Depend on proven experts</h1>
+          <h1>Build continuous intelligence</h1>
           <p>
-            We solve your business problems with AI, then run it in
-            production—where it gets more accurate.
+            Anthus AI Solutions delivers scalable, secure, and smart software
+            architecture powered by advanced machine learning models and AI
+            agents.
           </p>
           <Link to="/ai-solutions" className="button">
             Learn More
