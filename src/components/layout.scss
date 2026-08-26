@@ -1048,6 +1048,14 @@ footer {
   .hero {
     .hero-image {
       height: 400px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 100%);
+      }
       
       picture {
         img {
@@ -1063,22 +1071,22 @@ footer {
     // BOTH the top and the bottom. Give it the full width here, scale the type
     // down, and anchor to the top so any overflow can only ever go one way.
     .hero-overlay {
-      right: var(--size-gutter);
-      top: var(--space-4);
-      transform: none;
+      right: auto;
+      width: 65%;
+      top: 50%;
+      transform: translateY(-50%);
 
-      // Full width now runs text across the whole image -- including the
-      // robot on the right, which the headline/subhead sat directly on top
-      // of. Object-position can't fix this generally (chased that once
-      // already this session; the subject moves, the text doesn't). A scrim
-      // behind the text keeps it legible regardless of what's underneath.
-      // Block-level (not inline + box-decoration-break) so existing vertical
-      // margins between h1/p/button keep working as they already do.
+      h1 {
+        font-size: calc(1.1 * var(--font-xl));
+      }
+      p {
+        font-size: var(--font-size);
+      }
+
       h1, p {
-        background-color: rgba(255, 255, 255, 0.85);
-        border-radius: 0.4em;
-        padding: 0.2em 0.4em;
-        width: fit-content;
+        background-color: transparent;
+        padding: 0;
+        width: 100%;
       }
     }
 
