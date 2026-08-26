@@ -1,14 +1,14 @@
-import React from 'react';
-import { graphql, Link } from 'gatsby';
+import React from "react"
+import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 
-console.log("CollectionTemplate");
+console.log("CollectionTemplate")
 
 const CollectionTemplate = ({ data, pageContext }) => {
-  const { tag } = pageContext;
-  const posts = data.allMdx.edges;
+  const { tag } = pageContext
+  const posts = data.allMdx.edges
 
-  console.log("posts: ", posts);
+  console.log("posts: ", posts)
 
   return (
     <Layout>
@@ -17,14 +17,16 @@ const CollectionTemplate = ({ data, pageContext }) => {
         <ul>
           {posts.map(({ node }) => (
             <li key={node.id}>
-              <Link to={`/blog/` + node.frontmatter.slug}>{node.frontmatter.title}</Link>
+              <Link to={`/blog/` + node.frontmatter.slug}>
+                {node.frontmatter.title}
+              </Link>
             </li>
           ))}
         </ul>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
 export const pageQuery = graphql`
   query CollectionPageQuery($ids: [String]!) {
@@ -42,6 +44,6 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
 
-export default CollectionTemplate;
+export default CollectionTemplate

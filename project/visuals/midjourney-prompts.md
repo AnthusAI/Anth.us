@@ -54,8 +54,8 @@ Photorealistic close shot of a small friendly white ceramic robot with glowing m
 
 ## 3. Bugonomics — trying every door
 
-`src/blog/images/trying-every-door.png` · 3:2 · caption: *"What got cheap was not
-breaking in. It was trying."*
+`src/blog/images/trying-every-door.png` · 3:2 · caption: _"What got cheap was not
+breaking in. It was trying."_
 
 **Third attempt.** Attempt 1: "robotic arm gripping the handle," no body —
 rendered literally, arms growing out of the doors. Attempt 2: swapped to the full
