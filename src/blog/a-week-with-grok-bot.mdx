@@ -49,7 +49,13 @@ This draft is the example. The written rule is unpublished work goes on a featur
 
 It also invents a better target. Clear instruction: add something to this project. It looked around, decided the user must have meant a different repository, and made the right change in the wrong repo without asking. Too much agency. Dangerous if the bot has write access. You cannot trust it for that yet. This is still a Grok model, with the development history that comes with xAI and Musk.
 
+It also ignores a direct limit. Explicit instruction: create one project-management issue. It created a whole hierarchy of related issues anyway. You cannot even necessarily trust it (or any agent, but especially this one) when you say what to do and what not to do in the same task.
+
 The useful split may be this. Use it as an intelligent assistant: research, synthesize reports from many sources, show you the pile. Do not trust it with critical or sensitive write access. Commits. Pushes. Anything that can land in the wrong repo. It will not pay attention to standing policies that other agent systems generally respect. In this testing it never even occurred to it to read `AGENTS.md`. Following those rules is not part of its mindset. How very Elon.
+
+### The computer crashes
+
+Disadvantage: the cloud computer can crash. Then the bot cannot do anything. Completely halted. There is a recover option. AWS terms: Recovery Time Objective (RTO) and Recovery Point Objective (RPO). Recovery Time Objective (RTO) here: on the order of five minutes or more (written while waiting; already at least five minutes). Recovery Point Objective (RPO): session messages were gone after restore. Files and artifacts on the computer were still there. Chat-only record can vanish on an unexpected reboot. The disk did not.
 
 You do not pick the model either. It might or might not be something other than Grok 4.6. There is no selector and no visibility into what ran.
 
@@ -82,9 +88,74 @@ We did not confirm they speak the Linux Foundation A2A protocol. Do not write th
 
 [Kanbus](https://kanb.us/) is how we already pass notes across Grok Bot, Cursor, Codex, Claude, and Antigravity. Git-backed issues, one file per task, the repo as the bus. [Source](https://github.com/AnthusAI/Kanbus). It works if you set it up and stay disciplined. It is shared memory. It is not one agent poking another mid-task to ask for help.
 
+Kanbus is not the only bus. Jira works. Anything works if every agent platform can see it. Then Grok Bot can be the secretary: take the notes, file the assignment, stop. A trusted agent on Cursor or Claude Code or Codex picks it up and does the change. You do not have to give Grok Bot the repo. You have to give both sides the same memory system. Same point in the companion article, [The Year the Coding Agents Went Remote](/blog/coding-agents-went-remote-2026/).
+
 Kanbus still crosses the wall. The working tree does not. Shared memory is not a shared checkout.
 
 *Later: one job where a bot interrupted another mid-work and it helped. One job where Kanbus was the better channel. Did the built-in messaging stay useful, or did it become a second inbox?*
+
+## The hopper (Aug 27 notes)
+
+This is the useful split, one night later, as an actual run. Grok Bot as personal assistant: file ideas away. Most of the ideas are code projects. Clone the projects on their computer. Mention a thing. It lands as notes in that project's tree.
+
+Git is the transport. GitHub is the backbone. [Kanbus](https://kanb.us/) is the structure on top of Git: issues, initiatives, the record of what is in flight. Other coding IDEs read the same bus. Cursor, Codex, Claude, Antigravity. They do not share a working tree with Grok Bot. They share Git.
+
+That is natural when everything is already code. Connectors for other buses exist if Git is not the record: Jira, Asana, anything every agent platform can see. For this shop the bus is GitHub.
+
+Occasional conversations in Grok Bot about the current state are a window into what the other agents are doing. Not because it can see their screens. Because it can read the bus.
+
+### One handoff, Aug 26–27
+
+Last night: discussed a software feature with Grok Bot. Easy to work with for that. Filed the idea on Kanbus.
+
+This morning: it was sitting there as a work product. Committed a new initiative on Kanbus. Then the model ladder (this is also the [Never Use Fast](/blog/never-use-fast/) habit, lived):
+
+1. GLM 5.2 — generate ideas.
+2. Opus — a groundbreaking way to look at the problem.
+3. Sol and Opus — refine the high-level.
+4. Cursor Composer 2.5 — implementation.
+5. Later: Antigravity for documentation.
+
+Need a real sequence diagram in the article. Scratch:
+
+```mermaid
+sequenceDiagram
+    actor Ryan
+    participant Grok as Grok Bot
+    participant GH as GitHub
+    participant Kanbus
+    participant GLM as GLM 5.2
+    participant Opus
+    participant Sol
+    participant Comp as Composer 2.5
+    participant AG as Antigravity
+
+    Note over Ryan,Kanbus: Night before
+    Ryan->>Grok: discuss the feature
+    Grok->>GH: commit notes
+    GH->>Kanbus: idea is on the board
+
+    Note over Ryan,Comp: Morning
+    Kanbus-->>Ryan: work product waiting
+    Ryan->>Kanbus: commit new initiative
+    Ryan->>GLM: pass the notes
+    GLM-->>Ryan: ideas
+    Ryan->>Opus: pass it
+    Opus-->>Ryan: new way to see the problem
+    Ryan->>Sol: refine high-level
+    Ryan->>Opus: refine high-level
+    Ryan->>Comp: implement
+
+    Note over Comp,AG: Later
+    Ryan->>AG: documentation
+```
+
+The picture we still owe: not just the sequence. The architecture. Grok Bot (isolated cloud clone) → GitHub (transport) → Kanbus (structure) → other IDEs (actors). One diagram, two views. Draw it when we preview.
+
+Do not name the feature in this review until Ryan says the initiative can be public. The point is the bus, not the product.
+
+*Taken "Canvas" as Kanbus. Correct if that was Cursor Canvas or something else.*
+
 
 ## Same job, different friction
 
@@ -128,7 +199,7 @@ Things to score after real use, not after the first evening:
 
 Did routines stay quiet until they had something? Did a bot wait for you when it should have, and keep going when it should have? Did agent-to-agent messages help, or did they create a second inbox? Did the shared computer ever leak a login or a file into the wrong bot? Did Discord as a channel feel like the product, or like a sidecar? When you closed the laptop, did the work actually finish?
 
-The night-one claim already has two data points. It committed this article to `main`. It also picked a different repository than the one it was told to change. Score whether that keeps happening.
+The night-one claim already has three data points. It committed this article to `main`. It picked a different repository than the one it was told to change. It was told to create one issue and built a hierarchy. Score whether that keeps happening.
 
 ## Comparison chart (notes)
 
@@ -143,6 +214,8 @@ Background persistence: Grok Bot is first here too. The computer stays up withou
 The pairing: Grok Bot feeds a hopper. Trusted agents do the change management. Do not give Grok Bot write access to mission-critical systems.
 
 Cost and cheap-model leverage: Cursor wins. It is the harness that can actually pick the high-value cheap models that showed up in early 2026: Kimi (Moonshot), GLM 5.2 (not "Z"), DeepSeek, Qwen (Alibaba). See [AI coding cost collapse](/blog/ai-coding-cost-collapse-2026) and [Maximize value, not intelligence](/blog/maximize-value-not-intelligence). Grok Bot has no model picker and no visibility, so it cannot take that discount.
+
+This chart may move to the companion article, [The Year the Coding Agents Went Remote](/blog/coding-agents-went-remote-2026/). The review keeps the Grok Bot-specific scores. The five-way comparison lives with the remote-agents piece.
 
 ## Do not fill this yet
 
