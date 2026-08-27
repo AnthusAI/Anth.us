@@ -1,0 +1,30 @@
+---
+title: "Repeat the prompt when the model is not reasoning"
+slug: "prompt-repetition"
+date: "2026-02-28T14:57:00-05:00"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - posts
+excerpt: |
+  When reasoning is off, send the query twice. Gemini, GPT, Claude, and Deepseek all improved, with no extra output tokens and no extra latency.
+preview_image: "../images/posts/prompt-repetition.png"
+images:
+  - "../images/posts/prompt-repetition.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images}
+        name="prompt-repetition.png"
+        alt="Figure 1 from Prompt Repetition Improves Non-Reasoning LLMs: 47 significant wins, 0 losses" />
+</p>
+
+A pattern worth trying: when the model is not reasoning, send the query twice. `<QUERY>` becomes `<QUERY><QUERY>`. Causal models cannot look ahead, so token order matters. The second copy lets every prompt token attend to every other prompt token.
+
+[Prompt Repetition Improves Non-Reasoning LLMs](https://arxiv.org/abs/2512.14982v1) measured that on Gemini, GPT, Claude, and Deepseek. 47 significant wins out of 70, zero losses. Output length and latency stay flat because the extra work is in prefill. The response format does not change, so it is a drop-in. With reasoning on, the paper found it mostly neutral.
+
+Do not pad with dots. The gain is the second copy, not the extra length. On some retrieval-style tasks, three copies beat two.
