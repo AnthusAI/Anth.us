@@ -10,7 +10,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import { getImage } from "gatsby-plugin-image"
 
 function Seo({ description, title, children, image, imageURL }) {
-
   const { site, allFile } = useStaticQuery(
     graphql`
       query {

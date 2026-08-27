@@ -1,17 +1,17 @@
-import * as React from "react";
+import * as React from "react"
 import AnthusFooter, {
   defaultCommunityLinks,
   getAnthusLinks,
   getPlatformLinks,
-} from "anthus-footer";
-import { StaticImage } from 'gatsby-plugin-image'
+} from "anthus-footer"
+import { StaticImage } from "gatsby-plugin-image"
 
-const toLocalPath = href => href?.replace('https://anth.us', '') || href;
+const toLocalPath = href => href?.replace("https://anth.us", "") || href
 
 const brandLinks = getAnthusLinks().map(link => ({
   ...link,
   href: toLocalPath(link.href),
-}));
+}))
 
 const Footer = () => {
   return (
@@ -23,8 +23,8 @@ const Footer = () => {
       platformLinks={getPlatformLinks()}
       showBottomRow={false}
       localSection={{
-        title: 'Anthus',
-        titleHref: '/',
+        title: "Anthus",
+        titleHref: "/",
         titleExternal: false,
       }}
       logo={
@@ -39,7 +39,7 @@ const Footer = () => {
         </a>
       }
     />
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

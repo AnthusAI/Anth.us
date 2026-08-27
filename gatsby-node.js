@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path")
 
 // MDX is compiled as a separate webpack entry; without a fixed resolution path,
 // gatsby-citation-manager (and sometimes React) can be bundled twice. That yields
@@ -8,19 +8,19 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
       alias: {
-        react: path.resolve(__dirname, 'node_modules/react'),
-        'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
-        'gatsby-citation-manager': path.resolve(
+        react: path.resolve(__dirname, "node_modules/react"),
+        "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+        "gatsby-citation-manager": path.resolve(
           __dirname,
-          'node_modules/gatsby-citation-manager'
+          "node_modules/gatsby-citation-manager"
         ),
       },
     },
-  });
-};
+  })
+}
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
 
   const contentResult = await graphql(`
     {
@@ -46,35 +46,35 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `);
+  `)
 
   if (contentResult.errors) {
-    console.error(contentResult.errors);
-    throw new Error("Error querying for blog files.");
+    console.error(contentResult.errors)
+    throw new Error("Error querying for blog files.")
   }
 
-  const allNodes = contentResult.data.allMdx.nodes;
+  const allNodes = contentResult.data.allMdx.nodes
   const isPlatformNode = node =>
-    node.frontmatter.content_type === 'platform-product' ||
-    node.internal.contentFilePath.includes('/platform/');
-  const platformNodes = allNodes.filter(isPlatformNode);
-  const blogNodes = allNodes.filter(node => !isPlatformNode(node));
+    node.frontmatter.content_type === "platform-product" ||
+    node.internal.contentFilePath.includes("/platform/")
+  const platformNodes = allNodes.filter(isPlatformNode)
+  const blogNodes = allNodes.filter(node => !isPlatformNode(node))
 
-  const postTemplate = path.resolve(`./src/templates/blog-post.jsx`);
+  const postTemplate = path.resolve(`./src/templates/blog-post.jsx`)
   blogNodes.forEach(node => {
-    console.log(`Creating page: /blog/${node.frontmatter.slug}`);
+    console.log(`Creating page: /blog/${node.frontmatter.slug}`)
     createPage({
       path: `blog/` + node.frontmatter.slug,
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         id: node.id,
       },
-    });
-  });
+    })
+  })
 
-  const platformTemplate = path.resolve(`./src/templates/platform-product.jsx`);
+  const platformTemplate = path.resolve(`./src/templates/platform-product.jsx`)
   platformNodes.forEach(node => {
-    console.log(`Creating page: /platform/${node.frontmatter.slug}`);
+    console.log(`Creating page: /platform/${node.frontmatter.slug}`)
     createPage({
       path: `platform/` + node.frontmatter.slug,
       component: `${platformTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
@@ -82,21 +82,21 @@ exports.createPages = async ({ graphql, actions }) => {
         id: node.id,
         platformPage: node.frontmatter,
       },
-    });
-  });
+    })
+  })
 
-  const tagsByName = new Map();
+  const tagsByName = new Map()
   blogNodes.forEach(node => {
-    (node.frontmatter.tags || []).forEach(tag => {
-      const current = tagsByName.get(tag) || [];
-      current.push(node.id);
-      tagsByName.set(tag, current);
-    });
-  });
+    ;(node.frontmatter.tags || []).forEach(tag => {
+      const current = tagsByName.get(tag) || []
+      current.push(node.id)
+      tagsByName.set(tag, current)
+    })
+  })
 
-  const collectionTemplate = path.resolve(`./src/templates/blog-tag.jsx`);
+  const collectionTemplate = path.resolve(`./src/templates/blog-tag.jsx`)
   tagsByName.forEach((ids, tag) => {
-    console.log(`Creating tag collection page: /blog/${tag}`);
+    console.log(`Creating tag collection page: /blog/${tag}`)
     createPage({
       path: `blog/${tag}`,
       component: collectionTemplate,
@@ -104,36 +104,36 @@ exports.createPages = async ({ graphql, actions }) => {
         tag,
         ids,
       },
-    });
-  });
+    })
+  })
 
-  const allBlogsTemplate = path.resolve(`./src/templates/blog.jsx`);
+  const allBlogsTemplate = path.resolve(`./src/templates/blog.jsx`)
   createPage({
     path: `blog/`,
     component: allBlogsTemplate,
     context: {},
-  });
-};
+  })
+}
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions;
-  if (node.internal.type === 'Mdx') {
-    const parent = getNode(node.parent);
-    let sourceName = '';
-    if (parent.internal.type === 'File') {
-      sourceName = parent.sourceInstanceName;
+  const { createNodeField } = actions
+  if (node.internal.type === "Mdx") {
+    const parent = getNode(node.parent)
+    let sourceName = ""
+    if (parent.internal.type === "File") {
+      sourceName = parent.sourceInstanceName
     }
 
     createNodeField({
       node,
-      name: 'sourceName',
+      name: "sourceName",
       value: sourceName,
-    });
+    })
   }
-};
+}
 
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions;
+  const { createTypes } = actions
   const typeDefs = `
     type Mdx implements Node {
       frontmatter: Frontmatter
@@ -162,6 +162,6 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Assistant {
       assistant: String
     }
-  `;
-  createTypes(typeDefs);
-};
+  `
+  createTypes(typeDefs)
+}
