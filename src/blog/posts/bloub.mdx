@@ -1,0 +1,28 @@
+---
+title: "Bloub remakes the x.ai bot avatar in SVG"
+slug: "bloub"
+date: "2026-08-18T15:14:00-04:00"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - posts
+excerpt: |
+  Bloub reconstructs the x.ai bot avatar as one SVG shape that morphs through 14 measured states. No animation library.
+preview_image: "../images/posts/bloub.png"
+images:
+  - "../images/posts/bloub.png"
+state: published
+---
+
+import BlogImage from '../../components/blog-image';
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images}
+        name="bloub.png"
+        alt="Bloub, an animated SVG recreation of the x.ai bot avatar" />
+</p>
+
+[Bloub](https://bloub.vercel.app/) remakes the x.ai bot avatar as a single filled SVG shape that morphs through 14 states, measured frame by frame off the reference video. Eyes are separate shapes. There is no animation library.
+
+That kind of constraint is the interesting part. An agent face you can export as SVG, PNG, GIF, or MP4, with the motion coming from measured profiles rather than a model guessing the next frame.
