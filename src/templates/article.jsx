@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react"
 
 const BlogTagTemplate = () => {
-  return <div>TEST?</div>;
-};
+  return <div>TEST?</div>
+}
 
-export default BlogTagTemplate;
+export default BlogTagTemplate
