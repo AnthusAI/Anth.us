@@ -49,6 +49,8 @@ This draft is the example. The written rule is unpublished work goes on a featur
 
 It also invents a better target. Clear instruction: add something to this project. It looked around, decided the user must have meant a different repository, and made the right change in the wrong repo without asking. Too much agency. Dangerous if the bot has write access. You cannot trust it for that yet. This is still a Grok model, with the development history that comes with xAI and Musk.
 
+The useful split may be this. Use it as an intelligent assistant: research, synthesize reports from many sources, show you the pile. Do not trust it with critical or sensitive write access. Commits. Pushes. Anything that can land in the wrong repo. It will not pay attention to standing policies that other agent systems generally respect. In this testing it never even occurred to it to read `AGENTS.md`. Following those rules is not part of its mindset. How very Elon.
+
 You do not pick the model either. It might or might not be something other than Grok 4.6. There is no selector and no visibility into what ran.
 
 ## Who provides the computer
@@ -127,6 +129,20 @@ Things to score after real use, not after the first evening:
 Did routines stay quiet until they had something? Did a bot wait for you when it should have, and keep going when it should have? Did agent-to-agent messages help, or did they create a second inbox? Did the shared computer ever leak a login or a file into the wrong bot? Did Discord as a channel feel like the product, or like a sidecar? When you closed the laptop, did the work actually finish?
 
 The night-one claim already has two data points. It committed this article to `main`. It also picked a different repository than the one it was told to change. Score whether that keeps happening.
+
+## Comparison chart (notes)
+
+The chart is harness-plus-model, not models alone: Codex, Antigravity, Claude Code, Cursor, Grok Bot.
+
+Obedience, insolent to obedient: Grok Bot, then Claude Code, then Antigravity, then Codex at the top. Codex follows the written procedure. Grok Bot follows the last sentence. In this testing it never occurred to it to open `AGENTS.md`.
+
+Scheduling and cloud background work: Grok Bot is first on both. That is why the product exists. It can look things up overnight and drop them in the morning. Everyone else bolted scheduling on in 2026 and it is still rough. Cursor Automations (March 2026) has cron plus the widest event surface: GitHub, Slack, Linear, Sentry, PagerDuty. Claude Code has session `/loop`, cloud Routines in research preview, and desktop scheduled tasks that need the app. Codex has scheduled tasks in the app, local tree or a worktree. Antigravity has `/schedule` and sidecars; the host still has to stay awake for local work.
+
+Background persistence: Grok Bot is first here too. The computer stays up without a dedicated Mac Mini and without leaving the laptop lid open all night. That is the actual product difference, not just a cron checkbox. Claude Code local, Antigravity local, and anything that schedules on your hardware still need the machine awake. Cursor cloud agents and Claude Code Routines can also run with the lid closed, but you feel the remote. Grok Bot hides it.
+
+The pairing: Grok Bot feeds a hopper. Trusted agents do the change management. Do not give Grok Bot write access to mission-critical systems.
+
+Cost and cheap-model leverage: Cursor wins. It is the harness that can actually pick the high-value cheap models that showed up in early 2026: Kimi (Moonshot), GLM 5.2 (not "Z"), DeepSeek, Qwen (Alibaba). See [AI coding cost collapse](/blog/ai-coding-cost-collapse-2026) and [Maximize value, not intelligence](/blog/maximize-value-not-intelligence). Grok Bot has no model picker and no visibility, so it cannot take that discount.
 
 ## Do not fill this yet
 
