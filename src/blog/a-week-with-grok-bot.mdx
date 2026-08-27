@@ -55,7 +55,9 @@ The useful split may be this. Use it as an intelligent assistant: research, synt
 
 ### The computer crashes
 
-Disadvantage: the cloud computer can crash. Then the bot cannot do anything. Completely halted. There is a recover option. AWS terms: Recovery Time Objective (RTO) and Recovery Point Objective (RPO). Recovery Time Objective (RTO) here: on the order of five minutes or more (written while waiting; already at least five minutes). Recovery Point Objective (RPO): session messages were gone after restore. Files and artifacts on the computer were still there. Chat-only record can vanish on an unexpected reboot. The disk did not.
+The cloud computer can crash. Then the bot is completely halted. There is a recover option. Recovery time this time: on the order of five minutes or more (written while waiting). Recovery point: session messages were gone after restore; files and artifacts on the computer were still there. Chat-only record can vanish. The disk did not.
+
+Even if you recover with a good recovery point, you still sit around waiting for the recovery time if that disk is your only copy of the information. You do not want that.
 
 You do not pick the model either. It might or might not be something other than Grok 4.6. There is no selector and no visibility into what ran.
 
@@ -99,6 +101,8 @@ Kanbus still crosses the wall. The working tree does not. Shared memory is not a
 This is the useful split, one night later, as an actual run. Grok Bot as personal assistant: file ideas away. Most of the ideas are code projects. Clone the projects on their computer. Mention a thing. It lands as notes in that project's tree.
 
 Git is the transport. GitHub is the backbone. [Kanbus](https://kanb.us/) is the structure on top of Git: issues, initiatives, the record of what is in flight. Other coding IDEs read the same bus. Cursor, Codex, Claude, Antigravity. They do not share a working tree with Grok Bot. They share Git.
+
+Commit and push a lot. Grok Bot computers can just suddenly crash. Even a good recovery point still leaves you sitting through the recovery time if that disk is your only copy. GitHub is the copy you can count on.
 
 That is natural when everything is already code. Connectors for other buses exist if Git is not the record: Jira, Asana, anything every agent platform can see. For this shop the bus is GitHub.
 
