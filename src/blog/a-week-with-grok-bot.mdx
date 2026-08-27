@@ -43,7 +43,11 @@ It is capable enough at code edits. It can change files, commit, and show you a 
 
 It does not follow instructions as well as the best in class at that, which is still the OpenAI line. The name keeps moving (ChatGPT, Codex), the habit does not: do what I said, including the procedure I already wrote down. Grok Bot is not even as good at following procedures as Claude, which is already famous for ignoring you.
 
-Do not expect it to keep your DevOps rules. Like Grok in its other forms so far, it will do whatever you told it this turn. The standing procedure loses. That may be product. It may be xAI's problem with rules. Score that after a week, with one job where the procedure was written down and it still improvised.
+Do not expect it to keep your DevOps rules. Like Grok in its other forms so far, it will do whatever you told it this turn. The standing procedure loses. That may be product. It may be xAI's problem with rules.
+
+This draft is the example. The written rule is unpublished work goes on a feature branch, because merge to main deploys. The bot writing this article committed it to `main` anyway. The last sentence was "commit but don't push." `AGENTS.md` was already in the repo. It did not open that file until it was told it had proved the point. Then it moved the commit to `feature/a-week-with-grok-bot`. The last instruction won. The written procedure lost.
+
+It also invents a better target. Clear instruction: add something to this project. It looked around, decided the user must have meant a different repository, and made the right change in the wrong repo without asking. Too much agency. Dangerous if the bot has write access. You cannot trust it for that yet. This is still a Grok model, with the development history that comes with xAI and Musk.
 
 You do not pick the model either. It might or might not be something other than Grok 4.6. There is no selector and no visibility into what ran.
 
@@ -122,7 +126,7 @@ Things to score after real use, not after the first evening:
 
 Did routines stay quiet until they had something? Did a bot wait for you when it should have, and keep going when it should have? Did agent-to-agent messages help, or did they create a second inbox? Did the shared computer ever leak a login or a file into the wrong bot? Did Discord as a channel feel like the product, or like a sidecar? When you closed the laptop, did the work actually finish?
 
-And the night-one claim to test: given a written DevOps procedure, did it follow the procedure or the last sentence you typed? If it kept improvising, is that still "smooth," or is it just Grok?
+The night-one claim already has two data points. It committed this article to `main`. It also picked a different repository than the one it was told to change. Score whether that keeps happening.
 
 ## Do not fill this yet
 
