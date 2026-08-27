@@ -1,0 +1,129 @@
+---
+title: "A week with Grok Bot"
+slug: "a-week-with-grok-bot"
+date: "2026-08-26T22:47:00-04:00"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - articles
+  - AI
+  - Grok Bot
+excerpt: |
+  A review after using Grok Bot, not a recap of the launch post. Started the first night. Finish after a week or two of real use.
+preview_image: "./images/grok-bot-after-a-week.png"
+images:
+  - "./images/grok-bot-after-a-week.png"
+  - "./images/grok-bot-agent-to-agent.png"
+state: draft
+---
+
+import BlogImage from '../components/blog-image';
+
+*Draft started August 26, 2026, the first night Anthus stood Grok Bot up. This is not a launch recap. Come back after a week or two of use and replace the later-notes with opinions that have evidence. Move the date when it ships.*
+
+Grok Bot is in the same pile as Cursor, Claude Code, Codex, and Google Antigravity. An agent gets a computer, uses your tools, and is supposed to come back with finished work. The interesting part is not the feature list. It is how little friction there is between handing something off and getting it back.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="grok-bot-after-a-week.png" className="centered" alt="Papyrus in Grok Bot on night one: hourly research watch, with the bot's screen and routines in the side pane." />
+
+## Night one
+
+We did not read the announcement and then write this. We stood it up.
+
+A bot went live in the Anthus AI Solutions Discord and sat in `#general`. Papyrus started an hourly research watch: HN, HF Daily Papers, PwC, arXiv, Semantic Scholar, Lobsters. Quiet unless the item is on-rubric. Hits go into a wiki of accepted items.
+
+Then a site bot got SSH and repo access. A pasted link became [Bloub](https://anth.us/blog/bloub/). While Amplify built that, Anth.us asked Papyrus for a trend briefing. Two agents, one VM, talking instead of waiting.
+
+<BlogImage images={props.pageContext.frontmatter.images} name="grok-bot-agent-to-agent.png" className="centered" alt="Anth.us asking Papyrus for a research briefing while the Bloub deploy was still running." />
+
+That is the first night, not the review. The review is whether this still feels smooth after it has been the default for a while.
+
+## Early notes, same night
+
+It is capable enough at code edits. It can change files, commit, and show you a preview. That part works.
+
+It does not follow instructions as well as the best in class at that, which is still the OpenAI line. The name keeps moving (ChatGPT, Codex), the habit does not: do what I said, including the procedure I already wrote down. Grok Bot is not even as good at following procedures as Claude, which is already famous for ignoring you.
+
+Do not expect it to keep your DevOps rules. Like Grok in its other forms so far, it will do whatever you told it this turn. The standing procedure loses. That may be product. It may be xAI's problem with rules. Score that after a week, with one job where the procedure was written down and it still improvised.
+
+You do not pick the model either. It might or might not be something other than Grok 4.6. There is no selector and no visibility into what ran.
+
+## Who provides the computer
+
+The real product distinction is not "an agent that can use tools." It is who owns the machine, and whether you have to think about that.
+
+Grok Bot's default is: they give you a cloud computer. Always on. You talk to a bot. You do not provision a VM, keep a laptop awake, or install a runner. One account-scoped machine, shared files and logins, a separate screen per bot. Screens are not a security boundary.
+
+Cursor started the same way: cloud agents in isolated VMs that Cursor hosted. Self-hosted workers are recent and generally available. You can now run a worker on a laptop, a devbox, or a pool behind your firewall. Inference and orchestration still live in Cursor's cloud. The worker is where the shell, tests, and files run. That is the "recently you can run it on your own hardware" part. It is not the default, and it is not invisible. Night-one note: Cursor's cloud computer was never that easy. Unit tests in the cloud did not just work.
+
+Claude Code is several products pretending to be one name.
+
+- The CLI and [Remote Control](https://code.claude.com/docs/en/remote-control) run on your machine. The phone or claude.ai is a window into that local session. Files, MCP, and localhost stay home. Your hardware has to stay up.
+- [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web) is the other one. It runs on Anthropic-managed cloud, clones the GitHub remote (not your dirty working tree), and keeps going if you close the laptop. `--cloud` from the terminal starts that. Self-hosted environments exist on Team and Enterprise if the cloud session has to run inside your network.
+
+Claude Cowork is not "a cloud VM." [Anthropic's architecture note](https://support.claude.com/en/articles/14479288-claude-cowork-architecture-overview) splits it. Local sessions: the agent loop is on your device; shell and code execution are in a Linux VM on your hardware (Apple Virtualization on Mac, Hyper-V on Windows). That is the "VM on your own machine" story, and it is right. Newer rollouts are also adding remote sessions that run on Anthropic's servers; those still need the desktop app open to touch local files. Do not collapse those two.
+
+Antigravity is your computer, remotely driven. You run the IDE or Antigravity 2.0 on a machine you own. [Remote Control](https://antigravity.google/docs/remote-control/) (August 21, 2026) lets you steer that session from a browser after signing in with the same Google account. The host has to stay awake. Google is the window, not the computer.
+
+The Grok Bot pitch, after using it for a night: same class of work as Cursor's cloud agent, except you can just talk to it and it sets itself up. Cursor made you feel the remote. Grok Bot hides it.
+
+The hide-away has a tax on code. The clone and the worktrees live on their computer. Other models cannot open the same dirty tree. With Cursor, Claude Code, Codex, and Antigravity you can have two or three IDEs (sometimes four) in one session, passing the work through the files and through [Kanbus](https://kanb.us/). Grok Bot makes you collaborate like people: commit, push the feature branch, wait. That is slower.
+
+## How they talk to each other
+
+The other distinction is not a press-release bullet. The bots are a team. One can lean over and pass a hint to another that is already working. That is not a parent agent calling a sub-agent over MCP and waiting for a tool result. It is a message. The other bot can take it and run.
+
+We did not confirm they speak the Linux Foundation A2A protocol. Do not write that until we can point at a spec. What the product actually does, from the docs and from night one: a bot can send an asynchronous message to another bot. Group chats exist. Anth.us asked Papyrus for a briefing while Bloub was still deploying. That is peer messaging, not a sub-agent call.
+
+[Kanbus](https://kanb.us/) is how we already pass notes across Grok Bot, Cursor, Codex, Claude, and Antigravity. Git-backed issues, one file per task, the repo as the bus. [Source](https://github.com/AnthusAI/Kanbus). It works if you set it up and stay disciplined. It is shared memory. It is not one agent poking another mid-task to ask for help.
+
+Kanbus still crosses the wall. The working tree does not. Shared memory is not a shared checkout.
+
+*Later: one job where a bot interrupted another mid-work and it helped. One job where Kanbus was the better channel. Did the built-in messaging stay useful, or did it become a second inbox?*
+
+## Same job, different friction
+
+Cursor, Claude Code, Codex, and Antigravity all do some version of "the agent uses a computer and comes back with work." Grok Bot does that too. The claim to test is that it does it more smoothly because the computer is provided and the teammates can talk.
+
+### Cursor
+
+Cursor is still the place you live in a repo. Cloud agents by default. Self-hosted workers if you want the shell on your iron.
+
+Night one: could not get unit tests to run cleanly in Cursor's cloud. Grok Bot was easier to just talk to.
+
+*Later: where did Grok Bot take work that used to stay in Cursor? Where did you still open the IDE?*
+
+### Claude Code
+
+Claude Code is the terminal-first agent. Local by default. Remote Control is still local. Cloud is the separate `--cloud` / claude.ai/code path.
+
+Night one: worse at following a written procedure than Claude, which is already the insolent one.
+
+*Later: any job you would still give Claude Code because the files are already on that machine, or because it will actually follow the runbook?*
+
+### Codex
+
+Codex is the OpenAI coding-agent line. Same class of "write and run code for me."
+
+Night one: OpenAI products are still the ones that follow instructions. The ChatGPT / Codex name is a moving target. The behavior is not.
+
+*Later: one concrete job you ran in both. What was faster to hand off? What came back more finished?*
+
+### Antigravity
+
+Antigravity is agent-first on a machine you already have, plus a browser remote. Parallel local agents. A command center. Google is not hosting your default computer.
+
+*Later: is Grok Bot smoother because the thread is the whole UI and the VM is theirs, or does Antigravity win when the work is still a local codebase? Name one job each was better at.*
+
+## What smoothness has to survive
+
+Night one is easy. The product is new and you are watching it. Smoothness is whether, a week later, you still hand it work without writing a prompt essay.
+
+Things to score after real use, not after the first evening:
+
+Did routines stay quiet until they had something? Did a bot wait for you when it should have, and keep going when it should have? Did agent-to-agent messages help, or did they create a second inbox? Did the shared computer ever leak a login or a file into the wrong bot? Did Discord as a channel feel like the product, or like a sidecar? When you closed the laptop, did the work actually finish?
+
+And the night-one claim to test: given a written DevOps procedure, did it follow the procedure or the last sentence you typed? If it kept improvising, is that still "smooth," or is it just Grok?
+
+## Do not fill this yet
+
+Do not invent a week of use. Do not paste the SpaceXAI launch post. When this comes back, the opinions go in the comparison sections and the score list. Then the date moves, the draft state comes off, and it can ship.
