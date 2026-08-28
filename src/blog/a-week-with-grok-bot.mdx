@@ -67,7 +67,7 @@ The real product distinction is not "an agent that can use tools." It is who own
 
 Grok Bot's default is: they give you a cloud computer. Always on. You talk to a bot. You do not provision a VM, keep a laptop awake, or install a runner. One account-scoped machine, shared files and logins, a separate screen per bot. Screens are not a security boundary.
 
-Cursor started the same way: cloud agents in isolated VMs that Cursor hosted. Self-hosted workers are recent and generally available. You can now run a worker on a laptop, a devbox, or a pool behind your firewall. Inference and orchestration still live in Cursor's cloud. The worker is where the shell, tests, and files run. That is the "recently you can run it on your own hardware" part. It is not the default, and it is not invisible. Night-one note: Cursor's cloud computer was never that easy. Unit tests in the cloud did not just work.
+Cursor started the same way: cloud agents in isolated VMs that Cursor hosted. Self-hosted workers are recent and generally available. You can now run a worker on a laptop, a devbox, or a pool behind your firewall. Inference and orchestration still live in Cursor's cloud. The worker is where the shell, tests, and files run. The CLI is `agent worker start`. Grok Bot can dispatch to that worker, not only Cursor itself. That is the "recently you can run it on your own hardware" part. It is not the default, and it is not invisible. Night-one note: Cursor's cloud computer was never that easy. Unit tests in the cloud did not just work.
 
 Claude Code is several products pretending to be one name.
 
@@ -178,6 +178,28 @@ Started with simple things: preview a website change, approve it. Then more comp
 
 Today: dispatching Cursor agents from here is extremely powerful.
 
+### Local workers (still day three)
+
+Next layer: what Cursor sees as a cloud agent can run on your own computer.
+
+Download a CLI. Run `agent worker start`. That runs a cloud agent in whatever folder you start it in. Then you can dispatch cloud agents to that worker from Cursor.
+
+Grok Bot is integrated with Cursor. It can dispatch and manage those agents: on Cursor's cloud VMs, or on your own machine. You can dispatch from Grok Bot to your own machines.
+
+If you want a dedicated machine for an agent, you can give it one, follow up, give instructions, and manage it through pull requests you review.
+
+Because it is on your computer, it can use your computer. Example: a microelectronics project. A microcontroller on USB-C. Grok Bot orchestrates Cursor agents on the Mac that build and flash firmware through that USB port. Cursor still sees a cloud agent. It is actually on the Mac.
+
+Same trick for peripherals, or for interactively previewing a website to review a pull request. The work happened on your Mac. You do not have to pull the branch like a contractor's PR. You look over the agent's shoulder. The dev server is already on your machine. That is unbelievably powerful.
+
+If you already have a Cursor account, use the Grok Bot credits. Experiment with cloud agents. Simplest path when the project is set up for it.
+
+Not every project and not every task is. Some work can live in the cloud (documentation tweaks). Some you have to review locally. Some projects are almost all local (the microcontroller one).
+
+Already today: an agent team of parallel agents, multiple projects at once. You do not set up a comms channel. You do not hack Slack so they can talk. Cursor integration is built into Grok Bot.
+
+When Grok Bot shipped a few weeks ago, easy to ignore. Feature list looks like everyone else already does this. Bias against Elon Musk ventures. The name Grok was a turnoff. Day three: it is incredibly powerful specifically because of the Cursor integration.
+
 ## Same job, different friction
 
 Cursor, Claude Code, Codex, and Antigravity all do some version of "the agent uses a computer and comes back with work." Grok Bot does that too. The claim to test is that it does it more smoothly because the computer is provided and the teammates can talk.
@@ -189,6 +211,8 @@ Cursor is still the place you live in a repo. Cloud agents by default. Self-host
 Night one: could not get unit tests to run cleanly in Cursor's cloud. Grok Bot was easier to just talk to.
 
 *Day three: Grok Bot became the place you talk. Cursor became the workers it dispatches. Still open the IDE when you want to live in the repo.*
+
+*Local worker on your Mac still looks like a cloud agent. That is how USB flash and look-over-the-shoulder review work.*
 
 ### Claude Code
 
@@ -232,7 +256,7 @@ Scheduling and cloud background work: Grok Bot is first on both. That is why the
 
 Background persistence: Grok Bot is first here too. The computer stays up without a dedicated Mac Mini and without leaving the laptop lid open all night. That is the actual product difference, not just a cron checkbox. Claude Code local, Antigravity local, and anything that schedules on your hardware still need the machine awake. Cursor cloud agents and Claude Code Routines can also run with the lid closed, but you feel the remote. Grok Bot hides it.
 
-The pairing: Grok Bot feeds a hopper. Trusted agents do the change management. Day three also found Grok Bot as the primary UI that dispatches Cursor sessions, not only a secretary/hopper. Do not give Grok Bot write access to mission-critical systems.
+The pairing: Grok Bot feeds a hopper. Trusted agents do the change management. Day three also found Grok Bot as the primary UI that dispatches Cursor sessions, not only a secretary/hopper. The Cursor integration includes dispatch to local workers, not only Cursor-hosted VMs. Do not give Grok Bot write access to mission-critical systems.
 
 Cost and cheap-model leverage: Cursor wins. It is the harness that can actually pick the high-value cheap models that showed up in early 2026: Kimi (Moonshot), GLM 5.2 (not "Z"), DeepSeek, Qwen (Alibaba). See [AI coding cost collapse](/blog/ai-coding-cost-collapse-2026) and [Maximize value, not intelligence](/blog/maximize-value-not-intelligence). Grok Bot has no model picker and no visibility, so it cannot take that discount.
 
