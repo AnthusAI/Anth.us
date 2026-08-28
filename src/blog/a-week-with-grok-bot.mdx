@@ -160,6 +160,23 @@ Do not name the feature in this review until Ryan says the initiative can be pub
 
 *Taken "Canvas" as Kanbus. Correct if that was Cursor Canvas or something else.*
 
+## Day three (Aug 28 notes)
+
+Third day. The product is more useful than night one suggested.
+
+The job it is actually good at: orchestrating Cursor agent sessions. Cursor already has cloud agents and automations that run in the background. On a feature list this already looks covered. It is not.
+
+What is different is ubiquity. Grok Bot is on every device. You talk to it. It runs the work as Cursor sessions. Grok Bot is the manager. Cursor does the implementation.
+
+Do not get stuck on which cheap model the Cursor session uses. Composer 2.5 is cheap. Luna is cheaper for menial work. That list belongs in [Never Use Fast](/blog/never-use-fast/). The point here is the shape: a smart manager on top, cheaper models underneath, dispatched from a chat you already have open.
+
+Look at the feature list and you will say the other tools already do this. ChatGPT is a good interface for talking. ChatGPT plus Codex can probably check every box. The UI even looks the same: sessions on the left, each one a chat. It does not look like a paradigm shift. It is one.
+
+The difference is how smooth it is to set up and work with. That is a big difference. Grok Bot is a primary user interface for complicated work, not a chat window that sometimes calls a coding agent.
+
+Started with simple things: preview a website change, approve it. Then more complex work. You can improve site content without standing up a development machine or a server. That setup is the bottleneck. Grok Bot can run a dev server for one project and show a screenshot, or let you interact with it directly.
+
+Today: dispatching Cursor agents from here is extremely powerful.
 
 ## Same job, different friction
 
@@ -171,7 +188,7 @@ Cursor is still the place you live in a repo. Cloud agents by default. Self-host
 
 Night one: could not get unit tests to run cleanly in Cursor's cloud. Grok Bot was easier to just talk to.
 
-*Later: where did Grok Bot take work that used to stay in Cursor? Where did you still open the IDE?*
+*Day three: Grok Bot became the place you talk. Cursor became the workers it dispatches. Still open the IDE when you want to live in the repo.*
 
 ### Claude Code
 
@@ -215,7 +232,7 @@ Scheduling and cloud background work: Grok Bot is first on both. That is why the
 
 Background persistence: Grok Bot is first here too. The computer stays up without a dedicated Mac Mini and without leaving the laptop lid open all night. That is the actual product difference, not just a cron checkbox. Claude Code local, Antigravity local, and anything that schedules on your hardware still need the machine awake. Cursor cloud agents and Claude Code Routines can also run with the lid closed, but you feel the remote. Grok Bot hides it.
 
-The pairing: Grok Bot feeds a hopper. Trusted agents do the change management. Do not give Grok Bot write access to mission-critical systems.
+The pairing: Grok Bot feeds a hopper. Trusted agents do the change management. Day three also found Grok Bot as the primary UI that dispatches Cursor sessions, not only a secretary/hopper. Do not give Grok Bot write access to mission-critical systems.
 
 Cost and cheap-model leverage: Cursor wins. It is the harness that can actually pick the high-value cheap models that showed up in early 2026: Kimi (Moonshot), GLM 5.2 (not "Z"), DeepSeek, Qwen (Alibaba). See [AI coding cost collapse](/blog/ai-coding-cost-collapse-2026) and [Maximize value, not intelligence](/blog/maximize-value-not-intelligence). Grok Bot has no model picker and no visibility, so it cannot take that discount.
 
