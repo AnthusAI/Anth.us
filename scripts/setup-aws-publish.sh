@@ -136,8 +136,10 @@ TRUST=$(cat <<EOF
       "StringEquals": {"token.actions.githubusercontent.com:aud": "sts.amazonaws.com"},
       "StringLike": {
         "token.actions.githubusercontent.com:sub": [
-          "repo:AnthusAI/anthus-site-content:ref:refs/heads/main",
-          "repo:AnthusAI/Anth.us:ref:refs/heads/main"
+          "repo:AnthusAI/Anth.us:*",
+          "repo:AnthusAI@*/Anth.us@*:*",
+          "repo:AnthusAI/anthus-site-content:*",
+          "repo:AnthusAI@*/anthus-site-content@*:*"
         ]
       }
     }
