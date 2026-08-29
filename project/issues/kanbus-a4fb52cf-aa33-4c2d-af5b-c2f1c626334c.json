@@ -52,10 +52,31 @@
       "text": "Implemented the Never Use Fast terminology section. The published article now distinguishes economical Flash model families from premium Fast priority tiers, cites primary Google, Cursor, and OpenAI sources, removes the absolute same-weights wording, updates the Grok companion headline, and clarifies the excerpt. Verification: git diff --check, kbs validate, and Gatsby production build passed. Build emitted existing citation-provider and image lookup warnings elsewhere but completed successfully.",
       "created_at": "2026-08-29T17:20:13.397207Z",
       "comment_type": "default"
+    },
+    {
+      "id": "ac31ea70-7380-4f20-a03f-7819b2fb73f6",
+      "author": "ryan",
+      "text": "Visual pass for Never Use Fast: added a generated editorial hero (identical code-delivery agents; standard lane versus token-paid express lane) and an editable SVG decision diagram that answers whether a human is waiting. The previous title card remains preserved. Removed the SVG from the frontmatter image-processing list so Gatsby renders it through BlogImage's SVG path rather than childImageSharp. Initial build reached the article but failed later on an unrelated stale cached query for /blog/AI/; rebuilding from a clean cache.",
+      "created_at": "2026-08-29T17:34:52.828217Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "798d35c7-0c3f-4be7-b156-474da6472975",
+      "author": "ryan",
+      "text": "Hero revised after editorial review: replaced the confusing multi-panel lanes image with one first-person toll-plaza scene. It presents the actual reader choice directly: STANDARD $ versus FAST 998239982399823, with the premium lane visibly piled with token coins. The rejected generated workspace image was moved recoverably to /Users/ryan/.Trash/never-use-fast-express-lane-rejected-20260829.png; the original repository title card remains preserved.",
+      "created_at": "2026-08-29T17:39:30.261156Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "7509854c-21b4-4b8a-8ee1-43c29cb23ba5",
+      "author": "ryan",
+      "text": "Never Use Fast visuals: toll-plaza hero, decision diagram SVG, updated preview_image and captions. Ready to commit.",
+      "created_at": "2026-08-29T17:44:41.270202Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-08-29T14:23:21.838952Z",
-  "updated_at": "2026-08-29T17:20:13.397207Z",
+  "updated_at": "2026-08-29T17:44:41.270202Z",
   "closed_at": null,
   "custom": {
     "project_label": "kanbus",

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">When Fast is worth buying</title>
+  <desc id="desc">A decision diagram asking whether a human is waiting on an AI agent's result. Yes leads to Fast may be worth buying. No leads to Standard plus another agent.</desc>
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <style>
+    .heading { fill: #111111; font: 700 48px Arial, Helvetica, sans-serif; }
+    .question { fill: #111111; font: 700 28px Arial, Helvetica, sans-serif; text-anchor: middle; }
+    .answer { fill: #111111; font: 700 32px Arial, Helvetica, sans-serif; text-anchor: middle; }
+    .detail { fill: #555555; font: italic 18px Arial, Helvetica, sans-serif; text-anchor: middle; }
+    .label { fill: #9e1f36; font: 700 24px Arial, Helvetica, sans-serif; text-anchor: middle; }
+  </style>
+  <text x="600" y="78" class="heading" text-anchor="middle">Who is waiting?</text>
+  <polygon points="600,135 845,255 600,375 355,255" fill="#f4f4f4" stroke="#111111" stroke-width="5"/>
+  <text x="600" y="247" class="question">Is a human waiting on</text>
+  <text x="600" y="285" class="question">this result?</text>
+  <path d="M355 255 H195 V420" fill="none" stroke="#111111" stroke-width="5"/>
+  <path d="M845 255 H1022 V420" fill="none" stroke="#9e1f36" stroke-width="5"/>
+  <path d="M180 398 L195 423 L210 398" fill="#111111"/>
+  <path d="M1007 398 L1022 423 L1037 398" fill="#9e1f36"/>
+  <text x="195" y="328" class="label">YES</text>
+  <text x="1022" y="328" class="label">NO</text>
+  <rect x="30" y="426" width="330" height="150" rx="12" fill="#ffffff" stroke="#111111" stroke-width="5"/>
+  <text x="195" y="480" class="answer">Fast may be</text>
+  <text x="195" y="520" class="answer">worth buying</text>
+  <text x="195" y="553" class="detail">Live pairing · incident · demo</text>
+  <rect x="843" y="426" width="358" height="150" rx="12" fill="#fff7f8" stroke="#9e1f36" stroke-width="5"/>
+  <text x="1022" y="480" class="answer">Use Standard.</text>
+  <text x="1022" y="520" class="answer">Start another agent.</text>
+  <text x="1022" y="553" class="detail">Batch work · tests · refactors</text>
+</svg>
