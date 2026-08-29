@@ -4,8 +4,11 @@ slug: "never-use-fast"
 date: "2026-08-27T10:39:00-04:00"
 authors:
   - author: <a href="/ryan">Ryan Porter</a>
-excerpt: "Notes. How-to companion to Maximize Value, Not Intelligence: never buy latency, pin the cheap model, run work in parallel so you are never waiting."
-state: draft
+excerpt: "Fast mode is a latency product, and agent work is almost never latency-bound. You end up buying speed you do not need with tokens you do. Here is the reasoning, the current multipliers, and the specific defaults that switch it on without asking."
+preview_image: "./images/never-use-fast.png"
+images:
+  - "./images/never-use-fast.png"
+state: published
 tags:
   - articles
   - ai
@@ -13,108 +16,117 @@ tags:
   - how-to
 ---
 
-*Draft notes, August 27, 2026. Not a finished article. Working title is a placeholder.*
+import BlogImage from '../components/blog-image';
 
-## The three-article split
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="never-use-fast.png"
+  className="centered"
+  alt="Placeholder title card reading Never Use Fast."
+/>
 
-**[The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026)** — the market story. Prices fell, capability moved down the curve, agents got long-running, implementation stopped being the bottleneck. Already long. **Cut from it:** the 2025-vs-2026 "fast inverted" chart and the settings how-to (Cursor Auto, pin the model, Codex defaults, "just say no"). Leave a one-line pointer here.
+[Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence/) is the argument: route to the cheapest model that clears your bar, and make the expensive tier opt-in. This is the settings version — the buttons that implement it, and the one button that quietly undoes it.
 
-**[Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence)** — the concept piece. Dumbest model the problem will bear. Value = capability / cost. Which jobs just became worth automating. The ladder, the windfall, the review-capacity failure mode. Big picture. Do not turn it into a settings manual.
+Start with the button. Every major vendor now sells a Fast variant of its models, and in at least one popular tool it is the default. Turn it off everywhere, then leave it off.
 
-**This article** — the how-to of maximize-value. If you want the best value: use this tool, use this setting, do not use this setting. Personal card or a work budget. Same list.
+## What Fast actually sells you
 
-## What this article owns
+Fast is not a better model. It is the same weights on more hardware, or nearer the front of the queue. The only thing it changes is how long you wait.
 
-The 2026 fact that used to live in cost-collapse, said as an operator rule:
+Priced honestly, too. Anthropic's fast mode runs about 2× the token rate for up to 2.5× the output tokens per second; OpenAI's is the same shape, 2× the rate for up to 2.5× the speed. Read as a raw trade, buying speed slightly cheaper than linear is a good deal.
 
-- "Fast" used to mean cheap (Haiku, Flash, mini).
-- "Fast" now means a more expensive version of a bigger model (Fable 5, Sol Ultrafast). Extra iron. You pay to wait less.
-- **Never use fast.** Not "prefer cheap." A ban, with one honest exception sentence (incident, live pairing, maybe the architectural pass).
+It is a good deal on the wrong axis. **Fast converts tokens into lower latency, and latency only costs you something when a person is sitting there waiting.** For a coding agent grinding through a migration for eleven minutes, the wait is not a cost. It is a window in which you are doing something else.
 
-Then the practical list. Not another chart of fourteen models. Buttons and defaults:
+The substitute is free. Throughput is tasks in flight divided by time per task, and Fast only touches the denominator — at a premium. A second session raises the numerator at no premium at all. Pay double to finish one task in 40% of the time, or start a second task at list price and finish two in the wall-clock you already had. Fast wins only when you genuinely cannot start the second task.
 
-- Cursor: do not use Auto / Auto Balance / Auto Intelligence. Pin Composer 2.5 or Luna (or the current cheap workhorse). Auto is willing to spend more.
+Which is why this is a rule and not a preference. The situations where you cannot start a second task are rare, specific, and easy to name — so name them, and treat everything else as the default:
 
-### Cursor: Grok as manager for Composer
+**Buy Fast when a human is blocked and the wait is the actual expense.** Live pairing where a teammate is watching the cursor. A production incident where minutes have a dollar value. A demo. That is the list. In each case someone's attention is metered at far more than a 2× token multiple, and the arithmetic flips cleanly.
 
-Grok is a pretty good manager for Composer. At time of writing: Grok 4.6 as the manager for a parallel team of Composer 2.5 agents. Other models (Opus, Sol, GLM 5.2) still collaborate in the mix. Composer does the real work. Grok orchestrates.
+Everything else on your queue — the test backfill, the dependency sweep, the docs that drifted, the overnight refactor — is work you will read later. Buying its latency down accomplishes nothing except moving the moment you have to review it, and [your review capacity is the binding constraint anyway](/blog/maximize-value-not-intelligence/).
 
-Turn Fast off. Composer Fast is about 6× Composer. Grok 4.6 is about 4× Composer 2.5. Grok also burns more tokens. It is still an economical way to get smart management of a high-value coding agent.
+## The Fast tax, checked 2026-08-29
 
-Plan with Grok. Part of the plan must be: implementation is Composer 2.5 sub-agents. Tell it that before you click implement. If you click "yes, implement the plan" without that in the plan, it will not build Composer 2.5 into the plan.
+Every number here rots. The structure underneath it does not.
 
-Notes, not finished how-to copy. Recheck the 6× / 4× multipliers before publish.
+| Model / tool | Standard (in / out per 1M) | Fast (in / out per 1M) | Price multiple | Published speed gain |
+| :-- | --: | --: | --: | :-- |
+| Composer 2.5 (Cursor) | $0.50 / $2.50 | $3.00 / $15.00 | **6×** | none published |
+| Grok 4.6 (Cursor) | $2.00 / $6.00 | $4.00 / $12.00 | 2× | none published |
+| Claude Opus 5 | $5 / $25 | $10 / $50 | 2× | up to 2.5× output tok/s |
+| GPT-5.6 (any tier) | list rate | 2× list rate | 2× | up to 2.5× |
+| GPT-5.6 Sol Ultrafast | — | limited preview, no rate card | unpublished | up to 14×, ~750 tok/s |
 
-- Codex: do not accept the picker defaults. The tool hides the cheap Codex models and the `gpt-5.6` alias routes to Sol. Re-add the affordable ones by hand.
-- Anthropic: do not pick Fable for everyday work. Opus is already the expensive flagship; Fable is that plus a speed tax.
-- Never buy Ultrafast / "priority" / "fast" modes.
-- Start N cheap sessions so you are never staring at one spinner. Parallel is how patience stays cheap.
-- Scale out across projects. You are the manager. That is tiring and it is the job.
+*Verified August 29, 2026 against [Cursor's models and pricing page](https://cursor.com/docs/models-and-pricing), [BenchLM's Anthropic API pricing table](https://benchlm.ai/anthropic/api-pricing), and [AI Pricing Guru's OpenAI page](https://www.aipricing.guru/openai-pricing/). Standard list prices for Sol disagree across sources this week — I have deliberately left absolute flagship prices out of this table, because the multiple is the durable number and the list price is not.*
 
-Audience: you paying out of pocket, and you at a job where someone is watching the bill.
+Two things fall out of that table.
 
-## Use every quota bucket
+The Composer row is the one to look at hardest. Six times the price on both axes, and no published throughput figure to divide it by. You cannot compute a value ratio for a speed gain nobody has quantified, and a vendor that has not published the number is not usually sitting on a flattering one.
 
-Getting the most value for coding means remembering the separate quota buckets each service gives you, and using them.
+The Opus row has a sting in it. Fast-mode Opus 5 lands at $10 / $50 per million — which is exactly Claude Fable 5's standard rate. Pay the flagship-plus price, receive the model you already had, faster. Meanwhile Opus 5 scores within half a percent of Fable 5 on CursorBench at half the cost per task, which is a good reminder that the premium tier and the fast tier are increasingly the same product wearing two labels.
 
-The subscriptions are not one pile of tokens. They are buckets. Empty all of them.
+The Ultrafast row is not a recommendation either way. It is a limited preview with no published rate, quota, or service term, which means you cannot evaluate it. Do not put an unpriced tier in a budget.
 
-Antigravity / $20/month Google AI subscription: Gemini is one bucket. There is a separate quota bucket with Claude Opus, Sonnet, and GPT OSS. Why those extra models are on a Google subscription is a mystery. Use them anyway. To get the most out of the $20, use quota in both categories: Gemini, and the extra Claude / OpenAI models.
+## The defaults that turn it on for you
 
-Cursor: two quota buckets. Cursor internal models (Grok and Composer) vs third-party models. Use up quota in both categories.
+"Never use Fast" would be trivial advice if Fast were something you had to go find. Mostly it is something you have to go turn off.
 
-Cursor now gives some user tiers access to Grok Bot. Do not let that go unused.
+| Tool | The default that costs you | What to do instead |
+| :-- | :-- | :-- |
+| Cursor / Composer 2.5 | The Fast toggle ships on, and a selection-persistence bug has reverted it to Fast on new chats | Settings → Models → Composer 2.5, set the Standard variant; glance at the model chip before long runs |
+| Cursor / Auto | All Auto modes bill at the list price of whichever model they route to | Pin one model yourself — Composer 2.5 or Luna for the bulk of the work |
+| Codex | The bare `gpt-5.6` alias routes to Sol, the flagship tier | Name the tier explicitly: `gpt-5.6-luna` for routine work, Sol only when you mean it |
+| Claude | Reaching for Fable 5 out of habit | Opus 5 at half the price, within 0.5% on CursorBench; keep fast mode off |
+| Any tool, any vendor | "Priority," "turbo," "ultrafast," "boost" | Assume it is a latency product until the pricing page says otherwise |
 
-If you already have Cursor, use the Grok Bot credits. Cloud agents when the project allows. `agent worker start` when it needs your machine.
+*Checked August 29, 2026. Cursor's Auto billing has already moved once this month — as recently as mid-August, Auto Cost was documented as a flat rate and the $0.25/M Cursor Token Rate applied more broadly than it does now. That is the whole reason these live in a table.*
 
-Grok Bot quota is calendar-month, not the Cursor reset day. Written Aug 28: unused August quota expires in a few days.
+One more Codex-specific date worth acting on: `gpt-5.4` and `gpt-5.4-mini` retire from Codex with ChatGPT sign-in on **August 31, 2026**. If either is in a config file, it stops being a cheap default and starts being an error in two days.
 
-Notes, not finished how-to copy. Recheck which plans include which buckets before publish.
+## The manager-and-workers version
 
-## Move out of cost-collapse (when we edit that piece)
+Turning Fast off is what makes a second model tier affordable, and that is where the savings actually get spent.
 
-From "What the big labs don't want you to know" through "How to actually leverage it":
+The pattern that has been working: Grok 4.6 as the manager for a parallel team of Composer 2.5 agents. Grok plans, splits the work, reviews what comes back, and rejects what does not meet the spec. Composer does the implementation. Other models drop into the mix when the task earns them.
 
-- The 2025 / 2026 fast comparison chart
-- Fable 5 / Opus 5 / Sol / Ultrafast prices as a *settings* argument
-- Cursor Auto vs pin
-- Codex model sunset / confusing names
-- "Just say no" to defaults
+The economics only work with Fast off. Grok 4.6 costs about 2.4× Composer 2.5 on output, and a manager burns more tokens than a worker does — it re-reads the plan, the diffs, and the failures. Multiply that by a 2× fast premium on the manager and a 6× premium on every worker and the management layer stops being a rounding error. Off, it is one of the cheapest ways to buy competent supervision of a coding agent.
 
-Keep in cost-collapse: Chinese labs undercutting on price, the $200-to-$20 line, the two multiplying curves, specification as bottleneck, parallel agents as a *market* fact (a one-liner, not the how-to). After the cut, one sentence: "If you want the settings, see [this article]."
+One operational note that costs real money if you skip it: say *in the plan* that implementation runs on Composer 2.5 sub-agents. Say it before you approve. If you click through to implement without that written down, the manager will not put it there on your behalf, and you will get an expensive model doing work a cheap one was going to do. More on the shape of that setup in [A week with Grok Bot](/blog/a-week-with-grok-bot/).
 
-## Leave in maximize-value
+## Empty every bucket
 
-- The 2023 classifier story and "dumbest model the problem will bear"
-- Value charts, Luna vs Sol as a *concept* (23×)
-- Which chores crossed the break-even line
-- "Don't buy capacity you cannot review"
+The other half of not overpaying is not underusing. Subscriptions are not one pile of tokens — they are several pools that expire separately, and unused quota has no salvage value.
 
-This article can say "here is the button that implements that" without repeating the charts.
+| Service | Separate pools | Reset |
+| :-- | :-- | :-- |
+| Antigravity (Google AI Pro) | "Gemini Models" and "Claude and GPT models" — independent counters | Weekly limit, with a five-hour rolling refresh underneath it |
+| Cursor | "Cursor Models" (Grok, Composer) and "Other Models" (third-party) | Both reset with your monthly billing cycle |
+| Grok Bot (included on paid Cursor plans) | Its own included usage, separate from the two Cursor pools | **Weekly**; overflow spills to on-demand spend if enabled |
 
-## Still to pin (the actual how-to list)
+*Verified August 29, 2026 against [Antigravity's models docs](https://antigravity.google/docs/models/), [Cursor's models and pricing page](https://cursor.com/docs/models-and-pricing), and [Cursor's Grok Bot plans page](https://cursor.com/help/grok-bot/plans).*
 
-Need current, checkable settings. Not vibes.
+Correcting myself on that last row: I have said in a draft elsewhere that Grok Bot quota is calendar-month aligned. Cursor's own documentation says it resets weekly, and that Grok Bot is included on every paid individual plan plus Teams and Enterprise. Weekly is the number to plan against — a heavy Tuesday can push you onto on-demand pricing for the rest of the week, and Monday's unused allowance is simply gone.
 
-- Cursor: which Auto modes exist, which plans, what to pin in August 2026.
-- Claude Code / Codex / Antigravity / Grok Bot: the one setting that wastes money in each. Remote-agents draft owns the harness chart. Here: one line per tool.
-- Cheap workhorses to name: Luna, Composer 2.5, Kimi, GLM 5.2, DeepSeek, Qwen. Same names as the other pieces. Recheck prices before we publish.
-- Work-budget version: procurement defaults (latest, Auto, Ultrafast) are the trap. One example of a company default that lights money on fire.
-- Exception list: when fast is allowed, said in one sentence.
-- Quota buckets: Antigravity Gemini vs Claude Opus / Sonnet / GPT OSS. Cursor internal (Grok, Composer) vs third-party. Which Cursor tiers include Grok Bot. Recheck before publish.
+Three services, three different reset cycles, none of them aligned. That is the practical consequence: the pool that is about to reset is the cheapest compute you will ever have, because its marginal cost is zero and its salvage value is zero. Scheduling matters about as much as model choice. If you are on Google AI Pro and only ever prompt Gemini, you are leaving an entire Claude-and-GPT counter on the table every week for no reason beyond habit.
 
-## Working lede (scratch)
+## If someone else is watching the bill
 
-Maximize-value is the idea. This is the settings.
+The corporate version of this is a procurement default rather than a checkbox. A standard developer image ships with the latest model, Auto routing, and Fast enabled, because those are the settings that generate the fewest support tickets in week one. Nobody revisits it, and it compounds across every seat.
 
-You do not need a faster model. You need another task.
+The question to ask in that room is narrow enough to actually get answered: *what did the fast premium buy us?* If the answer is "our agents finish overnight batch jobs sooner," there is no answer — nobody was waiting. Set the org default to the standard variant, keep Fast available for on-call and live pairing, and let people opt in when they can say who was blocked.
 
-The labs renamed "fast." It used to mean cheap and small. Now it means the expensive model on extra iron. Off. Pin the cheap one. Start three jobs. Go manage the other project.
+## What to re-check
 
-## Do not
+The multipliers in this article are current as of August 29, 2026 and will move. The reasoning will not:
 
-- Do not recap the whole cost-collapse or maximize-value charts.
-- Do not make this a Grok Bot review.
-- Do not moralize about "real engineers wait."
-- Do not commit to `main`. Park on `develop`.
-- Do not edit the published commodity article until Ryan says to cut it.
+- Fast is a latency product. Before buying it, name the person who is waiting.
+- If you cannot name one, buy concurrency instead. It is the same throughput at list price.
+- Any setting that picks a model or a service tier for you can pick an expensive one. Read what it is optimizing for.
+- Quota that expires unused was free capability you declined.
+
+Re-read the vendor pricing pages quarterly, or the first time a bill surprises you. Everything above the tables should still hold; the tables will not.
+
+## Companion pieces
+
+- [Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence/) — the argument these settings implement: route to the cheapest model that clears the bar, and measure what you actually spend per accepted change.
+- [The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026/) — why the fast tier inverted in the first place, from cheap-and-small in 2025 to premium-and-quick in 2026.

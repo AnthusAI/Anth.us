@@ -7,46 +7,101 @@ authors:
 tags:
   - articles
   - AI
+  - coding agents
 excerpt: |
-  Companion to the 2026 coding-cost collapse: every coding-agent harness added remote, and Grok Bot was built that way.
+  Every major coding-agent harness shipped remote execution in 2026, which means remote stopped being a differentiator. The axis that replaced it is whose clock the agent runs on: a queue you drop work into is a 2025 object, and an agent that starts on its own is a 2026 one.
 preview_image: "./images/coding-agents-went-remote-2026.png"
 images:
   - "./images/coding-agents-went-remote-2026.png"
-state: draft
+state: published
 ---
 
 import BlogImage from '../components/blog-image';
 
-*Draft notes, August 27, 2026. Companion to [The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026). The feature comparison chart may live here instead of in the [Grok Bot review](/blog/a-week-with-grok-bot/).*
+<BlogImage images={props.pageContext.frontmatter.images} name="coding-agents-went-remote-2026.png" className="centered" alt="The Year the Coding Agents Went Remote." />
 
-<BlogImage images={props.pageContext.frontmatter.images} name="coding-agents-went-remote-2026.png" className="centered" alt="Draft cover for The Year the Coding Agents Went Remote." />
+The question I used to ask about a coding agent was whether it could run somewhere other than the laptop in front of me. In 2026 every harness I use answers yes, so the question stopped sorting anything.
 
-## The other 2026 trend
+What sorts them now is whose clock they run on.
 
-Cheap coding is one story. The other is remote. Every coding-agent product added it this year. Cursor. Claude Code (not "Cloud Code"). Codex. Antigravity. Five if you count Grok Bot.
+## Hopper and actor
 
-## What remote actually means
+A hopper is a queue with a worker attached. You put a task in, the work happens somewhere, the result comes back, and nothing else happens until you put in another task. Where the compute lives is an implementation detail of the hopper. It can be your laptop, a container in someone's cloud, or a VM you rent. The shape is the same: the agent is idle until you act.
 
-Compute on a machine that is not the laptop in front of you. Check in from a phone or a web page. Sometimes from another IDE on another computer.
+An actor has a trigger it owns. A schedule, a webhook, a pull request opening, an alert firing. Nobody is standing at the hopper. The work starts because a condition the agent was watching became true, and you find out afterward.
 
-Every system does this differently. An hour to unpack the differences. Do not pretend they are the same feature.
+That is the change 2026 actually shipped. "Remote" was the visible feature and the one every launch post led with, but remote by itself just moves the hopper. The scheduling and event triggers that landed alongside it are what turned these products into things that run when you are asleep.
 
-## Grok Bot is the fifth
+The economics underneath this are a separate argument, made in [The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026/): cheap tokens are what made long loops and standing fleets of agents a line item instead of a demo. This piece is about what the harnesses did with that.
 
-Framing to record. Verify. Do not invent acquisition details.
+## The five, and how I checked them
 
-Grok Bot from the Cursor company after the xAI acquisition. Built from the ground up as a remote agent system, not a coding agent with remote tacked on. It exists in the cloud. It notifies you on any device. Easier to set up. Easier to run in the background. You do not think about where the compute runs.
+Harness, not model. The distinction matters here because two of these products give you no model choice at all, and one of them is the same underlying orchestration sold under two names.
 
-That is the next stage of remote agent: more autonomy behind the scenes. Explicitly good at that at the expense of not being a good computing system. Details of that failure belong in the [Grok Bot review](/blog/a-week-with-grok-bot/).
+- **Cursor** — cloud agents, self-hosted workers, Automations
+- **Claude Code** — the CLI, Remote Control, Claude Code on the web, Routines
+- **Codex** — the OpenAI coding-agent line, cloud environments and scheduled tasks
+- **Google Antigravity** — the agent-first IDE, Remote Control, Scheduled Tasks, sidecars
+- **Grok Bot** — xAI's always-on bots, sold through Cursor plans
 
-## What this article holds
+Everything in the table below comes from vendor documentation, checked **August 29, 2026**. Where the docs do not say something, I say that rather than filling the cell. Two of the five have capabilities I have personally watched work that their published docs do not describe, and those go in prose below the table, labeled as what they are.
 
-This piece compares all five. It holds the feature comparison chart: obedience, scheduling, cloud background, persistence without a Mac Mini or a lid-open laptop, hopper vs actor, cheap-model leverage. The Grok Bot review points here.
+## Two questions separate them
 
-## The memory bus
+**Whose computer runs the tool calls?** Not where the model runs — every one of these does inference in a vendor cloud. The question is where the shell commands, file edits, and test runs happen, because that determines whether the agent can see your dirty working tree, your private network, and the microcontroller you have plugged into USB.
 
-The five systems do not share a working tree. They can still collaborate if they share a memory system. An information bus. [Kanbus](https://kanb.us/) is one: git as the bus, issues as the messages. It is not the only one. Jira works if every agent can see it. Any shared tracker works if every agent platform can read and write it: the ones on your laptop, the ones in someone else's cloud, Grok Bot in its isolated computer.
+**Whose clock starts the run?** Yours, or the harness's.
 
-Then Grok Bot can be the secretary. A note-taking agent files an assignment. A trusted coding agent on another agent platform picks it up and does the change. You use Grok Bot for what it is good at: ever-present, ubiquitous, notes. You do not use it for the work. The bus is the handoff.
+The two questions are independent, and the interesting cells are where they disagree. Cursor's self-hosted workers put a cloud agent's execution on your laptop. Codex's desktop scheduled tasks give a local agent its own clock and then make that clock dependent on your machine staying awake.
 
-Commit and push a lot. Grok Bot computers can suddenly crash. Even a good recovery point still costs you the recovery time if that disk is the only copy. GitHub is the copy you can count on.
+## The comparison
+
+| Harness | Where the tool calls run | Its own clock | Survives a closed laptop | Reaches your local machine |
+| --- | --- | --- | --- | --- |
+| **Cursor** | Isolated cloud VMs by default; `agent worker start` moves execution to a laptop, devbox, or self-hosted pool | Automations: presets or a cron expression, plus GitHub, GitLab, Bitbucket, Slack, Linear, Sentry, PagerDuty, and webhook triggers | Yes for cloud agents — docs say they "do not require your local machine to be connected to the internet" | Yes, through My Machines or a self-hosted pool |
+| **Claude Code** | Local by default; cloud sessions on Anthropic-managed infrastructure, or a self-hosted environment on Team and Enterprise | Routines (research preview): schedule, authenticated HTTP POST, or GitHub pull-request and release events. Minimum interval one hour | Cloud sessions and Routines yes. Remote Control no — the local `claude` process must keep running | Yes — the CLI is the local product, and Remote Control is a window onto it |
+| **Codex** | Parallel cloud environments, or locally in the app | Scheduled tasks: minute intervals, daily and weekly times, RFC 5545 recurrence rules, plus Gmail, Slack, and GitHub events | Web and mobile scheduled tasks run server-side. Desktop ones need "the computer on and the app running" | Yes — a desktop scheduled task runs in your project directory or an isolated git worktree |
+| **Antigravity** | Your own machine. Remote Control (August 21, 2026) is a browser onto a session running on hardware you own | Scheduled Tasks take a cron; sidecars expose a `schedule` builtin taking a standard five-field cron expression | No — background tasks continue "as long as the host maintains an internet connection" | Yes, by construction |
+| **Grok Bot** | A cloud computer scoped to your account, shared by every bot on it | Routines on a schedule; Cursor account integrations can start one from an event such as a Slack message or a GitHub notification | Yes — "Background routines can run while your laptop is closed" | Only indirectly, by launching a Cursor cloud agent from a chat |
+
+Sources, all checked August 29, 2026: [Cursor cloud agents](https://cursor.com/docs/cloud-agent), [My Machines](https://cursor.com/docs/cloud-agent/my-machines), [self-hosted pools](https://cursor.com/docs/cloud-agent/self-hosted-pool), and [Automations](https://cursor.com/docs/cloud-agent/automations), announced in the [March 5, 2026 changelog](https://cursor.com/changelog/03-05-26); [Claude Code Remote Control](https://code.claude.com/docs/en/remote-control), [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web), and [Routines](https://code.claude.com/docs/en/routines); [Codex cloud](https://learn.chatgpt.com/docs/cloud) and [Codex automations](https://learn.chatgpt.com/docs/automations); [Antigravity Remote Control](https://antigravity.google/docs/remote-control/), its [launch post](https://antigravity.google/blog/remote-control-for-antigravity), and [sidecars](https://antigravity.google/docs/sidecars/); [Grok Bot overview](https://docs.x.ai/grok-bot/overview), [skills and routines](https://docs.x.ai/grok-bot/skills-routines-and-automations), [the launch announcement](https://x.ai/news/introducing-grok-bot) of August 11, 2026, and [Cursor's Grok Bot docs](https://cursor.com/help/grok-bot/getting-started).
+
+## Reading the table
+
+**Everyone got a clock, and they are not the same clock.** Cursor has the widest event surface by a distance — five third-party services plus source control plus raw webhooks — and it is also the oldest of these, shipping in early March. Codex has the finest schedule granularity: minute intervals and full RFC 5545 recurrence rules, which is the only place in this comparison where a vendor exposed a real calendaring standard instead of a preset dropdown. Claude Code's Routines are the newest and the most explicitly provisional; the docs label them a research preview, cap the schedule at one run per hour, and impose a daily run allowance on top of normal subscription limits. Antigravity's cron is real and its sidecar mechanism is the most programmable of the five, but the clock is only as reliable as the machine it is on.
+
+**"Survives a closed laptop" is where the products actually diverge.** This is the column that separates a harness with remote execution from a harness that is remote. Antigravity is unambiguous: Google gives you the window, you supply the computer. Claude Code splits down the middle, and the split is invisible from the outside — Remote Control and Claude Code on the web are both "use it from your phone," and only one of them keeps working after you shut the lid. Codex splits the same way along a different seam, by surface rather than by feature: a scheduled task you create on the web runs server-side, and the same task created in the desktop app does not.
+
+**Nothing here removed the need for a local machine.** Every one of these five either runs on your hardware by default or has shipped a documented path back to it. Cursor's is the most explicit: the agent loop stays in Cursor's cloud and sends tool calls down to a worker you started with `agent worker start`, so what the product calls a cloud agent is executing on your laptop with your repositories, your test environment, and anything you have attached over USB. That is not a fallback for teams with compliance requirements. It is the normal way to work on anything that touches real hardware.
+
+**Two cells I could not fill from documentation.** Grok Bot's published docs describe routines running "on a schedule" and give an example of a weekday 8:00 AM run, but never state the granularity or whether a cron expression is accepted, so the table does not claim one. And Grok Bot's docs do not mention dispatching a Cursor agent to a self-hosted worker — Cursor's own page confirms only that you can launch a cloud agent from a Grok Bot chat. I have watched Grok Bot dispatch work to a local `agent worker` on my Mac, and I wrote about it in the [Grok Bot review](/blog/a-week-with-grok-bot/), but that is a field observation and not a documented feature, and I would not build a workflow on it yet.
+
+## What being an actor costs
+
+The obvious cost is review load, and it arrives in a shape most of us have not built habits for. A hopper hands you a diff you asked for. An actor hands you a diff you did not ask for, produced by a run you did not watch, against a condition you configured some weeks ago and no longer remember precisely.
+
+The less obvious cost is that obedience matters much more than it used to. When you are sitting in the loop, an agent that ignores your written procedure is an annoyance — you notice, you correct it, you move on. When the agent starts itself at 3 AM, the procedure written down in `AGENTS.md` is the only supervision in the room.
+
+On that axis my experience does not match the marketing, and I want to be clear that this part is subjective and not verifiable from anyone's documentation. Codex is the most reliable at following a written procedure it was not reminded about in the last message. Claude Code is next, which is faint praise given how often it needs reminding. Grok Bot is the least reliable of the five and the most willing to substitute its own interpretation, which is an uncomfortable pairing with being the harness that runs most freely while nobody is looking. It is a good reason to keep the always-on agent away from anything that deploys.
+
+Antigravity's Scheduled Tasks make a different trade in the same direction: the [Google I/O 2026 feature notes](https://antigravity.google/blog/google-io-2026-feature-deep-dive) say agents invoked by a scheduled task are fixed to Gemini 3.5 Flash, with model selection listed as future work. Whatever you think of that model, the run that happens unattended is the one you have the least control over.
+
+## They still cannot share a working tree
+
+Five harnesses, five checkouts. Cursor's cloud VM, Anthropic's cloud VM, Codex's cloud environment, your Antigravity host, and the Grok Bot computer are five different filesystems, and no amount of remote execution merged them. Two agents in two products cannot open the same dirty tree, so the collaboration model between harnesses is the one people use: commit, push a branch, wait.
+
+What does cross the wall is a shared record. [Kanbus](https://kanb.us/) is the one I use — git as the transport, issues as messages, one file per task, so every agent that can clone the repository can read the board and write to it. Jira works for this too, and so does anything else every platform on your list can reach. The requirement is not a particular tracker. It is that the tracker is legible to the agent on your laptop, the agent in someone else's cloud, and the agent on the machine you never see.
+
+That shared record is what makes the weakest-linked harness useful. Grok Bot is always available and reachable from a phone, and it is the one I trust least with a repository. Those two facts stop conflicting once it can file an assignment instead of making a change: it takes the note, writes the issue, and stops. A harness I do trust picks the issue up and does the work. The organizational argument that follows from this — reporting lines, review gates, who is allowed to reject work — belongs in [From pair programmer to executive](/blog/from-pair-programmer-to-executive/).
+
+Shared memory is not a shared checkout. It is enough.
+
+## Practical notes
+
+Commit and push far more often than felt necessary in 2025. A cloud computer can go away between one message and the next, and a recovery point on a disk you cannot reach costs you the recovery time even when it works. The remote you can count on is the one on GitHub.
+
+Check the "closed laptop" column before you build a routine on a harness. Two of these five will quietly stop running when your machine sleeps, and neither of them warns you at configuration time.
+
+Put the procedure in the repository, not in the conversation. An agent with its own clock has no conversation to read when it starts.
+
+And when you evaluate the next one of these, skip the remote-execution bullet. Every product in the category has it now. Ask what starts a run, what happens to that run when you close the lid, and whether the thing that starts itself at 3 AM can be trusted to read the file you wrote telling it what not to do.
