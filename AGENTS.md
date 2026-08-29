@@ -371,7 +371,16 @@ If you see import errors for CSS classes:
 
 ## Board names (Ryan)
 
-When Ryan says **the newsroom board** or **the Papyrus board**, he means the Anth.us publication board: the local Papyrus pod at `pods/anthus-blog`, Kanbus key `ANTH`. He does not mean the Papyrus product / project-management board (`PPY` at the Papyrus repo root), and he does not mean this Gatsby repo's site-ops board.
+When Ryan says **the newsroom board** or **the Papyrus board**, he means the Anth.us publication board, Kanbus key `ANTH`. He does not mean the Papyrus product / project-management board (`PPY` at the Papyrus repo root), and he does not mean this Gatsby repo's site-ops board.
+
+The board lives in [AnthusAI/anthus-semantic-knowledge-base](https://github.com/AnthusAI/anthus-semantic-knowledge-base). Local checkout: `~/Projects/anthus-semantic-knowledge-base`. Always work there:
+
+```
+cd ~/Projects/anthus-semantic-knowledge-base
+kbs list
+```
+
+Papyrus `develop` can mount the same repo as a submodule at `pods/anthus-blog`. That path is live only in a checkout that has `.gitmodules` (usually `~/Projects/Papyrus-worktrees/develop-blog-bdd-7dc0`). The default `~/Projects/Papyrus` tree is often a feature branch whose `pods/anthus-blog` is still the old **empty template**. If `kbs list` shows no stories, you are in the stale copy. Do not conclude the board is empty.
 
 ## Deployment
 
