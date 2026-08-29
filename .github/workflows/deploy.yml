@@ -11,13 +11,13 @@ permissions:
 
 jobs:
   build-and-deploy:
-  runs-on: ubuntu-latest
-  env:
-    AWS_REGION: ${{ vars.AWS_REGION }}
-    S3_BUCKET: ${{ vars.S3_BUCKET }}
-    CLOUDFRONT_DIST_ID: ${{ vars.CLOUDFRONT_DIST_ID }}
-    AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
-  steps:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      S3_BUCKET: ${{ vars.S3_BUCKET }}
+      CLOUDFRONT_DIST_ID: ${{ vars.CLOUDFRONT_DIST_ID }}
+      AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+    steps:
     - name: Checkout site repo with submodules
       uses: actions/checkout@v4
       with:
