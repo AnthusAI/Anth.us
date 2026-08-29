@@ -31,10 +31,17 @@
       "text": "Publishing pass: retitled the early Grok Bot review to 'Grok Bot Gave My Coding Agents a Boss,' made the four-day evidence window explicit, improved the excerpt, and added evidence-oriented captions for the latest visual sequence. Kept the existing slug and raw notes.",
       "created_at": "2026-08-29T16:47:17.523698Z",
       "comment_type": "default"
+    },
+    {
+      "id": "cf8cac7d-913a-4af7-ae19-9a38ce7a3dc9",
+      "author": "ryan",
+      "text": "Publication-readiness pass: removed all four-day and early-review framing; moved the complete raw notebook out of Gatsby's source tree to src/drafts/a-week-with-grok-bot-working-notes.mdx; and left a 1,687-word public article focused on the army-of-bots control-room story, concrete incidents, and guardrails.",
+      "created_at": "2026-08-29T17:01:06.563727Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-08-29T14:23:21.838952Z",
-  "updated_at": "2026-08-29T16:47:17.523698Z",
+  "updated_at": "2026-08-29T17:01:06.563727Z",
   "closed_at": null,
   "custom": {
     "project_label": "kanbus",
