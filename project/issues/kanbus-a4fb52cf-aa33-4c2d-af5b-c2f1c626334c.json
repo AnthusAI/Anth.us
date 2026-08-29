@@ -73,10 +73,24 @@
       "text": "Never Use Fast visuals: toll-plaza hero, decision diagram SVG, updated preview_image and captions. Ready to commit.",
       "created_at": "2026-08-29T17:44:41.270202Z",
       "comment_type": "default"
+    },
+    {
+      "id": "d936e3e7-e233-439e-ba83-af5ace295505",
+      "author": "ryan",
+      "text": "Release pass for Never Use Fast: shrink the in-article SVG decision diagram while preserving the full-width toll-plaza hero, confirm the article state is published, and deploy through the content repository's main-branch workflow.",
+      "created_at": "2026-08-29T19:45:16.128674Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "e5d35522-fc14-45a4-b624-850d5e3c358f",
+      "author": "ryan",
+      "text": "Published Never Use Fast through the content repository. The decision diagram is now locally capped at 26rem (about 70% of the hero width at desktop) while the toll-plaza hero stays full width. Verification: local Gatsby route returned 200 and rendered both figures; git diff --check and kbs validate passed. Content commit cbc3ce3 pushed to anthus-site-content/main, triggering its S3 + CloudFront deployment workflow.",
+      "created_at": "2026-08-29T19:46:56.650211Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-08-29T14:23:21.838952Z",
-  "updated_at": "2026-08-29T17:44:41.270202Z",
+  "updated_at": "2026-08-29T19:46:56.650211Z",
   "closed_at": null,
   "custom": {
     "project_label": "kanbus",
