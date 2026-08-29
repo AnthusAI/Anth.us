@@ -3,7 +3,7 @@
   "title": "Factor site content and newsroom into submodules with S3 publish path",
   "description": "",
   "type": "epic",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -17,10 +17,31 @@
       "text": "Epic scope: (1) extract src/blog to AnthusAI/anthus-blog-content submodule at same path; (2) mount anthus-semantic-knowledge-base at newsroom/; (3) Amplify submodule init; (4) content-repo GitHub Action to sync MDX/images to S3 and optionally trigger site rebuild. Goal: decouple content pushes from full 30min site deploys.",
       "created_at": "2026-08-29T17:45:19.895931Z",
       "comment_type": "default"
+    },
+    {
+      "id": "42f54f5c-9781-450c-b87a-724701699830",
+      "author": "ryan",
+      "text": "Build verified locally (EXIT=0) with submodule at src/site-content. Excluded README.md from Gatsby source. Added deploy.yml workflow with Gatsby cache for incremental builds. Removed amplify.yml. AWS deploy steps are conditional on vars being set, so build+cache can be tested before AWS is configured.",
+      "created_at": "2026-08-29T18:15:12.560109Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "11864b56-08a4-43b0-b7c8-43e2eef52ffb",
+      "author": "ryan",
+      "text": "Both cold builds succeeded on GitHub Actions (Anth.us ~23min, content repo ~19min). Caching enabled. Pushing AGENTS.md update to trigger a cached build and measure incremental timing.",
+      "created_at": "2026-08-29T18:43:14.921714Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "b4fa0db3-27f0-4c24-89f5-b74220cee8da",
+      "author": "ryan",
+      "text": "VERIFIED: Cached build completed in 1m22s (vs 23min cold). Gatsby incremental caching works on GitHub Actions. Build+cache pipeline confirmed. AWS deploy steps skipped (no vars set yet). Remaining: run scripts/setup-aws-publish.sh with AWS creds, set GitHub Actions Variables on both repos, point DNS at CloudFront.",
+      "created_at": "2026-08-29T18:45:54.650912Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-08-29T17:45:04.336626Z",
-  "updated_at": "2026-08-29T17:45:19.895931Z",
-  "closed_at": null,
+  "updated_at": "2026-08-29T18:45:58.036546Z",
+  "closed_at": "2026-08-29T18:45:58.036546Z",
   "custom": {}
 }
