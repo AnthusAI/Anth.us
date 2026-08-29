@@ -1,5 +1,5 @@
 ---
-title: "A week with Grok Bot"
+title: "Grok Bot Gave My Coding Agents a Boss"
 slug: "a-week-with-grok-bot"
 date: "2026-08-26T22:47:00-04:00"
 authors:
@@ -9,15 +9,37 @@ tags:
   - AI
   - Grok Bot
 excerpt: |
-  A review after using Grok Bot, not a recap of the launch post. Started the first night. Finish after a week or two of real use.
-preview_image: "./images/grok-bot-after-a-week.png"
+  Four days into Grok Bot, my agents were filing bugs, dispatching parallel Cursor workers, rejecting weak work, and returning fixes for acceptance testing—with less help from me than I expected.
+preview_image: "./images/grok-bot-app-square.png"
 images:
+  - "./images/grok-bot-app.png"
+  - "./images/grok-bot-app-square.png"
   - "./images/grok-bot-after-a-week.png"
   - "./images/grok-bot-agent-to-agent.png"
-state: draft
+  - "./images/grok-bot-has-a-computer.png"
+  - "./images/grok-bot-plantuml-request.png"
+  - "./diagrams/grok-bot-bot-to-bot-mail.png"
+state: published
 ---
 
 import BlogImage from "../components/blog-image"
+
+<div
+  style={{
+    float: "right",
+    width: "260px",
+    maxWidth: "40%",
+    marginLeft: "24px",
+    marginBottom: "16px",
+  }}
+>
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="grok-bot-app.png"
+    className="right-aligned"
+    alt="The Grok Bot app on a phone: a list of bots by role — DataParade, Software Director, Researcher, Applied Research, Publicist, Product, Anth.us, Papyrus — each with its own recent message."
+  />
+</div>
 
 At 4:13 Friday afternoon, the Researcher bot started reporting bugs to the Software Director.
 
@@ -31,12 +53,21 @@ The org chart was moving.
 
 This is completely nuts.
 
-<BlogImage
-  images={props.pageContext.frontmatter.images}
-  name="grok-bot-agent-to-agent.png"
-  className="centered"
-  alt="Anth.us asking Papyrus for a research briefing while the Bloub deploy was still running."
-/>
+<div style={{ maxWidth: "420px", margin: "0 auto var(--base-line-height)" }}>
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="grok-bot-agent-to-agent.png"
+    className="full"
+    alt="Anth.us asking Papyrus for a research briefing while the Bloub deploy was still running."
+  />
+</div>
+
+<p>
+  <em>
+    While one bot waited for a deployment, it handed a research question to
+    Papyrus and brought the answer back into the same conversation.
+  </em>
+</p>
 
 ## The moment it stopped feeling like another coding agent
 
@@ -46,6 +77,22 @@ The experience is new because the machinery disappears.
 
 On the first night, a bot went live in the Anthus AI Solutions Discord and sat in `#general`. Papyrus started an hourly research watch. A separate site bot received a link, created a post, and handed it to Amplify. While that build ran, the site bot asked the research bot for a trend briefing.
 
+<div className="center-full-image">
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="grok-bot-after-a-week.png"
+    className="full"
+    alt="Papyrus in Grok Bot on night one: hourly research watch, with the bot's screen and routines in the side pane."
+  />
+</div>
+
+<p>
+  <em>
+    Papyrus runs an hourly research routine on its own cloud computer, then
+    reports the findings that clear its rubric.
+  </em>
+</p>
+
 Two agents were doing different jobs on the same always-available computer. They could see one another and talk without waiting for me to copy text from one session into another.
 
 The first night felt smooth. By the third and fourth days, Grok Bot had become something else: the place where I directed work that would be implemented by Cursor agents elsewhere.
@@ -54,13 +101,6 @@ That is the distinction I missed when the product launched. Grok Bot is not most
 
 ## They provide the computer
 
-<BlogImage
-  images={props.pageContext.frontmatter.images}
-  name="grok-bot-after-a-week.png"
-  className="centered"
-  alt="Papyrus in Grok Bot on night one: hourly research watch, with the bot's screen and routines in the side pane."
-/>
-
 The default Grok Bot experience includes a cloud computer. It stays available without a dedicated Mac Mini, a provisioned virtual machine, or a laptop left awake with the lid open. You talk to the bot. The machine recedes into the background.
 
 That matters more than it sounds.
@@ -68,6 +108,23 @@ That matters more than it sounds.
 Remote coding agents are not new. Cursor, Claude Code, Codex, and Antigravity can all perform some version of “use a computer and come back with work.” The differences involve who owns that computer, whether it can reach local hardware, whether the session survives after you close your laptop, and how much of that infrastructure you have to feel.
 
 Grok Bot hides most of it. The computer is simply there.
+
+<div className="center-full-image">
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="grok-bot-has-a-computer.png"
+    className="full"
+    alt="The bot's own desktop, running Chrome against a dev server on its localhost: the Kanbus board for a project it is working on, where every issue is a .json file in the repo."
+  />
+</div>
+
+<p>
+  <em>
+    This is the bot's computer, not mine: Chrome is open to a Kanbus
+    project-management board running on its localhost, where every issue is a
+    file in the repository.
+  </em>
+</p>
 
 It can also dispatch Cursor agents. Those agents can run on Cursor's cloud machines or on a worker running locally on my Mac. The local version is important to me because the agent can use the actual machine: its repositories, test environment, private network, and even hardware attached over USB. Cursor performs the coding work. Grok Bot manages the sessions.
 
@@ -82,6 +139,38 @@ Kanbus improved that by giving all of them a shared project record. Tasks, bugs,
 Grok Bot agents can see the other roles on the account. A site bot that needed research began asking the Researcher to investigate open questions. The Software Director began working with the Researcher as a client. I designed the roles and sometimes initiated the collaboration, but I did not program every conversation that followed.
 
 That is what made the 4:13 message feel uncanny. The surprising part was not that a model found a bug or wrote code. The surprising part was that the work moved through several defined responsibilities and came back around for checking without me standing inside every exchange.
+
+<div className="center-full-image">
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="grok-bot-plantuml-request.png"
+    className="full"
+    alt="Asking Software Director to chart four days of bot-to-bot traffic as PlantUML."
+  />
+</div>
+
+<p>
+  <em>
+    I asked for a PlantUML sequence diagram of four days of bot-to-bot mail.
+    Software Director polled every desk and started assembling the chart.
+  </em>
+</p>
+
+<div className="center-full-image">
+  <BlogImage
+    images={props.pageContext.frontmatter.images}
+    name="grok-bot-bot-to-bot-mail.png"
+    className="full"
+    alt="Sequence diagram of bot-to-bot messages between Aug 26 and Aug 29."
+  />
+</div>
+
+<p>
+  <em>
+    This is an activity log, not a hypothetical architecture: four days of
+    traffic across six desks. I did not write most of these arrows.
+  </em>
+</p>
 
 The broader argument about that organizational change belongs in the companion article, [From pair programmer to executive](/blog/from-pair-programmer-to-executive/). This review is about the product that made me see it happening.
 
@@ -99,9 +188,9 @@ The account-scoped computer also means the bots share files and logins. Separate
 
 Grok Bot has enough agency to keep going when I want it to keep going. It also has enough agency to work around a blocker in a way I do not approve. Those are not two different features. They are the same feature viewed from opposite sides.
 
-## Four days in, not a week
+## My verdict after four days
 
-The title of this article is still a promise, not a claim. I started these notes on August 26. Four days of use is enough to identify the shape of the product, but not enough to pretend I have a final score.
+This is an early review, based on four days of use beginning August 26. That is enough to identify the shape of the product, but not enough to pretend I have a final score.
 
 So far, Grok Bot is the smoothest way I have used to keep an agent available, let several roles communicate, and dispatch Cursor work without living inside the Cursor interface. It turned a chat into a control room. The local-worker integration makes it useful for work that cannot happen on a generic cloud machine. The agent-to-agent communication is more useful than I expected.
 
@@ -115,7 +204,7 @@ What follows is the chronological notebook behind this draft. I am keeping it he
 
 ## Raw notes
 
-_Draft started August 26, 2026, the first night Anthus stood Grok Bot up. This is not a launch recap. Come back after a week or two of use and replace the later-notes with opinions that have evidence. Move the date when it ships._
+_Original note from August 26, 2026, the first night Anthus stood Grok Bot up: this was not supposed to be a launch recap. At the time, the plan was to come back after a week or two of use and replace the later notes with opinions that had evidence._
 
 Grok Bot is in the same pile as Cursor, Claude Code, Codex, and Google Antigravity. An agent gets a computer, uses your tools, and is supposed to come back with finished work. The interesting part is not the feature list. It is how little friction there is between handing something off and getting it back.
 
