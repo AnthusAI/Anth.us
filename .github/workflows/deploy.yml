@@ -1,0 +1,76 @@
+name: Deploy site to S3 + CloudFront
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+  runs-on: ubuntu-latest
+  env:
+    AWS_REGION: ${{ vars.AWS_REGION }}
+    S3_BUCKET: ${{ vars.S3_BUCKET }}
+    CLOUDFRONT_DIST_ID: ${{ vars.CLOUDFRONT_DIST_ID }}
+    AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+  steps:
+    - name: Checkout site repo with submodules
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+        cache: npm
+
+    - name: Restore Gatsby cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          .cache
+          public
+        key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+        restore-keys: |
+          gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+          gatsby-site-${{ runner.os }}-
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Gatsby site
+      run: npm run build
+      env:
+        CI: true
+
+    - name: Save Gatsby cache
+      if: always()
+      uses: actions/cache@v4
+      with:
+        path: |
+          .cache
+          public
+        key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+
+    - name: Configure AWS credentials via OIDC
+      if: env.AWS_DEPLOY_ROLE_ARN != ''
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Sync to S3
+      if: env.AWS_DEPLOY_ROLE_ARN != ''
+      run: aws s3 sync public/ s3://${S3_BUCKET} --delete --no-progress
+
+    - name: Invalidate CloudFront
+      if: env.AWS_DEPLOY_ROLE_ARN != ''
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id ${CLOUDFRONT_DIST_ID} \
+          --paths "/*"

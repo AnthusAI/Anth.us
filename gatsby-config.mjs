@@ -114,6 +114,7 @@ export default {
       resolve: `gatsby-plugin-page-creator`,
       options: {
         path: siteContentPath,
+        ignore: [`**/README.md`, `**/.git/**`, `**/.gitignore`],
       },
     },
     {
@@ -121,6 +122,7 @@ export default {
       options: {
         name: `blog`,
         path: siteContentPath,
+        ignore: [`**/README.md`, `**/.git/**`, `**/.gitignore`],
       },
     },
     {
