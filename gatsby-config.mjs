@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url'
 import remarkGfm from 'remark-gfm'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const siteContentPath = `${__dirname}/src/site-content`
 
 /**
  * @type {import('gatsby').GatsbyConfig}
@@ -112,14 +113,14 @@ export default {
     {
       resolve: `gatsby-plugin-page-creator`,
       options: {
-        path: `${__dirname}/src/blog`,
+        path: siteContentPath,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blog`,
-        path: `${__dirname}/src/blog`,
+        path: siteContentPath,
       },
     },
     {

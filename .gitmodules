@@ -1,0 +1,3 @@
+[submodule "src/site-content"]
+	path = src/site-content
+	url = https://github.com/AnthusAI/anthus-site-content.git

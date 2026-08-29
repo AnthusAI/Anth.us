@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "233b3e1c-5761-4763-890c-3fde692fc1df",
+  "issue_id": "kanbus-db7c685a-d67e-4a80-b813-8068e624253f",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-29T17:45:04.337Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "",
+    "issue_type": "epic",
+    "labels": [],
+    "parent": null,
+    "priority": 1,
+    "status": "open",
+    "title": "Factor site content and newsroom into submodules with S3 publish path"
+  }
+}

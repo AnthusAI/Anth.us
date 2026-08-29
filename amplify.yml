@@ -5,6 +5,7 @@ frontend:
       commands:
         - nvm install 18
         - nvm use 18
+        - git submodule update --init --recursive
         - npm ci
     build:
       commands:
