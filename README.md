@@ -1,6 +1,6 @@
 # Anthus AI Solutions
 
-This is the Gatsby site project for https://anth.us
+This repository is the source for https://anth.us.
 
 ## Quick Start
 
@@ -27,7 +27,7 @@ Our site features two main types of blog content:
 
 ## Diagrams
 
-This project uses a Ruby [pre-processor](https://github.com/endymion/plantuml_diagrams/tree/main) for generating PlantUML diagrams.  To use it, first install it:
+This project uses a Ruby [pre-processor](https://github.com/endymion/plantuml_diagrams/tree/main) for generating PlantUML diagrams. To use it, first install it:
 
     $ bundle install
 
@@ -38,3 +38,7 @@ Then download PlantUML:
 Then you can run it:
 
     $ bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./
+
+---
+
+Built by [Anthus AI Solutions](https://anth.us). We run this class of system in production.

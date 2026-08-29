@@ -14,7 +14,7 @@ whose placeholder title says `photoreal` or `robot concept scene` is not yours.
 `{/* VISUAL … */}` comment immediately above each
 `<div className="blockDiagram visualPlaceholder">` block. It states the structure,
 what the figure must make obvious, and the alt text. Several also state what to
-*resist* adding. Follow them; do not redesign from the placeholder summary alone.
+_resist_ adding. Follow them; do not redesign from the placeholder summary alone.
 
 **Prefer HTML.** House style is inline HTML diagrams using the existing class
 vocabulary, not generated images — they theme with the site, stay legible in dark
@@ -62,7 +62,7 @@ elaborates it. Two boxes, two arrows, closed loop. The brief explicitly warns
 against expanding this into the full SDLC — its value is being the simplest
 possible statement of the thesis.
 
-**3. `agentjacking-chain.svg`** — bugonomics, PlantUML. Marked *highest priority*
+**3. `agentjacking-chain.svg`** — bugonomics, PlantUML. Marked _highest priority_
 in its own brief. Toolchain already exists: `src/blog/diagrams/*.puml` → `.svg`.
 A concrete ordered multi-actor attack flow is the single highest-value visual in
 that article.
@@ -72,9 +72,10 @@ that article.
 ## The rest
 
 **Cybernetic Development** (`src/blog/cybernetic-development.mdx`)
+
 - System 1 / System 2 mapping — HTML two-panel. Tint the two columns and reuse
   those tints for Engine and Governor elsewhere so the colour coding carries.
-- Five-governors Swiss cheese — HTML or SVG. Populated with *this article's* five
+- Five-governors Swiss cheese — HTML or SVG. Populated with _this article's_ five
   layers, not the generic textbook version; the labels are the value. One arrow
   threading all five gaps.
 - Abstraction spectrum — HTML `technologyStack`. Three tiers with opposing
@@ -83,6 +84,7 @@ that article.
   system. Keep the human the same size in both panels.
 
 **Cost collapse** (`src/blog/ai-coding-cost-collapse-2026.mdx`)
+
 - Hero chart treatment — 1200×630 render of `price-of-fixed-capability`, title
   baked in, detail thinned to survive thumbnailing. Script already exists; do not
   re-derive the data. The in-article copy stays.
@@ -91,6 +93,7 @@ that article.
   proportional bars, ending on the 25:1 input:output ratio.
 
 **Bugonomics** (`src/blog/bugonomics-cheap-exploits-2026.mdx`)
+
 - `same-curve-both-directions.png` — matplotlib. Cost to build and cost to break,
   same axes, same downward slope. Literally draws "the same curve."
 - `500k-to-14-funnel.png` — matplotlib or HTML. 500,000 findings → 14 exploitable
@@ -98,6 +101,7 @@ that article.
 - LiL taxonomy — HTML three-panel. Marked optional in its brief.
 
 **Maximize value** (`src/blog/maximize-value-not-intelligence.mdx`)
+
 - Hero chart treatment — 1200×630 render of `value-frontier`. Thin the fourteen bar
   labels to the few that carry the story; **keep the Sol→Luna arrow and the 23×
   callout**, which is why the chart works as a card. Script exists.

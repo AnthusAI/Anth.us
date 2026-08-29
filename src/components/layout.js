@@ -28,10 +28,11 @@ const Layout = ({ children, hero }) => {
   `)
 
   return (
-    <div
-      className={`layout`}
-    >
-      <Header menuLinks={data.site.siteMetadata.menuLinks} siteTitle={data.site.siteMetadata.title} />
+    <div className={`layout`}>
+      <Header
+        menuLinks={data.site.siteMetadata.menuLinks}
+        siteTitle={data.site.siteMetadata.title}
+      />
       <div className="wrapper">
         <main>{children}</main>
       </div>
