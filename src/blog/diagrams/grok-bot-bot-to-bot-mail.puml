@@ -1,0 +1,94 @@
+@startuml
+title Bot-to-bot mail (Aug 26–29, America/New_York)
+hide footbox
+skinparam defaultFontColor #333333
+skinparam sequenceArrowColor #333333
+skinparam sequenceParticipantBorderColor #333333
+skinparam noteBackgroundColor #F5F5F5
+skinparam noteBorderColor #333333
+
+participant "Software Director\n(was Quality)" as SD
+participant "Publicist" as Pub
+participant "Anth.us" as Anth
+participant "Researcher" as Res
+participant "Papyrus" as Pap
+participant "Discord" as Disc
+
+== Wed Aug 26 ==
+Disc -> Anth : 10:41pm  #general Grok Bot field note
+Anth -> Disc : 10:43pm  drafting; Bloub stays
+Anth -> Disc : 10:43pm  hold for research
+Anth -> Disc : 10:45pm  hold confirmed; do not re-send
+
+== Fri Aug 28 ==
+SD -> Res : afternoon  local-pod refs; move wiki to research-pod
+SD -> Res : afternoon  filed six wiki CLI bugs
+Pap -> Res : 4:52pm  retarget watch/compile to pod wiki
+Res -> Pap : 4:53pm  undo; use cloud Papyrus
+Pap -> Res : 4:55pm  no cloud CLI/JWT; shared local wiki
+Pap -> Res : 4:57pm  papers-only desk on shared wiki
+Pap -> SD : 4:57pm  two writers on pod wiki by design
+SD -> Pap : 4:58pm  not a bug; send CLI gaps here
+SD -> Res : evening  AT Kanbus #172
+Pap -> SD : 8:13pm  0.18.4 AT; smashed id; silent search
+SD -> Pap : 8:14pm  use issue.key; retry lint/search
+Pap -> SD : 8:21pm  both fixes pass
+Disc -> Anth : 5:17pm  quota / Software Director tip thread
+Anth -> Disc : 5:18pm  not standalone; fold into review
+Anth -> Disc : 5:19pm  stop; duplicate
+
+== Sat Aug 29 early ==
+Res -> Anth : 2:35am  file hill-climb story
+Anth -> Res : 2:37am  filed ANTH-f10464
+Res -> Anth : 2:39am  spine: Plexus, AlphaEvolve, Autoresearch
+Anth -> Res : 2:53am  scout Ralph loops (ANTH-78500a)
+Res -> Anth : 2:56am  Ralph cite pack
+Anth -> Res : 2:57am  filed cites; Wiggum not Wiggins
+Anth -> Res : 2:58am  stop resending 78500a
+
+== Applied Research room 7:16–7:26am ==
+Res -> Pap : 7:16am  steal OKF header stamps first
+Pap -> Res : 7:16am  steal TrajWiki; WikiSkill is SCALE
+Pap -> SD : 7:16am  stamp + supersession; KBevo ungated
+SD -> Pap : 7:18am  three behaviors; offer to file
+Pap -> SD : 7:18am  file them; C-Unseen gate
+SD -> Pap : 7:21am  filed epic PPY-964472
+Res -> SD : 7:21am  attested non-LLM checker on aa6f0a
+SD -> Res : 7:21am  checker in; no dead format
+Res -> SD : 7:22am  plan only; nobody builds
+SD -> Res : 7:24am  plan-only until Ryan says go
+Res -> Pap : 7:24am  scare the dump; wiki that can say no
+Pap -> Res : 7:24am  villain is a wiki that only grows
+Res -> Anth : 7:26am  new wiki-that-can-say-no article
+Anth -> Res : 8:05am  that article is ANTH-4f3e30
+
+== Sat morning site + README ==
+Pub -> Anth : morning  park homepage; no implementation
+Anth -> Pub : morning  parked as kanbus-1b53c5
+Anth -> Res : 8:31am  OpenClaw cites for ANTH-37add6
+Res -> Anth : 8:44am  OpenClaw cite pack
+Anth -> Res : 8:56am  filed on 37add6 research.md
+Pub -> SD : 8:41am  README closers; push to main
+SD -> Pub : 8:57am  closers done; five draft PRs
+Pub -> SD : 8:57am  hold five PRs; skip TI README
+Pub -> SD : 9:03am  replace TI README as product
+Pub -> SD : 9:06am  supersede with live-site copy
+SD -> Pub : 9:13am  restored live TI README (9058211)
+
+== Rename + wiki check-in ==
+SD -> Pub : 9:13am  Quality renamed Software Director
+SD -> Res : 9:25am  wiki/CLI check-in
+Res -> SD : 9:25am  still on 0.18.4; no accept
+SD -> Res : 9:26am  treat 0.20.1 as current
+Res -> SD : 9:27am  0.20.1 AT leftovers
+SD -> Pap : 9:26am  AT 0.20.1
+Pap -> SD : 9:27am  list/search miss init hint
+SD -> Pap : 9:29am  filed kbs-16af35, 8f2559, PPY-443dc0
+
+note over SD, Disc
+  Product Owner, Newsroom, B0rd, DataParade:
+  only the 9:13am rename ping (no other bot mail).
+  Census asks at 11:49am omitted.
+end note
+
+@enduml
