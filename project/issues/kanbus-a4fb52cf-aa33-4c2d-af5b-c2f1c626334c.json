@@ -1,0 +1,36 @@
+{
+  "id": "kanbus-a4fb52cf-aa33-4c2d-af5b-c2f1c626334c",
+  "title": "Remove stale Beads workflow and ship paired agent articles",
+  "description": "Finish the Anth.us migration from Beads to Kanbus, preserve still-relevant open work, and land the coordinated draft articles A week with Grok Bot and From pair programmer to executive in the Gatsby site. Keep both state: draft, preserve the Grok raw notes and images, remove stale Beads agent instructions/data/merge wiring, validate/build, merge to main, and verify the production draft routes.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a5a3ac75-3dee-434e-a318-9cb9e141a88b",
+      "author": "ryan",
+      "text": "Ryan confirmed Beads was retired and asked to remove the stale workflow, commit the coordinated Grok Bot and executive drafts, merge them into main, and verify them on production. Open Beads work is being preserved as Kanbus tasks before the tracked Beads data is removed. Kanbus 0.19.1 cannot resolve the legacy short epic key as a parent, so migrated tasks are currently top-level rather than bypassing validation.",
+      "created_at": "2026-08-29T14:23:55.170045Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "d3d4612c-804a-4ead-af6d-8383e75add47",
+      "author": "ryan",
+      "text": "Migration cleanup implemented locally. Root AGENTS.md now declares Kanbus only and uses kbs validate in the landing workflow. Tracked Beads skill, data/config, and merge-driver files are removed. The remaining local Beads runtime directory was moved recoverably to /Users/ryan/.Trash/Anth.us-beads-runtime-20260829-1025. Migrated open work: foundational messaging -> kanbus-c6739d, score-per-dollar -> kanbus-e2c2e7, economics visuals -> kanbus-2d93a9. The current deployment task is kanbus-a4fb52. Validation: kbs validate, git diff --check, Prettier check, and Gatsby production build passed; both article states remain draft.",
+      "created_at": "2026-08-29T14:25:19.366604Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-08-29T14:23:21.838952Z",
+  "updated_at": "2026-08-29T14:25:19.366604Z",
+  "closed_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}

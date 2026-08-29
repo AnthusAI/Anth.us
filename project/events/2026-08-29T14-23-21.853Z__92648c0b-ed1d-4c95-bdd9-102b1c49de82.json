@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "92648c0b-ed1d-4c95-bdd9-102b1c49de82",
+  "issue_id": "kanbus-e2c2e7f9-28d4-4ff4-b87d-ebf54472bf80",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-29T14:23:21.853Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "Migrated from Beads Anth.us-0qg. Preserve and complete the score-per-dollar model and value-frontier visual work across the AI coding economics articles.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Add score-per-dollar models to articles and value-frontier visual"
+  }
+}
