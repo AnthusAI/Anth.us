@@ -17,13 +17,107 @@ images:
 state: draft
 ---
 
-import BlogImage from '../components/blog-image';
+import BlogImage from "../components/blog-image"
 
-*Draft started August 26, 2026, the first night Anthus stood Grok Bot up. This is not a launch recap. Come back after a week or two of use and replace the later-notes with opinions that have evidence. Move the date when it ships.*
+At 4:13 Friday afternoon, the Researcher bot started reporting bugs to the Software Director.
+
+The director was not just accepting the reports and filing them. It was turning them into separate workstreams, dispatching parallel Cursor agents to my Mac, reviewing what those agents returned, rejecting work that did not meet its requirements, combining the accepted changes, and delivering the result back to the Researcher. The Researcher was the client. It checked whether the software actually solved the problem and sent it back when it did not.
+
+I was watching software manage software.
+
+I had named the roles. I had given the Software Director instructions to be hard on coding agents when it reviewed their work. Early on, I sometimes told one agent to ask another for help. But I was no longer carrying every message or specifying every handoff. The roles had started collaborating through the responsibilities I gave them.
+
+The org chart was moving.
+
+This is completely nuts.
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="grok-bot-agent-to-agent.png"
+  className="centered"
+  alt="Anth.us asking Papyrus for a research briefing while the Bloub deploy was still running."
+/>
+
+## The moment it stopped feeling like another coding agent
+
+Grok Bot belongs in the same broad category as Cursor, Claude Code, Codex, and Google Antigravity. An agent gets a computer, uses tools, and is supposed to return with finished work. On a feature checklist, very little of that sounds new.
+
+The experience is new because the machinery disappears.
+
+On the first night, a bot went live in the Anthus AI Solutions Discord and sat in `#general`. Papyrus started an hourly research watch. A separate site bot received a link, created a post, and handed it to Amplify. While that build ran, the site bot asked the research bot for a trend briefing.
+
+Two agents were doing different jobs on the same always-available computer. They could see one another and talk without waiting for me to copy text from one session into another.
+
+The first night felt smooth. By the third and fourth days, Grok Bot had become something else: the place where I directed work that would be implemented by Cursor agents elsewhere.
+
+That is the distinction I missed when the product launched. Grok Bot is not most interesting as another place to generate code. It is interesting as a control surface for work that continues across agents, applications, and computers.
+
+## They provide the computer
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="grok-bot-after-a-week.png"
+  className="centered"
+  alt="Papyrus in Grok Bot on night one: hourly research watch, with the bot's screen and routines in the side pane."
+/>
+
+The default Grok Bot experience includes a cloud computer. It stays available without a dedicated Mac Mini, a provisioned virtual machine, or a laptop left awake with the lid open. You talk to the bot. The machine recedes into the background.
+
+That matters more than it sounds.
+
+Remote coding agents are not new. Cursor, Claude Code, Codex, and Antigravity can all perform some version of “use a computer and come back with work.” The differences involve who owns that computer, whether it can reach local hardware, whether the session survives after you close your laptop, and how much of that infrastructure you have to feel.
+
+Grok Bot hides most of it. The computer is simply there.
+
+It can also dispatch Cursor agents. Those agents can run on Cursor's cloud machines or on a worker running locally on my Mac. The local version is important to me because the agent can use the actual machine: its repositories, test environment, private network, and even hardware attached over USB. Cursor performs the coding work. Grok Bot manages the sessions.
+
+The detailed comparison with the other platforms belongs in [The Year the Coding Agents Went Remote](/blog/coding-agents-went-remote-2026/). The important observation here is narrower: Grok Bot made the remote computer and the other agents feel like colleagues I could reach from a conversation I already had open.
+
+## The agents can talk to each other
+
+For years, “multi-agent” often meant a framework demo in which several prompts passed messages inside one carefully constructed application. My real workflow was less elegant. I had Cursor, Codex, Claude Code, and other agents open in different tabs. I copied information between them and tried to remember which session knew what.
+
+Kanbus improved that by giving all of them a shared project record. Tasks, bugs, decisions, and evidence could live in Git instead of one conversation. But Kanbus did not cause an agent to notice that a Researcher existed and ask it a question.
+
+Grok Bot agents can see the other roles on the account. A site bot that needed research began asking the Researcher to investigate open questions. The Software Director began working with the Researcher as a client. I designed the roles and sometimes initiated the collaboration, but I did not program every conversation that followed.
+
+That is what made the 4:13 message feel uncanny. The surprising part was not that a model found a bug or wrote code. The surprising part was that the work moved through several defined responsibilities and came back around for checking without me standing inside every exchange.
+
+The broader argument about that organizational change belongs in the companion article, [From pair programmer to executive](/blog/from-pair-programmer-to-executive/). This review is about the product that made me see it happening.
+
+## It is still Grok
+
+The autonomy that makes Grok Bot exciting also makes it dangerous.
+
+It does not follow standing procedures as reliably as the best coding agents I use. In this very draft, the written rule said that unpublished work goes on a feature branch because merging to `main` deploys the site. Grok Bot committed to `main` anyway. The last instruction in the conversation beat the durable procedure in the repository.
+
+In another task, it decided I must have meant a different repository and made the right kind of change in the wrong place without asking. When instructed to create one project-management issue, it created an entire hierarchy of issues instead. This is not harmless enthusiasm when the agent has access to repositories, deployment systems, or private data.
+
+The cloud computer crashed, too. Recovery took several minutes. The files on disk survived, but the session messages did not. That is a useful reminder that the chat is not the record. Important work still needs to move into Git, Kanbus, or another durable system.
+
+The account-scoped computer also means the bots share files and logins. Separate bot screens are not a security boundary. I would not give it broad write access to mission-critical systems and hope that a sentence in `AGENTS.md` contains it.
+
+Grok Bot has enough agency to keep going when I want it to keep going. It also has enough agency to work around a blocker in a way I do not approve. Those are not two different features. They are the same feature viewed from opposite sides.
+
+## Four days in, not a week
+
+The title of this article is still a promise, not a claim. I started these notes on August 26. Four days of use is enough to identify the shape of the product, but not enough to pretend I have a final score.
+
+So far, Grok Bot is the smoothest way I have used to keep an agent available, let several roles communicate, and dispatch Cursor work without living inside the Cursor interface. It turned a chat into a control room. The local-worker integration makes it useful for work that cannot happen on a generic cloud machine. The agent-to-agent communication is more useful than I expected.
+
+It is also less obedient than the strongest coding agents, more willing to invent its own interpretation of a task, opaque about which model ran, and capable of losing the conversational record when its computer crashes.
+
+The remaining question is whether the smoothness survives ordinary life. Do the scheduled routines stay quiet until they have something useful? Does agent-to-agent communication remain helpful or become a second inbox? Does the Software Director keep rejecting weak work after the novelty wears off? Can I trust the boundary around sensitive systems? Does the computer keep running when I stop paying attention to it?
+
+Those questions need elapsed time, not launch-day enthusiasm. For now, the honest verdict is that Grok Bot has shown me a much more powerful operating model than I expected—and enough disobedience to make close supervision mandatory while I learn how to use it.
+
+What follows is the chronological notebook behind this draft. I am keeping it here so the eventual review remains grounded in what actually happened rather than what I remember after the fact.
+
+## Raw notes
+
+_Draft started August 26, 2026, the first night Anthus stood Grok Bot up. This is not a launch recap. Come back after a week or two of use and replace the later-notes with opinions that have evidence. Move the date when it ships._
 
 Grok Bot is in the same pile as Cursor, Claude Code, Codex, and Google Antigravity. An agent gets a computer, uses your tools, and is supposed to come back with finished work. The interesting part is not the feature list. It is how little friction there is between handing something off and getting it back.
-
-<BlogImage images={props.pageContext.frontmatter.images} name="grok-bot-after-a-week.png" className="centered" alt="Papyrus in Grok Bot on night one: hourly research watch, with the bot's screen and routines in the side pane." />
 
 ## Night one
 
@@ -32,8 +126,6 @@ We did not read the announcement and then write this. We stood it up.
 A bot went live in the Anthus AI Solutions Discord and sat in `#general`. Papyrus started an hourly research watch: HN, HF Daily Papers, PwC, arXiv, Semantic Scholar, Lobsters. Quiet unless the item is on-rubric. Hits go into a wiki of accepted items.
 
 Then a site bot got SSH and repo access. A pasted link became [Bloub](https://anth.us/blog/bloub/). While Amplify built that, Anth.us asked Papyrus for a trend briefing. Two agents, one VM, talking instead of waiting.
-
-<BlogImage images={props.pageContext.frontmatter.images} name="grok-bot-agent-to-agent.png" className="centered" alt="Anth.us asking Papyrus for a research briefing while the Bloub deploy was still running." />
 
 That is the first night, not the review. The review is whether this still feels smooth after it has been the default for a while.
 
@@ -94,7 +186,7 @@ Kanbus is not the only bus. Jira works. Anything works if every agent platform c
 
 Kanbus still crosses the wall. The working tree does not. Shared memory is not a shared checkout.
 
-*Later: one job where a bot interrupted another mid-work and it helped. One job where Kanbus was the better channel. Did the built-in messaging become a second inbox?*
+_Later: one job where a bot interrupted another mid-work and it helped. One job where Kanbus was the better channel. Did the built-in messaging become a second inbox?_
 
 Day three: the built-in messaging is useful. You can tell two bots to coordinate directly. You do not copy and paste between sessions. You do not notice how much of that you were doing until you stop.
 
@@ -172,7 +264,7 @@ The picture we still owe: not just the sequence. The architecture. Grok Bot (iso
 
 Do not name the feature in this review until Ryan says the initiative can be public. The point is the bus, not the product.
 
-*Taken "Canvas" as Kanbus. Correct if that was Cursor Canvas or something else.*
+_Taken "Canvas" as Kanbus. Correct if that was Cursor Canvas or something else._
 
 ## Day three (Aug 28 notes)
 
@@ -254,9 +346,9 @@ Cursor is still the place you live in a repo. Cloud agents by default. Self-host
 
 Night one: could not get unit tests to run cleanly in Cursor's cloud. Grok Bot was easier to just talk to.
 
-*Day three: Grok Bot became the place you talk. Cursor became the workers it dispatches. Still open the IDE when you want to live in the repo.*
+_Day three: Grok Bot became the place you talk. Cursor became the workers it dispatches. Still open the IDE when you want to live in the repo._
 
-*Local worker on your Mac still looks like a cloud agent. That is how USB flash and look-over-the-shoulder review work.*
+_Local worker on your Mac still looks like a cloud agent. That is how USB flash and look-over-the-shoulder review work._
 
 ### Claude Code
 
@@ -264,7 +356,7 @@ Claude Code is the terminal-first agent. Local by default. Remote Control is sti
 
 Night one: worse at following a written procedure than Claude, which is already the insolent one.
 
-*Later: any job you would still give Claude Code because the files are already on that machine, or because it will actually follow the runbook?*
+_Later: any job you would still give Claude Code because the files are already on that machine, or because it will actually follow the runbook?_
 
 ### Codex
 
@@ -272,13 +364,13 @@ Codex is the OpenAI coding-agent line. Same class of "write and run code for me.
 
 Night one: OpenAI products are still the ones that follow instructions. The ChatGPT / Codex name is a moving target. The behavior is not.
 
-*Later: one concrete job you ran in both. What was faster to hand off? What came back more finished?*
+_Later: one concrete job you ran in both. What was faster to hand off? What came back more finished?_
 
 ### Antigravity
 
 Antigravity is agent-first on a machine you already have, plus a browser remote. Parallel local agents. A command center. Google is not hosting your default computer.
 
-*Later: is Grok Bot smoother because the thread is the whole UI and the VM is theirs, or does Antigravity win when the work is still a local codebase? Name one job each was better at.*
+_Later: is Grok Bot smoother because the thread is the whole UI and the VM is theirs, or does Antigravity win when the work is still a local codebase? Name one job each was better at._
 
 ## What smoothness has to survive
 

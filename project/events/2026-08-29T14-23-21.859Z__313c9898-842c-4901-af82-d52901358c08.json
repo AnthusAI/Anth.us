@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "313c9898-842c-4901-af82-d52901358c08",
+  "issue_id": "kanbus-2d93a9a5-7c0f-461b-b806-f877c1b55add",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-29T14:23:21.859Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "Migrated from Beads Anth.us-14s. Complete the remaining article visuals and remove all visualPlaceholder blocks and the shared placeholder style before publication. Existing completed work includes the profit-per-million chart wiring, value-frontier.png, value-over-time.png, and break-even-crossing.png. Source briefs remain in project/visuals.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Produce visuals for the AI-coding-economics articles"
+  }
+}

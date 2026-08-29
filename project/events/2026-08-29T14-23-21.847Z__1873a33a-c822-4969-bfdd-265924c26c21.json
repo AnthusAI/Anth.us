@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "1873a33a-c822-4969-bfdd-265924c26c21",
+  "issue_id": "kanbus-c6739dd0-894e-4127-ba69-bf53c384a74b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-29T14:23:21.847Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "Migrated from Beads Anth.us-ymb. Refresh homepage mission/values bridge, about, ai-solutions, platform, and repeated foundational taglines while keeping the cybernetic philosophy as the lead frame and grounding claims in products, delivered systems, and case-study proof. Homepage work partially landed earlier; about, ai-solutions, platform, repeated taglines, and Ryan's decision on restoring four removed Values remain.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 1,
+    "status": "open",
+    "title": "Refresh Anth.us foundational messaging"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "kanbus-e2c2e7f9-28d4-4ff4-b87d-ebf54472bf80",
+  "title": "Add score-per-dollar models to articles and value-frontier visual",
+  "description": "Migrated from Beads Anth.us-0qg. Preserve and complete the score-per-dollar model and value-frontier visual work across the AI coding economics articles.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-08-29T14:23:21.853503Z",
+  "updated_at": "2026-08-29T14:23:21.853503Z",
+  "closed_at": null,
+  "custom": {}
+}
