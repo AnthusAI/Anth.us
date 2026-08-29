@@ -5,9 +5,11 @@ date: "2026-08-27T10:39:00-04:00"
 authors:
   - author: <a href="/ryan">Ryan Porter</a>
 excerpt: "Premium Fast mode is a latency product, and agent work is almost never latency-bound. Do not confuse the expensive priority lane with the cheaper Flash-style models that made fast synonymous with efficient."
-preview_image: "./images/never-use-fast.png"
+preview_image: "./images/never-use-fast-toll-plaza.png"
 images:
   - "./images/never-use-fast.png"
+  - "./images/never-use-fast-toll-plaza.png"
+  - "./images/never-use-fast-decision.svg"
 state: published
 tags:
   - articles
@@ -20,9 +22,9 @@ import BlogImage from '../components/blog-image';
 
 <BlogImage
   images={props.pageContext.frontmatter.images}
-  name="never-use-fast.png"
+  name="never-use-fast-toll-plaza.png"
   className="centered"
-  alt="Title card reading Never Use Fast."
+  alt="First-person view of an autonomous coding agent approaching a toll plaza: Standard has one dollar mark and Fast has six dollar marks."
 />
 
 [Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence/) is the argument: route to the cheapest model that clears your bar, and make the expensive tier opt-in. This is the settings version — the buttons that implement it, and the one button that quietly undoes it.
@@ -52,6 +54,15 @@ The substitute is free. Throughput is tasks in flight divided by time per task, 
 Which is why this is a rule and not a preference. The situations where you cannot start a second task are rare, specific, and easy to name — so name them, and treat everything else as the default:
 
 **Buy Fast when a human is blocked and the wait is the actual expense.** Live pairing where a teammate is watching the cursor. A production incident where minutes have a dollar value. A demo. That is the list. In each case someone's attention is metered at far more than a 2× token multiple, and the arithmetic flips cleanly.
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="never-use-fast-decision.svg"
+  className="centered"
+  alt="Decision diagram: when a human is waiting, Fast may be worth buying; otherwise use Standard and start another agent."
+/>
+
+*The decision is not “do I prefer speed?” It is “whose attention becomes available sooner?”*
 
 Everything else on your queue — the test backfill, the dependency sweep, the docs that drifted, the overnight refactor — is work you will read later. Buying its latency down accomplishes nothing except moving the moment you have to review it, and [your review capacity is the binding constraint anyway](/blog/maximize-value-not-intelligence/).
 
