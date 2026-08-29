@@ -369,6 +369,10 @@ If you see import errors for CSS classes:
 - Validate MDX syntax compiles without errors
 - Confirm tags are correct for content type
 
+## Board names (Ryan)
+
+When Ryan says **the newsroom board** or **the Papyrus board**, he means the Anth.us publication board: the local Papyrus pod at `pods/anthus-blog`, Kanbus key `ANTH`. He does not mean the Papyrus product / project-management board (`PPY` at the Papyrus repo root), and he does not mean this Gatsby repo's site-ops board.
+
 ## Deployment
 
 The site is deployed via AWS Amplify (see `amplify.yml`). Deployments happen automatically on push to the main branch.
