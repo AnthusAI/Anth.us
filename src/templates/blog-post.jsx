@@ -92,12 +92,22 @@ export const Head = ({ data }) => {
 
   const cleanExcerpt = removeHTMLTags(post.frontmatter.excerpt);
 
+  // Every MDX file under src/blog gets a page (see createPages in gatsby-node.js);
+  // `state` only controls whether a post is listed on the home page. Anything not
+  // yet published therefore has a live, shareable URL, which is deliberate for
+  // review — but it must not be indexed.
+  const isPublished = post.frontmatter.state === 'published';
+
   return (
     <Seo
       title={post.frontmatter.title}
       description={cleanExcerpt}
       image={imageUrl}
-    />
+    >
+      {!isPublished && (
+        <meta name="robots" content="noindex, nofollow" />
+      )}
+    </Seo>
   )
 }
 
