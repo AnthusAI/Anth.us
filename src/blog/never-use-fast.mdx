@@ -4,7 +4,7 @@ slug: "never-use-fast"
 date: "2026-08-27T10:39:00-04:00"
 authors:
   - author: <a href="/ryan">Ryan Porter</a>
-excerpt: "Fast mode is a latency product, and agent work is almost never latency-bound. You end up buying speed you do not need with tokens you do. Here is the reasoning, the current multipliers, and the specific defaults that switch it on without asking."
+excerpt: "Premium Fast mode is a latency product, and agent work is almost never latency-bound. Do not confuse the expensive priority lane with the cheaper Flash-style models that made fast synonymous with efficient."
 preview_image: "./images/never-use-fast.png"
 images:
   - "./images/never-use-fast.png"
@@ -22,18 +22,28 @@ import BlogImage from '../components/blog-image';
   images={props.pageContext.frontmatter.images}
   name="never-use-fast.png"
   className="centered"
-  alt="Placeholder title card reading Never Use Fast."
+  alt="Title card reading Never Use Fast."
 />
 
 [Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence/) is the argument: route to the cheapest model that clears your bar, and make the expensive tier opt-in. This is the settings version — the buttons that implement it, and the one button that quietly undoes it.
 
-Start with the button. Every major vendor now sells a Fast variant of its models, and in at least one popular tool it is the default. Turn it off everywhere, then leave it off.
+Start with the button. In Cursor and a growing number of AI tools, capital-F Fast is a premium option applied to a model you have already chosen. In at least one popular tool it is the default. Turn it off, then make the exceptions earn their way back in.
+
+## “Fast” changed meanings
+
+The name is confusing because *fast* used to describe the economical choice.
+
+[Google introduced Gemini 1.5 Flash in 2024](https://blog.google/innovation-and-ai/products/google-gemini-update-flash-ai-assistant-io-2024/) as a lighter-weight model than Gemini 1.5 Pro, built in response to demand for lower latency and a lower cost to serve. That meaning has not disappeared. Google still describes [Gemini Flash-Lite](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/) as its fastest and most cost-effective model. Pick a cheaper model that also happens to be fast and you are optimizing in two useful directions at once.
+
+But *Fast* has acquired a second meaning: not a different model, but a priority lane for the model you already picked. Cursor described the faster version of Composer 2 as offering [“the same intelligence” at a higher token price](https://cursor.com/blog/composer-2), then made that version the default. OpenAI made the terminology shift explicit in July 2026 when it [renamed Priority processing “Fast mode”](https://openai.com/api-fast-mode/).
+
+That second meaning is what this article is about. **Do not avoid economical Flash-style models. Avoid paying a premium merely to receive the same work sooner when nobody is waiting for it.**
 
 ## What Fast actually sells you
 
-Fast is not a better model. It is the same weights on more hardware, or nearer the front of the queue. The only thing it changes is how long you wait.
+Once you have chosen the model, a Fast service tier does not make it smarter. It buys priority capacity or a nearer place in the queue. The thing it changes is how long you wait.
 
-Priced honestly, too. Anthropic's fast mode runs about 2× the token rate for up to 2.5× the output tokens per second; OpenAI's is the same shape, 2× the rate for up to 2.5× the speed. Read as a raw trade, buying speed slightly cheaper than linear is a good deal.
+Priced honestly, too. Cursor currently charges [six times Composer 2.5's standard token rates for Fast and twice Grok 4.6's](https://cursor.com/docs/models-and-pricing). OpenAI advertises [up to 2.5× faster output](https://openai.com/api-fast-mode/) and bills the tokens at a premium. Read as a raw trade, buying speed may be perfectly rational.
 
 It is a good deal on the wrong axis. **Fast converts tokens into lower latency, and latency only costs you something when a person is sitting there waiting.** For a coding agent grinding through a migration for eleven minutes, the wait is not a cost. It is a window in which you are doing something else.
 
@@ -91,7 +101,7 @@ The pattern that has been working: Grok 4.6 as the manager for a parallel team o
 
 The economics only work with Fast off. Grok 4.6 costs about 2.4× Composer 2.5 on output, and a manager burns more tokens than a worker does — it re-reads the plan, the diffs, and the failures. Multiply that by a 2× fast premium on the manager and a 6× premium on every worker and the management layer stops being a rounding error. Off, it is one of the cheapest ways to buy competent supervision of a coding agent.
 
-One operational note that costs real money if you skip it: say *in the plan* that implementation runs on Composer 2.5 sub-agents. Say it before you approve. If you click through to implement without that written down, the manager will not put it there on your behalf, and you will get an expensive model doing work a cheap one was going to do. More on the shape of that setup in [A week with Grok Bot](/blog/a-week-with-grok-bot/).
+One operational note that costs real money if you skip it: say *in the plan* that implementation runs on Composer 2.5 sub-agents. Say it before you approve. If you click through to implement without that written down, the manager will not put it there on your behalf, and you will get an expensive model doing work a cheap one was going to do. More on the shape of that setup in [Grok Bot Gave My Coding Agents a Boss](/blog/a-week-with-grok-bot/).
 
 ## Empty every bucket
 
