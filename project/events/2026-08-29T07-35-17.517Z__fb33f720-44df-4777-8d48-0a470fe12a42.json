@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "fb33f720-44df-4777-8d48-0a470fe12a42",
+  "issue_id": "kanbus-1b53c584-4463-41a1-ba97-30d493af2ed3",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-29T07:35:17.517Z",
+  "actor_id": "box",
+  "payload": {
+    "title": "Homepage: one job, one CTA (hire path)",
+    "description": "Parked. Publicist hire-path review. Ryan wants it captured, not built. Do not implement until Ryan or Publicist says go.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": []
+  }
+}

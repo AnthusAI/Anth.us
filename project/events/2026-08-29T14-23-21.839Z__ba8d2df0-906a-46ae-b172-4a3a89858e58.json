@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "ba8d2df0-906a-46ae-b172-4a3a89858e58",
+  "issue_id": "kanbus-a4fb52cf-aa33-4c2d-af5b-c2f1c626334c",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-29T14:23:21.839Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "Finish the Anth.us migration from Beads to Kanbus, preserve still-relevant open work, and land the coordinated draft articles A week with Grok Bot and From pair programmer to executive in the Gatsby site. Keep both state: draft, preserve the Grok raw notes and images, remove stale Beads agent instructions/data/merge wiring, validate/build, merge to main, and verify the production draft routes.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 1,
+    "status": "open",
+    "title": "Remove stale Beads workflow and ship paired agent articles"
+  }
+}

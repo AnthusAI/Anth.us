@@ -1,0 +1,120 @@
+---
+title: "Never Use Fast"
+slug: "never-use-fast"
+date: "2026-08-27T10:39:00-04:00"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "Notes. How-to companion to Maximize Value, Not Intelligence: never buy latency, pin the cheap model, run work in parallel so you are never waiting."
+state: draft
+tags:
+  - articles
+  - ai
+  - economics
+  - how-to
+---
+
+_Draft notes, August 27, 2026. Not a finished article. Working title is a placeholder._
+
+## The three-article split
+
+**[The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026)** — the market story. Prices fell, capability moved down the curve, agents got long-running, implementation stopped being the bottleneck. Already long. **Cut from it:** the 2025-vs-2026 "fast inverted" chart and the settings how-to (Cursor Auto, pin the model, Codex defaults, "just say no"). Leave a one-line pointer here.
+
+**[Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence)** — the concept piece. Dumbest model the problem will bear. Value = capability / cost. Which jobs just became worth automating. The ladder, the windfall, the review-capacity failure mode. Big picture. Do not turn it into a settings manual.
+
+**This article** — the how-to of maximize-value. If you want the best value: use this tool, use this setting, do not use this setting. Personal card or a work budget. Same list.
+
+## What this article owns
+
+The 2026 fact that used to live in cost-collapse, said as an operator rule:
+
+- "Fast" used to mean cheap (Haiku, Flash, mini).
+- "Fast" now means a more expensive version of a bigger model (Fable 5, Sol Ultrafast). Extra iron. You pay to wait less.
+- **Never use fast.** Not "prefer cheap." A ban, with one honest exception sentence (incident, live pairing, maybe the architectural pass).
+
+Then the practical list. Not another chart of fourteen models. Buttons and defaults:
+
+- Cursor: do not use Auto / Auto Balance / Auto Intelligence. Pin Composer 2.5 or Luna (or the current cheap workhorse). Auto is willing to spend more.
+
+### Cursor: Grok as manager for Composer
+
+Grok is a pretty good manager for Composer. At time of writing: Grok 4.6 as the manager for a parallel team of Composer 2.5 agents. Other models (Opus, Sol, GLM 5.2) still collaborate in the mix. Composer does the real work. Grok orchestrates.
+
+Turn Fast off. Composer Fast is about 6× Composer. Grok 4.6 is about 4× Composer 2.5. Grok also burns more tokens. It is still an economical way to get smart management of a high-value coding agent.
+
+Plan with Grok. Part of the plan must be: implementation is Composer 2.5 sub-agents. Tell it that before you click implement. If you click "yes, implement the plan" without that in the plan, it will not build Composer 2.5 into the plan.
+
+Notes, not finished how-to copy. Recheck the 6× / 4× multipliers before publish.
+
+- Codex: do not accept the picker defaults. The tool hides the cheap Codex models and the `gpt-5.6` alias routes to Sol. Re-add the affordable ones by hand.
+- Anthropic: do not pick Fable for everyday work. Opus is already the expensive flagship; Fable is that plus a speed tax.
+- Never buy Ultrafast / "priority" / "fast" modes.
+- Start N cheap sessions so you are never staring at one spinner. Parallel is how patience stays cheap.
+- Scale out across projects. You are the manager. That is tiring and it is the job.
+
+Audience: you paying out of pocket, and you at a job where someone is watching the bill.
+
+## Use every quota bucket
+
+Getting the most value for coding means remembering the separate quota buckets each service gives you, and using them.
+
+The subscriptions are not one pile of tokens. They are buckets. Empty all of them.
+
+Antigravity / $20/month Google AI subscription: Gemini is one bucket. There is a separate quota bucket with Claude Opus, Sonnet, and GPT OSS. Why those extra models are on a Google subscription is a mystery. Use them anyway. To get the most out of the $20, use quota in both categories: Gemini, and the extra Claude / OpenAI models.
+
+Cursor: two quota buckets. Cursor internal models (Grok and Composer) vs third-party models. Use up quota in both categories.
+
+Cursor now gives some user tiers access to Grok Bot. Do not let that go unused.
+
+If you already have Cursor, use the Grok Bot credits. Cloud agents when the project allows. `agent worker start` when it needs your machine.
+
+Grok Bot quota is calendar-month, not the Cursor reset day. Written Aug 28: unused August quota expires in a few days.
+
+Notes, not finished how-to copy. Recheck which plans include which buckets before publish.
+
+## Move out of cost-collapse (when we edit that piece)
+
+From "What the big labs don't want you to know" through "How to actually leverage it":
+
+- The 2025 / 2026 fast comparison chart
+- Fable 5 / Opus 5 / Sol / Ultrafast prices as a _settings_ argument
+- Cursor Auto vs pin
+- Codex model sunset / confusing names
+- "Just say no" to defaults
+
+Keep in cost-collapse: Chinese labs undercutting on price, the $200-to-$20 line, the two multiplying curves, specification as bottleneck, parallel agents as a _market_ fact (a one-liner, not the how-to). After the cut, one sentence: "If you want the settings, see [this article]."
+
+## Leave in maximize-value
+
+- The 2023 classifier story and "dumbest model the problem will bear"
+- Value charts, Luna vs Sol as a _concept_ (23×)
+- Which chores crossed the break-even line
+- "Don't buy capacity you cannot review"
+
+This article can say "here is the button that implements that" without repeating the charts.
+
+## Still to pin (the actual how-to list)
+
+Need current, checkable settings. Not vibes.
+
+- Cursor: which Auto modes exist, which plans, what to pin in August 2026.
+- Claude Code / Codex / Antigravity / Grok Bot: the one setting that wastes money in each. Remote-agents draft owns the harness chart. Here: one line per tool.
+- Cheap workhorses to name: Luna, Composer 2.5, Kimi, GLM 5.2, DeepSeek, Qwen. Same names as the other pieces. Recheck prices before we publish.
+- Work-budget version: procurement defaults (latest, Auto, Ultrafast) are the trap. One example of a company default that lights money on fire.
+- Exception list: when fast is allowed, said in one sentence.
+- Quota buckets: Antigravity Gemini vs Claude Opus / Sonnet / GPT OSS. Cursor internal (Grok, Composer) vs third-party. Which Cursor tiers include Grok Bot. Recheck before publish.
+
+## Working lede (scratch)
+
+Maximize-value is the idea. This is the settings.
+
+You do not need a faster model. You need another task.
+
+The labs renamed "fast." It used to mean cheap and small. Now it means the expensive model on extra iron. Off. Pin the cheap one. Start three jobs. Go manage the other project.
+
+## Do not
+
+- Do not recap the whole cost-collapse or maximize-value charts.
+- Do not make this a Grok Bot review.
+- Do not moralize about "real engineers wait."
+- Do not commit to `main`. Park on `develop`.
+- Do not edit the published commodity article until Ryan says to cut it.

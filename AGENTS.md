@@ -412,6 +412,30 @@ If you see import errors for CSS classes:
 - Validate MDX syntax compiles without errors
 - Confirm tags are correct for content type
 
+## Board names (Ryan)
+
+When Ryan says **the newsroom board** or **the Papyrus board**, he means the Anth.us publication board, Kanbus key `ANTH`. He does not mean the Papyrus product / project-management board (`PPY` at the Papyrus repo root), and he does not mean this Gatsby repo's site-ops board.
+
+The board lives in [AnthusAI/anthus-semantic-knowledge-base](https://github.com/AnthusAI/anthus-semantic-knowledge-base). Local checkout: `~/Projects/anthus-semantic-knowledge-base`. Always work there:
+
+```
+cd ~/Projects/anthus-semantic-knowledge-base
+kbs list
+```
+
+Papyrus `develop` can mount the same repo as a submodule at `pods/anthus-blog`. That path is live only in a checkout that has `.gitmodules` (usually `~/Projects/Papyrus-worktrees/develop-blog-bdd-7dc0`). The default `~/Projects/Papyrus` tree is often a feature branch whose `pods/anthus-blog` is still the old **empty template**. If `kbs list` shows no stories, you are in the stale copy. Do not conclude the board is empty.
+
+## Project management (Kanbus)
+
+This repository uses Kanbus, not Beads. Do not run `bd` or create/update Beads records.
+
+- Use the repository-local Kanbus project configured by `.kanbus.yml` for site implementation and operations work.
+- Use the standalone `anthus-semantic-knowledge-base` Kanbus project for newsroom story development, as described above.
+- Before implementation, create or update the appropriate Kanbus issue with `kbs` and move it to `in_progress`.
+- Record decisions, verification, and handoff notes with `kbs comment`.
+- Never edit `project/issues/` or `project/events/` directly.
+- Run `kbs validate` before committing Kanbus changes.
+
 ## Deployment
 
 The site is deployed via AWS Amplify (see `amplify.yml`). Deployments happen automatically on push to the main branch.
@@ -442,15 +466,6 @@ When stuck:
 4. Check Gatsby documentation for framework-specific issues
 5. Review the repo-specific rules in the project configuration
 
-<!-- AGENT-SKILL:START project-management-with-beads -->
-
-Use skill at: .agent-skills/project-management-with-beads/SKILL.md
-Why: Beads task management is MANDATORY here; every task must live in Beads.
-When: Create/update the Beads task before coding; close it only after the change lands.
-How: Follow the workflow in the skill for recording, implementation notes, and closure.
-
-<!-- AGENT-SKILL:END project-management-with-beads -->
-
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
@@ -463,7 +478,7 @@ How: Follow the workflow in the skill for recording, implementation notes, and c
 4. **PUSH TO REMOTE** - This is MANDATORY:
    ```bash
    git pull --rebase
-   bd sync
+   kbs validate
    git push
    git status  # MUST show "up to date with origin"
    ```
