@@ -1,32 +1,42 @@
-import React from 'react';
-import { graphql, Link } from 'gatsby';
+import React from "react"
+import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
-import Seo from '../components/seo'
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import Seo from "../components/seo"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const CollectionTemplate = ({ data }) => {
-  const publishedPosts = data.publishedPosts.edges;
+  const publishedPosts = data.publishedPosts.edges
 
   return (
     <Layout>
       <article>
         <div>
           <h1>Blog articles</h1>
-          <ul className='blog'>
+          <ul className="blog">
             {publishedPosts.map(({ node }) => {
-              const previewImage = getImage(node.frontmatter.preview_image);
+              const previewImage = getImage(node.frontmatter.preview_image)
               return (
-                <div className='blog-post-preview' key={node.id}>
+                <div className="blog-post-preview" key={node.id}>
                   <li className="clear-float">
                     <Link to={`/blog/` + node.frontmatter.slug}>
-                      <GatsbyImage image={previewImage} alt={node.frontmatter.title} className="right" />
+                      <GatsbyImage
+                        image={previewImage}
+                        alt={node.frontmatter.title}
+                        className="right"
+                      />
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
-                    <div className='date'>{formatDate(node.frontmatter.date)}</div>
-                    <p dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}></p>
+                    <div className="date">
+                      {formatDate(node.frontmatter.date)}
+                    </div>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: node.frontmatter.excerpt,
+                      }}
+                    ></p>
                   </li>
                 </div>
-              );
+              )
             })}
           </ul>
 
@@ -48,12 +58,11 @@ const CollectionTemplate = ({ data }) => {
               );
             })}
           </ul> */}
-
         </div>
       </article>
     </Layout>
-  );
-};
+  )
+}
 
 export const pageQuery = graphql`
   query CollectionPageQuery {
@@ -114,7 +123,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
 
 /**
  * Head export to define metadata for the page
@@ -131,9 +140,9 @@ export const Head = () => {
   )
 }
 
-export default CollectionTemplate;
+export default CollectionTemplate
 
-const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString(undefined, options);
+const formatDate = dateString => {
+  const options = { year: "numeric", month: "long", day: "numeric" }
+  return new Date(dateString).toLocaleDateString(undefined, options)
 }

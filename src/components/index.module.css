@@ -57,7 +57,7 @@
 .intro {
   max-width: none;
   line-height: var(--line-height-loose);
-  margin-top: var(--space-4)
+  margin-top: var(--space-4);
 }
 
 .tight {
@@ -235,7 +235,7 @@
   .plexusContent {
     grid-template-columns: 1fr;
   }
-  
+
   .plexusImage {
     order: -1;
   }
