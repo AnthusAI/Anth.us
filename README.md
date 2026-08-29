@@ -1,6 +1,6 @@
 # Anthus AI Solutions
 
-This is the Gatsby site project for https://anth.us
+This repository is the source for https://anth.us.
 
 ## Quick Start
 
@@ -38,3 +38,7 @@ Then download PlantUML:
 Then you can run it:
 
     $ bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./
+
+---
+
+Built by [Anthus AI Solutions](https://anth.us). We run this class of system in production.
