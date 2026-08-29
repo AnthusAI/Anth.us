@@ -1,0 +1,26 @@
+{
+  "id": "kanbus-db7c685a-d67e-4a80-b813-8068e624253f",
+  "title": "Factor site content and newsroom into submodules with S3 publish path",
+  "description": "",
+  "type": "epic",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "567c7dab-fd42-400b-9774-18fde67040e3",
+      "author": "ryan",
+      "text": "Epic scope: (1) extract src/blog to AnthusAI/anthus-blog-content submodule at same path; (2) mount anthus-semantic-knowledge-base at newsroom/; (3) Amplify submodule init; (4) content-repo GitHub Action to sync MDX/images to S3 and optionally trigger site rebuild. Goal: decouple content pushes from full 30min site deploys.",
+      "created_at": "2026-08-29T17:45:19.895931Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-08-29T17:45:04.336626Z",
+  "updated_at": "2026-08-29T17:45:19.895931Z",
+  "closed_at": null,
+  "custom": {}
+}

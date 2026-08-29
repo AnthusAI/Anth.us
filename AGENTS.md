@@ -43,7 +43,7 @@ npm run format          # Format code with Prettier
 ```bash
 bundle install                                    # Install Ruby dependencies
 bundle exec plantuml_diagrams download_jar        # Download PlantUML
-bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./  # Generate diagrams
+bundle exec plantuml_diagrams process -i src/site-content/diagrams -o ./  # Generate diagrams
 ```
 
 ## Project Structure
@@ -51,7 +51,7 @@ bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./  # Generate dia
 ```
 /Users/ryan.porter/Projects/Anth.us/
 ├── src/
-│   ├── blog/                    # Blog content (articles, posts, solutions)
+│   ├── site-content/            # Site content submodule (AnthusAI/anthus-site-content)
 │   │   ├── *.mdx               # Long-form articles
 │   │   ├── posts/*.mdx         # Short updates/posts
 │   │   ├── solutions/*.mdx     # Solution case studies
@@ -74,14 +74,14 @@ bundle exec plantuml_diagrams process -i src/blog/diagrams -o ./  # Generate dia
 
 ### Creating a Blog Post
 
-Posts are short, timely updates (similar to social media posts) located in `src/blog/posts/*.mdx`.
+Posts are short, timely updates (similar to social media posts) located in `src/site-content/posts/*.mdx`.
 
 **Quick reference**
 
-- **Go-to example**: `src/blog/posts/perplexity-sonar-api.mdx` shows the standard frontmatter, centered image block, and concise sections (Overview → Technical Details → Impact). Open it when starting a new post and reuse its structure.
-- **Location**: `src/blog/posts/your-slug.mdx`
+- **Go-to example**: `src/site-content/posts/perplexity-sonar-api.mdx` shows the standard frontmatter, centered image block, and concise sections (Overview → Technical Details → Impact). Open it when starting a new post and reuse its structure.
+- **Location**: `src/site-content/posts/your-slug.mdx`
 - **Tags**: Always include `posts` (and typically nothing else).
-- **Images**: Single preview image stored at `src/blog/images/posts/your-slug.png`. Import `BlogImage` exactly like the example.
+- **Images**: Single preview image stored at `src/site-content/images/posts/your-slug.png`. Import `BlogImage` exactly like the example.
 - **Use case**: Headlines or commentary that should fit in a social post when condensed.
 
 **Required steps**
@@ -123,28 +123,28 @@ Your post content here...
 
 ### Creating a Blog Article
 
-Articles are long-form, comprehensive content with citations and illustrations, located in `src/blog/*.mdx`.
+Articles are long-form, comprehensive content with citations and illustrations, located in `src/site-content/*.mdx`.
 
 **Quick reference**
 
-- **Go-to example**: `src/blog/how-ai-agents-do-things.mdx` demonstrates the expected length, multiple images/diagrams, and `<Citation>` usage. Use it as the starting template for any new article.
-- **Location**: `src/blog/your-article-slug.mdx`
+- **Go-to example**: `src/site-content/how-ai-agents-do-things.mdx` demonstrates the expected length, multiple images/diagrams, and `<Citation>` usage. Use it as the starting template for any new article.
+- **Location**: `src/site-content/your-article-slug.mdx`
 - **Tags**: No `posts`. Prefer descriptive tags such as `AI`, `featured`, `how-to`, `explainer`.
-- **Content expectations**: Multiple sections, at least one image (stored in `src/blog/images/`), and citations when referencing external sources.
+- **Content expectations**: Multiple sections, at least one image (stored in `src/site-content/images/`), and citations when referencing external sources.
 - **Components**: Import `BlogImage`, `Citation`, and `CitationsList` when needed (follow the example).
 - **Use case**: Deep dives, explainers, or thought leadership pieces that require context, diagrams, or code snippets.
 
 ### Creating a Solution
 
-Solutions are case studies in `src/blog/solutions/*.mdx` with tag "solutions".
+Solutions are case studies in `src/site-content/solutions/*.mdx` with tag "solutions".
 
 **Quick reference**
 
-- **Go-to example**: `src/blog/solutions/Call Criteria.mdx` highlights the expected depth (challenge → approach → results), dual tagging (`solutions`, optional `featured`), and business-value framing. Mirror its outline for new case studies.
-- **Location**: `src/blog/solutions/Your Case Study.mdx` (CamelCase filenames are acceptable for solution folders).
+- **Go-to example**: `src/site-content/solutions/Call Criteria.mdx` highlights the expected depth (challenge → approach → results), dual tagging (`solutions`, optional `featured`), and business-value framing. Mirror its outline for new case studies.
+- **Location**: `src/site-content/solutions/Your Case Study.mdx` (CamelCase filenames are acceptable for solution folders).
 - **Tags**: Must include `solutions`; add `featured` or vertical-specific tags as needed.
 - **Content expectations**: Executive summary, challenge, solution architecture, measurable outcomes, and explicit references to RLHF/data flywheel/HITL when relevant.
-- **Images**: Store in `src/blog/solutions/images/` and reference with relative paths.
+- **Images**: Store in `src/site-content/solutions/images/` and reference with relative paths.
 - **Use case**: Documenting production engagements or platform deployments.
 
 ### Post-from-URL SOP
@@ -154,7 +154,7 @@ When asked to create a post from an external article URL, follow this workflow:
 1. **Ingest**: Open the URL, skim for the primary announcement or insight, and capture key stats/quotes.
 2. **Positioning brief**: Draft 2–3 bullet notes on why the news matters to Anth.us clients (tie to RLHF, agentic AI, MLOps, etc.).
 3. **Excerpt + summary**: Convert the brief into (a) a one-sentence excerpt suitable for social media, and (b) 2–3 short paragraphs of extended commentary for the post body.
-4. **Image concept**: Identify a visual hook (logo, architecture sketch, chart). If no official asset is provided, craft a descriptive placeholder text (e.g., “Perplexity Sonar API workflow”). Create the 1200x630 placeholder image in `src/blog/images/posts/` before writing MDX.
+4. **Image concept**: Identify a visual hook (logo, architecture sketch, chart). If no official asset is provided, craft a descriptive placeholder text (e.g., “Perplexity Sonar API workflow”). Create the 1200x630 placeholder image in `src/site-content/images/posts/` before writing MDX.
 5. **Frontmatter prep**: Copy the template from `perplexity-sonar-api.mdx`, updating title, slug, date, excerpt, `preview_image`, and `images`.
 6. **Content draft**: Use the standard centered image block followed by:
    - Source link in the opening paragraph (`[Title](URL)`).
@@ -168,8 +168,8 @@ When asked to create a post from an external article URL, follow this workflow:
 
 ### Image Locations
 
-- Posts: `src/blog/images/posts/`
-- Articles: `src/blog/images/`
+- Posts: `src/site-content/images/posts/`
+- Articles: `src/site-content/images/`
 - Site-wide: `src/images/`
 
 ### Creating Placeholder Images
@@ -178,12 +178,12 @@ When asked to create a post from an external article URL, follow this workflow:
 # For posts (1200x630 for social media optimization)
 convert -size 1200x630 xc:white -gravity center -pointsize 40 \
   -annotate 0 "Your Title Here" \
-  src/blog/images/posts/your-title-here.png
+  src/site-content/images/posts/your-title-here.png
 
 # For articles
 convert -size 1200x630 xc:white -gravity center -pointsize 40 \
   -annotate 0 "Your Title Here" \
-  src/blog/images/your-title-here.png
+  src/site-content/images/your-title-here.png
 ```
 
 ### Image Naming
