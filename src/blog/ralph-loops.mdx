@@ -1,0 +1,255 @@
+---
+title: "Ralph Loops and Loop Engineering"
+slug: "ralph-loops"
+date: "2026-08-29"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "The industry shipped three different verbs and called them all Ralph. A bash while-loop with fresh context, a /goal that keeps one session alive, and a /loop on a timer are cousins, not synonyms. Here is what each one actually does, which products shipped which, and why the failure stories are the most useful part."
+preview_image: "./images/ralph-loops.png"
+images:
+  - ./images/ralph-loops.png
+state: draft
+tags:
+  - articles
+  - AI
+  - how-to
+  - explainer
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<p class="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images}
+        name="ralph-loops.png"
+        alt="Ralph loops and loop engineering"
+    />
+</p>
+
+Spend a month inside coding agents in 2026 and you collect three habits that look like one habit. A teammate says they left Ralph running overnight. Your editor grows a `/goal` command. A different editor grows `/loop`. The plugin directory offers an official "Ralph Loop" plugin with its own `/ralph-loop`. All of it gets filed under the same heading — people are calling the heading *loop engineering*<Citation
+  data={{
+    type: "post-weblog",
+    "container-title": "Future AGI",
+    title: "Ralph Loop",
+    URL: "https://futureagi.com/blog/loop-engineering/ralph-loop/",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> — and the filing is wrong.
+
+These are three different verbs. They repeat different things, they keep state in different places, and they stop for different reasons. The gap between them is small enough to talk past and large enough to cost you a night of compute and a working tree you have to throw away.
+
+## Ralph, precisely
+
+Geoffrey Huntley wrote the technique down in July 2025 under the title "Ralph Wiggum as a 'software engineer'". His own definition is one sentence: Ralph is a technique, and in its purest form it is a Bash loop.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "ghuntley.com",
+    title: "Ralph Wiggum as a \"software engineer\"",
+    author: "Geoffrey Huntley",
+    URL: "https://ghuntley.com/ralph/",
+    accessed: { 'date-parts': [[2026, 8, 29]] },
+    issued: { 'date-parts': [[2025, 7, 14]] }
+  }}
+/>
+
+```bash
+while :; do cat PROMPT.md | claude-code ; done
+```
+
+That is the canonical form, and it is worth staring at for a second, because everything interesting about the pattern is a consequence of how little is there.
+
+The prompt never changes. Iteration 40 receives exactly the instructions iteration 1 received. There is no accumulating conversation, no "as we discussed earlier," no drift in what the agent has been told to do.
+
+The context never persists. Each pass starts a cold agent that has no idea a previous pass happened. The context window cannot fill up, because it gets thrown away on a schedule of one.
+
+Memory therefore has to live on disk. The working tree, the git history, and whatever notes file the prompt tells the agent to maintain are the only things carrying information from one iteration to the next. That inversion is the actual idea: **the loop is stateless and the repository is the state.** Elsewhere in this business we spend our effort keeping context alive. Ralph spends its effort making context disposable, and pays for it by demanding that the repo be legible enough to re-brief a stranger every few minutes.<Citation
+  data={{
+    type: "post-weblog",
+    "container-title": "codecentric",
+    title: "The Ralph Wiggum loop: autonomous code generation with a fresh context",
+    URL: "https://www.codecentric.de/en/knowledge-hub/blog/the-ralph-wiggum-loop-autonomous-code-generation-with-a-fresh-context",
+    accessed: { 'date-parts': [[2026, 8, 29]] },
+    issued: { 'date-parts': [[2026, 4, 6]] }
+  }}
+/>
+
+Huntley kept pulling on the thread; by January 2026 he was arguing that everything is a Ralph loop.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "ghuntley.com",
+    title: "everything is a ralph loop",
+    author: "Geoffrey Huntley",
+    URL: "https://ghuntley.com/loop/",
+    accessed: { 'date-parts': [[2026, 8, 29]] },
+    issued: { 'date-parts': [[2026, 1]] }
+  }}
+/> Thoughtworks put it on the Technology Radar in April 2026 at Assess, noting that people also call it a Wiggum loop.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Thoughtworks Technology Radar",
+    title: "Ralph loop",
+    URL: "https://www.thoughtworks.com/radar/techniques/ralph-loop",
+    accessed: { 'date-parts': [[2026, 8, 29]] },
+    issued: { 'date-parts': [[2026, 4, 15]] }
+  }}
+/> So it is a real technique with a real name, which makes it worth getting the name right.
+
+## The name is wrong, and so is the story about the name
+
+I have been saying Ralph Wiggins for months. It is Ralph **Wiggum** — the Simpsons kid, who was himself named after Ralph Kramden.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Wikipedia",
+    title: "Ralph Wiggum",
+    URL: "https://en.wikipedia.org/wiki/Ralph_Wiggum",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> His signature line, which anyone who has watched a loop burn forty iterations on a passing test suite will appreciate: "Me fail English? That's unpossible!"
+
+The second correction is the better one. There is a gloss you will see repeated in half the writeups — that the technique is named for Wiggum because Wiggum fails, tries again, and eventually gets there. Go read the original post. That explanation is not in it. Later writers supplied the moral, it sounded right, and it stuck.
+
+A term that accreted a backstory it never had, sitting at the center of a technique whose definition got blurred exactly the same way. Both drifts happened the same way too: most people met the idea through the third writeup rather than the first.
+
+## Three verbs, one name
+
+Here is the distinction that the shared vocabulary is hiding.
+
+| Pattern | What repeats | Where state lives | How it ends |
+| :-- | :-- | :-- | :-- |
+| Ralph loop | The entire agent process, from a cold start | Files and git in the working tree | You kill it, or the shell loop's own exit test fires |
+| `/goal` | Nothing — one session is kept alive | The live session context | The stated condition is satisfied |
+| `/loop` | The task, on a clock | Whatever the previous run wrote down | You cancel the schedule |
+
+Ralph discards the context window deliberately, which is why it can run for hours without degrading and why your `PROMPT.md` has to be good enough to onboard a new engineer every iteration. A `/goal` command does the opposite: it protects the session, because the accumulated understanding *is* the asset, and it stops on a condition rather than on you noticing. And `/loop` does not loop over a task at all — it schedules one. The repetition is on the wall clock, not on the work.
+
+VentureBeat covered the naming collision in January 2026 and framed it as a tale of two Ralphs — Huntley's bash technique on one side, the vendor plugin that borrowed the name on the other.<Citation
+  data={{
+    type: "article-newspaper",
+    "container-title": "VentureBeat",
+    title: "How Ralph Wiggum went from The Simpsons to the biggest name in AI right now",
+    URL: "https://venturebeat.com/technology/how-ralph-wiggum-went-from-the-simpsons-to-the-biggest-name-in-ai-right-now",
+    accessed: { 'date-parts': [[2026, 8, 29]] },
+    issued: { 'date-parts': [[2026, 1, 6]] }
+  }}
+/> That the collision made the trade press is a decent sign it is more than a pedant's complaint.
+
+## What actually shipped
+
+Worth stating plainly before the table: the official docs do not call `/goal` or `/loop` "Ralph." Only Anthropic's Ralph Loop plugin uses the name. Everything else in this table is a product feature that happens to live in the same neighborhood.
+
+| Product | Condition loop | Interval / schedule | Ralph proper |
+| :-- | :-- | :-- | :-- |
+| Claude Code | [`/goal`](https://code.claude.com/docs/en/goal), plus `/goal clear` | [`/loop`](https://code.claude.com/docs/en/scheduled-tasks) bundled skill; interval or cron; alias `/proactive` | [Ralph Loop plugin](https://github.com/anthropics/claude-plugins-official/blob/main/plugins/ralph-loop/README.md): `/ralph-loop`, `/cancel-ralph` |
+| Cursor | [`/goal`](https://cursor.com/docs/agent/overview), marked "Rolling out" | [`/loop`](https://cursor.com/docs/skills) built-in skill | Not shipped |
+| Codex | [`/goal`](https://developers.openai.com/codex/use-cases/follow-goals), since 0.128.0 | Not in the docs | Not shipped |
+| Antigravity | [`/goal`](https://antigravity.google/docs/slash-commands/) | [`/schedule`](https://antigravity.google/docs/slash-commands/) | Not shipped |
+
+A few things the table flattens.
+
+Claude Code's built-in [command list](https://code.claude.com/docs/en/commands) carries `/goal` and `/loop` and does *not* list `/ralph-loop`. That one arrives through the [plugin directory](https://claude.com/plugins), which is precisely the split VentureBeat was pointing at: the built-in verbs are not the Ralph verb.
+
+Cursor introduced `/goal` in its [19 August 2026 changelog](https://cursor.com/changelog/08-19-26) and suggests pairing it with `/loop`, which is the clearest statement in any of these docs that the two are complementary rather than redundant. Cursor also exposes a stop [hook](https://cursor.com/docs/hooks) that can return a `followup_message` — a genuine loop primitive, but not a slash command, and easy to miss if you only read the command tables.
+
+Codex's `/goal` is [documented as event-driven](https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex) rather than a simple repeat, which will surprise you if you arrived expecting a while-loop. And Codex has no `/loop`. If someone tells you otherwise, ask them for the doc page.
+
+Antigravity draws the line most explicitly of the four: `/goal` for the condition, `/schedule` for the clock, no conflation. It also ships `/grill-me`, which is a real official command and does what you think.
+
+Every row above was rechecked on 29 August 2026. This table is the fastest-rotting thing in the article — Cursor's `/goal` was literally still rolling out as this was written. Trust the doc links over the table.
+
+## The part where it goes wrong
+
+A loop-engineering piece with no failure section is malpractice, and this pattern has generated unusually good failure stories.
+
+The repomirror project ran a while-true Claude loop to about 1,100 commits, and its own writeup records an agent that resolved a problem by `pkill`-ing itself.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "GitHub — repomirrorhq/repomirror",
+    title: "repomirror.md",
+    URL: "https://github.com/repomirrorhq/repomirror/blob/main/repomirror.md",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> One developer wrote up accidentally making Claude ask itself the same question 1,966 times.<Citation
+  data={{
+    type: "post-weblog",
+    "container-title": "DEV Community",
+    title: "I accidentally made Claude ask itself the same question 1,966 times",
+    URL: "https://dev.to/sean8/i-accidentally-made-claude-ask-itself-the-same-question-1966-times-1c5h",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> That is the fresh-context property working exactly as designed, with nothing on disk to record that the question already had an answer.
+
+Then there is the stop button. The Ralph Loop plugin has an open issue reporting that `/cancel-ralph` gets ignored,<Citation
+  data={{
+    type: "webpage",
+    "container-title": "GitHub — anthropics/claude-plugins-official",
+    title: "Issue #65: /cancel-ralph is ignored",
+    URL: "https://github.com/anthropics/claude-plugins-official/issues/65",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> alongside another about the plugin's local config file not parsing the way people expect.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "GitHub — anthropics/claude-plugins-official",
+    title: "Issue #66: ralph-loop.local.md parsing",
+    URL: "https://github.com/anthropics/claude-plugins-official/issues/66",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> An in-band cancel is a message the running agent has to choose to act on. If that is your only stop button, you do not have a stop button — you have a suggestion box.
+
+Huntley is refreshingly direct about the cost in the original post: run this and you will wake up to a broken codebase that does not compile from time to time. That is the inventor's own disclosure, in the post everyone cites.
+
+None of these are model bugs; they are what happens when the stopping problem gets taken out of the model and is not put anywhere else. A stateless loop cannot distinguish "making progress" from "repeating myself" unless something outside the loop is keeping score.
+
+## Running one that is not stupid
+
+Which means the engineering in loop engineering is all outside the model.
+
+**Write the prompt as a program that executes N times against N different repository states.** It has to still be correct on iteration 40, when the tree looks nothing like it did on iteration 1. The `snarktank/ralph` layout does this with a PRD plus a `progress.txt` the loop appends to<Citation
+  data={{
+    type: "webpage",
+    "container-title": "GitHub — snarktank/ralph",
+    title: "ralph",
+    URL: "https://github.com/snarktank/ralph",
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> — that file is the only reason iteration 41 differs from iteration 40.
+
+**Give it a bound the agent cannot negotiate with.** An iteration cap, a wall-clock timeout, a sentinel file checked by the shell rather than by the model. The bound belongs in the process that spawns the agent, not in the agent's instructions.
+
+**Make verification the governor.** Tests, build, lint, typecheck — something that returns an exit code and writes it where the next iteration can read it. Without that, the loop is producing diffs and you are the one deciding whether they were progress, which defeats the point of running it overnight.
+
+**Run it somewhere cheap to discard.** A branch, a worktree, a container. The pattern's economics assume that throwing away a bad run costs you nothing but tokens.
+
+Put together, the loop stops looking like a one-liner:
+
+```bash
+i=0
+until [ -f DONE ] || [ "$i" -ge 50 ]; do
+  cat PROMPT.md | claude-code
+  npm test >> progress.txt 2>&1 || echo "iteration $i: red" >> progress.txt
+  git add -A && git commit -m "ralph iteration $i" --allow-empty
+  i=$((i + 1))
+done
+```
+
+Huntley's original has none of that, and that is the point. The bash is trivial. The file layout, the exit condition, and the test suite that decides whether iteration 41 has anything left to do are where the work actually is.
+
+## Picking the right one
+
+Reach for a Ralph loop when the job is longer than a context window and the repository can carry the state: a mechanical migration across hundreds of files, a test suite you want dragged from red to green, a codebase-wide rename with a verifier attached. The tell is that you can describe "done" as a check somebody else could run.
+
+Reach for `/goal` when the session's accumulated understanding is the asset and the failure you are guarding against is the agent stopping early. Debugging is the obvious case — the thing you would lose by restarting cold is the whole investigation.
+
+Reach for `/loop` or `/schedule` when the work is recurring rather than long. Sweeping dependency updates, watching a flaky pipeline, triaging what came in overnight. These finish quickly and need to happen again tomorrow, which is a scheduling problem wearing a loop's clothing.
+
+The names will keep drifting; that is what the last year of this has demonstrated. The test that survives the drift is the state question. When this thing begins its next iteration, what does it remember, and where is that memory kept? Ralph answers "nothing, and it is in git." A `/goal` answers "everything, and it is in the session." A `/loop` answers "whatever the last run wrote down." Ask it before you start the thing, and budget for the morning where the tree does not compile. Huntley told you that one was coming, in the post everybody cites and fewer people finish.
+
+## Related reading
+
+- [Cybernetic Development](/blog/cybernetic-development/) — the governance layer above all of this: what it means to steer agents rather than write code.
+- [The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026/) — why leaving a loop running overnight became an economically ordinary thing to do.
+
+## References
+
+<CitationsList citationFormat="apa" />

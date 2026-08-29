@@ -1,12 +1,12 @@
 ---
-title: "DeckBot: AI presentation assistant"
+title: "Everything as Code: Source a Runtime Can Reject"
 slug: "everything-as-code-integration"
 date: "2025-11-30"
 authors:
   - author: <a href="/ryan">Ryan Porter</a>
 tags: ["architecture", "AI", "devops"]
 excerpt: |
-  Everything as Code isn't just a cute slogan—it's a deep architectural pattern for integrating AI into real systems by turning them into structured representations LLMs can actually understand.
+  The useful question when integrating AI with a real system is not whether a model can read it. It is whether anything can say no to what the model writes, before it touches production.
 preview_image: "./images/deckbot-ai-presentation-assistant.png"
 images:
   - ./images/deckbot-ai-presentation-assistant.png
@@ -16,145 +16,119 @@ state: draft
 
 import BlogImage from "../components/blog-image"
 
-<BlogImage
-  images={props.pageContext.frontmatter.images}
-  name="deckbot-ai-presentation-assistant.png"
-  className="centered"
-  alt="DeckBot: AI presentation assistant"
-/>
+On a Linux box, you can ask the kernel how much memory is free by reading a file:
 
-## Introduction: AI Doesn’t Understand Systems—It Understands Structures
+```
+$ cat /proc/meminfo
+MemTotal:       16316200 kB
+MemFree:         2451128 kB
+Buffers:          198412 kB
+Cached:          6104884 kB
+```
 
-Modern language models do not "understand" a business process, a data center, a workflow platform, a CRM system, or a Kubernetes cluster. They only understand structured representations of those systems.
+There is no file. `/proc` is a virtual filesystem: the kernel rendering its own internal state as text, on demand, because text is the interface every tool already speaks. `grep` works on it. `awk` works on it. A shell script written in 1994 works on it.
 
-LLMs manipulate text—especially structured, rule-governed text—with superhuman fluency. This single fact reshapes the entire integration landscape:
+That trick is the whole of Everything as Code, and it is the most useful thing we know about connecting language models to systems that already exist.
 
-**If you can express a system as code (or code-like declarative artifacts), then AI can operate on that system with remarkable precision.**
+A model cannot operate your CRM, your Kubernetes cluster, or your deployment pipeline. It can operate a *representation* of them, and if that representation is text with a grammar, the model is on ground it knows well. But rendering the system as text is only half the job. The half that matters is the return trip. When the model proposes a change, something has to be able to look at that change and say no.
 
-This is the core insight behind the Everything as Code paradigm. Today, the biggest engineering wins come from treating code not as a product, but as the universal interface for AI-driven orchestration.
+That is the bar we hold integration work to. Not "can the model read this," but "what rejects a bad answer before it lands."
 
-## Why Code? The Real Cognitive Interface
+## Why rejection is the load-bearing part
 
-Language models are statistical machines that operate on token streams. When we reduce a system to a textual specification, we achieve three multiplier effects:
+The obvious way to connect a model to a system is to hand it an API and hope. This fails in a specific and frustrating way: a wrong API call is indistinguishable from a right one until after it has happened. The model returns something plausible, the call succeeds, and you find out three hours later that plausible was not the same as correct.
 
-1. **Machine-operable structure** (the model can parse, transform, and generate).
-2. **Human reviewability** (engineers can diff and reason about changes).
-3. **Automatic validation** (DSLs, schemas, and test harnesses act as guardrails).
+Source code is different, and the difference is not that code is tidier. It is that code has a *rejecter*. Compilers, schema validators, type checkers, linters, `terraform plan`, a failing test — these are all machines whose entire job is to look at a proposed artifact and refuse it. They turn a class of wrong answers into an error message instead of an outage.
 
-LLMs are terrible at raw, unstructured interaction with complex systems.
-LLMs are excellent at iteratively editing declarative artifacts, with validation after each step.
+So the validation step is not a safety feature bolted onto the pattern. It is the reason the pattern works at all. Everything as Code means: put the system into a form that has a rejecter, then let the model work in that form.
 
-This is the same reason Infrastructure-as-Code overtook imperative shell scripting. Declarative representations give both humans and machines a stable substrate for controlled, incremental improvement.
+## The same move, three times
 
-At Anthus OS we treat this substrate as the interface layer itself.
+Once you are looking for it, you see the same structure everywhere. Take the system, express its state as source, and keep a rejecter between the model and reality.
 
-## Everything as Code as an Integration Strategy
+| System | Source | Rejecter |
+| --- | --- | --- |
+| Cloud infrastructure | Terraform HCL | `terraform validate`, then `terraform plan` |
+| Browser behavior | Playwright specs | The test run |
+| A slide deck | Marp Markdown | The Marp compiler |
 
-Our core engineering pattern for integrating AI with legacy systems is:
+Terraform is the clearest case, because the rejecter is a first-class part of the workflow rather than an afterthought. `terraform plan` exists to show you exactly what would change before anything does. When a model edits infrastructure through HCL, the plan output is the review surface. Nobody has to trust the model; they have to read a diff.
 
-1. Extract the system’s observable state into an editable representation
-2. Normalize it into a declarative form
-3. Expose that representation to the language model
-4. Allow the model to propose mutations
-5. Validate those mutations using schemas, interpreters, and tests
-6. Use a virtualization layer to apply the approved changes to the real system
+Playwright works the same way at a different altitude. A browser interaction is stateful, messy, and nearly impossible to describe reliably in prose. As a spec file, it is source, and running it is the rejecter. The test either passes or it does not.
 
-The virtualization layer is the heart of the pattern.
-It acts as the shell around the kernel—your real system remains untouched until a validated code diff has been approved.
+The third one looks trivial and is the most instructive.
 
-This pattern is simple, but profound. It gives us a way to integrate AI with practically anything:
+## The compression is real, but it is not the point
 
-* Cloud infrastructure
-* Workflow engines
-* CRM and ERP systems
-* Internal tools
-* ML pipelines
-* Knowledge bases
-* API gateways
-* IoT systems
-* Business processes
-* Human-in-the-loop systems
+Here is a security group as the AWS API describes it:
 
-Anything can be turned into a symbolic world the model can live inside.
+```json
+{
+  "SecurityGroups": [{
+    "Description": "web tier",
+    "GroupName": "web-sg",
+    "GroupId": "sg-0a1b2c3d4e5f67890",
+    "OwnerId": "123456789012",
+    "VpcId": "vpc-0abc1234def567890",
+    "IpPermissions": [{
+      "FromPort": 443,
+      "ToPort": 443,
+      "IpProtocol": "tcp",
+      "IpRanges": [{ "CidrIp": "0.0.0.0/0" }],
+      "Ipv6Ranges": [],
+      "PrefixListIds": [],
+      "UserIdGroupPairs": []
+    }],
+    "IpPermissionsEgress": [{
+      "IpProtocol": "-1",
+      "IpRanges": [{ "CidrIp": "0.0.0.0/0" }],
+      "Ipv6Ranges": [],
+      "PrefixListIds": [],
+      "UserIdGroupPairs": []
+    }],
+    "Tags": [{ "Key": "tier", "Value": "web" }]
+  }]
+}
+```
 
-<div className="placeholder-box">
-  [Diagram of the Everything-as-Code Architecture: System → Virtualization Layer → DSL/YAML/JSON → LLM Editor → Validation Layer → Real System]
-</div>
+And here is the same thing as source:
 
-## The Token Economy: Why DSLs Matter Even More for AI
+```hcl
+resource "aws_security_group" "web" {
+  name   = "web-sg"
+  vpc_id = var.vpc_id
 
-Every token in a prompt costs money.
-Every token in a prompt adds entropy.
-Every token in a prompt competes against the context window.
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+```
 
-A domain-specific language (DSL) is a way of compressing meaning without losing precision.
+The second is a quarter the size, and the token savings are worth having. But that is the smaller benefit, and leading with it misses what actually changed.
 
-Instead of feeding the model 4,000 tokens of AWS metadata, we feed it 200 tokens of distilled state expressed in a grammar we control.
+Type `"protocol": "tpc"` into the JSON and the API will take it. You get a runtime error from a service, somewhere downstream, phrased in that service's vocabulary. Type `protocol = "tpc"` into the HCL and `terraform validate` refuses it before anything is sent. Same typo, two entirely different failure modes: one is an incident, the other is a red line in a terminal.
 
-Why DSLs amplify LLM performance:
+That is the difference we are buying. Not brevity. A place for wrong answers to die cheaply.
 
-* They reduce long-range ambiguity
-* They eliminate conversational drift
-* They encode invariants as syntax
-* They force the model into structured edits
-* They enable deterministic validation
-* They radically reduce token footprint
-* They make hallucinations impossible by construction
+## The virtualization layer
 
-Even YAML and JSON behave as lightweight DSLs. But custom grammars—implemented with tools like ANTLR, YACC, or Lark—give you sharper semantics and greater compression.
+Most real systems do not arrive with a rejecter attached, which means the integration work is building one. In practice that is a layer that:
 
-<div className="placeholder-box">
-  [Before and after comparison: Raw system metadata vs. compressed DSL representation]
-</div>
+1. Reads the system's actual state
+2. Encodes it into a grammar you control
+3. Exposes that encoding to the model
+4. Accepts proposed edits
+5. Validates them against a schema, interpreter, or test suite
+6. Applies only what survives
 
-## Context Engineering as an Engineering Discipline
+This is `/proc` again, built deliberately. The system stays untouched until a validated diff has been approved. Most of our integration projects spend their early weeks here, before a single agent exists, because the agent is the easy part once there is something for it to push against.
 
-At Anthus we think of context engineering with LLMs the way other companies think about compiler optimization. It is not merely a matter of feeding the model "some context." Context is the harness the model lives inside.
+Custom grammars help — implemented with ANTLR, YACC, or Lark, you get sharper semantics than YAML gives you. But YAML and JSON with a real schema are lightweight DSLs and they are usually enough to start.
 
-A well-designed harness does things like:
-
-* Build a view of the world on demand
-* Enforce invariants declaratively
-* Provide goals, constraints, and schemas
-* Replace free-form editing with structured transformations
-* Construct observational context from the real system at call-time
-
-We often generate context dynamically using templates.
-The model is therefore never flying blind—it is placed into the cockpit with the exact gauges we choose to expose.
-
-You can think of a prompt as a runtime environment for the model.
-
-Everything-as-Code is the mechanism that makes that runtime stable, deterministic, and safe.
-
-## The Virtualization Layer: The Hidden Engine
-
-To integrate AI with an existing system, you need a layer that:
-
-* Reads the real system’s state
-* Encodes it into your DSL (or YAML/JSON)
-* Validates that encoding
-* Exposes it to the model
-* Accepts proposed edits
-* Validates those edits via schema or interpreter
-* Applies the valid diff to the system
-
-This layer is analogous to `/proc` in Linux: a virtual filesystem that describes the world in textual form. Our work at Anthus OS often involves building this translation layer before we build any agents or workflows.
-
-Once the virtualization layer exists, a model can operate the system like a shell.
-
-<div className="placeholder-box">
-  [Diagram comparing the Linux /proc filesystem to an Anthus-style virtualization layer representing AWS/GCP/CRM process states]
-</div>
-
-## Case Study: DeckBot
-
-We recently built **[DeckBot](https://github.com/AnthusAI/DeckBot)**, a specialized AI coding assistant that automates the presentation workflow. It combines **Marp** for declarative slide definitions with **Nano Banana Pro 2** for custom visuals.
-
-It is a perfect example of the "Everything as Code" philosophy:
-
-1.  **Everything as Code (EaC)**: Presentations are stored as Markdown files, making them version-control friendly and easy for LLMs to read and edit. By treating slide decks as software projects (Markdown source code), we gain fine-grained control, version control, and the ability to collaborate with AI coding assistants.
-
-2.  **[Give an Agent a Tool](https://anth.us/blog/give-an-agent-a-tool/)**: Instead of trying to pre-program every possible behavior, we give an AI agent the right tools (file editing, image generation, compilation) and let it figure out how to use them to solve your problems.
+## DeckBot: the same pattern, pointed at slides
 
 <div style={{ float: "right", width: "300px", marginLeft: "20px", marginBottom: "20px" }}>
 <BlogImage
@@ -165,106 +139,49 @@ It is a perfect example of the "Everything as Code" philosophy:
 />
 </div>
 
-While tools like NotebookLM are pushing boundaries with instant deck generation, they often act as black boxes: the result might look great, but you can't easily edit the details later. **[DeckBot](https://github.com/AnthusAI/DeckBot)** is about **ownership and control**. Because your presentation is treated as a software project (Markdown source code), you have complete freedom. You can open the files and tweak every detail manually, or ask the assistant to refactor entire sections. You own the source, so you control the output.
+A presentation is close to the worst case for this pattern. It is a binary blob in a proprietary format, edited through a GUI, with no text representation and nothing resembling a compiler.
 
-### Features
+[DeckBot](https://github.com/AnthusAI/DeckBot) is what happens when you apply the pattern anyway. [Marp](https://marp.app/) turns slides into Markdown, which makes them source: diffable, version-controlled, and readable by a model without any special affordance. The Marp CLI compiles that Markdown to HTML or PDF, and the compile is the rejecter. An agent can restructure a deck, and the build either succeeds or it does not.
 
-*   **Everything as Code**: Presentations are stored as Markdown files, making them version-control friendly and easy for LLMs to read and edit.
-*   **AI Coding Assistant**: A built-in REPL powered by Google's Gemini models that acts as your pair programmer for slides. It can write content, organize structure, and manage files.
-*   **Nano Banana Image Generation**: Integrated "Nano Banana" (Google Imagen) support. Just ask for an image, and the agent will generate multiple candidates for you to choose from.
-*   **Interactive Workflow**:
-    *   **Chat**: Discuss your high-level ideas and let the agent draft the slides.
-    *   **Visualize**: Generate custom images on the fly.
-    *   **Preview**: Live preview your deck using the Marp CLI.
-    *   **Export**: Compile your finished deck to HTML or PDF.
+That is the whole architecture. The rest is tooling — a REPL for talking to the agent, [Nano Banana](https://deepmind.google/technologies/imagen/) for generating images, a live preview. The interesting part is that once slides became source, the ordinary agent pattern from [Give an Agent a Tool](https://anth.us/blog/give-an-agent-a-tool/) applied without modification. File editing, image generation, compilation. Nothing bespoke.
 
-### Behavior Driven Development (BDD)
+It is worth being precise about what this buys, because tools like NotebookLM will generate a deck faster. They also hand you a finished artifact you cannot meaningfully revise. When the source is Markdown in a repo, you can open it and change one line, or ask the agent to refactor three sections, and both work because they are the same operation on the same file.
 
-This project uses **Behavior Driven Development** (using `behave`) as a primary tool for collaboration between humans and AI.
+DeckBot uses Behavior Driven Development, and this is less of a tangent than it looks. A `.feature` file is a plain-English description of what the software should do — and `behave` is a program that reads that description and refuses it when the implementation disagrees. The spec is source. The test runner is the rejecter. It is the same shape as everything above, applied to the project's own behavior rather than to slides.
 
-*   **Human-Readable Specs**: BDD feature files (`.feature`) serve as a clear, unambiguous contract between the user and the AI. They describe *what* the software should do in plain English.
-*   **Stability & Reusability**: By codifying behavior into tests, we ensure that new features don't break existing ones. This allows us to build reliable, reusable software with the same effort often spent on "throwaway" scripts.
-*   **AI Alignment**: For AI-assisted coding, BDD provides a perfect feedback loop. If the behavior specs pass, the implementation is correct, regardless of the underlying code structure. This allows us to focus on desired outcomes and feature stability rather than getting bogged down in implementation details.
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="deckbot-ai-presentation-assistant.png"
+  className="centered"
+  alt="DeckBot: an AI presentation assistant built on Marp Markdown slides"
+/>
 
-## Agents as Code, Workflows as Code, Evaluations as Code
+## Where this goes wrong
 
-Our internal infrastructure (Anthus OS) follows this philosophy everywhere:
+The pattern is easy to misapply, usually in one of five ways.
 
-* Agent definitions → YAML/DSL
-* Scorecard configurations → declarative JSON
-* Dataset definitions → structured metadata files
-* Evaluation harnesses → typed config objects
-* Human feedback loops → symbolic state machines
-* Operational playbooks → structured procedural descriptions
+**Representation drift.** If your encoding falls out of sync with the real system, the model is optimizing a fiction. Every improvement it makes is to a world that does not exist. Make the virtualization layer authoritative and refresh it on demand rather than caching it.
 
-The benefit is not aesthetics.
-The benefit is that LLMs treat these artifacts as living documents that can be revised, optimized, and extended.
+**Overpowered grammars.** A DSL that can express any operation can express the destructive ones. Restrict the grammar to the operations you are willing to have executed, and let the parser enforce that boundary rather than a prompt.
 
-This turns the AI system into something akin to a self-adjusting compiler pipeline. Human engineers set the constraints; the models iterate inside those constraints.
+**Confusing valid with correct.** This is the one that catches people, and it is worth stating plainly: a grammar constrains form, not truth. A model can emit perfectly valid HCL that references a subnet that does not exist, or a flawless SQL query against a table that was renamed last quarter. The parser will pass it. Schema validation is a floor, not a ceiling, and anything that matters needs a check against reality — existence, permissions, referential integrity — beyond the one the parser gives you for free.
 
-## Why This Matters for Real AI Engineering
+**Unreadable representations.** A DSL humans cannot read will fail for social reasons long before it fails for technical ones. If reviewers cannot skim a diff, they will stop reviewing diffs. Keep the semantics small and the output diff-friendly.
 
-Everything-as-Code transforms AI integration from "ad-hoc model calls" into a software discipline:
+**Assuming validation is free.** Someone has to write the schema, maintain the test suite, and keep the plan output meaningful. The rejecter is the deliverable. Underfunding it is the same as not having one.
 
-* **Repeatability**: A given DSL artifact produces a deterministic action.
-* **Traceability**: Every agent decision is an auditable diff.
-* **Safety**: Nothing reaches production without validation.
-* **Modularity**: Representation and execution are decoupled.
-* **Scalability**: Any subsystem can be exposed to AI by giving it a representation.
-* **Performance**: Token-efficient grammars dramatically reduce cost.
-* **Generalization**: Once the pattern exists, you can integrate AI with anything—regardless of legacy constraints.
+## Across the platform
 
-## Failure Modes (And How to Avoid Them)
+The Anthus Platform is built this way throughout. Agent definitions are YAML. Scorecard configurations are declarative JSON. Evaluation harnesses are typed config objects rather than scripts. Human feedback loops are state machines with explicit transitions.
 
-Everything-as-Code is powerful, but easy to misuse.
+None of that is for elegance. It is so that each of those things can be validated, diffed, reviewed, and — when a model proposes a change to one of them — refused.
 
-**1. Representation Drift**
-If your DSL view drifts from the underlying system, the model optimizes fictional states.
-**Solution**: Make the virtualization layer authoritative and refreshed on demand.
+## The first question
 
-**2. Overpowered DSLs**
-If your DSL is too expressive, the model becomes dangerous.
-**Solution**: Restrict grammar; allow only safe operations; require tests.
+When we start an integration project, the question is not how to get a model talking to the system. That part has gotten easy and keeps getting easier.
 
-**3. Insufficient Validation**
-LLMs will confidently emit invalid structures.
-**Solution**: Schemas + interpreters + test harnesses before applying changes.
+The question is: **what will say no?**
 
-**4. Human Unreadability**
-A DSL that humans can’t read will fail culturally.
-**Solution**: Keep the semantics small, declarative, and diff-friendly.
+If there is an answer — a compiler, a schema, a plan step, a test suite — the rest of the work is tractable, and the model becomes a fast, tireless contributor working inside a boundary that holds. If there is no answer, you do not have an integration strategy. You have a model making changes to production and a hope that they were the right ones.
 
-## Why This Is Not a Trend—It’s an Operating Principle
-
-The movement toward Everything-as-Code is not a fad. It’s a structural response to the nature of modern AI. It’s the only reliably scalable interface between:
-
-* the symbolic/textual world
-* the real operational world
-* the model’s reasoning capabilities
-
-By turning systems into representations, we turn them into environments that models can inhabit safely. Once they inhabit those environments, they can reason, explore alternatives, optimize them, and help us orchestrate change.
-
-This is not "configuration."
-This is cognitive infrastructure.
-
-## Conclusion: Engineering in a Representational World
-
-At Anthus OS AI Solutions, we approach integration work with one first question:
-
-**How do we represent this system as code?**
-
-From that representation flows:
-
-* safe mutation
-* orchestration
-* automation
-* observability
-* verification
-* agentic operation
-* higher-order reasoning
-* business process optimization
-
-Everything as Code is not just a technique.
-It is the operating principle for building AI-driven systems in the real world.
-
-And it’s how we unify the messy, stateful, legacy universe with the elegant, symbolic, iterative world that language models inhabit.
+Build the rejecter first.

@@ -1,0 +1,181 @@
+---
+title: "A Wiki That Only Gets Bigger"
+slug: "wiki-that-only-gets-bigger"
+date: "2026-08-29"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+excerpt: "An agent research desk that can add pages but never retire them is not a knowledge base. The missing capability is the boring one: the ability to stamp a page dead, keep the trail, and let a dumb non-AI checker enforce it."
+preview_image: "./images/wiki-that-only-gets-bigger.png"
+images:
+  - ./images/wiki-that-only-gets-bigger.png
+state: draft
+tags:
+  - articles
+  - ai
+  - knowledge-management
+  - agents
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="wiki-that-only-gets-bigger.png"
+  alt="A wiki that only gets bigger"
+/>
+
+Set an agent loose on a research beat and give it somewhere to write. It will write. Every night it reads the feeds, finds a few things worth keeping, and files a few new pages. Four months later you have several hundred pages with tidy headings, consistent formatting, and a search index that returns something plausible for every query you throw at it.
+
+Then you ask it what your active account count is, and it answers confidently, using a definition Finance retired in June.
+
+Nothing broke. The page that gave the wrong answer is a perfectly good page. It was correct when it was written, it is well written now, and it sits in the index next to forty pages that are still true, formatted identically, indistinguishable at retrieval time. The pile got bigger. Nothing in it ever became false, because nothing in it was ever allowed to.
+
+That is the villain: **a wiki that only gets bigger.** If last night's agent can keep adding pages, and nothing ever gets marked dead, you do not have a knowledge base. You have a dump with nicer headings.
+
+What follows is a position rather than a product tour. We have this written down as a plan and not as software — an epic and a handful of tickets — and the argument seemed worth publishing before the code exists, because the argument is the portable part.
+
+## Somebody already wrote down the format
+
+Google Cloud published version 0.2 of the Open Knowledge Format in July.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Google Cloud Blog",
+    author: "Sam McVeety and Amir Hormati",
+    title: "OKF v0.2 adds trust signals",
+    URL: "https://cloud.google.com/blog/products/data-analytics/okf-v0-2-adds-trust-signals",
+    accessed: { 'date-parts': [[2026, 8, 29]] },
+    issued: { 'date-parts': [[2026, 7, 24]] }
+  }}
+/> One markdown file per concept, YAML frontmatter, and a small set of fields that exist for one purpose: helping you decide whether to believe the page. Where the content came from. Who or what produced it, and who has independently confirmed it. When it goes stale. Where it sits in its life, from draft to stable to deprecated. And whether a computed number was actually computed the sanctioned way.
+
+The design note that matters most is about absence. As the OKF authors put it, "an unverified concept is distinguishable from a verified one." A missing stamp is information.
+
+That is the right shape, and I would not try to improve on it. But OKF is a file convention, and a file convention has one limitation that turns out to be the important one: **the format records how to check and never runs.**
+
+A `stale_after` date is a string in a file until something wakes up the day after and does something about it. An attester field names a script, and naming a script is not running it. A `status: deprecated` stamp is a fact about a page that nothing is obligated to respect when the agent goes looking for context at two in the morning.
+
+Writing the rule down and enforcing the rule are two different jobs. Everything below is about the second one.
+
+## A dumb checker, not another AI
+
+The sharpest version of the problem is a number that is quietly wrong.
+
+A page in your knowledge base says: *Active accounts, trailing 30 days: 41,802.* Underneath it is the query that produced the number — the sanctioned one, the one Finance blessed. A nightly agent re-runs it and updates the figure.
+
+Somewhere along the way, `analytics.accounts_daily` becomes `analytics.accounts_daily_v2`. One token. The number comes back 39,140, which is plausible, and plausible is the problem. Nobody notices a six percent move in a metric that moves.
+
+The instinct is to have a model review it. Give an LLM both queries and ask whether they compute the same thing. It reads them, considers them, and says they look equivalent — and it is *nearly* right, which is worse than being wrong, because nearly right is what gets approved.
+
+The failure you are checking for is the failure the checker has. A model that will cheerfully swap a table name is a model that will cheerfully approve a swapped table name. Stacking a second one behind the first buys you correlated judgment at twice the price.
+
+The check that actually catches it is boring. Canonicalize both queries — strip comments, collapse whitespace, normalize keyword case — and compare the strings. If they differ, fail. No reasoning, no context window, no opinion about intent. OKF's attester does exactly this, and refuses to return a passing verdict when the canonical forms diverge. The entire virtue of that checker is that it cannot be talked out of the answer.
+
+Generalize it: anything in a knowledge base that decides whether to trust something should be simple enough to read in an afternoon and predict in your head. String equality, date comparison, hash match, does this file exist, does this link still return a 200. Use the model to write the prose, and use arithmetic to decide whether to believe it.
+
+## The agent fills in the year, not the recipe
+
+That check only works because the space of things the agent is permitted to change is tiny.
+
+OKF's attested computation declares its parameters and binds the computation. The agent may supply `year: 2026`. It may not author or edit the query. That distinction is the whole game, and it generalizes well past SQL.
+
+Most numbers in a knowledge base are two things wearing one hat. There is a recipe — what counts as an active account, what window, which exclusions — and there is an instance, which is the recipe run against this quarter's data. The recipe is institutional. Somebody argued about it in a meeting and somebody signed off. The instance is clerical.
+
+Agents are genuinely good at the clerical half and genuinely dangerous at the institutional half, because in the text of a file, *changing* a recipe looks identical to *fixing* one. Rewriting "trailing 30 days" as "trailing 90 days" is a two-character diff and a completely different business.
+
+So the rule a knowledge base should be able to enforce is that an agent may bind declared parameters and may never edit the computation. Recipe changes are human edits with a human name attached. And that rule is enforceable by the dumb checker from the previous section, which is the reason to draw the line exactly there — it is a line a string comparison can see.
+
+## Files a person can open
+
+None of this is available to you if the knowledge lives in an index.
+
+A vector store is a fine way to find a page and a poor way to own one. You cannot open a chunk. You cannot diff an embedding. You cannot ask a similarity score who changed this, and when, and why. Once knowledge exists only as retrievable fragments, the only instrument for interrogating it is another retrieval, and the only available witness is the model.
+
+Plain markdown files in a git repository give you a set of tools you already know how to use. `git log` tells you when a definition changed and whose name is on the change. `git diff` shows you the two words that moved. A person can open the file in an editor, read it end to end, and disagree with it out loud. Every mechanical check described here can run in CI against a pull request, which is where an argument about a definition belongs anyway.
+
+Index the files too — retrieval is how the agent finds anything. But the index should be a lookup convenience layered over the files, not the place the knowledge lives. When those two get inverted you lose every affordance in the paragraph above at once, and it happens quietly enough that nobody notices until somebody asks a question that needs an audit trail.
+
+## An agent's page is a draft until a person accepts it
+
+A nightly agent that produces pages is useful. A nightly agent that produces *canon* is how the pile gets built.
+
+The gap between "an agent wrote this" and "we believe this" does real work. It separates a research feed from a knowledge base, and collapsing it is the one decision that turns the first into the second.
+
+OKF already carries the fields for this — one recording what generated the content and when, another recording independent verification. What has to happen next is that the *absence* of verification does something. A page nobody has accepted should be highly visible to the person reviewing and completely invisible to the agent answering questions. Retrieval defaults to accepted pages. Unaccepted pages are a queue, not context.
+
+That is real human work and there is no clever way around it. The compromise that scales is not skipping acceptance, it is making acceptance cheap: one concept per file, small diffs, a page short enough that reviewing it takes ninety seconds because it says one thing about one topic. Which is another argument for the one-file-per-concept convention, arriving from a different direction.
+
+A stricter variant is worth considering for anything that will be quoted outward: require that a claim appear in more than one independent source before a person can accept it at all. The bar is corroboration, not the agent's own assessment that the claim seemed useful.
+
+## When a fact is replaced, the old page gets marked dead
+
+Here is the thing a growing pile structurally cannot do, and the reason I think the ability to say "this is dead" is the real thesis.
+
+Finance moves the activity window from 90 days to 30. There is a page about active accounts. Three obvious responses all fail:
+
+Edit it in place, and the number is now right while the record of what you believed for four months is gone — every briefing that quoted the old figure becomes unexplainable. Delete it, and you get the same loss plus broken links. Add a new page and leave the old one alone, and you have built the pile.
+
+What should happen instead is that the old page stays exactly where it is, at the same path, and gets stamped.
+
+```yaml
+---
+id: active-accounts
+title: Active Accounts
+status: superseded
+superseded_by: concepts/active-accounts-30d.md
+superseded_at: 2026-06-11
+superseded_reason: >
+  Finance moved the activity window from 90 days to 30. Definition change,
+  not a correction. The figure below was right under the old rule.
+generated: { by: research-agent, at: 2026-02-18 }
+verified: [ { by: ryan, at: 2026-02-19 } ]
+sources:
+  - title: Metrics Handbook, rev. 2026-02
+    url: https://intranet.example.com/finance/metrics-handbook#active-accounts
+---
+
+> **Dead as of 2026-06-11.** This was the definition through 2026-06-10.
+> The live definition is [Active Accounts, 30-day](active-accounts-30d.md).
+> Do not quote the figure below as current.
+```
+
+"Dead" should mean four specific and unglamorous things.
+
+**The file does not move and its body does not change.** Old briefings that link here still resolve. The body stays wrong on purpose, because it is the record of what the company believed in March, and rewriting it destroys the only evidence of why March's report says what it says.
+
+**It leaves the answering set.** Retrieval skips superseded pages by default, and the agent has to ask for history explicitly to see one. This is the part that actually stops the retired number from coming back, and it is the part a stamp alone will never accomplish.
+
+**A live page may not depend on it.** If a page marked stable cites a superseded source, that is a build failure. Enforcing it needs a status lookup and a comparison — no judgment involved.
+
+**The successor points back.** The new page carries a `supersedes` field, so "what did we used to think, and why did it change" is one link rather than an afternoon of archaeology.
+
+The reason to keep the trail is not sentimentality about old files. Six weeks later somebody asks why the Q1 board deck says 41,802 and the dashboard says 39,140. The answer is either a dead page with a dated reason on it, or it is an afternoon.
+
+## The wiki is not proof
+
+The last one is short, and it is the discipline that keeps the rest honest.
+
+A well-formatted page with a verification stamp and a green checker is a compiled artifact, not evidence. The evidence is whatever it was compiled from: the handbook page, the query receipt, the vendor PDF, the ticket where somebody made the call.
+
+This matters more than it sounds like it should, because a knowledge base that *looks* trustworthy is more dangerous than one that looks sloppy. Nobody double-checks a page with a green stamp on it. So the source field has to be a live link to a primary a person can open, not a citation string the agent produced from memory. And when a primary moves or starts returning a 404, the page's status should change — not because the claim became false, but because you can no longer show why it was ever true.
+
+The strongest form of the rule is a test you can actually run: any page should be discardable and reconstructible from its sources. If it cannot be rebuilt, what you have is somebody's note.
+
+## What is actually missing
+
+The format work is done and public. OKF gets the shape right, and the fields for provenance, verification, freshness, lifecycle, and attestation are already specified in a way you can adopt this week without waiting on anyone.
+
+The missing piece is smaller and far less interesting than "smarter agent." It is something that runs on a schedule, does date math and string comparisons against files in a repository, and is permitted to fail the build. Adding pages is the part that got easy. Retiring them is the part nobody automated, and it is the part that determines whether the thing you are building accumulates knowledge or just accumulates.
+
+The pile is not the agent's fault. The agent did what you asked — read things, write pages. It has no way to know that a page it wrote in February stopped being true in June, and no authority to say so if it did. Somebody has to hand it that authority in a form dumb enough to be trusted.
+
+Until then, the useful question about your own knowledge base has nothing to do with how many pages it has. It is whether you can name the last page that died.
+
+## Related
+
+- [The Content Paradox: Why Making AI Writing Easier Makes the Internet Worse](/blog/jevons-paradox-ai-slop/) — the same growth curve, pointed at the open internet instead of your internal wiki.
+- [Cybernetic Development](/blog/cybernetic-development/) — the broader case for keeping the artifacts an agent works on in version control where a person can read them.
+
+## References
+
+<CitationsList citationFormat="apa" />
