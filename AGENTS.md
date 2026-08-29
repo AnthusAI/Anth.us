@@ -438,7 +438,14 @@ This repository uses Kanbus, not Beads. Do not run `bd` or create/update Beads r
 
 ## Deployment
 
-The site is deployed via AWS Amplify (see `amplify.yml`). Deployments happen automatically on push to the main branch.
+The site deploys via GitHub Actions to S3 + CloudFront (no Amplify). Two workflows:
+
+- **Site repo** (`.github/workflows/deploy.yml`): triggers on push to `main`. Builds Gatsby with persistent `.cache`/`public` caching for incremental builds. Syncs `public/` to S3 and invalidates CloudFront.
+- **Content repo** (`anthus-site-content`, mounted at `src/site-content`): its own `.github/workflows/deploy.yml` triggers on push to its `main`, checks out Anth.us, builds, syncs, invalidates. Use this for content-only updates that don't touch templates.
+
+AWS deploy steps use **OIDC** (no static secrets in GitHub). Configure via `scripts/setup-aws-publish.sh` (one-time). Required GitHub Actions **Variables** (not secrets) on both repos: `AWS_REGION`, `S3_BUCKET`, `CLOUDFRONT_DIST_ID`, `AWS_DEPLOY_ROLE_ARN`.
+
+Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-content`. Clone with `git clone --recurse-submodules`. The newsroom board lives in `AnthusAI/anthus-semantic-knowledge-base` (separate checkout or via Papyrus `pods/anthus-blog`).
 
 ## Important Notes
 
