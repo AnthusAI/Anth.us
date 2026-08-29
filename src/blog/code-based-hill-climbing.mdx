@@ -1,0 +1,306 @@
+---
+title: "Code-Based Hill-Climbing"
+slug: "code-based-hill-climbing"
+date: "2026-08-29"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - articles
+  - ai
+  - ai-coding
+  - how-to
+excerpt: "An agent edits a program, runs a metric, keeps the better version, and repeats. DeepMind uses it to recover 0.7% of Google's compute; Karpathy uses it to train models overnight on one GPU. The loop is the easy part. Everything hard about the technique lives in the thing that decides which version won."
+preview_image: "./images/code-based-hill-climbing.png"
+images:
+  - ./images/code-based-hill-climbing.png
+state: draft
+---
+
+import BlogImage from '../components/blog-image';
+import { Citation, CitationsList } from 'gatsby-citation-manager';
+
+<p className="center-full-image">
+    <BlogImage className="center-small-image"
+        images={props.pageContext.frontmatter.images}
+        name="code-based-hill-climbing.png"
+        alt="Code-based hill-climbing" />
+</p>
+
+There is a technique quietly showing up in a lot of unrelated places right now, and it is simple enough to write down in one line: an agent edits a program, a metric scores the result, the better version survives, repeat.
+
+That is hill-climbing. The old idea is decades old. What is new is that the thing doing the editing can now read a codebase, form a hypothesis about why it is losing, write a real patch, and run the harness itself. The search operator got smart, so the search space could get much larger than "tune these seven hyperparameters."
+
+Three groups made that concrete in public over the last year, at wildly different scales. Their results are worth walking through, because the interesting lesson is not in the loop. It is in what they had to build before the loop was worth running.
+
+## DeepMind runs it in production
+
+AlphaEvolve is Google DeepMind's evolutionary coding agent: Gemini models propose programs, automated evaluators score them, and a database of past programs decides what gets mutated next.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Google DeepMind",
+    title: "AlphaEvolve: A Gemini-powered coding agent for designing advanced algorithms",
+    URL: "https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+    issued: { 'date-parts': [[2025, 5, 14]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> It is not a demo. The results are in production across Google's own stack.
+
+A scheduling heuristic AlphaEvolve discovered for Borg has been running Google's data centers for over a year and continuously recovers about **0.7% of the company's worldwide compute**. It proposed a Verilog rewrite that stripped unnecessary bits out of a matrix-multiplication circuit, and that change went into an upcoming TPU. It restructured a matrix multiplication kernel in Gemini's own architecture for a **23% speedup**, worth roughly 1% off Gemini's total training time, and found a **32.5% speedup** for a FlashAttention kernel implementation — a layer human engineers usually leave to the compiler. On the mathematics side it found a way to multiply 4×4 complex-valued matrices with 48 scalar multiplications, improving on Strassen's 1969 result.
+
+The 2026 follow-up widened the range considerably. AlphaEvolve improved DeepConsensus enough to cut DNA variant-detection errors by 30%. It took a graph neural network for electricity-grid planning from finding feasible solutions 14% of the time to over 88%. It cut write amplification in a storage system by 20%, and shaved nearly 9% off the storage footprint of compiled software.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Google DeepMind",
+    title: "AlphaEvolve: How our Gemini-powered coding agent is scaling impact across fields",
+    URL: "https://deepmind.google/blog/alphaevolve-impact/",
+    issued: { 'date-parts': [[2026, 5, 7]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/>
+
+Data center scheduling, chip design, genomics, grid planning, and compiler output have almost nothing in common as engineering domains. What they have in common is that DeepMind could write down a program for each one and a number that says whether the program got better. DeepMind is explicit about the boundary: the approach applies to problems whose solution can be expressed as an algorithm and verified automatically. That sentence is a scoping constraint, and it is the whole ballgame.
+
+## Karpathy shrank it to one file
+
+At the opposite end of the budget, Andrej Karpathy's `autoresearch` puts the same loop on a single GPU. You give an agent a small but real LLM training setup and let it run overnight. It edits the code, trains for five minutes, checks whether the result improved, keeps or discards, and goes again.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "GitHub",
+    title: "karpathy/autoresearch: AI agents running research on single-GPU nanochat training automatically",
+    author: "Andrej Karpathy",
+    URL: "https://github.com/karpathy/autoresearch",
+    issued: { 'date-parts': [[2026, 3, 1]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/>
+
+The repo is three files. `train.py` holds the model, optimizer, and training loop, and it is the only file the agent may touch. `prepare.py` holds the data prep and evaluation utilities, and it is off limits. `program.md` holds the instructions, and it is the file the *human* iterates on. The agent programs the model; you program the agent.
+
+Look at the two design decisions Karpathy calls out, because neither one is about the agent:
+
+- **Training always runs for exactly five minutes of wall clock.** Not a fixed number of steps, not until convergence. A fixed time budget means a run that changes the model size, the batch size, or the whole architecture is still directly comparable to the run before it. It also fixes the throughput at roughly twelve experiments an hour, or about a hundred while you sleep.
+- **The metric is validation bits per byte, not loss.** Lower is better, and critically it is vocabulary-size independent, so an agent that changes the tokenizer cannot accidentally win by making the units friendlier.
+
+One GPU, one file, one metric. The agent is a commodity — Karpathy tells you to point Claude Code or Codex at the directory and go. The engineering is in the fence around the agent and the fairness of the number.
+
+## The same loop, pointed at a CPU
+
+Felipe Sens Bonetto asked the obvious follow-up question: does this generalize outside the agent's home turf? Python and gradient descent are the friendliest possible terrain for a language model. So he pointed the loop at a five-stage in-order RV32IM CPU core written in SystemVerilog — the textbook pipeline, no caches, no branch predictor.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "GitHub",
+    title: "Auto-Architecture: Karpathy's Loop, Pointed at a CPU",
+    author: "Felipe Sens Bonetto",
+    URL: "https://github.com/FeSens/auto-arch-tournament/blob/main/docs/auto-arch-tournament-blog-post.md",
+    issued: { 'date-parts': [[2026, 4, 28]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/>
+
+In 9 hours and 51 minutes the loop ran 73 hypotheses and accepted 10. CoreMark throughput went from **301 to 578 iterations per second**, a 92% improvement over the locked baseline, while LUT count dropped from 9,880 to 5,944 — roughly **40% fewer** logic cells. A smaller design that the synthesizer also clocks faster, 135 MHz to 199 MHz.
+
+The breakthrough move was pulling divide and remainder out of the single-cycle ALU path. The agent proposed it to buy clock frequency. It did not know that the change would also halve the LUT count; it found that out by running place-and-route and reading the report.
+
+Now the part that matters. Of those 73 hypotheses, **63 were wrong.** They regressed, broke the instruction set, or failed timing. At round 24, well after the peak had been reached, the agent proposed a JALR target predictor that collapsed fitness by 73% — a single accepted mistake that would have erased every prior win. Two other hypotheses tried to write files outside the allowed paths, one of them into the test helpers. Bonetto's summary of that failure mode is worth keeping: if you let the agent edit the harness, eventually it will edit the harness.
+
+His conclusion, after building all of it: "The loop is commodity." The verifier is not.
+
+## The loop is easy. The metric is the hard part.
+
+That is the actual thesis, and once you see it you cannot unsee it in any of these projects.
+
+Look back at what each team actually spent their engineering on. DeepMind built automated evaluators and scoped the technique to problems that have them. Karpathy designed a time budget and a unit-independent metric so that runs stay comparable across architecture changes. Bonetto's eval gate is 53 symbolic bounded-model-checking properties, a cycle-accurate cosimulation against a Python instruction-set simulator with random bus stalls, a three-seed place-and-route so the frequency number is a median rather than a coin flip, an independent revalidation of CoreMark's CRCs because CoreMark prints a success message whether or not it succeeded, and MMIO markers bracketing the timed region so warm-up and printf do not eat the score. Then, on top of all of that, a path sandbox so the agent cannot soften any of it.
+
+None of that is loop design. All of it is answering the question "what does better actually mean here, and can it be gamed?"
+
+Three more data points make the same case from the LLM side.
+
+**PromptLayer versioned an LLM judge eighteen times and then refused the improvement.** Their assertion checker is a boolean classifier — does this output satisfy this assertion, true or false. They had no labeled data, so they bootstrapped some: 1,000 real assertion calls pulled from production request logs, re-run through several stronger models, with the agreement (and human review of the disagreements) taken as ground truth. Zero hand-labeling from scratch. Then they ran every candidate against those 1,000 rows. The incumbent production prompt scored **88.6%** agreement. Their improved prompt with a citation requirement scored **84.4%**. As they put it, the shiny candidates lost, and without the eval they would have shipped one of them on vibes.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "PromptLayer",
+    title: "The Ultimate Guide to LLM-as-a-Judge",
+    author: "Jonathan Pedoeem",
+    URL: "https://www.promptlayer.com/blog/the-ultimate-guide-to-llm-as-a-judge",
+    issued: { 'date-parts': [[2026, 7, 10]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/>
+
+Their sharpest finding is one every team running evals should internalize: a judge prompt is calibrated to a model, not just to a task. When they upgraded to GPT-5 expecting free accuracy, the smarter model started hedging about its own epistemics — asked to verify a name against a transcript, it would answer false on the grounds that it could not truly verify anyone's name. Combined with an earlier "when unsure, say false" rule, the judge went systematically over-skeptical. Nothing about the prompt or the data had changed. If you swap judge models without re-calibrating, every historical eval score silently changes meaning.
+
+**Dropbox turned the metric itself into the optimization target.** Dash's relevance judge rates a query-document pair from 1 to 5, and quality is measured as normalized mean squared error against human annotators. Moving from an expensive proprietary model to a cheaper open-weight one broke the hand-tuned prompt, so they ran DSPy's GEPA optimizer against the fixed metric and cut **NMSE from 8.83 to 4.86**, a 45% reduction. Adaptation time for a new model dropped from one or two weeks of manual iteration to one or two days.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Dropbox Tech Blog",
+    title: "How we optimized Dash's relevance judge with DSPy",
+    URL: "https://dropbox.tech/machine-learning/optimizing-dropbox-dash-relevance-judge-with-dspy",
+    issued: { 'date-parts': [[2026, 3, 17]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/>
+
+Notice the shape of their metric, though. It is not just agreement. Because the judge's output is JSON consumed by downstream pipelines, malformed output counts as fully incorrect — an operational failure folded into the quality score. That definitional choice is what let them discover that a much smaller model produced malformed JSON on more than 40% of responses in the baseline configuration, and then drive that down by over 97%. A metric that only measured agreement would have been blind to the thing that actually breaks the pipeline.
+
+**Cisco's FAPO found the ceiling that prompts cannot break through.** FAPO is a Claude Code-driven optimizer for multi-step LLM pipelines: evaluate, attribute failures to the step that caused them, propose a variant aimed at the dominant failure cluster, have an independent reviewer check it for scope compliance and data leakage, accept only if it beats the previous best.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Cisco Foundation AI",
+    title: "Fully Automated Prompt Optimization",
+    URL: "https://cisco-foundation-ai.github.io/blogs/fully-automated-prompt-optimization/",
+    issued: { 'date-parts': [[2026, 6, 17]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> Benchmarked against GEPA<Citation
+  data={{
+    type: "article-journal",
+    "container-title": "arXiv",
+    title: "GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning",
+    URL: "https://arxiv.org/abs/2507.19457",
+    issued: { 'date-parts': [[2025, 7, 25]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> across six benchmarks, FAPO won 15 of 18 model-benchmark comparisons.
+
+The number that matters here is the split on HoVer, a multi-hop claim verification task. Baseline accuracy was 35.9%. GEPA, which is restricted to editing prompts, got it to 48.5%. FAPO got it to 83.8% — but only because its failure attribution identified a retrieval bottleneck and escalated from editing prompt text to changing the pipeline structure. The two benchmarks where FAPO escalated to structural changes are exactly the two where it won by more than 30 points. On the four benchmarks where it stayed at the prompt level, the margins were single digits.
+
+That is the same lesson as the CPU core, in a different domain. The loop can only move what the artifact exposes. If the missing evidence is never retrieved, no amount of rewriting the prompt that reasons over the evidence will find it, and a loop that only edits prompts will grind against that ceiling forever without telling you why. What breaks the ceiling is an evaluator with enough resolution to say *which step failed*.
+
+## Pointing it at text classifiers
+
+Which brings me to what we do with this at Anth.us.
+
+[Plexus](https://plexus.anth.us) is our MLOps platform for production-scale text classification. Its central artifact is a *score*: one business question asked of one piece of content, defined in YAML rather than buried in application code, and versioned like source.
+
+```yaml
+name: Consent Confirmed
+class: TactusScore
+valid_classes:
+  - "Yes"
+  - "No"
+  - "NA"
+depends_on:
+  Call Is In Scope:
+    operator: "=="
+    value: "Yes"
+item:
+  processors:
+    - class: RelevantWindowsTranscriptFilter
+      parameters:
+        keywords: ["consent", "agree", "authorize"]
+data:
+  class: FeedbackItems
+  days: 90
+output:
+  value: classification
+  explanation: explanation
+```
+
+Every part of that is a lever a coding agent can pull. The label set is a lever. The applicability gate in `depends_on` is a lever. The transcript filter that narrows a forty-minute call down to the exchange that actually decides the question is a lever — and it is the retrieval lever, the one FAPO had to escalate to. The model choice, the decomposition of one overloaded prompt into several independent checks, the normalization of raw metadata before the classifier has to parse it: all levers, all in the same versioned file.
+
+So the loop writes itself. Our optimizer runs an evaluation against real human feedback, an analyzer agent reads the root-cause analysis and proposes one targeted change with an explicit hypothesis and rationale, a validator agent spot-checks predictions on the proposed version, a human approves, a new score version is created, the evaluation runs again, and the deltas decide whether that version survives. It checkpoints, so a long run can resume where it stopped. The interesting engineering is not any of that.
+
+The interesting engineering is in three decisions about the number.
+
+**We score alignment, not accuracy.** The headline metric is Gwet's AC1 rather than raw accuracy, because raw accuracy on an imbalanced classifier is a liar — a question where 94% of calls are "No" gives you a 94% classifier that always says "No" and has learned nothing. AC1 is a chance-corrected agreement statistic, so it does not hand out credit for guessing the majority class.
+
+**Winning on the metric is not sufficient.** A candidate has to pass a value function before its score even counts. Precision and recall each have a floor, and falling below it applies a weighted penalty rather than being averaged away. An evaluation whose incorrect items never got root-cause analysis is penalized too, because a win you cannot explain is a win you cannot trust. And two evaluations are only comparable if they ran under the same protocol — same mode, same feedback window, same sample size, same sampling mode, same seed. Change the protocol and the comparison is void, not merely noisy.
+
+**A candidate must win on the hard set without losing the easy one.** This is the acceptance policy, and it is the piece I would port first into any other hill-climbing system:
+
+```python
+# A candidate version must beat the baseline on the targeted
+# (reference) set AND not regress on a random sample.
+if reference_delta < MIN_REFERENCE_DELTA:      # default 0.01
+    return "reject: insufficient improvement"
+if random_delta < -MAX_GENERALIZATION_DROP:    # default 0.02
+    return "reject: generalization regression"
+return "accept"
+```
+
+The targeted set is where the known misses live, so the loop optimizes against it. The random set is the honest sample of production, and its only job is to catch a change that fixed the failure cluster by breaking everything else. Without the second check, an agent optimizing a classifier will find the cheapest way to satisfy the targeted set, and the cheapest way is frequently to bias the whole classifier toward whichever label dominates the misses.
+
+We are not alone in treating a classifier as an evolvable program — Harold Benoit has written about the same job class, web-page quality classifiers, from the GEPA side.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "haroldbenoit.com",
+    title: "Ode to GEPA",
+    author: "Harold Benoit",
+    URL: "https://haroldbenoit.com/blog/ode_to_gepa/",
+    issued: { 'date-parts': [[2026, 1, 1]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/> What we have added is the diagnosis step in the middle: the loop does not propose changes against a scalar. It proposes them against clustered root causes on the specific items that were wrong, which is what makes "add an applicability gate" or "extract the evidence before judging it" reachable moves instead of random mutations.
+
+## Instrumenting somebody else's tool
+
+The same technique works on software we did not write, which is how we are using it on a current engagement with a privacy-and-security client.
+
+They have a privacy scanning tool. It works, they rely on it, and their engineers had a good qualitative sense of where it was weak and no way to argue about it with numbers. Our job was to give the tool a number.
+
+The method is the one described above, with none of the machinery specific to Plexus scores:
+
+- Assemble a labeled corpus with ground-truth labels for what the scanner should have found, and split it into a set the loop optimizes against and a held-out set it never sees.
+- Write a scorer that compares the tool's actual output against those labels, and pin the evaluation protocol so two runs are comparable — same corpus, same sampling, same configuration.
+- Run the loop: an agent proposes one change to the tool, the harness scores it, the result is kept or discarded, and the hypothesis and delta are logged either way so the rejected 80% become a record of what does not work.
+- Gate acceptance on both sets, so a change that fixes a known failure family by regressing everything else gets rejected rather than celebrated.
+
+The point I want to make about this engagement is not the delta. It is that the delta exists at all, and that it is the client's number to publish rather than ours. The expensive, unglamorous work was the first bullet — deciding what the ground truth is, and getting labels good enough to hold a tool accountable to. Once that existed, the loop was almost boring to build.
+
+## When hill-climbing stops working
+
+Every example above is a success story, which is exactly why you should be suspicious of the pattern. Here is the other half.
+
+**When the bottleneck is not in the artifact you are editing.** This is FAPO's retrieval ceiling and it is the most common real failure. Prompt-level optimization on HoVer stalled around 48% not because the search was bad but because the missing evidence was never in the context. If your loop can only edit X and the problem is in Y, it will spend your entire budget producing increasingly elaborate versions of X. The fix is not a better optimizer; it is failure attribution with enough resolution to tell you the loop is aimed at the wrong file.
+
+**When the metric is cheaper to satisfy than the goal.** Bonetto's agent twice tried to write outside its allowed paths. CoreMark prints a success message regardless of whether its checksums matched. An agent optimizing against a proxy will find the proxy's slack, and it will not be malicious about it — it will simply be doing what you asked. This is why the path sandbox and the independent CRC revalidation exist, and why our acceptance policy checks a set the loop is not optimizing against.
+
+**When the model under the loop changes.** PromptLayer's judge got worse when the model got better. If your fitness function contains an LLM, then your fitness function has a version, and upgrading it invalidates your history.
+
+**When the blast radius is large.** Dropbox handled this well: for the cheap models they were adapting to, they let the optimizer rewrite prompts end to end, but for their high-quality production judge — already strong, depended on by several pipelines — they deliberately narrowed the search space. The optimizer could only select and combine short instruction bullets distilled from real observed failures. It could not rewrite the prompt. When a regression is expensive, constrain what the agent may change rather than trusting the metric to catch everything.
+
+**When you have reached the top of the hill.** Hill-climbing finds local maxima, which is the entire point and also the entire limitation. Our optimizer stops when the improvement per iteration falls below a threshold and asks a human whether to keep going. That threshold is not a formality. A loop that keeps running past the plateau will keep finding changes that are within noise of the baseline, and if your acceptance test is weak it will happily accept them.
+
+**When you cannot write the rules down.** If the definition of correct lives in three engineers' heads and a wiki page nobody has updated since the reorganization, a loop will not discover it. It will optimize against whatever rules it can infer from what it can observe, and you will find out which ones those were in production.
+
+## Everything as code, so that you can climb it
+
+The generalization is straightforward, and it is the reason "everything as code" keeps turning out to be the load-bearing practice.
+
+The usual argument for putting a system's configuration into version control is reproducibility and auditability — an argument we have made at length in [Cybernetic Development](/blog/cybernetic-development/), and one that a companion piece takes up on its own terms. The hill-climbing argument is different and, I think, stronger. **Code is the only representation of your system that an agent can propose a change to and that a harness can then reject.** A dashboard setting cannot be diffed. A prompt living in someone's chat history cannot be reverted. A workflow drawn in a GUI cannot be scored against its predecessor.
+
+So the question to ask about any part of your system is not whether it is written down. It is whether it is written down in a form that supports these three operations:
+
+1. **An agent can propose a modification to it.** That means text, in a repository, with an obvious unit of change. This is the requirement almost everyone meets first and it is the least interesting of the three.
+2. **A runtime can execute it and produce a number.** Not a vibe, not a review, a number — and ideally a number that decomposes, so a failure can be attributed to a step rather than just deducted from a total.
+3. **Something can refuse the change.** A formal property, a held-out set, a type checker, a regression suite, a generalization guard. Simon Willison's framing of agentic loop design lands on the same point from the other side: the design work is choosing the goal and the boundaries, not the iteration.<Citation
+  data={{
+    type: "webpage",
+    "container-title": "Simon Willison's Weblog",
+    title: "Designing agentic loops",
+    author: "Simon Willison",
+    URL: "https://simonwillison.net/2025/Sep/30/designing-agentic-loops/",
+    issued: { 'date-parts': [[2025, 9, 30]] },
+    accessed: { 'date-parts': [[2026, 8, 29]] }
+  }}
+/>
+
+Most teams have the first. Some have the second. The third is where the work is, and it is the one that does not get built unless someone decides it is the product rather than the plumbing.
+
+## Where to start
+
+If you want to try this on something real, the cheapest useful move is to pick one component you already argue about in review meetings and build the scorer for it before you build any loop at all. Run the scorer against your current version. That single number, with a protocol pinned so it means the same thing next week, is worth more than an optimizer pointed at a metric nobody trusts.
+
+PromptLayer's trick is the one to copy if you have no labels: your production logs are an unlabeled evaluation dataset. Pull a thousand real requests, re-run them through a stronger model or two, take the agreement as provisional ground truth, and review the disagreements by hand. You will get a usable fitness function in an afternoon, and the disagreements you review will teach you more about your system than the resulting number does.
+
+Then add the loop. It is the easy part, and by the time you have a metric you trust, most of the value is already on the table.
+
+## Companion pieces
+
+- [Cybernetic Development](/blog/cybernetic-development/) — the broader case for everything-as-code, and why abstractions built for human convenience get in an agent's way.
+- [The Year Coding Became a Commodity](/blog/ai-coding-cost-collapse-2026/) — why running a hundred experiments overnight became affordable in the first place.
+- [Maximize Value, Not Intelligence](/blog/maximize-value-not-intelligence/) — how to decide which model belongs inside the loop and which belongs inside the judge.
+
+## References
+
+<CitationsList citationFormat="apa" />

@@ -1,0 +1,225 @@
+---
+title: "Kanbus: Project Management as Code"
+slug: "kanbus-project-management-as-code"
+date: "2026-08-29"
+authors:
+  - author: <a href="/ryan">Ryan Porter</a>
+tags:
+  - articles
+  - AI
+  - coding agents
+  - project management
+excerpt: |
+  When the issue tracker lives in the repository, a ticket becomes a file that diffs, branches, gets reviewed in a pull request, and reverts with the code that closed it. That is a real change in what a ticket is, and it carries real costs: merge conflicts on the board, no permissions model, and nothing that pages you.
+preview_image: "./images/kanbus-project-management-as-code.png"
+images:
+  - "./images/kanbus-project-management-as-code.png"
+state: draft
+---
+
+import BlogImage from "../components/blog-image"
+
+<BlogImage
+  images={props.pageContext.frontmatter.images}
+  name="kanbus-project-management-as-code.png"
+  className="centered"
+  alt="Project management as code."
+/>
+
+Here is a commit from the repository that builds this website:
+
+```
+commit 118963d  Draft paired agent articles and finish Kanbus migration
+
+ .beads/config.yaml                             |  67 -----
+ .beads/issues.jsonl                            |  16 ---
+ project/issues/kanbus-a4fb52cf-…json           |  36 +++
+ project/events/…json                           |  18 ++
+ src/blog/from-pair-programmer-to-executive.mdx | 168 +++++++++
+ src/blog/a-week-with-grok-bot.mdx              | 118 +++++--
+ 23 files changed, 483 insertions(+), 280 deletions(-)
+```
+
+(Trimmed; the real commit touches twenty-three files.)
+
+Two articles got drafted. One issue tracker got torn out and another one finished landing. All of it arrived as a single reviewable change, with one message, one author, one hash, and one `git revert` that would undo the whole thing including the task state.
+
+That last property is the interesting one, and it is the entire argument for keeping project management in the repository. I want to make that argument carefully, because the usual version of it is weak.
+
+## The argument that does not work
+
+The pitch you normally hear for repository-based issue tracking goes like this: an external tracker is a second system, so your agents cannot see it without a connector, an API token, and an integration to maintain. Files in the repo need none of that.
+
+That was true for about eighteen months. It is not true now. Atlassian ships an MCP server for Jira. Linear ships one. Pointing a coding agent at either is an afternoon of work, and after that afternoon the agent can read your backlog, file bugs, and move cards as fluently as it reads your source tree. If your reason for moving the board into git is that agents cannot reach Jira, you are solving a problem that vendors already solved for you.
+
+So set that aside. The durable argument has nothing to do with reachability. It is about what kind of object a ticket is.
+
+## The ticket is a file
+
+Kanbus keeps each issue as one JSON file in the project directory. I have written about it before as an example of [specification-driven development](/blog/cybernetic-development/); here I care about the storage format, which is deliberately boring:
+
+```json
+{
+  "id": "ANTH-2416a184-5960-469e-8e6c-e3743a95e4ee",
+  "title": "Bugonomics",
+  "description": "Published 2026-08-29. https://anth.us/blog/bugonomics-cheap-exploits-2026/",
+  "type": "story",
+  "status": "idea",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "e8eb11d0-a3da-4968-aad8-b0365eb09ae3",
+      "author": "ryan",
+      "text": "## Editorial pass 2026-08-29\n\nShipped 2026-08-29…",
+      "created_at": "2026-08-29T13:03:37.411045Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-08-29T05:46:11.226563Z",
+  "updated_at": "2026-08-29T13:03:37.411045Z",
+  "closed_at": null,
+  "custom": {}
+}
+```
+
+Nothing about that schema is clever. A row in a Jira table holds the same fields. The difference is that this one sits on disk next to the work it describes, which means every tool that already operates on files now operates on your backlog.
+
+Moving a story writes a line diff:
+
+```diff
+   "title": "From pair programmer to executive",
+   "type": "story",
+-  "status": "assignment",
++  "status": "copywriting",
+   "priority": 2,
+```
+
+`git log -p project/issues/` becomes a complete, greppable history of every status change, every priority bump, and every comment, attributed and timestamped, with no export step and no vendor to ask. `git blame` answers "who moved this and why" with a commit message instead of an audit-log subscription tier.
+
+Because it is a file, it branches. Open a feature branch and the board on that branch reflects the world where the feature exists. Abandon the branch and the tickets you invented for it go with it. Nobody has to sweep the backlog afterward looking for cards that describe an approach you decided against.
+
+Because it is a file, it gets reviewed. A pull request that changes `"status": "in_progress"` to `"status": "closed"` is asserting something a reviewer can disagree with, in the same diff as the code that supposedly justifies it. Reviewers already know how to push back on a diff. You do not have to teach them a second workflow to have them push back on a status.
+
+And because it is a file, it reverts. If the fix comes out, the ticket that claimed the fix landed comes out with it, in the same operation. In a SaaS tracker, reverting a merge leaves a card sitting in Done describing work that no longer exists in the codebase, and somebody has to notice.
+
+## Walking the board and the work together
+
+The Anth.us editorial board runs on this. It is a Kanbus project in a [public repository](https://github.com/AnthusAI/anthus-semantic-knowledge-base) with twelve stories in it, and you can go read the whole thing, including the parts where an editor tells a writer their argument is wrong.
+
+Each story gets a directory of artifacts, and the stage machine that governs them is checked in as configuration:
+
+```yaml
+workflows:
+  story:
+    idea:          [assignment]
+    assignment:    [research, idea]
+    research:      [report, assignment]
+    report:        [editor_select, research]
+    editor_select: [copywriting, research]
+    copywriting:   [published, copywriting]
+    published:     [copywriting]
+```
+
+Here is what one story looks like moving through it. The commit that drafted our executive-management article carried both the work and the record:
+
+```
+commit 0387e9a  Draft From pair programmer to executive
+
+ project/issues/ANTH-37add672-…json          |  51 ++++-
+ project/events/…json  (11 files)            | 135 +++++
+ stories/ANTH-37add672-…/report.md           |  41 +++
+ stories/ANTH-37add672-…/editor_select.md    |  31 +++
+ stories/ANTH-37add672-…/article.md          | 149 ++++++++++
+ 15 files changed, 404 insertions(+), 3 deletions(-)
+```
+
+The issue file records where the story ended up. The event files record how it got there, one file per transition, so the ladder is still legible even though the issue itself only remembers its current state:
+
+```
+13:57:06  assignment    → research
+13:57:11  research      → report
+13:57:54  report        → editor_select
+13:58:14  editor_select → copywriting
+```
+
+Reviewing that commit means reviewing the claim and the evidence at once. The draft is in the diff. The stage the editor moved it to is in the diff. If the draft is not actually ready for copywriting, both halves of that disagreement are in one place.
+
+## The process is in the repo too
+
+The stage ladder above is not a suggestion. Kanbus runs lifecycle hooks, and the hooks are ordinary scripts checked in beside the board:
+
+```yaml
+hooks:
+  enabled: true
+  before:
+    issue.update:
+      - id: story-artifact-gate
+        command: [python3, ./hooks/story-artifact-gate.py]
+  after:
+    issue.create:
+      - id: story-workspace-scaffold
+        command: [python3, ./hooks/story-workspace-scaffold.py]
+```
+
+The gate script reads the transition off stdin and refuses two classes of mistake. Skipping stages:
+
+```
+$ kbs update 4f3e30 --status research
+blocking hook 'story-artifact-gate' failed for issue.update:
+story-artifact-gate: refuse skip-ahead idea → research
+Assignment captures the editorial charter before research begins.
+Advance idea → assignment → research.
+```
+
+And advancing without producing the artifact the next stage depends on:
+
+```
+$ kbs update 629b47 --status research
+blocking hook 'story-artifact-gate' failed for issue.update:
+story-artifact-gate: refuse assignment → research
+Write non-empty assignment.md under stories/629b47/ before advancing.
+The assignment stage exists so private reporting precedes reader-facing copy.
+```
+
+Both of those refusals came out of the live board while I was writing this paragraph. Neither changed a byte in the repository.
+
+What makes this different from a Jira workflow with required fields is that the enforcement is source you can read, fork, and test. The coaching text an agent sees when it tries to skip a stage is a string literal in a Python file forty lines long. When the process is wrong, you fix it in a pull request, and the fix is reviewed by the same people and the same tools that review everything else. Editorial policy stops being tribal knowledge held by whoever configured the tracker.
+
+## People still get a board
+
+None of this requires anyone to read JSON. Kanbus has a web console, and the CLI ships helpers for driving it — `kbs console snapshot`, `focus`, `search`, `view`, and the rest. The console reads the same files; it is a view, not a second copy.
+
+The ordering matters more than the feature list. The files are the system of record and the interface renders them, rather than a database being the system of record and files being an export. That is what makes the whole thing legible to an agent by default: a coding agent pointed at the repository has the backlog, the workflow, the gate logic, and the full history without being told any of it exists. Filing a task is a sentence to the bot, and the result is a file in the next commit.
+
+## What it costs
+
+An everything-as-code piece without a cost section is an advertisement. Here is the honest list, from running this thing.
+
+**Merge conflicts land on your board.** One file per issue and one timestamped file per event keeps the blast radius small — two people working different tickets never collide, and event files effectively never do. But the `comments` array inside a single issue is a genuine hot spot. Two branches that both comment on the same ticket produce a conflict inside a JSON array, and resolving JSON conflicts by hand is exactly as pleasant as it sounds.
+
+**There is no permissions model.** The doctrine file in the newsroom repo says this out loud: the board "does not prove who performed editor selection; git history is the audit trail." Git authorship is self-asserted unless you sign commits. And the gates are seatbelts, not locks — `kbs --no-hooks` is a documented global flag, so anyone who can run the CLI can skip every check the process defines. Repository permissions are the only real access control you have, and they are branch-shaped, not field-shaped. You cannot let a contractor close their own tickets but not reprioritize the roadmap.
+
+**Nothing pages you.** There is a realtime channel for keeping a local console live, but it is a local broker updating a local overlay, not an inbox. No email, no Slack post, no @-mention. A status change reaches your teammate when they pull. For a small team working in the same repository all day this is fine. For a stakeholder who checks in on Thursdays, it is a regression from every tracker they have used.
+
+**You inherit a CLI dependency and a version to pin.** Both boards I touch carry a `kanbus-version` file. The newsroom is on 0.19.1; the site repo is on 0.20.0. The on-disk format is now a contract between your repository and a binary that has to be installed on every machine and in CI. That is a normal cost for a build tool and a novel one for a bug tracker.
+
+**Migration is a real deletion.** That first commit ends a migration, and the way it ends is `.beads/issues.jsonl` going to zero. Moving between file-based trackers means writing a converter or accepting loss, and the loss is permanent in a way that a SaaS export is not, because the new system's history starts at the migration commit.
+
+**Stage machines make history hard to retrofit.** Bugonomics shipped in August. Its card still sits at `idea`, because the gate refuses to skip stages and the article was written before the board existed, so the intermediate artifacts do not exist to satisfy the gates. An editor left a note on the card about exactly this: it "reads as 'not started' — the exact opposite of true," and the mismatch is permanent unless somebody closes the story. Strict process is only free going forward.
+
+**And the property you came for stops at the repository boundary.** The editorial board lives in one repository; the website lives in another. Across that seam, a story moving to `published` and the MDX file appearing on the site are two commits in two histories, and the same-commit guarantee simply does not hold. The site's own operations board does hold it — that is the commit at the top of this article — but the moment your board and your artifacts live apart, you are back to reconciling two systems, just with more YAML.
+
+## Where files stop
+
+Some of those costs are fixable in a file store and some are not. Merge behavior and migration tooling are engineering. Verified identity is not: proving *who* moved a card requires a party that can authenticate people, and a directory of JSON files cannot be that party no matter how carefully it is designed. The newsroom's doctrine draws the line in one sentence — "verified identity and access control belong to hosted Papyrus" — and that is the correct division of labor. The repository holds the record; something with a login holds the claim about who wrote it. We are building that hosted layer, and I will write about it when it does something worth reading about rather than when it is on a roadmap.
+
+Until then, the tradeoff is worth taking for the specific case this pattern fits: a small team, or one person and several agents, working in a repository they all have access to, where the cost of a stale card is high and the cost of a missing notification is low. That describes most agent-heavy development right now. It does not describe a fifty-person org with contractors and compliance requirements, and pretending otherwise is how people end up migrating twice.
+
+If you want to check my work, the newsroom is public. This article has a ticket in it, `ANTH-864e95`, and that ticket carries an editorial review telling me the argument I was originally assigned — the one about connectors — was too weak to publish. That exchange is in the repository, in the diff, with a timestamp, next to the article it produced. I did not have to go get it from anywhere. It was already where the work was.
+
+Everything-as-code as a general practice is the subject of [a separate piece](/blog/everything-as-code-integration/); this one is just what happens when you point it at the tracker.
