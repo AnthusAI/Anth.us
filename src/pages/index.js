@@ -323,7 +323,7 @@ const IndexPage = () => {
       <p className={styles.intro}>
         <mark>A quarter billion dollars</mark> in revenue processed at scale, at
         nearly 100% uptime. <mark>180 billion tokens</mark> of production LLM
-        workload. We don't talk about AI&mdash;we operate it.
+        workload. AI in production, not just in demos.
       </p>
 
       <h2>What We Do</h2>
