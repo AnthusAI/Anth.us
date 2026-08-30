@@ -10,9 +10,17 @@
   "parent": null,
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "ef8f8881-9aaa-4c9b-91a3-8ae1717cae3f",
+      "author": "ryan",
+      "text": "Marketing-aligned messaging rewrite landed on develop: cut Values to six (removed Design for Humans and Collaborate with AI Humanely); hero H1 + subhead now lead with self-aligning AI and the 14-year production-operations track record; siteMetadata.description set to the foundational tagline; ai-solutions replaced its 2023 taxonomy with the 4-domain framing (Knowledge Bases, Self-Aligning Automation, Agent Systems, Machine Learning) anchored by Call Criteria; about + platform SEO descriptions aligned. Builds clean. Not yet merged to main. Hire-path CTA (1b53c5) still parked pending a brief.",
+      "created_at": "2026-08-30T18:19:36.914728Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-08-29T14:23:21.847170Z",
-  "updated_at": "2026-08-29T14:23:21.847170Z",
+  "updated_at": "2026-08-30T18:19:36.914728Z",
   "closed_at": null,
   "custom": {}
 }
