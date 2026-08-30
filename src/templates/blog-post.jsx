@@ -109,7 +109,7 @@ export const Head = ({ data }) => {
     <Seo
       title={post.frontmatter.title}
       description={cleanExcerpt}
-      image={imageUrl}
+      imageURL={imageUrl}
     >
       {!isPublished && (
         <meta name="robots" content="noindex, nofollow" />

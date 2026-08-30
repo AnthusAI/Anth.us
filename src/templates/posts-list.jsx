@@ -17,7 +17,7 @@ const PostsListTemplate = ({ data, pageContext }) => {
     page === 1 ? "/posts/" : `/posts/${page}/`
 
   return (
-    <Layout>
+    <Layout key={currentPage}>
       <h1>Recent Posts</h1>
       <ul className={styles.postsList}>
         {posts.map(({ node }) => (
