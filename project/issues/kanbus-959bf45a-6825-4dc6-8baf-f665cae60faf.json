@@ -1,0 +1,18 @@
+{
+  "id": "kanbus-959bf45a-6825-4dc6-8baf-f665cae60faf",
+  "title": "Idea: Homepage hire-path tightening",
+  "description": "Parked for committee discussion. Do not implement until Ryan or Publicist says go.\n\nContinues the parked hire-path brief (1b53c5) after the recent homepage pass. Hero H1 stays \"Depend on proven experts.\" This is sequence and deletion, not new messaging.\n\nProposed tightening:\n1. Cut B0rd from the homepage. It sits between Platform and the case studies and sends people to hardware, Etsy, and a spinoff story. B0rd already has a strip; do not also feature it on the hire path.\n2. One contact button. Keep the hero \"Tell us the problem.\" Change Approach \"Contact us\" to a text link to the Cybernetic Development article.\n3. Make the case cards scannable: who / what broke / what you did / one number. Call Criteria and Venue Driver already have the stories; they still read as paragraphs.\n4. Cheap copy cleanup: homepage page-level SEO still says \"In production since 2023\" (fights the 14-year line). Replace \"Please see our Posts for more\" with shorter voice.\n\nRelated, do not treat as the same ask: if the touch-page wiggle stays gone, consider dropping body { touch-action: pan-y } later (it can block pinch-zoom). Keep overflow-x hidden.\n\nDo not reopen the hero rewrite.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-08-30T22:19:48.890821Z",
+  "updated_at": "2026-08-30T22:19:48.890821Z",
+  "closed_at": null,
+  "custom": {}
+}

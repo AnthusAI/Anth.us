@@ -10,9 +10,17 @@
   "parent": null,
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c7a5ed37-9a99-4044-a687-05c01de29028",
+      "author": "ryan",
+      "text": "Committee discussion captured as kanbus-959bf4 (Idea: Homepage hire-path tightening). Still parked. Do not implement until Ryan or Publicist says go.",
+      "created_at": "2026-08-30T22:19:55.946923Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-08-29T07:35:17.516756Z",
-  "updated_at": "2026-08-29T07:35:17.516756Z",
+  "updated_at": "2026-08-30T22:19:55.946923Z",
   "closed_at": null,
   "custom": {}
 }
