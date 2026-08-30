@@ -407,8 +407,8 @@ const IndexPage = () => {
           )
         })}
       </ul>
-      <div className="clear-float">
-        Please see our <Link to="/blog">Articles</Link> for more.
+      <div className={`clear-float ${styles.seeMoreFooter}`}>
+        Please see our <a href="/blog/">Articles</a> for more.
       </div>
 
       <h2>Recent Posts</h2>
@@ -442,8 +442,8 @@ const IndexPage = () => {
           </li>
         ))}
       </ul>
-      <div className="clear-float">
-        Please see our <Link to="/posts">Posts</Link> for more.
+      <div className={`clear-float ${styles.seeMoreFooter}`}>
+        Please see our <a href="/posts/">Posts</a> for more.
       </div>
     </Layout>
   )
