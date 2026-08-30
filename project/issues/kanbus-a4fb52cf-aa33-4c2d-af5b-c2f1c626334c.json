@@ -87,10 +87,17 @@
       "text": "Published Never Use Fast through the content repository. The decision diagram is now locally capped at 26rem (about 70% of the hero width at desktop) while the toll-plaza hero stays full width. Verification: local Gatsby route returned 200 and rendered both figures; git diff --check and kbs validate passed. Content commit cbc3ce3 pushed to anthus-site-content/main, triggering its S3 + CloudFront deployment workflow.",
       "created_at": "2026-08-29T19:46:56.650211Z",
       "comment_type": "default"
+    },
+    {
+      "id": "e3b65a8c-22b9-4962-a3bd-5e2c2ffd57bf",
+      "author": "ryan",
+      "text": "Next visual pass: set Grok Bot's publication date to 2026-08-29 and generate a preview for From pair programmer to executive. Proposed scene: a human sets direction in a restrained control room while a Software Director routes separate coding, review, and acceptance workstreams; no generic robot-manager imagery or misleading product UI. The executive article remains published.",
+      "created_at": "2026-08-29T19:50:59.941591Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-08-29T14:23:21.838952Z",
-  "updated_at": "2026-08-29T19:46:56.650211Z",
+  "updated_at": "2026-08-29T19:50:59.941591Z",
   "closed_at": null,
   "custom": {
     "project_label": "kanbus",
