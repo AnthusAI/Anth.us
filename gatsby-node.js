@@ -113,6 +113,45 @@ exports.createPages = async ({ graphql, actions }) => {
     component: allBlogsTemplate,
     context: {},
   })
+
+  const postsResult = await graphql(`
+    {
+      allMdx(
+        filter: {
+          frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } }
+        }
+        sort: { frontmatter: { date: DESC } }
+      ) {
+        totalCount
+      }
+    }
+  `)
+
+  if (postsResult.errors) {
+    console.error(postsResult.errors)
+    throw new Error("Error querying for posts.")
+  }
+
+  const POSTS_PER_PAGE = 12
+  const postsCount = postsResult.data.allMdx.totalCount
+  const numPages = Math.ceil(postsCount / POSTS_PER_PAGE)
+  const postsListTemplate = path.resolve(`./src/templates/posts-list.jsx`)
+
+  Array.from({ length: numPages }).forEach((_, index) => {
+    const currentPage = index + 1
+    const path = currentPage === 1 ? `posts/` : `posts/${currentPage}/`
+    console.log(`Creating page: /${path}`)
+    createPage({
+      path,
+      component: postsListTemplate,
+      context: {
+        skip: index * POSTS_PER_PAGE,
+        limit: POSTS_PER_PAGE,
+        numPages,
+        currentPage,
+      },
+    })
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
