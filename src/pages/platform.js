@@ -89,11 +89,10 @@ const PlatformPage = ({ data }) => {
             narrative and media output.
           </p>
           <p>
-            The important marketing point is that these are reusable building
-            blocks, not isolated side projects. We combine them differently
-            depending on the job: QA and evaluation, internal operator tooling,
-            extraction and retrieval workflows, or outward-facing content
-            systems.
+            These are reusable building blocks, not isolated side projects.
+            We combine them differently depending on the job: QA and
+            evaluation, internal operator tooling, extraction and retrieval
+            workflows, or outward-facing content systems.
           </p>
           <div className={styles.mapGrid}>
             <div className={styles.mapColumn}>

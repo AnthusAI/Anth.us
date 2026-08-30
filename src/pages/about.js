@@ -114,7 +114,7 @@ export const Head = () => {
   return (
     <Seo
       title="About Us"
-      description="With a history of powering a multi-million dollar ticketing system and seamless integrations across platforms like Salesforce and Mailchimp, we bring unparalleled expertise in serverless architectures and AI to your projects."
+      description="Anthus builds and operates self-aligning AI systems, grounded in 14 years of production operations — the reliability and security behind a multi-million-dollar platform, now applied to AI."
       image="serverless-ai-software-solutions.png"
     />
   )
