@@ -20,7 +20,7 @@ const siteContentPath = `${__dirname}/src/site-content`
 export default {
   siteMetadata: {
     title: `Anthus`,
-    description: `Depend on proven experts to build and operate AI-enabled systems with guardrails, verification, and operational excellence.`,
+    description: `Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in 14 years of production operations.`,
     author: `Ryan Porter`,
     siteUrl: `https://anth.us`,
     menuLinks:[

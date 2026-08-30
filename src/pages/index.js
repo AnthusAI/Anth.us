@@ -20,11 +20,6 @@ const values = [
       "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>.",
   },
   {
-    text: "Design for Humans",
-    description:
-      "Computers exist to help humans accomplish things.  Not the other way around.  Make it easy for the human, not the computer.",
-  },
-  {
     text: "Focus on Business Logic",
     description:
       'The only code you should be writing is the business logic that solves real problems.  <a href="/blog/langchain-by-example/">Don\'t waste time reinventing wheels.</a>',
@@ -33,11 +28,6 @@ const values = [
     text: "Continuously Improve",
     description:
       "Enable rapid, iterative change through CI/CD and DevOps—then let the systems improve themselves. <mark>Self-optimizing classifiers and self-steering agent systems</mark> get better from production feedback without waiting for an engineer to notice.",
-  },
-  {
-    text: "Collaborate with AI Humanely",
-    description:
-      "The most scarce and valuable resource is human time and attention.  Leveraging artificial people allows us to scale that attention without burning out real people.",
   },
   {
     text: "Implement Infrastructure as Code",
@@ -317,10 +307,12 @@ const IndexPage = () => {
           className="hero-image hero-image-wide"
         />
         <div className="hero-overlay">
-          <h1>Depend on proven experts</h1>
+          <h1>Self-aligning AI, proven in production</h1>
           <p>
-            We solve your business problems with AI, then run it securely in
-            production.
+            Systems that keep working when nobody is watching. Custom models,
+            agent harnesses, and evaluation loops with a human in the loop,
+            grounded in 14 years of production operations and two years of
+            production RLHF.
           </p>
           <Link to="/ai-solutions" className="button">
             Learn More
