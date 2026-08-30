@@ -63,6 +63,63 @@ const AboutPage = () => {
             <mark>kept the revenue flowing</mark>. Then we smoothly handed it
             off to the next team with no business interruption or impairment.
           </p>
+          <h2>Our Mission</h2>
+          <p
+            style={{ textAlign: "center", marginBottom: "20px" }}
+            dangerouslySetInnerHTML={{
+              __html:
+                "Deliver <mark>reliable, secure, and efficient</mark> business solutions using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We build systems that keep working when nobody is watching.",
+            }}
+          ></p>
+
+          {/* a-world-with-no-moats.mdx links to /about/#our-values. */}
+          <h2 style={{ marginBottom: "1em" }} id="our-values">
+            Our Values
+          </h2>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            {[
+              {
+                text: "Prioritize Solutions Over Tools",
+                description:
+                  "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>.",
+              },
+              {
+                text: "Focus on Business Logic",
+                description:
+                  'The only code you should be writing is the business logic that solves real problems.  <a href="/blog/langchain-by-example/">Don\'t waste time reinventing wheels.</a>',
+              },
+              {
+                text: "Continuously Improve",
+                description:
+                  "Enable rapid, iterative change through CI/CD and DevOps—then let the systems improve themselves. <mark>Self-optimizing classifiers and self-steering agent systems</mark> get better from production feedback without waiting for an engineer to notice.",
+              },
+              {
+                text: "Implement Infrastructure as Code",
+                description:
+                  "Leverage DevOps to implement Infrastructure as Code, and <mark>MLOps and LLMOps</mark> to do the same for the models. Every part of a production system—including training runs and evaluations—should be created by code so it's reproducible, not clicked together by hand.",
+              },
+              {
+                text: "Commodify AI Models",
+                description:
+                  'Treat AI models as replaceable, not magic black boxes.  In a world with no moats, <a href="/blog/a-world-with-no-moats/">don\'t invest too much in any given castle.</a>',
+              },
+              {
+                text: "Optimize Resource Usage",
+                description:
+                  "Balance efficiency with cost-effectiveness.  When intelligence is cheap, the goal shifts from conserving compute to conserving context and cognitive load.",
+              },
+            ].map((value, index) => (
+              <li key={index} style={{ marginBottom: "1em" }}>
+                <p style={{ fontWeight: "bold", marginBottom: "0.25em" }}>
+                  {value.text}
+                </p>
+                <p
+                  dangerouslySetInnerHTML={{ __html: value.description }}
+                ></p>
+              </li>
+            ))}
+          </ul>
+
           <h2>How We Build Today</h2>
           <p>
             The AI era doesn’t remove the need for operational excellence—it

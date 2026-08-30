@@ -5,67 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Hero from "../components/hero"
-import PlatformCards from "../components/platform-cards"
 import * as styles from "../components/index.module.css"
-
-const mission = {
-  description:
-    "Deliver <mark>reliable, secure, and efficient</mark> business solutions using collaboration between human and <mark>artificial intelligence</mark> in every aspect of <mark>development and operations</mark>. We build systems that keep working when nobody is watching.",
-}
-
-const values = [
-  {
-    text: "Prioritize Solutions Over Tools",
-    description:
-      "Investing in products and services only delivers business value if you're in the business of products and services.  <mark>We're in the business of solutions</mark>.",
-  },
-  {
-    text: "Focus on Business Logic",
-    description:
-      'The only code you should be writing is the business logic that solves real problems.  <a href="/blog/langchain-by-example/">Don\'t waste time reinventing wheels.</a>',
-  },
-  {
-    text: "Continuously Improve",
-    description:
-      "Enable rapid, iterative change through CI/CD and DevOps—then let the systems improve themselves. <mark>Self-optimizing classifiers and self-steering agent systems</mark> get better from production feedback without waiting for an engineer to notice.",
-  },
-  {
-    text: "Implement Infrastructure as Code",
-    description:
-      "Leverage DevOps to implement Infrastructure as Code, and <mark>MLOps and LLMOps</mark> to do the same for the models. Every part of a production system—including training runs and evaluations—should be created by code so it's reproducible, not clicked together by hand.",
-  },
-  {
-    text: "Commodify AI Models",
-    description:
-      'Treat AI models as replaceable, not magic black boxes.  In a world with no moats, <a href="/blog/a-world-with-no-moats/">don\'t invest too much in any given castle.</a>',
-  },
-  {
-    text: "Optimize Resource Usage",
-    description:
-      "Balance efficiency with cost-effectiveness.  When intelligence is cheap, the goal shifts from conserving compute to conserving context and cognitive load.",
-  },
-]
-
-const platformRecipes = [
-  {
-    title: "Grounded research to video output",
-    components: ["Biblicus", "Tactus", "Babulus", "Korporus"],
-    description:
-      "Use Biblicus to manage the source corpus, Tactus to define the repeatable procedure, Babulus to generate the narrative output, and Korporus to host the resulting service as a coherent application.",
-  },
-  {
-    title: "Production agent service with operational discipline",
-    components: ["Tactus", "Plexus", "Korporus", "Caducus"],
-    description:
-      "Define the agent behavior in Tactus, evaluate and improve it through Plexus, run it inside Korporus, and monitor it through Caducus so the result behaves like a service instead of a demo.",
-  },
-  {
-    title: "Workflow-heavy human and AI collaboration",
-    components: ["Kanbus", "Tactus", "Plexus"],
-    description:
-      "Keep task memory and work orchestration durable in Kanbus, drive execution through Tactus procedures, and feed the resulting evaluation and feedback loops back into Plexus.",
-  },
-]
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
 const contactUrl =
@@ -108,30 +48,6 @@ const IndexPage = () => {
       aiEnabledProjects: file(relativePath: { eq: "ai-enabled-projects.png" }) {
         childImageSharp {
           gatsbyImageData(layout: FULL_WIDTH)
-        }
-      }
-
-      featuredPlatform: allMdx(
-        filter: {
-          frontmatter: {
-            content_type: { eq: "platform-product" }
-            state: { eq: "published" }
-          }
-        }
-        sort: { frontmatter: { platform_order: ASC } }
-      ) {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              slug
-              excerpt
-              platform_category
-              platform_stage
-              external_url
-            }
-          }
         }
       }
 
@@ -184,36 +100,6 @@ const IndexPage = () => {
               preview_image {
                 childImageSharp {
                   gatsbyImageData
-                }
-              }
-            }
-          }
-        }
-      }
-
-      featuredSolutions: allMdx(
-        filter: {
-          frontmatter: {
-            state: { eq: "published" }
-            tags: { in: ["featured"] }
-          }
-          internal: { contentFilePath: { regex: "/solutions/" } }
-        }
-        sort: { fields: [frontmatter___date], order: DESC }
-        limit: 4
-      ) {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              date
-              slug
-              excerpt
-              display_date
-              preview_image {
-                childImageSharp {
-                  gatsbyImageData(layout: CONSTRAINED)
                 }
               }
             }
@@ -312,9 +198,9 @@ const IndexPage = () => {
             We solve your business problems with AI, then run it securely in
             production.
           </p>
-          <Link to="/ai-solutions" className="button">
-            Learn More
-          </Link>
+          <a href={contactUrl} className="button">
+            Tell us the problem
+          </a>
         </div>
       </Hero>
 
@@ -395,62 +281,18 @@ const IndexPage = () => {
         </div>
       </section>
 
-      <h2 style={{ marginBottom: "1em" }}>Our Mission</h2>
-      <p
-        style={{ textAlign: "center", marginBottom: "20px" }}
-        dangerouslySetInnerHTML={{ __html: mission.description }}
-      ></p>
-
-      {/* a-world-with-no-moats.mdx links to /#our-values, so this id has to stay put. */}
-      <h2 style={{ marginBottom: "1em" }} id="our-values">
-        Our Values
-      </h2>
-      <ul className={`${styles.list} ${styles.tight}`}>
-        {values.map((value, index) => (
-          <li key={index} className={styles.listItem}>
-            <p className={styles.listItemTitle}>{value.text}</p>
-            <p
-              className={styles.listItemDescription}
-              dangerouslySetInnerHTML={{ __html: value.description }}
-            ></p>
-          </li>
-        ))}
-      </ul>
-
       <section className={styles.plexusFeature}>
         <span className={styles.eyebrow}>PART OF</span>
         <h2 className={styles.platformHeader}>The Anthus Platform</h2>
         <p>
           Solve complex business problems with AI and ML using a proven,
-          reusable technology stack. We provide interoperable building blocks:{" "}
-          <code>Korporus</code> hosts the application surface,{" "}
-          <code>Tactus</code>
-          defines durable procedures, <code>Kanbus</code> coordinates workflow
-          state, <code>Plexus</code> governs evaluation and MLOps,{" "}
-          <code>Biblicus</code> and <code>Virtuus</code> ground systems in
-          inspectable data,
-          <code>Caducus</code> adds operational visibility, and{" "}
-          <code>Babulus</code> extends the same code-first philosophy into
-          content and video output.
+          reusable technology stack that grew out of real delivery work —
+          runtime, agent execution, knowledge, observability, and media, with
+          the enterprise controls that matter in production.
         </p>
-        <PlatformCards items={data.featuredPlatform.edges} />
-        <div className={styles.platformRecipeGrid}>
-          {platformRecipes.map(recipe => (
-            <div key={recipe.title} className={styles.platformRecipeCard}>
-              <h3>{recipe.title}</h3>
-              <p className={styles.platformRecipeMeta}>
-                {recipe.components.join(" + ")}
-              </p>
-              <p>{recipe.description}</p>
-            </div>
-          ))}
-        </div>
         <div className={styles.approachActions}>
           <Link to="/platform" className="button">
             Explore the platform
-          </Link>
-          <Link to="/ai-solutions" className={styles.approachSecondaryCta}>
-            See solution patterns
           </Link>
         </div>
       </section>
@@ -511,34 +353,34 @@ const IndexPage = () => {
         </section>
       )}
 
-      <h2>Featured Solutions</h2>
-      <ul className="blog">
-        {data.featuredSolutions.edges.map(({ node }) => {
-          const previewImage = getImage(node.frontmatter.preview_image)
-          return (
-            <div className="blog-post-preview" key={node.id}>
-              <li className="clear-float">
-                <Link to={`/blog/${node.frontmatter.slug}`}>
-                  <GatsbyImage
-                    image={previewImage}
-                    alt={node.frontmatter.title}
-                    className="right"
-                  />
-                  <h3>{node.frontmatter.title}</h3>
-                </Link>
-                <div className="date">
-                  {node.frontmatter.display_date || node.frontmatter.date}
-                </div>
-                <div
-                  dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}
-                ></div>
-              </li>
-            </div>
-          )
-        })}
+      <h2>Case studies</h2>
+      <ul className={styles.list}>
+        <li className={styles.listItem}>
+          <Link className={styles.listItemLink} to="/blog/call-criteria/">
+            <h3>Call Criteria</h3>
+          </Link>
+          <p className={styles.listItemDescription}>
+            <mark>100% of calls reviewed</mark>, up from a sample. Call
+            Criteria's human QA couldn't scale without scaling headcount, so we
+            built a self-evolving RLHF system: reviewers correct the AI and say
+            why, and the system turns the explanation into policy it applies
+            from then on.
+          </p>
+        </li>
+        <li className={styles.listItem}>
+          <Link className={styles.listItemLink} to="/blog/venue-driver/">
+            <h3>Venue Driver</h3>
+          </Link>
+          <p className={styles.listItemDescription}>
+            <mark>16 years of continuous operation</mark> across Las Vegas
+            nightlife. When an AWS data center failed catastrophically, we
+            relocated the entire system within hours — ticket scanning at the
+            nightclubs never stopped.
+          </p>
+        </li>
       </ul>
       <div className="clear-float">
-        View all our <Link to="/ai-solutions">Solutions</Link>.
+        See our <Link to="/ai-solutions">solution patterns</Link>.
       </div>
 
       <h2>Recent Articles</h2>
