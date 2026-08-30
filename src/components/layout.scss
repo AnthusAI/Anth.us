@@ -11,7 +11,9 @@ html {
 
   -webkit-text-size-adjust: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
   overflow-y: scroll;
+  overscroll-behavior-x: none;
   background-color: var(--color-gradient-start);
 }
 body {
@@ -23,6 +25,9 @@ body {
   font-size: var(--font-size);
   font-weight: normal;
   margin: 0;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
   word-wrap: break-word;
 }
 
@@ -308,13 +313,15 @@ pre tt:after {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: clip;
   background-color: var(--color-layout-bg);
 
   .wrapper {
     flex: 1;
     padding: 0 var(--size-gutter) var(--size-gutter) var(--size-gutter);
     margin: 0 auto;
-    max-width: calc(100vw);
+    max-width: 100%;
     background-color: var(--color-wrapper-bg);
   }
 
@@ -533,6 +540,7 @@ a.button:active {
   padding: 0;
   width: calc(100% + 2 * var(--size-gutter));
   margin-left: calc(-1 * var(--size-gutter));
+  overflow-x: clip;
 
   .hero-image {
     width: 100%;
@@ -1183,7 +1191,7 @@ footer {
   header {
     .content {
       margin: 0;
-      max-width: min(calc(100vw - (2 * var(--size-gutter))), var(--max-width));
+      max-width: min(calc(100% - (2 * var(--size-gutter))), var(--max-width));
     }
   }
   .hero {
@@ -1209,7 +1217,7 @@ footer {
   }
   .layout {
     .wrapper {
-      max-width: min(calc(100vw), var(--max-width));
+      max-width: min(100%, var(--max-width));
       margin-left: auto;
       margin-right: auto;
     }
