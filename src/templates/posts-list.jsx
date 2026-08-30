@@ -61,7 +61,7 @@ const PostsListTemplate = ({ data, pageContext }) => {
         >
           <div>
             {prevPage ? (
-              <Link to={pagePath(prevPage)}>← Previous</Link>
+              <a href={pagePath(prevPage)}>← Previous</a>
             ) : (
               <span />
             )}
@@ -71,7 +71,7 @@ const PostsListTemplate = ({ data, pageContext }) => {
           </div>
           <div>
             {nextPage ? (
-              <Link to={pagePath(nextPage)}>Next →</Link>
+              <a href={pagePath(nextPage)}>Next →</a>
             ) : (
               <span />
             )}

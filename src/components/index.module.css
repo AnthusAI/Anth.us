@@ -120,6 +120,12 @@
   font-size: 0.8em;
 }
 
+.seeMoreFooter {
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
 @media (min-width: 640px) {
   .postsList {
     grid-template-columns: repeat(2, 1fr);
