@@ -307,12 +307,10 @@ const IndexPage = () => {
           className="hero-image hero-image-wide"
         />
         <div className="hero-overlay">
-          <h1>Self-aligning AI, proven in production</h1>
+          <h1>Depend on proven experts</h1>
           <p>
-            Systems that keep working when nobody is watching. Custom models,
-            agent harnesses, and evaluation loops with a human in the loop,
-            grounded in 14 years of production operations and two years of
-            production RLHF.
+            We solve your business problems with AI, then run it securely in
+            production.
           </p>
           <Link to="/ai-solutions" className="button">
             Learn More
