@@ -114,7 +114,13 @@ export default {
       resolve: `gatsby-plugin-page-creator`,
       options: {
         path: siteContentPath,
-        ignore: [`**/README.md`, `**/.git/**`, `**/.gitignore`],
+        ignore: [
+          `**/README.md`,
+          `**/.git/**`,
+          `**/.gitignore`,
+          // Posts are listed at /posts/ and served at /blog/{slug}/ via gatsby-node.
+          `**/posts/**`,
+        ],
       },
     },
     {
