@@ -442,6 +442,9 @@ const IndexPage = () => {
           </li>
         ))}
       </ul>
+      <div className="clear-float">
+        Please see our <Link to="/posts">Posts</Link> for more.
+      </div>
     </Layout>
   )
 }
