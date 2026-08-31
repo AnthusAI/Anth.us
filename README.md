@@ -42,3 +42,8 @@ Then you can run it:
 ---
 
 Built by [Anthus AI Solutions](https://anth.us). We run this class of system in production.
+<!-- inspect test -->
+<!-- inspect test -->
+<!-- inspect test -->
+<!-- inspect test -->
+<!-- inspected-by test Mon Aug 31 13:01:34 EDT 2026 -->
