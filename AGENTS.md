@@ -213,6 +213,8 @@ import BlogImage from "../../components/blog-image"
 - Share experiences without claiming invention
 - Demonstrate expertise through helpful insights, not direct claims
 - **Pithy, direct, engineering-focused** writing
+- **Smoother, more accessible, more engaging, more open** than formal essay-speak
+- **Use contractions.** Write it the way you would say it: It's, don't, we're, that's. Never It is when It's is what you mean.
 
 ### Content Approach
 
@@ -225,6 +227,7 @@ import BlogImage from "../../components/blog-image"
 ### Writing Style
 
 - Use active voice and present tense
+- Use contractions. Do not write formal speech like "It is" when "It's" is the spoken line
 - Keep paragraphs focused and concise
 - Include technical details with business relevance
 - Balance technical depth with accessibility
