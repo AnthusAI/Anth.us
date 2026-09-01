@@ -4,15 +4,15 @@ Ryan, 2026-09-01: how does “new thread per job” work if you use **sub-agents
 
 Fetched official docs 2026-09-01. Not finished copy. Record in the article; proofreading may cut.
 
-## Short answer
+## Ryan’s architecture (2026-09-01)
 
-**Most products: the child does not get the parent chat.** The parent writes a brief. The child starts a clean window and returns a summary.
+Not the same command as `/clear`. Each new *task* is a worker with a **fresh context that contains only what it needs** (the parent’s brief). The **longer context is the manager**. Compact the manager separately. `/clear` when the whole mission changes.
 
-That is **not** the same as `/clear`.
+This matches default spawn on Cursor, Claude (non-fork), Copilot, Antigravity: child does not get parent chat; parent writes the brief; parent sees a summary.
 
-- `/clear` / new chat = new *mission*. Parent junk is gone. Continuity is gone.
-- Sub-agent = same mission, isolate *noise*. Parent stays. Child usually still loads **rules files** and often **inherits tools/MCP** (standing context tax).
-- Vendors recommend **both**, for different jobs. Anthropic: `/clear` for a new feature; sub-agents for exploration/tests; `/compact` when the same task got fat.
+Write it that way. Don’t spend the section saying “sub-agents ≠ `/clear`” as if they were competing. They are two knobs: workers isolate tasks; compact/clear the manager.
+
+**Honesty in the catalog:** “only what it needs” = the *transcript*. Standing context can still ride along (Claude CLAUDE.md; Cursor inherits all MCP). That’s a settings row under this technique, not a reason to drop the architecture.
 
 ## What matters for cost
 

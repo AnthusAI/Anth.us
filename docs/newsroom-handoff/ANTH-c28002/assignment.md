@@ -19,7 +19,7 @@ Working title: Thrifty tokenmaxxing. Ryan may rename.
 - Apps at least: Cursor, Codex, Claude, Antigravity, Grok Bot. Add others only if research verifies them.
 - Link Never Use Fast and Maximize Value. Do not retell them.
 - Record **all** items in `context-techniques.md` in the article draft. Proofreading may cut later. Do not pre-filter.
-- On technique 1 (new thread per job): also cover **sub-agents** as a same-mission isolate, not a `/clear` replacement. Research: `subagent-context.md`. Default in Cursor/Claude/Copilot/Antigravity: child does **not** get parent chat; parent writes a brief. Child often still loads rules files and **inherits MCP/tools**. Claude **fork** is the junk-drawer opt-in. Codex `fork_turns` default is undocumented — don’t guess.
+- On technique 1: Ryan’s architecture is **manager holds the long thread (compact separately); each worker starts fresh with only the brief.** Not “sub-agents vs `/clear`.” `/clear` is the mission reset. Record that. Caveat: standing rules/MCP may still load on the child. `subagent-context.md`.
 
 ## Must not
 
