@@ -99,6 +99,7 @@ Cite if we write: Anthropic Help + costs, Cursor usage/pricing, Cursor forum sub
 - Multiplex arithmetic without restating Fast. Nobody has editorialized a reset calendar across four paid tools.
 - Other “free first hit” levers besides Fast and Auto (aliases, try-the-flagship trials).
 - Verify amux.io claim that Claude Max per-model quotas are independent before repeating it.
+- Verify Cursor Fast-off persistence (new chat, new agent, model switch). Ryan’s 2026-09-01 receipt: it re-enables. Don’t publish sticky-default as fact until reproduced.
 
 ## Do not
 
