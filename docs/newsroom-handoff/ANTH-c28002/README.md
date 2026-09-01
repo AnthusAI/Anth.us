@@ -1,6 +1,6 @@
 # ANTH-c28002 — consult this first
 
-**Thrifty tokenmaxxing.** Newsroom story. Status: `research`. Drafting paused until Ryan says go.
+**Thrifty tokenmaxxing.** Newsroom story. Status: `research`. Site draft is `src/site-content/thrifty-tokenmaxxing.mdx` (`state: draft`). Do not flip to published until Ryan says so.
 
 Short id: `ANTH-c28002`  
 Full: `ANTH-c2800247-f8e3-4834-8bf1-a48eb127580e`  
@@ -30,6 +30,8 @@ Public Anth.us how-to. Analog → Resist temptation → Monitor → Maximize inc
 | File | What it is |
 | --- | --- |
 | `README.md` | This index. Start here. |
+| `article.md` | **Copy draft.** Gemini 3.7 Flash High + editor pass. Newsroom markdown, not site MDX. |
+| `article.gemini-raw.md` | Unedited Gemini output. |
 | `idea.md` | Pitch, spine, split, parked spot tasks. |
 | `assignment.md` | What to write. Must / must not. |
 | `research.md` | Running editorial log + verify table. |
