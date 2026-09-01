@@ -18,6 +18,8 @@ Ryan, still later 2026-09-01: **call it spot tasks.** Like spot instances, but t
 
 Ryan, still later 2026-09-01: how do we align? See `principles-alignment.md`. Short version: crowd agrees Resist-flagship + Monitor. Maximize-included is fringe (BSWEN/OSS), not vendor. Spot tasks we named first. Emerging fourth for this piece: **Context is the bill.** Do not re-coin Maximize Value or the manager/worker pattern. Punch “leave Auto on.”
 
+Ryan, 2026-09-01, while writing this article: **Cursor keeps flipping Fast back on.** He turns it off; it comes back. He is working async on purpose. Fast is no benefit and (his words) doubles cost. This is Resist temptation as a live fight, not a one-time settings click. Do not reprint the Fast tax table (`8bde91`). One beat: the product re-offers the hit. Verify whether Fast-off persists across new chats / new agents / Composer vs other models. Ryan said “doubles”; the Never Use Fast card has per-model multiples (Composer Fast was 6× Standard). Quote him, then link the table. Do not invent a 2× if the live card is 6×.
+
 ## Job after the lead
 
 Catalog thrifty techniques other than Fast, per coding app. Verify quota pools, reset cycles, default aliases, cheap-model names.
