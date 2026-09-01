@@ -8,7 +8,7 @@ Working title: Thrifty tokenmaxxing. Ryan may rename.
 
 1. Open: they offer you Fast (or the new premium default) like a free first hit that isn't free. Interests are misaligned. You are your own advocate. Just say no.
 2. Principles: Resist temptation. Monitor the clocks. Maximize included pools that reset (use-it-or-lose-it) — not Fast, not on-demand.
-3. **Context is the bill** — a catalog of specific, actionable input-volume techniques (new thread, don’t paste, thin rules, MCP off, no log dumps, don’t switch mid-chat). Steal from Anthropic/Continuum/Burns/Tokenminning. Full list: `context-techniques.md`. Then the rest of the per-app catalog.
+3. **Context is the bill** — record **every** technique in `context-techniques.md` in the draft. Proofreading may cut later. Include sub-agent vs `/clear` for item 1 (`subagent-context.md`). Then the rest of the per-app catalog.
 4. Fast and Auto as named examples of Resist. One beat each, then link Never Use Fast. Do not reprint that tax table. Fast is not only a surcharge you pick: Ryan’s live receipt is Cursor **flipping Fast back on** while he works async. The product fights the setting.
 5. **Spot tasks** across products is almost a thing, not a product. Mention. Do not invent one. Do not write the Chattic feature page or the Kanbus ticket from this assignment. That build is parked on this card (`quota-dispatch.md`) until someone files it on those repos.
 
@@ -18,7 +18,8 @@ Working title: Thrifty tokenmaxxing. Ryan may rename.
 - Per-app tables after the principle. Recheck live docs before ship.
 - Apps at least: Cursor, Codex, Claude, Antigravity, Grok Bot. Add others only if research verifies them.
 - Link Never Use Fast and Maximize Value. Do not retell them.
-- Include Ryan’s 2026-09-01 receipt: Cursor keeps re-enabling Fast; async work gets no benefit. One beat. Verify the sticky-default behavior before stating it as a product fact.
+- Record **all** items in `context-techniques.md` in the article draft. Proofreading may cut later. Do not pre-filter.
+- On technique 1 (new thread per job): also cover **sub-agents** as a same-mission isolate, not a `/clear` replacement. Research: `subagent-context.md`. Default in Cursor/Claude/Copilot/Antigravity: child does **not** get parent chat; parent writes a brief. Child often still loads rules files and **inherits MCP/tools**. Claude **fork** is the junk-drawer opt-in. Codex `fork_turns` default is undocumented — don’t guess.
 
 ## Must not
 
