@@ -1,0 +1,22 @@
+[
+  {
+    "id": "842b5e26-0808-4b8d-b475-92cf433f4e35",
+    "created_at": "2026-09-01T11:54:56.995418Z",
+    "text": "Editor (this run) owns the card. Prior-art sweep 2026-09-01 is in stories/ANTH-c28002/prior-art.md. Beat is crowded but fragmented: Tokenminning wiki, Continuum Claude lists, vendor fragments, quota CLIs for multiplex. Nobody has analog \u2192 Resist temptation \u2192 cross-app catalog. Cursor Auto stale residue confirmed. Drafting still paused until Ryan says go."
+  },
+  {
+    "id": "48fcbe06-c434-4490-bb25-24da41131f87",
+    "created_at": "2026-09-01T12:01:27.149604Z",
+    "text": "Monitor + Maximize-included added as sibling principles. Leftover dispatch (queue chores to whichever product still has expiring quota) is a near-miss, not a shipping product. Closest executor: owayo/token-burn (Claude+Codex). Closest advisor: quotabot. Closest monitors: aiuse/aiquota. Native schedulers are time-based, not leftover-based. Notes: stories/ANTH-c28002/quota-dispatch.md. That combo would be a new tool and a separate article."
+  },
+  {
+    "id": "1ae96fc0-78a5-446a-82ce-0fad30b3a672",
+    "created_at": "2026-09-01T12:08:00.328941Z",
+    "text": "Parked on this card 2026-09-01: leftover dispatch (chore backlog \u2192 live leftover quota \u2192 background burn if the human does not use included allotment). Near-miss, not a product.\n\nWould later touch Chattic.us (feature page), Kanbus (the queue), a later ANTH story + site-content for the product article, and maybe a new product repo. This agent cannot open those repos. Filing stays here until someone with access files the rest.\n\nNot bef418 leftover gates. This how-to only mentions the gap. Spec: stories/ANTH-c28002/quota-dispatch.md \u00a7 Parked here."
+  },
+  {
+    "id": "dca759c8-f642-4a1c-9e5a-0f3dbc6b945c",
+    "created_at": "2026-09-01T12:13:38.425128Z",
+    "text": "Ryan 2026-09-01: call the spin-off spot tasks. Like spot instances, but tasks \u2014 unused included quota is spare capacity; interruptible chores fill it before reset. Working name locked on this card. Chattic feature page should be Spot tasks when someone can file it there."
+  }
+]
