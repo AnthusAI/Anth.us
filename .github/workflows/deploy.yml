@@ -5,6 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Overlapping s3 sync --delete races delete pages that a newer deploy just uploaded.
+concurrency:
+  group: deploy-s3-cloudfront
+  cancel-in-progress: true
+
 permissions:
   id-token: write
   contents: read
