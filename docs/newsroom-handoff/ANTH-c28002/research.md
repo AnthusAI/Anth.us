@@ -18,7 +18,7 @@ Ryan, still later 2026-09-01: **call it spot tasks.** Like spot instances, but t
 
 Ryan, still later 2026-09-01: how do we align? See `principles-alignment.md`. Short version: crowd agrees Resist-flagship + Monitor. Maximize-included is fringe (BSWEN/OSS), not vendor. Spot tasks we named first. Emerging fourth for this piece: **Context is the bill.** Do not re-coin Maximize Value or the manager/worker pattern. Punch “leave Auto on.”
 
-Ryan, 2026-09-01: record **all** context techniques in the article draft; proofreading may cut. Technique 1: manager holds the long context and gets compacted; each worker is a fresh brief. Not competing with `/clear`. See `subagent-context.md`. Standing MCP/rules on children are a settings caveat, not a veto.
+Ryan, 2026-09-01: sub-agents can save money because workers don’t re-bill the manager’s junk drawer. Isolation, not parallelism, is the thrift. Then Jevons: cheaper tasks → more tasks → total can rise. `subagent-savings.md`. One beat, link commodity article.
 
 Ryan, 2026-09-01, while writing this article: **Cursor keeps flipping Fast back on.** He turns it off; it comes back. He is working async on purpose. Fast is no benefit and (his words) doubles cost. This is Resist temptation as a live fight, not a one-time settings click. Do not reprint the Fast tax table (`8bde91`). One beat: the product re-offers the hit. Verify whether Fast-off persists across new chats / new agents / Composer vs other models. Ryan said “doubles”; the Never Use Fast card has per-model multiples (Composer Fast was 6× Standard). Quote him, then link the table. Do not invent a 2× if the live card is 6×.
 
