@@ -18,5 +18,45 @@
     "id": "dca759c8-f642-4a1c-9e5a-0f3dbc6b945c",
     "created_at": "2026-09-01T12:13:38.425128Z",
     "text": "Ryan 2026-09-01: call the spin-off spot tasks. Like spot instances, but tasks \u2014 unused included quota is spare capacity; interruptible chores fill it before reset. Working name locked on this card. Chattic feature page should be Spot tasks when someone can file it there."
+  },
+  {
+    "id": "66426bd0-f900-415e-87b8-62fa968a36b9",
+    "created_at": "2026-09-01T13:05:24.971933Z",
+    "text": "Principles alignment filed: stories/ANTH-c28002/principles-alignment.md. Crowd agrees Resist-flagship + Monitor. Maximize-included is OSS/editorial not vendor. Spot tasks we named. Emerging fourth for the how-to: Context is the bill. Punch leave-Auto-on. Do not re-coin Maximize Value or manager/worker."
+  },
+  {
+    "id": "31a8a0ce-253b-49bc-b49d-7d4a0682bb73",
+    "created_at": "2026-09-01T14:01:56.590526Z",
+    "text": "Ryan 2026-09-01 firsthand while writing: Cursor keeps flipping Fast back on. He turns it off; it returns. Async work, no benefit, pure surcharge. Resist is a live fight, not a one-time click. One beat then link Never Use Fast. Verify whether Fast-off persists across new chats/agents. He said doubles; check live multiples before publishing a number."
+  },
+  {
+    "id": "ffbaca66-ba3e-46d4-9ff7-5f0de06ed37f",
+    "created_at": "2026-09-01T14:11:17.864293Z",
+    "text": "Monitor community is CodexBar (~21k live leftover) and ccusage (~18k historical logs, 85k npm/wk), plus OpenUsage desktop and tokscale. aiuse/aiquota stay as tiny glue. quota-community.md"
+  },
+  {
+    "id": "bce1eb6e-b91c-4a7f-82a2-47c5ade06e31",
+    "created_at": "2026-09-01T17:09:55.663667Z",
+    "text": "Ryan: Context is the bill is a techniques catalog, not a slogan. Filed stories/ANTH-c28002/context-techniques.md \u2014 new thread, don\u2019t paste, thin rules, MCP off, no log dumps, don\u2019t switch mid-chat, two strikes then clear, pin children. Steal from Anthropic/Continuum/Burns/Tokenminning."
+  },
+  {
+    "id": "d76bfbc6-9a8d-4590-9420-05158a28c33f",
+    "created_at": "2026-09-01T17:31:09.819053Z",
+    "text": "All context techniques stay in the draft. Sub-agent research for technique 1: child usually does not inherit parent chat; parent writes a brief. Child often still loads rules and inherits MCP. Claude fork is the junk-drawer opt-in. Sub-agents complementary to /clear, not a replacement. subagent-context.md"
+  },
+  {
+    "id": "26da4429-c8a8-41bc-bb97-6ce7d63cf66b",
+    "created_at": "2026-09-01T17:34:08.986429Z",
+    "text": "Ryan: technique 1 architecture is manager = long thread (compact separately); each worker = fresh context with only the brief. Not competing with /clear. Standing MCP/rules on children are a settings caveat. Recorded in subagent-context.md and context-techniques.md."
+  },
+  {
+    "id": "54bab09e-17c3-4288-a59e-8958cdf05c3c",
+    "created_at": "2026-09-01T17:35:45.674359Z",
+    "text": "Sub-agent thrift: isolation saves because workers don\u2019t re-bill the manager junk drawer. Parallelism multiplies windows. Then Jevons \u2014 cheaper tasks, more tasks, total can rise. One beat, link ecc2ae. File: subagent-savings.md"
+  },
+  {
+    "id": "2f7783aa-ae89-4942-82de-9b69a5d5a35f",
+    "created_at": "2026-09-01T17:38:10.384404Z",
+    "text": "Consult packet complete for other agents. Start at stories/ANTH-c28002/README.md.\n\nLocked: analog lead; Resist / Monitor / Maximize-included; Context is the bill = full techniques catalog in the draft; manager = long thread (compact), workers = fresh brief; isolation can save, parallelism multiplies, then Jevons one beat; spot tasks parked (Chattic + Kanbus later); Cursor Fast sticky firsthand; follow CodexBar + ccusage not tiny CLIs.\n\nAlso on Anth.us develop: docs/newsroom-handoff/ANTH-c28002/ (this environment cannot push skb)."
   }
 ]

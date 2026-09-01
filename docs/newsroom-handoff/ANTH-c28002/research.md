@@ -1,6 +1,8 @@
 # Research notes
 
-Starter pack, 2026-09-01. Cursor Auto cite pack added the same morning. Not a finished report. Drafting paused until Ryan says go.
+Starter pack, 2026-09-01. Not a finished report. Drafting paused until Ryan says go.
+
+**Other agents: start at `README.md`.** File index and Ryan’s locked calls are there.
 
 Full Cursor receipts (live docs + staff forum, fetched 2026-09-01): `stories/ANTH-c28002/cursor-auto-factcheck.md`.
 
