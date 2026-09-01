@@ -1,6 +1,6 @@
 # ANTH-c28002 — consult this first
 
-**Thrifty tokenmaxxing.** Newsroom story. Status: `research`. Copy draft exists (`article.md`). Do not publish until Ryan says so.
+**Thrifty tokenmaxxing.** Newsroom story. Status: `research`. Site draft is `src/site-content/thrifty-tokenmaxxing.mdx` (`state: draft`). Do not flip to published until Ryan says so.
 
 Short id: `ANTH-c28002`  
 Full: `ANTH-c2800247-f8e3-4834-8bf1-a48eb127580e`  
