@@ -6,7 +6,7 @@ Principle in one line: you pay the pile again every turn. Shrink the pile.
 
 ## Do these
 
-1. **New thread per job.** `/clear` or new chat when the *mission* changes. For noisy side work on the *same* mission, spawn a sub-agent: most products give the child a **clean chat**, not the parent transcript — the parent writes a brief. That is not a full reset: children often still load rules (`CLAUDE.md`) and **inherit MCP/tools**. Claude **fork** copies the junk drawer on purpose. Sub-agents ≠ `/clear`. See `subagent-context.md`. (Anthropic, Cursor, Copilot, Antigravity docs 2026-09-01)
+1. **New thread per job (via sub-agents).** Ryan, 2026-09-01: not the same *command* as `/clear`, but each worker starts a **fresh context that contains only what the parent put in the brief**. The long thread is the **manager**. Compact the manager separately (`/compact`). `/clear` is still the hard reset when the *mission* changes. Sub-agents are how you keep side tasks from living in the manager’s junk drawer. Caveat for copy: “only what it needs” is the *chat*. Children often still load rules (`CLAUDE.md`) and inherit MCP/tool lists unless you strip them. Pin cheap models on workers. See `subagent-context.md`.
 2. **`/clear` vs `/compact`.** Clear between jobs (free reset). Compact inside one long job (summarize and continue). Don’t compact junk you should have cleared. (Anthropic, SSD Nodes, Copilot)
 3. **Name the file. Don’t paste it.** Bare path ≠ `@file`. Anthropic: `@` injects the whole file. A path lets the agent read what it needs. (Anthropic Help habit #3, Continuum)
 4. **Don’t grep the repo blind.** Point at symbols and paths. Exploration is input tokens. (Continuum “prompt precision”)
