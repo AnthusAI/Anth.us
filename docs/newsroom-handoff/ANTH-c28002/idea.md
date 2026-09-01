@@ -50,4 +50,6 @@ These leaked into Never Use Fast. Starting research, not finished copy:
 - Manager pattern: Grok 4.6 over Composer 2.5 workers. Write that in the plan before you approve.
 - Cheap 2026 coding models when a picker exists: Kimi, GLM 5.2, DeepSeek, Qwen.
 
+Ryan, 2026-09-01, writing this piece: Cursor **re-enables Fast** after he turns it off. Async work; Fast is pure surcharge. Firsthand. Belongs in Resist, one beat, then link Never Use Fast. Verify persistence (new agent? new chat? model switch?).
+
 Recheck every plan name, reset cycle, and model id before publish.
