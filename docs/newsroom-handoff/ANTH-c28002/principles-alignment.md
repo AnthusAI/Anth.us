@@ -35,7 +35,7 @@ These keep showing up. Short names. Decide later which are siblings vs catalog t
 
 **Already ours, don’t re-coin:** Match sufficient = Maximize Value. Orchestrator/worker = Never Use Fast + Grok Bot. Jevons = commodity article.
 
-**Candidates for this how-to (editor):** add **Context is the bill** as a fourth in-article principle, or as the first catalog section. The rest are tips under the per-app list. Do not add Parallelize-the-ceiling as a principle here — it slides into always-on agenting; point at spot tasks instead.
+**Candidates for this how-to (editor):** Ryan 2026-09-01: **Context is the bill is a techniques catalog.** Specific, useful, actionable. Not a slogan. See `context-techniques.md`. The rest (one job, phase it, cap the run, pin children) live in that list. Do not add Parallelize-the-ceiling as a principle — it slides into always-on agenting; point at spot tasks instead.
 
 ## Crowd that fights us
 

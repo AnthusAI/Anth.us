@@ -8,7 +8,7 @@ Working title: Thrifty tokenmaxxing. Ryan may rename.
 
 1. Open: they offer you Fast (or the new premium default) like a free first hit that isn't free. Interests are misaligned. You are your own advocate. Just say no.
 2. Principles: Resist temptation. Monitor the clocks. Maximize included pools that reset (use-it-or-lose-it) — not Fast, not on-demand.
-3. Then the per-app catalog. Quota pools that expire. Pin the cheap model. Auto and aliases pick expensive ones. Multiplex instead of waiting. Patience is the budget.
+3. **Context is the bill** — a catalog of specific, actionable input-volume techniques (new thread, don’t paste, thin rules, MCP off, no log dumps, don’t switch mid-chat). Steal from Anthropic/Continuum/Burns/Tokenminning. Full list: `context-techniques.md`. Then the rest of the per-app catalog.
 4. Fast and Auto as named examples of Resist. One beat each, then link Never Use Fast. Do not reprint that tax table. Fast is not only a surcharge you pick: Ryan’s live receipt is Cursor **flipping Fast back on** while he works async. The product fights the setting.
 5. **Spot tasks** across products is almost a thing, not a product. Mention. Do not invent one. Do not write the Chattic feature page or the Kanbus ticket from this assignment. That build is parked on this card (`quota-dispatch.md`) until someone files it on those repos.
 

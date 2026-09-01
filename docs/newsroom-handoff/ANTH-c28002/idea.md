@@ -19,8 +19,8 @@ Ryan may rename.
 ## Structure (Ryan, 2026-09-01)
 
 1. Open on the free-hit analog. Adversarial. You vs the vendor.
-2. Principles, in this order: Resist temptation. Monitor. Maximize included pools that reset (not on-demand).
-3. Then the per-app settings list (quota buckets, pin the cheap model, multiplex, patience).
+2. Principles, in this order: Resist temptation. Monitor. Maximize included pools that reset (not on-demand). **Context is the bill** is a techniques list, not a slogan — specific input-volume moves. See `context-techniques.md`.
+3. Then the per-app settings list (quota buckets, pin the cheap model, multiplex, patience, plus the context clicks).
 4. **Spot tasks** (queue deferrable chores → whichever product still has expiring quota) is a **near-miss**, not a shipping product. Point at it. Do not pretend it exists.
 
 Do not bury the analog under a spreadsheet.
