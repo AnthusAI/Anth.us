@@ -18,4 +18,4 @@ kbs validate
 
 Do **not** edit `project/issues/` by hand. Replay `kanbus-comments.json` only if those comments are missing.
 
-Drafting still paused until Ryan says go.
+Copy draft is in `article.md` (Gemini 3.7 Flash High, editor pass). Raw Gemini: `article.gemini-raw.md`. Do not publish until Ryan says so. Do not create site MDX yet.

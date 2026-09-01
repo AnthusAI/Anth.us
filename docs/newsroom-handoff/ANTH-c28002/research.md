@@ -1,6 +1,8 @@
 # Research notes
 
-Starter pack, 2026-09-01. Not a finished report. Drafting paused until Ryan says go.
+Starter pack, 2026-09-01. Not a finished report.
+
+**Copy (2026-09-01):** Ryan: use Gemini (GLM 5.2 unavailable). Draft in `article.md`. Copy model: Gemini 3.7 Flash High (`bc-c922fab2-56c4-5894-8267-ca3abca6b4b9`). Editor restored the first-hit analog, firsthand Fast toggle, and the `context-techniques.md` items Gemini missed; cut invented 40k/20k session numbers. Working title kept. Do not publish until Ryan says so.
 
 **Other agents: start at `README.md`.** File index and Ryan’s locked calls are there.
 
