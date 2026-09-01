@@ -16,6 +16,8 @@ Ryan, still later 2026-09-01: the dispatcher would also be a Chattic.us feature 
 
 Ryan, still later 2026-09-01: **call it spot tasks.** Like spot instances, but tasks. Unused included quota is spare capacity. Deferrable chores fill it before reset. Working name locked unless he renames again.
 
+Ryan, still later 2026-09-01: how do we align? See `principles-alignment.md`. Short version: crowd agrees Resist-flagship + Monitor. Maximize-included is fringe (BSWEN/OSS), not vendor. Spot tasks we named first. Emerging fourth for this piece: **Context is the bill.** Do not re-coin Maximize Value or the manager/worker pattern. Punch “leave Auto on.”
+
 ## Job after the lead
 
 Catalog thrifty techniques other than Fast, per coding app. Verify quota pools, reset cycles, default aliases, cheap-model names.
