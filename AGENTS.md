@@ -160,7 +160,7 @@ When asked to create a post from an external article URL, follow this workflow:
    - Source link in the opening paragraph (`[Title](URL)`).
    - Two sections: `## Why it matters` and `## Key technical notes` (rename if necessary) summarizing the findings and Anth.us perspective.
 7. **Source attribution**: Link back to the original URL in-body and mention any quoted figures. If multiple sources, add bullet list of references at the bottom.
-8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free.
+8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free. Excerpt is what `/posts/` shows as the headline — it must be recognizable. Do not call it live or shareable until the [ship gate](#ship-gate-production-preview) passes on production.
 
 ## Image Guidelines
 
@@ -204,6 +204,20 @@ import BlogImage from "../../components/blog-image"
 />
 ```
 
+## Ship gate (production preview)
+
+**Do not ship a post, call it live, or hand a URL to Publicist/X until the production URL has a working cover and a working social preview card.** Git is not live. A successful push or Actions run is not enough.
+
+Check `https://anth.us/blog/{slug}/` (and `https://anth.us/posts/` for short posts). Fail closed:
+
+1. Permalink HTTP 200 (not 403/404).
+2. Cover image URLs return HTTP 200 with an image content-type. Use 1200×630. No blank placeholders, clipped logos, or 403s.
+3. Live HTML includes `og:image` (absolute `https://anth.us/...` URL), `twitter:card` = `summary_large_image` (not `summary`), and `twitter:image` with the same absolute URL.
+4. `https://anth.us/robots.txt` is HTTP 200, not S3/CloudFront 403. Twitterbot fetches robots.txt first; a 403 can kill the card.
+5. Short posts: `/posts/` lists **excerpt** as the visible title, not `title`. Excerpt must be recognizable (usually the essay title). Searching the list for the title must find it.
+
+If any check fails, fix it, wait for production to match, and re-check. Only then say it is live or shareable.
+
 ## Editorial Guidelines
 
 ### Voice and Tone
@@ -242,6 +256,7 @@ Excerpts should:
 - Be direct and engineering-focused
 - Avoid emojis completely
 - Capture the essence in one compelling sentence or short paragraph
+- On `/posts/`, excerpt **is** the list headline (the `title` field is not shown). Make excerpt recognizable.
 
 ## Strategic Marketing Terminology
 
@@ -414,6 +429,7 @@ If you see import errors for CSS classes:
 - Ensure links work (internal and external)
 - Validate MDX syntax compiles without errors
 - Confirm tags are correct for content type
+- After deploy: pass the ship gate on the **production** URL (working cover + `og:image` + `summary_large_image`). Do not treat git as live.
 
 ## Board names (Ryan)
 
@@ -455,6 +471,7 @@ Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-
 - **Never run `npm run dev`** - use `npm start` or `gatsby develop` instead
 - Don't run type checking (it takes too long)
 - Always create images before creating content files
+- Never ship or share a post until production has a working cover and social preview (see Ship gate)
 - Use the exact frontmatter structure shown in examples
 - Follow the editorial guidelines for voice and tone
 - Reference `docs/content-guide.xml` for detailed content creation instructions
