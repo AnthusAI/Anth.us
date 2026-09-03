@@ -20,4 +20,4 @@ Do **not** edit `project/issues/` by hand. Replay `kanbus-comments.json` only if
 
 Copy draft is in `article.md` (Gemini 3.7 Flash High, editor pass). Raw Gemini: `article.gemini-raw.md`. Site MDX is `src/site-content/thrifty-tokenmaxxing.mdx` (`state: draft`). Do not flip to published until Ryan says so.
 
-Folded 2026-09-03: Yage's Grok Bot leak (`compactionEpoch` freeze, 12KB MCP spill). Context-bill catalog item, not the `629b47` product review.
+Folded 2026-09-03: Yage's Grok Bot leak (`compactionEpoch` freeze, 12KB MCP spill). Context-bill catalog item, not the `629b47` product review. Ryan's pipeline: Haiku explores → `/compact` → Opus plans → `/compact` → Sonnet implements. Compact before every model swap.

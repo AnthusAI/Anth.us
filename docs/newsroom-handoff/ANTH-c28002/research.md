@@ -28,6 +28,8 @@ Ryan, 2026-09-01, while writing this article: **Cursor keeps flipping Fast back 
 
 Ryan, 2026-09-03: fold [Yage, *Grok Bot Leak: Why an Agent's System Prompt Must Be Frozen*](https://yage.ai/share/grok-bot-context-engineering-en-20260827.html) into this draft. `FrozenMemorySnapshot.compactionEpoch`, 12KB MCP spill, stable tools array. Context-bill catalog, not the `629b47` product review. Don't invent Codex `fork_turns`. Attribute the ~10× cached-input discount to Anthropic/Yage, not as our measurement.
 
+Ryan, still 2026-09-03: the practical move is **compact before you change models**. Haiku explores and describes what it found → `/compact` → Opus writes a planning document → `/compact` → Sonnet does the work. Don't pass a large Haiku session to Opus; the model change invalidates the cache. Always compact first. Those boundaries are compaction epochs. The earlier “don’t switch models mid-chat / new chat if you change” line was too blunt — you do switch, on a thin summary.
+
 ## Job after the lead
 
 Catalog thrifty techniques other than Fast, per coding app. Verify quota pools, reset cycles, default aliases, cheap-model names.

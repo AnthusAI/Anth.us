@@ -25,6 +25,7 @@ Public Anth.us how-to. Analog → Resist temptation → Monitor → Maximize inc
 - Monitor community: **CodexBar** (live leftover) and **ccusage** (historical logs). Not tiny `aiuse`/`aiquota`.
 - Don’t publish until Ryan says so.
 - **Yage / Grok Bot 0.18.0 leak (2026-08-27):** `compactionEpoch` freeze belongs on this card (context bill), not `629b47`. Source: https://yage.ai/share/grok-bot-context-engineering-en-20260827.html. Folded into the site draft 2026-09-03.
+- **Compact before you change models (2026-09-03):** Haiku explores → `/compact` → Opus plans → `/compact` → Sonnet implements. Don’t pass a fat cheap-model session to a flagship. Those boundaries are compaction epochs. The catalog headline is not “never switch models.”
 
 ## File index (read in this order)
 
