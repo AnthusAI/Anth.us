@@ -427,6 +427,28 @@ A pure-research bot and a product-owner bot sat in one conversation about applie
 
 Night one was two bots talking because you pointed them at each other. Day four is you picking the set, then getting out of the way.
 
+### The clone is the verdict (Aug 30–Sep 3)
+
+By about the fourth day, the paradigm was convincing enough that I started cloning it.
+
+The project is [Chatticus](https://chattic.us). The headline from the live marketing site: **Shared spaces for people and bots.** People and named bots work around common files, tools, authority, and approvals. Like an office, not a chat window.
+
+That is the biggest outcome of this review. I do not merely want more Grok Bot. I want more of this shape of software: persistent teammates, channels as rooms, bot-to-bot handoffs, durable memory, routines, work that keeps going when the laptop closes, and one shared place where humans and bots collaborate.
+
+What I do **not** want more of is the fixed product underneath it:
+
+- Grok is the model. There is no model selector and no useful control over model parameters.
+- Every turn gets the same coarse compute story. Interactive work and flexible-SLA background batches should be routable differently.
+- The team gets one generic Linux computer, one shared capability set, and Chrome. There is no way to experiment with base containers or VM images, or choose containers for some work and VMs for other work.
+- The computer interaction is built around a pointer-driven GUI. Maybe that is the right fallback, but it should not be the only computer primitive.
+- One account gets one shared computer. I want multi-user groupware: a shared space that several humans can log into and use alongside the bots.
+
+Chatticus is not just a reskin. Its current design separates the per-request control plane from pull workers; lets text-only turns stay computerless; escalates onto a computer only when a tool needs one; and treats the same organization computer as an identity that can be hosted by local Docker, scale-to-zero Fargate, or later stop/start EC2. The public site describes the product as "shared spaces for people and bots," with flexible compute underneath and human approval boundaries.
+
+Be precise about what is current versus planned. The live marketing site calls Chatticus a shared, collaborative space for people and bots. Its product ledger says durable named bots are the live foundation; computerless turns, shared-computer starts, handoff/recovery, and approval checks are proven in development; skills and routines authoring, approval cards, roles, and a polished computer history are shipping next. The multi-user groupware goal is the reason for the shared-space framing, not permission to claim every collaboration feature is already shipped.
+
+The point is not that Grok Bot failed. The point is that it succeeded hard enough to expose the limits of its one-model, one-computer product and make the larger category obvious.
+
 ## Same job, different friction
 
 Cursor, Claude Code, Codex, and Antigravity all do some version of "the agent uses a computer and comes back with work." Grok Bot does that too. The claim to test is that it does it more smoothly because the computer is provided and the teammates can talk.
