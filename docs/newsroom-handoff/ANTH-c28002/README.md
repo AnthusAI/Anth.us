@@ -24,6 +24,7 @@ Public Anth.us how-to. Analog → Resist temptation → Monitor → Maximize inc
 - Firsthand: Cursor **keeps flipping Fast back on** during async work. One beat, link Never Use Fast. Don’t reprint the tax table. Verify sticky-default. He said “doubles”; check live multiples (Composer Fast was 6×).
 - Monitor community: **CodexBar** (live leftover) and **ccusage** (historical logs). Not tiny `aiuse`/`aiquota`.
 - Don’t publish until Ryan says so.
+- **Yage / Grok Bot 0.18.0 leak (2026-08-27):** `compactionEpoch` freeze belongs on this card (context bill), not `629b47`. Source: https://yage.ai/share/grok-bot-context-engineering-en-20260827.html. Folded into the site draft 2026-09-03.
 
 ## File index (read in this order)
 

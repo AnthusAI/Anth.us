@@ -25,7 +25,7 @@ These keep showing up. Short names. Decide later which are siblings vs catalog t
 | **Context is the bill** | History, MCP tool lists, rules files, and pasted logs are a per-turn tax. Clear between tasks. | Anthropic, Burns, Copilot, Tokenade, Giancini |
 | **One agent, one job** | One outcome, one branch, one stop. Split when the task changes shape. | Junction, Jon Jones, Adnan Masood |
 | **Prescribe, don’t explore** | Name files and paths. Don’t let it grep the repo blind. Bare path ≠ `@file` (Anthropic: `@` injects the file). | Anthropic Help, Continuum, habib23me |
-| **Warm the cache** | Don’t switch model/tools/reasoning mid-chat. Stale session >1h can re-bill the prefix. | Continuum, Copilot, Anthropic on HN |
+| **Warm the cache** | Don’t switch model/tools/reasoning mid-chat. Freeze the prefix to compaction epochs. Stale session >1h can re-bill the prefix. | Continuum, Copilot, Anthropic on HN, Yage Grok Bot leak 2026-08-27 |
 | **Phase it** | Research → plan → implement in separate sessions. Orchestrator plans, cheap worker implements. | Copilot, Burns, DeepakNess, Aider architect/editor |
 | **Cap the run** | Session spend limit / org billing stop so an unattended agent cannot eat the month. | Copilot `--max-ai-credits`, PostHog billing limit |
 | **Match effort** | Don’t pay max thinking on mechanical turns. | Anthropic `/effort`, Copilot reasoning level |

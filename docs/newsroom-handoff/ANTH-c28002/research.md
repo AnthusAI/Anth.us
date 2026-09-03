@@ -26,6 +26,8 @@ Ryan, 2026-09-01: sub-agents can save money because workers don’t re-bill the 
 
 Ryan, 2026-09-01, while writing this article: **Cursor keeps flipping Fast back on.** He turns it off; it comes back. He is working async on purpose. Fast is no benefit and (his words) doubles cost. This is Resist temptation as a live fight, not a one-time settings click. Do not reprint the Fast tax table (`8bde91`). One beat: the product re-offers the hit. Verify whether Fast-off persists across new chats / new agents / Composer vs other models. Ryan said “doubles”; the Never Use Fast card has per-model multiples (Composer Fast was 6× Standard). Quote him, then link the table. Do not invent a 2× if the live card is 6×.
 
+Ryan, 2026-09-03: fold [Yage, *Grok Bot Leak: Why an Agent's System Prompt Must Be Frozen*](https://yage.ai/share/grok-bot-context-engineering-en-20260827.html) into this draft. `FrozenMemorySnapshot.compactionEpoch`, 12KB MCP spill, stable tools array. Context-bill catalog, not the `629b47` product review. Don't invent Codex `fork_turns`. Attribute the ~10× cached-input discount to Anthropic/Yage, not as our measurement.
+
 ## Job after the lead
 
 Catalog thrifty techniques other than Fast, per coding app. Verify quota pools, reset cycles, default aliases, cheap-model names.
