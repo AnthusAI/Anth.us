@@ -30,6 +30,11 @@ const stackRecipes = [
     summary:
       "Korporus supplies the shared shell while product-specific modules from Plexus, Kanbus, Biblicus, and future tools appear as interoperable applications instead of one-off surfaces.",
   },
+  {
+    title: "Multi-user agent workplace",
+    summary:
+      "Chatticus is the shared room for people and named bots, Antharchy is the agentic desktop those bots can run, and Tactus encodes the durable procedures they execute with human approval boundaries.",
+  },
 ]
 
 const PlatformPage = ({ data }) => {
@@ -81,12 +86,13 @@ const PlatformPage = ({ data }) => {
           </h2>
           <p>
             We think about the platform in layers because complete AI systems
-            need more than a model call. Korporus is the host shell. Tactus
-            defines the durable procedure. Kanbus keeps workflow memory and
-            state. Plexus closes the evaluation loop. Biblicus and Virtuus make
-            evidence and structured data portable. Caducus gives operators
-            visibility. Babulus and VideoML apply the same discipline to
-            narrative and media output.
+            need more than a model call. Korporus is the host shell. Chatticus
+            is the shared room for people and bots. Antharchy is the agentic
+            desktop those bots can run. Tactus defines the durable procedure.
+            Kanbus keeps workflow memory and state. Plexus closes the
+            evaluation loop. Biblicus and Virtuus make evidence and structured
+            data portable. Caducus gives operators visibility. Babulus and
+            VideoML apply the same discipline to narrative and media output.
           </p>
           <p>
             These are reusable building blocks, not isolated side projects.
@@ -101,6 +107,10 @@ const PlatformPage = ({ data }) => {
                 <li>
                   <code>Korporus</code> standardizes the shell and hosting model
                   for platform-powered services.
+                </li>
+                <li>
+                  <code>Chatticus</code> gives people and bots a shared room
+                  with approvals.
                 </li>
                 <li>
                   <code>Plexus</code> manages evaluation, feedback loops, and
@@ -118,6 +128,10 @@ const PlatformPage = ({ data }) => {
                 <li>
                   <code>Tactus</code> defines durable, sandboxed agent
                   procedures.
+                </li>
+                <li>
+                  <code>Antharchy</code> is the agentic Linux desktop for
+                  long-running bot work.
                 </li>
                 <li>
                   <code>Biblicus</code> turns corpora into extractable,
