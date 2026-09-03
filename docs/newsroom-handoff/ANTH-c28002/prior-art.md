@@ -52,6 +52,7 @@ This card adds: the fight, live settings levers, cheap-model picker map, schedul
 11. **Forum: subagent leak** — https://forum.cursor.com/t/unclear-usage-billing/166069 — Auto/Grok parent can spawn Opus/Sonnet Task subagents onto Other Models. Pin subagent to Composer 2.5. High-value gotcha, forum-only.
 12. **Forum: Auto spillover** — https://forum.cursor.com/t/why-does-auto-silently-fall-back-to-api-usage/164874 — Auto+Composer pool → included API quota → on-demand. No toggle; $0 spend cap to hard-stop.
 13. **Grok Bot plans** — https://cursor.com/help/grok-bot/plans — weekly pool on paid Cursor, separate from the two monthly pools. Unused dies. Allowance size unpublished. Staff had to correct “it eats main Cursor quota.”
+13b. **Yage, Grok Bot leak / frozen system prompt** — https://yage.ai/share/grok-bot-context-engineering-en-20260827.html — 2026-08-27. `compactionEpoch` freeze: memory + profile byte-stable until compaction. Manus 2025 “Keep your prompt prefix stable.” 12KB MCP spill to `agent-tools/` + `hasReadPath`. Sibling: dynamic tools leak. Belongs on this card (context bill), not `629b47` product review.
 14. **Stale residue still ranking:** Finout / AIToolsRecap / CodePick still say leave Auto on / Auto is unlimited. That is the other free-hit. Our Cursor Auto pack already fact-checks this (`cursor-auto-factcheck.md`).
 
 ### Codex

@@ -11,10 +11,10 @@ Principle in one line: you pay the pile again every turn. Shrink the pile.
 3. **Name the file. Don’t paste it.** Bare path ≠ `@file`. Anthropic: `@` injects the whole file. A path lets the agent read what it needs. (Anthropic Help habit #3, Continuum)
 4. **Don’t grep the repo blind.** Point at symbols and paths. Exploration is input tokens. (Continuum “prompt precision”)
 5. **Keep always-on rules thin.** `CLAUDE.md`, `.cursor/rules`, Copilot instructions: per-message tax, not a one-time setup. Burns via Willison. Anthropic ~200 lines. Path-scope rules when the app allows it (Cline `paths:`).
-6. **Turn MCP off until you need it.** Tool lists are standing context. Deferred MCP enum can be ~4k tokens/session. Prefer a short CLI call over a always-connected server. (Burns, Tokenminning, Giancini, bokuwalily)
+6. **Turn MCP off until you need it.** Tool lists are standing context. Deferred MCP enum can be ~4k tokens/session. Prefer a short CLI call over a always-connected server. (Burns, Tokenminning, Giancini, bokuwalily). Grok Bot 0.18.0: spill MCP payloads over 12KB to `agent-tools/`; `hasReadPath` refuses the call unless the model Read the file. (Yage 2026-08-27)
 7. **Don’t paste test logs.** Hook or habit: keep failures, drop passing noise. Continuum PreToolUse Bash example. Aider: compress dumps first.
 8. **One agent, one job, one branch.** Split when the shape changes. (Junction, Jon Jones)
-9. **Don’t switch models mid-chat.** Cache miss. New thread if you change tier. Cursor Tokenminning; Copilot Auto only switches at cache boundaries.
+9. **Don’t switch models mid-chat. Freeze the prefix to compaction epochs.** Cache miss if you change tier. New thread. Cursor Tokenminning; Copilot Auto only switches at cache boundaries. Grok Bot 0.18.0 leak (Yage, 2026-08-27): `FrozenMemorySnapshot.compactionEpoch` — same epoch, byte-identical memory/profile; compaction increments epoch then re-renders. Identity updates append. Live `mcp_status` may still inject per turn. Tools array is an even earlier prefix — don’t mutate it mid-session. https://yage.ai/share/grok-bot-context-engineering-en-20260827.html
 10. **Don’t resume a stale session.** Idle >1h can re-bill the prefix. `/clear` and start. (Anthropic on HN)
 11. **Two strikes, then clear.** Two failed corrections on the same bug → new thread, don’t argue in the junk drawer. (Burns)
 12. **Drop finished files.** Aider `/drop`. Don’t keep the whole refactor in context.
