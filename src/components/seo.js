@@ -69,7 +69,11 @@ function Seo({ description, title, children, image, imageURL }) {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content="website" />
-      <meta name="twitter:card" content="summary" />
+      {imageURL && <meta property="og:image" content={imageURL} />}
+      <meta
+        name="twitter:card"
+        content={imageURL ? "summary_large_image" : "summary"}
+      />
       <meta name="twitter:creator" content={site.siteMetadata?.author || ``} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
