@@ -28,7 +28,15 @@ const PostsListTemplate = ({ data, pageContext }) => {
                 to={`/blog/${node.frontmatter.slug}`}
               >
                 <div>
-                  <div>{node.frontmatter.excerpt}</div>
+                  <div className={styles.listItemTitle}>
+                    {node.frontmatter.title}
+                  </div>
+                  {node.frontmatter.excerpt?.trim() !==
+                    node.frontmatter.title?.trim() && (
+                    <div className={styles.listItemDescription}>
+                      {node.frontmatter.excerpt}
+                    </div>
+                  )}
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>
                       {formatDate(node.frontmatter.date)}
@@ -40,7 +48,7 @@ const PostsListTemplate = ({ data, pageContext }) => {
                 </div>
                 <GatsbyImage
                   image={getImage(node.frontmatter.preview_image)}
-                  alt={node.frontmatter.excerpt}
+                  alt={node.frontmatter.title}
                 />
               </Link>
             </div>
