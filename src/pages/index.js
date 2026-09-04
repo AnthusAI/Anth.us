@@ -423,7 +423,15 @@ const IndexPage = () => {
                 {/* Was a <p> wrapping <div>s, which is invalid nesting and threw a
                     validateDOMNesting warning on every render. */}
                 <div>
-                  <div>{node.frontmatter.excerpt}</div>
+                  <div className={styles.listItemTitle}>
+                    {node.frontmatter.title}
+                  </div>
+                  {node.frontmatter.excerpt?.trim() !==
+                    node.frontmatter.title?.trim() && (
+                    <div className={styles.listItemDescription}>
+                      {node.frontmatter.excerpt}
+                    </div>
+                  )}
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>
                       {formatDate(node.frontmatter.date)}
@@ -435,7 +443,7 @@ const IndexPage = () => {
                 </div>
                 <GatsbyImage
                   image={getImage(node.frontmatter.preview_image)}
-                  alt={node.frontmatter.excerpt}
+                  alt={node.frontmatter.title}
                 />
               </Link>
             </div>
