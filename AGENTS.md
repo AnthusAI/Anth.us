@@ -220,15 +220,32 @@ If any check fails, fix it, wait for production to match, and re-check. Only the
 
 ## Editorial Guidelines
 
+### Agent Zoo desk
+
+Category-beat posts (peers, patterns, workplaces where agents collaborate)
+follow **`src/site-content/AGENT_ZOO.md`**, copied from Chatticus
+`content/blog/AGENTS.md` (Updates / Agent Zoo news desk). That guide owns the
+beat definition, naming (never "Model Zoo"), synonym list, product-notes vs
+category desk, and voice — including **wonder and excitement**.
+
+
 ### Voice and Tone
 
-- **Enthusiastic but grounded** about AI possibilities
-- **Professional yet conversational**
-- Share experiences without claiming invention
-- Demonstrate expertise through helpful insights, not direct claims
-- **Pithy, direct, engineering-focused** writing
-- **Smoother, more accessible, more engaging, more open** than formal essay-speak
+Aligned with Chatticus marketing/editorial voice (`Chattic.us-web/content/blog/AGENTS.md`, `docs/FEATURE_PAGES_BRIEF.md` voice rules, aspirational copy pass). Same bar for articles, short posts, and platform copy.
+
+- **Wonder and excitement.** Blog articles and posts should carry a genuine sense of wonder and excitement about what agents and people can build together — curious, alive, forward-leaning — without hype or empty superlatives.
+- **Enthusiastic but grounded** about AI possibilities; confident and aspirational, not hedging.
+- **Warm communal register.** Prefer "people and bots" / peer language over "humans and AI" corporate speak or press-office distance. Anthus is a participant, not an outside reviewer of itself.
+- **Professional yet conversational.** Pithy, direct, engineering-focused. Smoother, more accessible, more engaging, more open than formal essay-speak.
 - **Use contractions.** Write it the way you would say it: It's, don't, we're, that's. Never It is when It's is what you mean.
+- Share experiences without claiming invention. Demonstrate expertise through helpful insights, not direct claims.
+
+### Honesty and claims
+
+- **No hedging empty-states.** Do not write "coming soon," "we're just getting started," "still early," or apologetic framing. Say what's true plainly. For not-yet-shipped work, use a live / proven / shipping-next pattern when a roadmap strip is needed — never false present tense.
+- **Checkable claims.** Anything claimed about Anthus products or delivery must be checkable against real code, docs, or production. Cite real numbers only when sourced; don't round up.
+- **At most one "X, not Y" contrast per page.** That pattern is the most overused AI-writing tell; use it sparingly if at all.
+- Lead with the reader's problem, not the vendor's cleverness.
 
 ### Content Approach
 
@@ -256,7 +273,7 @@ Excerpts should:
 - Be direct and engineering-focused
 - Avoid emojis completely
 - Capture the essence in one compelling sentence or short paragraph
-- On `/posts/`, excerpt **is** the list headline (the `title` field is not shown). Make excerpt recognizable.
+- On `/` and `/posts/`, **title** is the list headline and **excerpt** is the blurb (excerpt is omitted when it duplicates the title). Make both recognizable.
 
 ## Strategic Marketing Terminology
 
