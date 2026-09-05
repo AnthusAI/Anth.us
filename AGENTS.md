@@ -220,18 +220,10 @@ If any check fails, fix it, wait for production to match, and re-check. Only the
 
 ## Editorial Guidelines
 
-### Agent Zoo desk
-
-Category-beat posts (peers, patterns, workplaces where agents collaborate)
-follow **`src/site-content/AGENT_ZOO.md`**, copied from Chatticus
-`content/blog/AGENTS.md` (Updates / Agent Zoo news desk). That guide owns the
-beat definition, naming (never "Model Zoo"), synonym list, product-notes vs
-category desk, and voice — including **wonder and excitement**.
-
 
 ### Voice and Tone
 
-Aligned with Chatticus marketing/editorial voice (`Chattic.us-web/content/blog/AGENTS.md`, `docs/FEATURE_PAGES_BRIEF.md` voice rules, aspirational copy pass). Same bar for articles, short posts, and platform copy.
+Writing style aligned with Chatticus blog Voice (`Chattic.us-web/content/blog/AGENTS.md`) and feature-page voice rules. Same bar for articles, short posts, and platform copy — not a separate Agent Zoo section on anth.us.
 
 - **Wonder and excitement.** Blog articles and posts should carry a genuine sense of wonder and excitement about what agents and people can build together — curious, alive, forward-leaning — without hype or empty superlatives.
 - **Enthusiastic but grounded** about AI possibilities; confident and aspirational, not hedging.
