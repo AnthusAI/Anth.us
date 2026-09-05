@@ -223,9 +223,11 @@ If any check fails, fix it, wait for production to match, and re-check. Only the
 
 ### Voice and Tone
 
-Writing style aligned with Chatticus blog Voice (`Chattic.us-web/content/blog/AGENTS.md`) and feature-page voice rules. Same bar for articles, short posts, and platform copy — not a separate Agent Zoo section on anth.us.
+Chatticus house voice lives in `Chattic.us-web/content/VOICE.md` (register, specifics-over-intensifiers, surface postures). Anth.us writing follows that bar for articles, short posts, and platform copy — same peer register, contractions, checkable claims. There is **no** separate Agent Zoo section or desk on anth.us, and do not resurrect `AGENT_ZOO.md`.
 
-- **Wonder and excitement.** Blog articles and posts should carry a genuine sense of wonder and excitement about what agents and people can build together — curious, alive, forward-leaning — without hype or empty superlatives.
+**Category / field-coverage pieces** (dated receipts of how agent workplaces and model routing actually run — named orgs, what moved, checkable numbers) should write from the **Agent Zoo** posture in that VOICE.md file: wonder from specifics — curious, delighted, a little astonished — staying exact about what happened. Wonder is not credulity and not a catchphrase.
+
+- **Wonder from specifics.** Energy comes from the surprising number, the named swap, the scene — never from intensifiers (revolutionary, seamless, powerful, etc.).
 - **Enthusiastic but grounded** about AI possibilities; confident and aspirational, not hedging.
 - **Warm communal register.** Prefer "people and bots" / peer language over "humans and AI" corporate speak or press-office distance. Anthus is a participant, not an outside reviewer of itself.
 - **Professional yet conversational.** Pithy, direct, engineering-focused. Smoother, more accessible, more engaging, more open than formal essay-speak.
