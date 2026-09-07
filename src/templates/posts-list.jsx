@@ -5,6 +5,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
+import { formatPostDate } from "../utils/format-post-date"
 
 const PostsListTemplate = ({ data, pageContext }) => {
   const { currentPage, numPages } = pageContext
@@ -39,7 +40,7 @@ const PostsListTemplate = ({ data, pageContext }) => {
                   )}
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>
-                      {formatDate(node.frontmatter.date)}
+                      {formatPostDate(node.frontmatter.date)}
                     </div>
                     <div>
                       <i>more...</i>
@@ -138,8 +139,3 @@ export const Head = ({ pageContext }) => {
 }
 
 export default PostsListTemplate
-
-const formatDate = dateString => {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(dateString).toLocaleDateString(undefined, options)
-}
