@@ -12,6 +12,7 @@ import {
   CitationsList,
 } from "gatsby-citation-manager"
 import MDXCode from "../components/MDXCode"
+import { formatPostDate } from "../utils/format-post-date"
 
 // Define the shortcodes object
 const shortcodes = { BlogImage, Citation, CitationsList, MDXCode, AudioNative }
@@ -31,7 +32,7 @@ const BlogPostTemplate = ({ data, children }) => {
           )}
           <div className="heading">
             <h1>{post.frontmatter.title}</h1>
-            <div className="date">{formatDate(post.frontmatter.date)}</div>
+            <div className="date">{formatPostDate(post.frontmatter.date)}</div>
             {post.frontmatter.authors &&
               post.frontmatter.authors.length > 0 && (
                 <div className="authors">
@@ -154,8 +155,3 @@ export const pageQuery = graphql`
 `
 
 export default BlogPostTemplate
-
-const formatDate = dateString => {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(dateString).toLocaleDateString(undefined, options)
-}
