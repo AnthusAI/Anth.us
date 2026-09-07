@@ -11,7 +11,7 @@ const BlogImage = ({ images, name, className, alt }) => {
         nodes {
           relativePath
           childImageSharp {
-            gatsbyImageData
+            gatsbyImageData(placeholder: NONE)
           }
         }
       }

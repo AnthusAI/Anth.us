@@ -6,6 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Hero from "../components/hero"
 import * as styles from "../components/index.module.css"
+import { formatPostDate } from "../utils/format-post-date"
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
 const contactUrl =
@@ -434,7 +435,7 @@ const IndexPage = () => {
                   )}
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>
-                      {formatDate(node.frontmatter.date)}
+                      {formatPostDate(node.frontmatter.date)}
                     </div>
                     <div>
                       <i>more...</i>
@@ -473,8 +474,3 @@ export const Head = () => {
 }
 
 export default IndexPage
-
-const formatDate = dateString => {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(dateString).toLocaleDateString(undefined, options)
-}
