@@ -206,42 +206,18 @@ import BlogImage from "../../components/blog-image"
 
 ## Editorial Guidelines
 
-### Voice and Tone
+House voice lives in one place: [`src/site-content/README.md`](src/site-content/README.md#voice)
+(prose) and `publications/anthus/style-profile.yml` in the Papyrus repo
+(the same rules, structured so [Limatus](https://github.com/AnthusAI/Limatus)
+can check a draft against them automatically). Read both before writing —
+don't restate them here, since a second copy of the rules is exactly how
+this section drifted out of date before. That YAML is also the single
+source Limatus's `diagnose`/`options`/`verify` commands read; a copyediting
+agent and a copywriting agent should be reading the same file.
 
-- **Enthusiastic but grounded** about AI possibilities
-- **Professional yet conversational**
-- Share experiences without claiming invention
-- Demonstrate expertise through helpful insights, not direct claims
-- **Pithy, direct, engineering-focused** writing
-- **Smoother, more accessible, more engaging, more open** than formal essay-speak
-- **Use contractions.** Write it the way you would say it: It's, don't, we're, that's. Never It is when It's is what you mean.
-
-### Content Approach
-
-- Lead with practical value and real-world applications
-- Include specific, actionable insights from hands-on experience
-- Frame as "tips and learnings" not "teachings"
-- Use concrete examples showcasing AI/ML familiarity
-- Focus on business value and practical applications
-
-### Writing Style
-
-- Use active voice and present tense
-- Use contractions. Do not write formal speech like "It is" when "It's" is the spoken line
-- Keep paragraphs focused and concise
-- Include technical details with business relevance
-- Balance technical depth with accessibility
-- Maintain helpful, peer-to-peer tone
-- **NO EMOJIS** (especially in excerpts)
-
-### Excerpt Guidelines
-
-Excerpts should:
-
-- Serve as standalone super-pithy microblog posts for social media
-- Be direct and engineering-focused
-- Avoid emojis completely
-- Capture the essence in one compelling sentence or short paragraph
+Excerpts follow the same voice, with one addition: they're standalone,
+one-sentence-or-short-paragraph microblog posts for social media — no
+emojis, ever.
 
 ## Strategic Marketing Terminology
 
