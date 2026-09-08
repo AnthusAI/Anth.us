@@ -70,6 +70,7 @@ const IndexPage = () => {
               date
               slug
               excerpt
+              external_url
               state
               preview_image {
                 childImageSharp {
@@ -388,17 +389,28 @@ const IndexPage = () => {
       <ul className="blog">
         {data.recentArticles.edges.map(({ node }) => {
           const previewImage = getImage(node.frontmatter.preview_image)
+          const { external_url, slug, title } = node.frontmatter
+          const cardLink = external_url
+            ? { href: external_url, isExternal: true }
+            : { href: `/blog/${slug}`, isExternal: false }
+          const cardMedia = (
+            <>
+              <GatsbyImage
+                image={previewImage}
+                alt={title}
+                className="right"
+              />
+              <h3>{title}</h3>
+            </>
+          )
           return (
             <div className="blog-post-preview" key={node.id}>
               <li className="clear-float">
-                <Link to={`/blog/` + node.frontmatter.slug}>
-                  <GatsbyImage
-                    image={previewImage}
-                    alt={node.frontmatter.title}
-                    className="right"
-                  />
-                  <h3>{node.frontmatter.title}</h3>
-                </Link>
+                {cardLink.isExternal ? (
+                  <a href={cardLink.href}>{cardMedia}</a>
+                ) : (
+                  <Link to={cardLink.href}>{cardMedia}</Link>
+                )}
                 <div className="date">{node.frontmatter.date}</div>
                 <div
                   dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}
