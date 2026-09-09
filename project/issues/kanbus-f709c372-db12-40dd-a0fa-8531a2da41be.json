@@ -1,0 +1,23 @@
+{
+  "id": "kanbus-f709c372-db12-40dd-a0fa-8531a2da41be",
+  "title": "Interconnect: Grok Bot essay \u2192 chattic.us",
+  "description": "## Status\nFILE ONLY \u2014 do not edit the essay until Ryan says go.\n\n## Page\nhttps://anth.us/blog/grok-bot-gave-my-coding-agents-a-boss/\n\n## Change (when approved)\nAdd a natural sentence and link to https://chattic.us\n\n## Why\nChatticus already lists this essay as thinking behind the product; readers who start on the essay never get a path into chattic.us.\n\n## Source\nRyan interconnect decisions via Publicist (2026-09-09). Anth.us only \u2014 no LinkedIn.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [
+    "interconnect"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-09T23:43:39.430088Z",
+  "updated_at": "2026-09-09T23:43:39.430248Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {},
+  "agent": null
+}
