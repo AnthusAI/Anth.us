@@ -16,91 +16,118 @@
       "author": "ryan",
       "text": "Ryan confirmed Beads was retired and asked to remove the stale workflow, commit the coordinated Grok Bot and executive drafts, merge them into main, and verify them on production. Open Beads work is being preserved as Kanbus tasks before the tracked Beads data is removed. Kanbus 0.19.1 cannot resolve the legacy short epic key as a parent, so migrated tasks are currently top-level rather than bypassing validation.",
       "created_at": "2026-08-29T14:23:55.170045Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "d3d4612c-804a-4ead-af6d-8383e75add47",
       "author": "ryan",
       "text": "Migration cleanup implemented locally. Root AGENTS.md now declares Kanbus only and uses kbs validate in the landing workflow. Tracked Beads skill, data/config, and merge-driver files are removed. The remaining local Beads runtime directory was moved recoverably to /Users/ryan/.Trash/Anth.us-beads-runtime-20260829-1025. Migrated open work: foundational messaging -> kanbus-c6739d, score-per-dollar -> kanbus-e2c2e7, economics visuals -> kanbus-2d93a9. The current deployment task is kanbus-a4fb52. Validation: kbs validate, git diff --check, Prettier check, and Gatsby production build passed; both article states remain draft.",
       "created_at": "2026-08-29T14:25:19.366604Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "d39435d1-9204-4692-ae95-b879a87da79c",
       "author": "ryan",
       "text": "Publishing pass: retitled the early Grok Bot review to 'Grok Bot Gave My Coding Agents a Boss,' made the four-day evidence window explicit, improved the excerpt, and added evidence-oriented captions for the latest visual sequence. Kept the existing slug and raw notes.",
       "created_at": "2026-08-29T16:47:17.523698Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "cf8cac7d-913a-4af7-ae19-9a38ce7a3dc9",
       "author": "ryan",
       "text": "Publication-readiness pass: removed all four-day and early-review framing; moved the complete raw notebook out of Gatsby's source tree to src/drafts/a-week-with-grok-bot-working-notes.mdx; and left a 1,687-word public article focused on the army-of-bots control-room story, concrete incidents, and guardrails.",
       "created_at": "2026-08-29T17:01:06.563727Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "dddec6f0-2d7a-43cb-841e-20655770707d",
       "author": "ryan",
       "text": "Never Use Fast follow-up: ground the article's terminology claim in primary sources. Distinguish cheaper Flash-style model families from capital-F Fast priority service tiers; cite Google, Cursor, and OpenAI directly; revise absolute wording that conflates the two. Preserve the published article and develop visual concepts around the split meaning.",
       "created_at": "2026-08-29T17:17:05.881705Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "d54ff2ba-5a7c-4174-94d8-1a5911539cfa",
       "author": "ryan",
       "text": "Implemented the Never Use Fast terminology section. The published article now distinguishes economical Flash model families from premium Fast priority tiers, cites primary Google, Cursor, and OpenAI sources, removes the absolute same-weights wording, updates the Grok companion headline, and clarifies the excerpt. Verification: git diff --check, kbs validate, and Gatsby production build passed. Build emitted existing citation-provider and image lookup warnings elsewhere but completed successfully.",
       "created_at": "2026-08-29T17:20:13.397207Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "ac31ea70-7380-4f20-a03f-7819b2fb73f6",
       "author": "ryan",
       "text": "Visual pass for Never Use Fast: added a generated editorial hero (identical code-delivery agents; standard lane versus token-paid express lane) and an editable SVG decision diagram that answers whether a human is waiting. The previous title card remains preserved. Removed the SVG from the frontmatter image-processing list so Gatsby renders it through BlogImage's SVG path rather than childImageSharp. Initial build reached the article but failed later on an unrelated stale cached query for /blog/AI/; rebuilding from a clean cache.",
       "created_at": "2026-08-29T17:34:52.828217Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "798d35c7-0c3f-4be7-b156-474da6472975",
       "author": "ryan",
       "text": "Hero revised after editorial review: replaced the confusing multi-panel lanes image with one first-person toll-plaza scene. It presents the actual reader choice directly: STANDARD $ versus FAST 998239982399823, with the premium lane visibly piled with token coins. The rejected generated workspace image was moved recoverably to /Users/ryan/.Trash/never-use-fast-express-lane-rejected-20260829.png; the original repository title card remains preserved.",
       "created_at": "2026-08-29T17:39:30.261156Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "7509854c-21b4-4b8a-8ee1-43c29cb23ba5",
       "author": "ryan",
       "text": "Never Use Fast visuals: toll-plaza hero, decision diagram SVG, updated preview_image and captions. Ready to commit.",
       "created_at": "2026-08-29T17:44:41.270202Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "d936e3e7-e233-439e-ba83-af5ace295505",
       "author": "ryan",
       "text": "Release pass for Never Use Fast: shrink the in-article SVG decision diagram while preserving the full-width toll-plaza hero, confirm the article state is published, and deploy through the content repository's main-branch workflow.",
       "created_at": "2026-08-29T19:45:16.128674Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "e5d35522-fc14-45a4-b624-850d5e3c358f",
       "author": "ryan",
       "text": "Published Never Use Fast through the content repository. The decision diagram is now locally capped at 26rem (about 70% of the hero width at desktop) while the toll-plaza hero stays full width. Verification: local Gatsby route returned 200 and rendered both figures; git diff --check and kbs validate passed. Content commit cbc3ce3 pushed to anthus-site-content/main, triggering its S3 + CloudFront deployment workflow.",
       "created_at": "2026-08-29T19:46:56.650211Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     },
     {
       "id": "e3b65a8c-22b9-4962-a3bd-5e2c2ffd57bf",
       "author": "ryan",
       "text": "Next visual pass: set Grok Bot's publication date to 2026-08-29 and generate a preview for From pair programmer to executive. Proposed scene: a human sets direction in a restrained control room while a Software Director routes separate coding, review, and acceptance workstreams; no generic robot-manager imagery or misleading product UI. The executive article remains published.",
       "created_at": "2026-08-29T19:50:59.941591Z",
-      "comment_type": "default"
+      "comment_type": "default",
+      "data": {},
+      "agent": null
     }
   ],
   "created_at": "2026-08-29T14:23:21.838952Z",
   "updated_at": "2026-08-29T19:50:59.941591Z",
   "closed_at": null,
+  "right_now_summary": "Ryan is finalizing the Anth.us migration and preparing to publish two coordinated draft articles.",
+  "right_now_updated_at": "2026-09-09T16:29:30.360177Z",
   "custom": {
     "project_label": "kanbus",
     "source": "shared"
-  }
+  },
+  "agent": null
 }
