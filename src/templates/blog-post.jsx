@@ -68,6 +68,7 @@ const BlogPostTemplate = ({ data, children }) => {
                 </div>
               )}
           </div>
+          <AudioNative />
           <MDXProvider components={shortcodes}>{children}</MDXProvider>
         </article>
       </Layout>
