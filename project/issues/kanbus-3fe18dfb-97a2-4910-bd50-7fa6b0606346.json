@@ -1,0 +1,33 @@
+{
+  "id": "kanbus-3fe18dfb-97a2-4910-bd50-7fa6b0606346",
+  "title": "Production draft preview for /posts/ and /blog/",
+  "description": "## Problem\nDraft MDX (`state: draft`) is hard to review on production. That friction pushes premature `state: published` so reviewers can see the item on live `/posts/` and `/blog/` lists.\n\n## Goal\nAdd a special, intentional preview mode (URL query param or equivalent) that, when present, shows **draft + published** items on the posts list and the blog list \u2014 i.e. what those index pages would look like if every current draft were published. Default (no flag) stays published-only for public visitors.\n\n## Scope\n- `/posts/` (and paginated posts pages if any)\n- `/blog/` (and related collection list pages if they also filter `state: published`)\n- Not a requirement to change individual permalinks unless needed for review; focus is the index/list views so drafts are findable in production.\n\n## Constraints / notes\n- Must not leak drafts into the normal public list. Flag should be explicit and easy for the team, not accidental SEO.\n- Prefer something that works on production without a local build (that is the point).\n- Implementation detail open: query param (e.g. `?drafts=1`), cookie, or path \u2014 pick the simplest safe option.\n- Gatsby static generation may require baking draft rows into page-data and gating client-side, or a separate preview page/route \u2014 call that out in the design before shipping.\n\n## Success\nTeam can leave articles in `draft`, open production with the preview flag, see drafts in the lists, and review without publishing early.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [
+    "site"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "1c86f964-0f36-4a4b-a9a0-7c527fa9cc4c",
+      "author": "box",
+      "text": "Mirrored to Papyrus product board as initiative PPY-c40638 \u2014 Production draft preview (password-gated, server-side). That version covers Papyrus sites (Pilobol.us, P.apyr.us, threat-intelligence.anth.us, etc.): site-centric unlock, secret password required, server-side enforcement so drafts are not shipped to anonymous clients. Anth.us Gatsby/MDX preview remains this task.",
+      "created_at": "2026-09-09T11:47:35.857858Z",
+      "comment_type": "default",
+      "data": {},
+      "agent": null
+    }
+  ],
+  "created_at": "2026-09-08T18:00:53.576031Z",
+  "updated_at": "2026-09-09T11:47:35.857950Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {},
+  "agent": null
+}
