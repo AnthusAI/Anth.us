@@ -404,14 +404,22 @@ kbs list
 
 Papyrus `develop` can mount the same repo as a submodule at `pods/anthus-blog`. That path is live only in a checkout that has `.gitmodules` (usually `~/Projects/Papyrus-worktrees/develop-blog-bdd-7dc0`). The default `~/Projects/Papyrus` tree is often a feature branch whose `pods/anthus-blog` is still the old **empty template**. If `kbs list` shows no stories, you are in the stale copy. Do not conclude the board is empty.
 
-## Project management (Kanbus)
+## Project management with Kanbus
+
+Use Kanbus for task management.
+Why: Kanbus task management is MANDATORY here; every task must live in Kanbus.
+When: Create/update the Kanbus task before coding; close it only after the change lands.
+How: See CONTRIBUTING_AGENT.md for the Kanbus workflow, hierarchy, status rules, priorities, command examples, and the mistakes to avoid. Never inspect project/ or issue JSON directly (including with cat or jq); use Kanbus commands only.
+Performance: Prefer kbs (Rust) when available; kanbus (Python) is equivalent but slower.
+Warning: Editing project/ directly violates The Way. Do not read or write anything in project/; work only through Kanbus.
+Git / PR policy: Rules for product-code commits, branch names, pull requests, and human approval live in this repository's AGENTS.md (outside this Kanbus section). CONTRIBUTING_AGENT.md covers Kanbus board mechanics such as `kbs commit`; follow AGENTS.md for product code and git workflow.
 
 This repository uses Kanbus, not Beads. Do not run `bd` or create/update Beads records.
 
 - Use the repository-local Kanbus project configured by `.kanbus.yml` for site implementation and operations work.
 - Use the standalone `anthus-semantic-knowledge-base` Kanbus project for newsroom story development, as described above.
 - Before implementation, create or update the appropriate Kanbus issue with `kbs` and move it to `in_progress`.
-- Record decisions, verification, and handoff notes with `kbs comment`.
+- Record decisions, verification, and handoff notes with `kbs comment` (include agent provenance: platform + model).
 - Never edit `project/issues/` or `project/events/` directly.
 - Run `kbs validate` before committing Kanbus changes.
 
