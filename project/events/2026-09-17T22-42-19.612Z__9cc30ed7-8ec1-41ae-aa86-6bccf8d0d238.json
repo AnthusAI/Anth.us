@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "9cc30ed7-8ec1-41ae-aa86-6bccf8d0d238",
+  "issue_id": "kanbus-6b332ef8-f66d-4954-a411-58f5ff0d13e7",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-17T22:42:19.612Z",
+  "actor_id": "home",
+  "payload": {
+    "assignee": null,
+    "description": "Test Anth.us Gatsby CI cache reuse and content changes without stale SSR/page-data mismatches; implement only a validated workflow and record build timing and route verification.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Safely reuse Gatsby build output in CI"
+  }
+}
