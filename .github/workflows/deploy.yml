@@ -37,7 +37,9 @@ jobs:
     - name: Restore Gatsby cache
       uses: actions/cache@v4
       with:
-        path: .cache
+        path: |
+          .cache
+          public
         key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
         restore-keys: |
           gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
@@ -46,21 +48,21 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    # Never restore or reuse public/: stale page-data/sq/d/*.json from a prior
-    # build can disagree with freshly generated HTML and wipe posts on hydrate.
-    - name: Clean public output
-      run: rm -rf public
-
     - name: Build Gatsby site
       run: npm run build
       env:
         CI: true
 
+    - name: Verify rendered posts match cached query data
+      run: node scripts/verify-gatsby-posts-cache.cjs
+
     - name: Save Gatsby cache
-      if: always()
+      if: success()
       uses: actions/cache@v4
       with:
-        path: .cache
+        path: |
+          .cache
+          public
         key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
 
     - name: Configure AWS credentials via OIDC
