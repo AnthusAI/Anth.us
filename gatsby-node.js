@@ -20,7 +20,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 }
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
 
   const contentResult = await graphql(`
     {
@@ -33,6 +33,7 @@ exports.createPages = async ({ graphql, actions }) => {
           frontmatter {
             title
             slug
+            redirect_from
             excerpt
             tags
             content_type
@@ -69,6 +70,15 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         id: node.id,
       },
+    })
+
+    ;(node.frontmatter.redirect_from || []).forEach(legacySlug => {
+      createRedirect({
+        fromPath: `/blog/${legacySlug}`,
+        toPath: `/blog/${node.frontmatter.slug}`,
+        isPermanent: true,
+        redirectInBrowser: true,
+      })
     })
   })
 
@@ -182,6 +192,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       date: Date @dateformat
       display_date: String
       slug: String
+      redirect_from: [String]
       excerpt: String
       tags: [String]
       state: String
