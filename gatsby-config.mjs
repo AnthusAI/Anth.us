@@ -118,6 +118,10 @@ export default {
           `**/README.md`,
           `**/.git/**`,
           `**/.gitignore`,
+          `**/*.IMAGE.md`,
+          `**/*.IMAGE.txt`,
+          `**/*.STYLE-NOTES.md`,
+          `**/*.STYLE-NOTES.txt`,
           // Posts are listed at /posts/ and served at /blog/{slug}/ via gatsby-node.
           `**/posts/**`,
         ],
@@ -128,7 +132,15 @@ export default {
       options: {
         name: `blog`,
         path: siteContentPath,
-        ignore: [`**/README.md`, `**/.git/**`, `**/.gitignore`],
+        ignore: [
+          `**/README.md`,
+          `**/.git/**`,
+          `**/.gitignore`,
+          `**/*.IMAGE.md`,
+          `**/*.IMAGE.txt`,
+          `**/*.STYLE-NOTES.md`,
+          `**/*.STYLE-NOTES.txt`,
+        ],
       },
     },
     {

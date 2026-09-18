@@ -1,0 +1,35 @@
+{
+  "id": "kanbus-6b332ef8-f66d-4954-a411-58f5ff0d13e7",
+  "title": "Safely reuse Gatsby build output in CI",
+  "description": "Test Anth.us Gatsby CI cache reuse and content changes without stale SSR/page-data mismatches; implement only a validated workflow and record build timing and route verification.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "7a0f5433-f9f8-4b29-9dd0-9a970dd1bf00",
+      "author": "home",
+      "text": "Implemented the cache experiment and a CI consistency guard. The output guard checks every homepage recent-post slug and excerpt against Gatsby static-query data before caching/deploying. Local production-build timings with reused .cache/public: warm unchanged 15.86s; added post 20.96s; updated same slug 19.39s; removal 19.74s; homepage same-slug update check: 18.97s; removal 18.73s. Added/updated/deleted post route, posts-list page-data, homepage SSR, and homepage static-query results remained consistent with no stale fixture after removal. Rule-based guard passes current output and rejects a deliberately stale excerpt fixture. Initial local build processed 653 sharp jobs in 243s. Cache warm speedup is proven locally; Actions restore/upload overhead still needs measurement on the first GitHub run.",
+      "created_at": "2026-09-17T22:52:47.481209Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "cb9b3ae9-9f48-40f6-9c33-b3e3f60d41e3",
+      "author": "home",
+      "text": "Implemented and validated safe reuse of Gatsby .cache and public on site deploys, with a post-query vs homepage HTML consistency guard. Local warm incremental builds were 16–21 seconds across unchanged, add, edit, and delete scenarios; GitHub Actions restore/save duration remains to be measured on the first CI run.",
+      "created_at": "2026-09-17T22:54:49.532730Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-17T22:42:19.612115Z",
+  "updated_at": "2026-09-17T22:54:49.532745Z",
+  "closed_at": "2026-09-17T22:54:49.463244Z",
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -5,7 +5,6 @@ import { MDXProvider } from "@mdx-js/react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import BlogImage from "../components/blog-image"
-import AudioNative from "../components/AudioNative"
 import MDXCode from "../components/MDXCode"
 import {
   CitationsProvider,
@@ -14,7 +13,7 @@ import {
 } from "gatsby-citation-manager"
 import * as styles from "../components/platform.module.css"
 
-const shortcodes = { BlogImage, Citation, CitationsList, MDXCode, AudioNative }
+const shortcodes = { BlogImage, Citation, CitationsList, MDXCode }
 
 const platformRelationships = {
   plexus: {

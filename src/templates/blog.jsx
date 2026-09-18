@@ -3,6 +3,7 @@ import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { formatPostDate } from "../utils/format-post-date"
 
 const CollectionTemplate = ({ data }) => {
   const publishedPosts = data.publishedPosts.edges
@@ -27,7 +28,7 @@ const CollectionTemplate = ({ data }) => {
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
                     <div className="date">
-                      {formatDate(node.frontmatter.date)}
+                      {formatPostDate(node.frontmatter.date)}
                     </div>
                     <p
                       dangerouslySetInnerHTML={{
@@ -141,8 +142,3 @@ export const Head = () => {
 }
 
 export default CollectionTemplate
-
-const formatDate = dateString => {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(dateString).toLocaleDateString(undefined, options)
-}

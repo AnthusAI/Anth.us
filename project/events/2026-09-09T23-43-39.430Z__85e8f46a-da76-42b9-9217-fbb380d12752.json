@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "event_id": "85e8f46a-da76-42b9-9217-fbb380d12752",
+  "issue_id": "kanbus-f709c372-db12-40dd-a0fa-8531a2da41be",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-09T23:43:39.430Z",
+  "actor_id": "box",
+  "payload": {
+    "title": "Interconnect: Grok Bot essay → chattic.us",
+    "description": "## Status\nFILE ONLY — do not edit the essay until Ryan says go.\n\n## Page\nhttps://anth.us/blog/grok-bot-gave-my-coding-agents-a-boss/\n\n## Change (when approved)\nAdd a natural sentence and link to https://chattic.us\n\n## Why\nChatticus already lists this essay as thinking behind the product; readers who start on the essay never get a path into chattic.us.\n\n## Source\nRyan interconnect decisions via Publicist (2026-09-09). Anth.us only — no LinkedIn.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [
+      "interconnect"
+    ]
+  }
+}
