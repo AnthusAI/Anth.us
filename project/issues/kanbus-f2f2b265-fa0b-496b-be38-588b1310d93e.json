@@ -1,0 +1,28 @@
+{
+  "id": "kanbus-f2f2b265-fa0b-496b-be38-588b1310d93e",
+  "title": "Remove ElevenLabs AudioNative from Anth.us pages",
+  "description": "",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "3dc30259-1eaf-4534-8678-c2b5667be1e8",
+      "author": "home",
+      "text": "Removed the site-wide AudioNative injection from article pages and removed its shortcode wiring from platform-product pages; deleted both unused ElevenLabs AudioNative component implementations. Content scan found no remaining page-authored embeds. Gatsby production build completed and all page HTML plus JS bundles referenced from generated HTML are free of AudioNative.",
+      "created_at": "2026-09-18T12:17:10.218169Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-18T12:15:08.216029Z",
+  "updated_at": "2026-09-18T12:17:10.218184Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
