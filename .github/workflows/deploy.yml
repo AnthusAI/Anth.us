@@ -53,8 +53,14 @@ jobs:
       env:
         CI: true
 
+    - name: Normalize and verify embedded global CSS
+      run: node scripts/normalize-gatsby-inline-css.cjs
+
+    - name: Verify rendered posts match cached query data
+      run: node scripts/verify-gatsby-posts-cache.cjs
+
     - name: Save Gatsby cache
-      if: always()
+      if: success()
       uses: actions/cache@v4
       with:
         path: |

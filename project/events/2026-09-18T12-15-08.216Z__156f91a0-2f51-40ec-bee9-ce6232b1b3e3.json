@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "156f91a0-2f51-40ec-bee9-ce6232b1b3e3",
+  "issue_id": "kanbus-f2f2b265-fa0b-496b-be38-588b1310d93e",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-18T12:15:08.216Z",
+  "actor_id": "home",
+  "payload": {
+    "assignee": null,
+    "description": "",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Remove ElevenLabs AudioNative from Anth.us pages"
+  }
+}

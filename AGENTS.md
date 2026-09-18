@@ -160,7 +160,7 @@ When asked to create a post from an external article URL, follow this workflow:
    - Source link in the opening paragraph (`[Title](URL)`).
    - Two sections: `## Why it matters` and `## Key technical notes` (rename if necessary) summarizing the findings and Anth.us perspective.
 7. **Source attribution**: Link back to the original URL in-body and mention any quoted figures. If multiple sources, add bullet list of references at the bottom.
-8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free. Excerpt is what `/posts/` shows as the headline — it must be recognizable. Do not call it live or shareable until the [ship gate](#ship-gate-production-preview) passes on production.
+8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free. Before saying a post is live or sharing its URL, pass the [production ship gate](#ship-gate-production-preview).
 
 ## Image Guidelines
 
@@ -220,54 +220,18 @@ If any check fails, fix it, wait for production to match, and re-check. Only the
 
 ## Editorial Guidelines
 
+House voice lives in one place: [`src/site-content/README.md`](src/site-content/README.md#voice)
+(prose) and `publications/anthus/style-profile.yml` in the Papyrus repo
+(the same rules, structured so [Limatus](https://github.com/AnthusAI/Limatus)
+can check a draft against them automatically). Read both before writing —
+don't restate them here, since a second copy of the rules is exactly how
+this section drifted out of date before. That YAML is also the single
+source Limatus's `diagnose`/`options`/`verify` commands read; a copyediting
+agent and a copywriting agent should be reading the same file.
 
-### Voice and Tone
-
-Chatticus house voice lives in `Chattic.us-web/content/VOICE.md` (register, specifics-over-intensifiers, surface postures). Anth.us writing follows that bar for articles, short posts, and platform copy — same peer register, contractions, checkable claims. There is **no** separate Agent Zoo section or desk on anth.us, and do not resurrect `AGENT_ZOO.md`.
-
-**Category / field-coverage pieces** (dated receipts of how agent workplaces and model routing actually run — named orgs, what moved, checkable numbers) should write from the **Agent Zoo** posture in that VOICE.md file: wonder from specifics — curious, delighted, a little astonished — staying exact about what happened. Wonder is not credulity and not a catchphrase.
-
-- **Wonder from specifics.** Energy comes from the surprising number, the named swap, the scene — never from intensifiers (revolutionary, seamless, powerful, etc.).
-- **Enthusiastic but grounded** about AI possibilities; confident and aspirational, not hedging.
-- **Warm communal register.** Prefer "people and bots" / peer language over "humans and AI" corporate speak or press-office distance. Anthus is a participant, not an outside reviewer of itself.
-- **Professional yet conversational.** Pithy, direct, engineering-focused. Smoother, more accessible, more engaging, more open than formal essay-speak.
-- **Use contractions.** Write it the way you would say it: It's, don't, we're, that's. Never It is when It's is what you mean.
-- Share experiences without claiming invention. Demonstrate expertise through helpful insights, not direct claims.
-
-### Honesty and claims
-
-- **No hedging empty-states.** Do not write "coming soon," "we're just getting started," "still early," or apologetic framing. Say what's true plainly. For not-yet-shipped work, use a live / proven / shipping-next pattern when a roadmap strip is needed — never false present tense.
-- **Checkable claims.** Anything claimed about Anthus products or delivery must be checkable against real code, docs, or production. Cite real numbers only when sourced; don't round up.
-- **At most one "X, not Y" contrast per page.** That pattern is the most overused AI-writing tell; use it sparingly if at all.
-- Lead with the reader's problem, not the vendor's cleverness.
-
-### Content Approach
-
-- Lead with practical value and real-world applications
-- Include specific, actionable insights from hands-on experience
-- Frame as "tips and learnings" not "teachings"
-- Use concrete examples showcasing AI/ML familiarity
-- Focus on business value and practical applications
-
-### Writing Style
-
-- Use active voice and present tense
-- Use contractions. Do not write formal speech like "It is" when "It's" is the spoken line
-- Keep paragraphs focused and concise
-- Include technical details with business relevance
-- Balance technical depth with accessibility
-- Maintain helpful, peer-to-peer tone
-- **NO EMOJIS** (especially in excerpts)
-
-### Excerpt Guidelines
-
-Excerpts should:
-
-- Serve as standalone super-pithy microblog posts for social media
-- Be direct and engineering-focused
-- Avoid emojis completely
-- Capture the essence in one compelling sentence or short paragraph
-- On `/` and `/posts/`, **title** is the list headline and **excerpt** is the blurb (excerpt is omitted when it duplicates the title). Make both recognizable.
+Excerpts follow the same voice, with one addition: they're standalone,
+one-sentence-or-short-paragraph microblog posts for social media — no
+emojis, ever.
 
 ## Strategic Marketing Terminology
 
@@ -440,7 +404,7 @@ If you see import errors for CSS classes:
 - Ensure links work (internal and external)
 - Validate MDX syntax compiles without errors
 - Confirm tags are correct for content type
-- After deploy: pass the ship gate on the **production** URL (working cover + `og:image` + `summary_large_image`). Do not treat git as live.
+- After deployment, pass the [production ship gate](#ship-gate-production-preview); Git alone does not make content live.
 
 ## Board names (Ryan)
 
@@ -455,16 +419,30 @@ kbs list
 
 Papyrus `develop` can mount the same repo as a submodule at `pods/anthus-blog`. That path is live only in a checkout that has `.gitmodules` (usually `~/Projects/Papyrus-worktrees/develop-blog-bdd-7dc0`). The default `~/Projects/Papyrus` tree is often a feature branch whose `pods/anthus-blog` is still the old **empty template**. If `kbs list` shows no stories, you are in the stale copy. Do not conclude the board is empty.
 
-## Project management (Kanbus)
+## Project management with Kanbus
+
+Use Kanbus for task management.
+Why: Kanbus task management is MANDATORY here; every task must live in Kanbus.
+When: Create/update the Kanbus task before coding; close it only after the change lands.
+How: See CONTRIBUTING_AGENT.md for the Kanbus workflow, hierarchy, status rules, priorities, command examples, and the mistakes to avoid. Never inspect project/ or issue JSON directly (including with cat or jq); use Kanbus commands only.
+Performance: Prefer kbs (Rust) when available; kanbus (Python) is equivalent but slower.
+Warning: Editing project/ directly violates The Way. Do not read or write anything in project/; work only through Kanbus.
+Git / PR policy: Rules for product-code commits, branch names, pull requests, and human approval live in this repository's AGENTS.md (outside this Kanbus section). CONTRIBUTING_AGENT.md covers Kanbus board mechanics such as `kbs commit`; follow AGENTS.md for product code and git workflow.
 
 This repository uses Kanbus, not Beads. Do not run `bd` or create/update Beads records.
 
 - Use the repository-local Kanbus project configured by `.kanbus.yml` for site implementation and operations work.
 - Use the standalone `anthus-semantic-knowledge-base` Kanbus project for newsroom story development, as described above.
 - Before implementation, create or update the appropriate Kanbus issue with `kbs` and move it to `in_progress`.
-- Record decisions, verification, and handoff notes with `kbs comment`.
+- Record decisions, verification, and handoff notes with `kbs comment` (include agent provenance: platform + model).
 - Never edit `project/issues/` or `project/events/` directly.
 - Run `kbs validate` before committing Kanbus changes.
+
+## Git workflow
+
+`develop` is the integration branch. Open product and site-operation pull requests against `develop`, and merge accepted changes there after required checks pass.
+
+`main` is the release branch and the only branch that deploys to production. Promote `develop` to `main` when releasing; do not merge routine work directly into `main`. A merge to `develop` is not a production release.
 
 ## Deployment
 
@@ -482,7 +460,6 @@ Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-
 - **Never run `npm run dev`** - use `npm start` or `gatsby develop` instead
 - Don't run type checking (it takes too long)
 - Always create images before creating content files
-- Never ship or share a post until production has a working cover and social preview (see Ship gate)
 - Use the exact frontmatter structure shown in examples
 - Follow the editorial guidelines for voice and tone
 - Reference `docs/content-guide.xml` for detailed content creation instructions

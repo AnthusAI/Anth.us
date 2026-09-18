@@ -6,6 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Hero from "../components/hero"
 import * as styles from "../components/index.module.css"
+import { formatPostDate } from "../utils/format-post-date"
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
 const contactUrl =
@@ -69,6 +70,7 @@ const IndexPage = () => {
               date
               slug
               excerpt
+              external_url
               state
               preview_image {
                 childImageSharp {
@@ -387,17 +389,28 @@ const IndexPage = () => {
       <ul className="blog">
         {data.recentArticles.edges.map(({ node }) => {
           const previewImage = getImage(node.frontmatter.preview_image)
+          const { external_url, slug, title } = node.frontmatter
+          const cardLink = external_url
+            ? { href: external_url, isExternal: true }
+            : { href: `/blog/${slug}`, isExternal: false }
+          const cardMedia = (
+            <>
+              <GatsbyImage
+                image={previewImage}
+                alt={title}
+                className="right"
+              />
+              <h3>{title}</h3>
+            </>
+          )
           return (
             <div className="blog-post-preview" key={node.id}>
               <li className="clear-float">
-                <Link to={`/blog/` + node.frontmatter.slug}>
-                  <GatsbyImage
-                    image={previewImage}
-                    alt={node.frontmatter.title}
-                    className="right"
-                  />
-                  <h3>{node.frontmatter.title}</h3>
-                </Link>
+                {cardLink.isExternal ? (
+                  <a href={cardLink.href}>{cardMedia}</a>
+                ) : (
+                  <Link to={cardLink.href}>{cardMedia}</Link>
+                )}
                 <div className="date">{node.frontmatter.date}</div>
                 <div
                   dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }}
@@ -423,10 +436,18 @@ const IndexPage = () => {
                 {/* Was a <p> wrapping <div>s, which is invalid nesting and threw a
                     validateDOMNesting warning on every render. */}
                 <div>
-                  <div>{node.frontmatter.excerpt}</div>
+                  <div className={styles.listItemTitle}>
+                    {node.frontmatter.title}
+                  </div>
+                  {node.frontmatter.excerpt?.trim() !==
+                    node.frontmatter.title?.trim() && (
+                    <div className={styles.listItemDescription}>
+                      {node.frontmatter.excerpt}
+                    </div>
+                  )}
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>
-                      {formatDate(node.frontmatter.date)}
+                      {formatPostDate(node.frontmatter.date)}
                     </div>
                     <div>
                       <i>more...</i>
@@ -435,7 +456,7 @@ const IndexPage = () => {
                 </div>
                 <GatsbyImage
                   image={getImage(node.frontmatter.preview_image)}
-                  alt={node.frontmatter.excerpt}
+                  alt={node.frontmatter.title}
                 />
               </Link>
             </div>
@@ -465,8 +486,3 @@ export const Head = () => {
 }
 
 export default IndexPage
-
-const formatDate = dateString => {
-  const options = { year: "numeric", month: "long", day: "numeric" }
-  return new Date(dateString).toLocaleDateString(undefined, options)
-}
