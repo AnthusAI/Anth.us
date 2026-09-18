@@ -10,6 +10,10 @@ frontend:
       commands:
         - nvm use 22
         - npm ci --cache .npm --prefer-offline
+        # Keep the cache input limited to content-addressed image derivatives.
+        # Gatsby's build state includes source-directory-specific static-query IDs.
+        - rm -rf .cache
+        - find public -mindepth 1 -maxdepth 1 ! -name static -exec rm -rf {} +
     build:
       commands:
         - npm run build
@@ -19,9 +23,7 @@ frontend:
       - "**/*"
   cache:
     paths:
-      - .cache/**/*
-      # Gatsby's development webpack cache can grow past Amplify's 5 GB cache limit.
-      # Rebuilding it costs seconds; preserving Gatsby data and generated assets saves minutes.
-      - "!.cache/webpack/**/*"
-      - public/**/*
+      # Gatsby's state and page-data caches are not portable between Amplify
+      # build directories. Its content-addressed image derivatives are.
+      - public/static/**/*
       - .npm/**/*
