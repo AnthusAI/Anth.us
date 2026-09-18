@@ -1,4 +1,9 @@
 version: 1
+env:
+  variables:
+    # Amplify's Standard build machine has four vCPUs; Gatsby otherwise defaults
+    # to a smaller physical-core count when generating static image derivatives.
+    GATSBY_CPU_COUNT: "4"
 frontend:
   phases:
     preBuild:
