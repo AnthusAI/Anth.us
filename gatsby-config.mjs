@@ -85,7 +85,7 @@ export default {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `Jersey 10:400`,
+          `Jersey 25:400`,
           `Geist Mono:400,500`,
           `Montserrat:400,500,600,900`,
         ],
