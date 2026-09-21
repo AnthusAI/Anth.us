@@ -275,25 +275,22 @@ def chart_finetune(paired, arms, layout):
     a, b, d = arms[("A", 140)], arms[("B", 140)], arms[("D", 140)]
     sa, sb, sd = stat(a, "paper600_accuracy"), stat(b, "paper600_accuracy"), stat(d, "paper600_accuracy")
     items = [
-        ("Laya\nalone", paired[("laya", "alone")]["accuracy"], None, MAGENTA, "alone"),
         ("Laya\nhead-only\nfine-tune", sb[0], sb[1:], MAGENTA, "tuned"),
+        ("Laya\nalone", paired[("laya", "alone")]["accuracy"], None, MAGENTA, "alone"),
+        ("Jev\nalone", paired[("jev", "alone")]["accuracy"], None, BLUE, "alone"),
         ("Laya\nwith the layer", paired[("laya", "layer")]["accuracy"], None, MAGENTA, "layer"),
         ("DistilBERT\nfine-tune", sd[0], sd[1:], GRAY, "tuned"),
         ("Jev\nwith the layer", paired[("jev", "layer")]["accuracy"], None, BLUE, "layer"),
         ("Laya\nfull\nfine-tune", sa[0], sa[1:], MAGENTA, "tuned"),
     ]
-    fig, axes, scale, orient, top = new_figure(
-        layout,
-        f"On the same 140 labels, fully fine-tuning Laya ({sa[0]:.3f}) beats the layer on accuracy",
-        "Held-out accuracy on the same 600 items. Fine-tuned bars are the mean of 3 seeds; the black line spans "
-        "the seeds. Head-only fine-tuning landed below untuned Laya.")
+    # No subtitle and no legend: every bar is labelled with its engine and its method, and the
+    # article's caption carries the detail. A social image gets one line to land.
+    fig, axes, scale, orient, top = new_figure(layout, "Same 140 labels. Retraining Laya wins.", "")
+    if orient == "h":
+        items = items[::-1]   # winner on top when the bars are horizontal
     bars(axes[0][0], orient, scale, items, 0.5, 0.97, value_label="held-out accuracy")
-    legend(fig, scale, top + 0.012, ncol=3 if orient == "v" else 1)
-    footer = LAYOUTS[layout][3]
-    note(fig, scale, "Source: Jev-Flywheel studies/finetune_laya.jsonl (arms A, B, D) and studies/laya_paired.jsonl. "
-         "A templated corpus with a lexical cue flatters any text classifier.", footer=footer)
     fig.subplots_adjust(left=0.27 if orient == "h" else 0.09, right=0.93,
-                        top=top - (0.05 if orient == "v" else 0.11), bottom=0.2 if orient == "v" else 0.19)
+                        top=top + 0.02, bottom=0.2 if orient == "v" else 0.19)
     save(fig, "finetune", layout)
 
 
