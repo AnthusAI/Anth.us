@@ -80,6 +80,7 @@ def mean(values):
 
 def new_figure(layout, title, subtitle, nrows=1, ncols=1, panel_titles=False, **grid):
     """A figure with a left-aligned title block; the axes start below it however many lines it has."""
+    subtitle = ""   # one line to land on social; captions carry the rest
     size, scale, footer = LAYOUTS[layout]
     fig, axes = plt.subplots(nrows, ncols, figsize=size, dpi=DPI, squeeze=False, **grid)
     fig.patch.set_facecolor(BACKGROUND)
@@ -91,7 +92,6 @@ def new_figure(layout, title, subtitle, nrows=1, ncols=1, panel_titles=False, **
     y -= (title.count("\n") + 1) * title_size * 1.22 / points + 0.012
     fig.text(0.04, y, subtitle, fontsize=sub_size, color=MUTED, va="top", ha="left",
              linespacing=1.3)
-    y -= (subtitle.count("\n") + 1) * sub_size * 1.4 / points
     y -= (0.075 if panel_titles else 0.035)
     fig.subplots_adjust(left=0.08, right=0.96, top=y, bottom=0.12 if not footer else 0.10)
     for ax in axes.flat:
@@ -112,24 +112,33 @@ def wrap_title(text, layout):
 
 
 def reclaim_bottom(fig, floor=0.11):
-    """Footers are gone (captions carry sources), so stretch the panels down into that space.
-    A figure-level legend under the panels keeps its place and raises the floor."""
+    """Subtitles and footers are gone (the article captions carry detail), so stretch the panels
+    into that space: up to just under the title block, down to just above the bottom edge.
+    A figure-level legend keeps its place and moves the limit."""
     axes = [a for a in fig.axes if a.get_visible()]
     if not axes:
         return
-    def anchor_y(legend):
-        box = legend.get_bbox_to_anchor().transformed(fig.transFigure.inverted())
-        return box.y0
-    if any(anchor_y(l) < 0.3 for l in fig.legends):
-        floor = max(floor, 0.2)   # a legend under the panels keeps its place
+    fig.canvas.draw()
+    inv = fig.transFigure.inverted()
+    ceiling = 1.0
+    for item in list(fig.texts) + list(fig.legends):
+        if hasattr(item, "get_text") and not item.get_text().strip():
+            continue
+        box = item.get_window_extent().transformed(inv)
+        if box.y0 > 0.5:
+            ceiling = min(ceiling, box.y0)
+        elif box.y1 < 0.3 and item in fig.legends:
+            floor = max(floor, box.y1 + 0.115)   # room for ticks and the axis label above it
+    titled = any(a.get_title(loc=loc) for a in axes for loc in ("left", "center", "right"))
+    ceiling -= 0.075 if titled else 0.04
     top = max(a.get_position().y1 for a in axes)
     low = min(a.get_position().y0 for a in axes)
-    if low <= floor + 0.01:
+    if ceiling <= low + 0.2:
         return
-    k = (top - floor) / (top - low)
+    k = (ceiling - floor) / (top - low)
     for a in axes:
         p = a.get_position()
-        a.set_position([p.x0, top - (top - p.y0) * k, p.width, p.height * k])
+        a.set_position([p.x0, ceiling - (top - p.y0) * k, p.width, p.height * k])
 
 
 def save(fig, name, layout):
@@ -149,8 +158,7 @@ def save(fig, name, layout):
 
 def chart_students(distill, layout):
     stacked = layout in ("portrait", "square")
-    title = wrap_title("Scored against the human label, | both distilled students beat "
-                       "their teacher", layout)
+    title = wrap_title("The small student beat || its hosted teacher.", layout)
     fig, axes, s = new_figure(
         layout, title,
         "3,521 held-out items, three seeds each (dot = mean, bar = min to max). Students are "
@@ -229,8 +237,7 @@ def chart_gate(distill, layout):
     slices.sort(key=lambda k: (order[k.split("/")[0]], k))
     topic = {"sports_or_recreation": "sports", "business_or_workplace": "workplace",
              "something_else": "neither"}
-    title = wrap_title("The per-slice gate: || 10 of 11 slices cleared in every seed, | the "
-                       "eleventh in 2 of 3", layout)
+    title = wrap_title("Where may the student answer? || 10 of 11 slices pass.", layout)
     fig, axes, s = new_figure(
         layout, title,
         "Student accuracy minus teacher accuracy, in points, against the human label. "
@@ -282,8 +289,7 @@ def chart_cascade(distill, layout):
     teacher = rows[0]["teacher_acc_vs_human"]
     casc = [mean([r["cascade"][t]["cascade_acc"] for r in rows]) for t in thresholds]
     cover = [mean([r["cascade"][t]["coverage"] for r in rows]) for t in thresholds]
-    title = wrap_title("The cascade never beat the student alone: | handing items back to "
-                       "the teacher cost accuracy", layout)
+    title = wrap_title("Handing hard items back to || the teacher didn't help.", layout)
     fig, axes, s = new_figure(
         layout, title,
         "Student answers when its calibrated confidence clears the threshold; the teacher takes "
@@ -331,8 +337,7 @@ def chart_label_source(distill, arm_d, layout):
         title = "Same 140 human labels, same DistilBERT:\n0.828 trained on them, 0.912 distilled"
         subtitle = "Accuracy against the human label on 3,521 held-out items, three seeds each"
     else:
-        title = wrap_title("Same 140 human labels, || same DistilBERT: | 0.828 trained on them, || "
-                           "0.912 distilled through the flywheel", layout)
+        title = wrap_title("Same 140 human labels. || Distilling beats training on them.", layout)
         subtitle = ("Accuracy against the human label on the same 3,521 held-out items. Bar = mean "
                     "of three seeds, whisker = min to max." if layout == "wide" else
                     "Accuracy against the human label, 3,521 held-out items.\nBar = mean of three "
