@@ -125,7 +125,7 @@ def new_figure(layout, title, subtitle, nrows=1, ncols=1):
     fig.text(0.06, 0.965 - lines * (0.036 if tall else 0.058) - 0.008, wrap(subtitle, wrap_at + 24),
              fontsize=13.5 * scale, color=MUTED, va="top", ha="left", linespacing=1.3)
     if footer:
-        fig.text(0.06, 0.018, f"anth.us/blog/{SLUG}", fontsize=13 * scale, color=MUTED, ha="left")
+        pass
     sub_lines = wrap(subtitle, wrap_at + 24).count("\n") + 1
     top = (0.965 - lines * (0.036 if tall else 0.058) - 0.008
            - sub_lines * (0.021 if tall else 0.03) - (0.035 if tall else 0.05))
@@ -180,7 +180,30 @@ def legend(fig, scale, y, entries=("alone", "layer", "tuned"), ncol=3, x=0.06):
                fontsize=13 * scale, labelcolor=INK, handlelength=2.2, columnspacing=1.8)
 
 
+def reclaim_bottom(fig, floor=0.11):
+    """Footers are gone (captions carry sources), so stretch the panels down into that space.
+    A figure-level legend under the panels keeps its place and raises the floor."""
+    axes = [a for a in fig.axes if a.get_visible()]
+    if not axes:
+        return
+    def anchor_y(legend):
+        box = legend.get_bbox_to_anchor().transformed(fig.transFigure.inverted())
+        return box.y0
+    if any(anchor_y(l) < 0.3 for l in fig.legends):
+        floor = max(floor, 0.2)   # a legend under the panels keeps its place
+    top = max(a.get_position().y1 for a in axes)
+    low = min(a.get_position().y0 for a in axes)
+    if low <= floor + 0.01:
+        return
+    k = (top - floor) / (top - low)
+    for a in axes:
+        p = a.get_position()
+        a.set_position([p.x0, top - (top - p.y0) * k, p.width, p.height * k])
+
+
 def save(fig, name, layout):
+    if layout != "cover":
+        reclaim_bottom(fig)
     if layout in ("wide", "cover"):
         out = IMAGES / f"{SLUG}-{name}.png"
     else:
@@ -193,6 +216,7 @@ def save(fig, name, layout):
 
 
 def note(fig, scale, text, y=0.045, footer=False):
+    return  # no source notes on the images: the article captions carry them
     if footer:
         text = wrap(text, 92)
     fig.text(0.06, y + (0.012 if footer else 0), text, fontsize=11.5 * scale, color=MUTED, ha="left", va="bottom",
@@ -388,7 +412,6 @@ def chart_cover(paired, arms, layout="cover"):
              color=INK, va="top", linespacing=1.12)
     fig.text(0.06, 0.27, "Same 140 labels, same questions, same test items.\nOnly Laya's weights are open, so only\nLaya can be retrained.",
              fontsize=15.5, color=MUTED, va="top", linespacing=1.4)
-    fig.text(0.06, 0.05, "anth.us", fontsize=15, color=BLUE, fontweight="bold", va="bottom")
     ax = fig.add_axes([0.58, 0.17, 0.37, 0.70])
     ax.set_facecolor(PANEL)
     for side in ax.spines.values():
