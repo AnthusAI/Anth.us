@@ -94,9 +94,6 @@ def new_figure(layout, title, subtitle, nrows=1, ncols=1, panel_titles=False, **
     y -= (subtitle.count("\n") + 1) * sub_size * 1.4 / points
     y -= (0.075 if panel_titles else 0.035)
     fig.subplots_adjust(left=0.08, right=0.96, top=y, bottom=0.12 if not footer else 0.10)
-    if footer:
-        fig.text(0.96, 0.022, f"anth.us/blog/{SLUG}", fontsize=13 * scale, color=MUTED,
-                 ha="right", va="bottom")
     for ax in axes.flat:
         ax.set_facecolor(PANEL)
         for side in ("top", "right"):
@@ -114,7 +111,30 @@ def wrap_title(text, layout):
     return text.replace(" || ", "\n" if narrow else " ").replace(" | ", "\n")
 
 
+def reclaim_bottom(fig, floor=0.11):
+    """Footers are gone (captions carry sources), so stretch the panels down into that space.
+    A figure-level legend under the panels keeps its place and raises the floor."""
+    axes = [a for a in fig.axes if a.get_visible()]
+    if not axes:
+        return
+    def anchor_y(legend):
+        box = legend.get_bbox_to_anchor().transformed(fig.transFigure.inverted())
+        return box.y0
+    if any(anchor_y(l) < 0.3 for l in fig.legends):
+        floor = max(floor, 0.2)   # a legend under the panels keeps its place
+    top = max(a.get_position().y1 for a in axes)
+    low = min(a.get_position().y0 for a in axes)
+    if low <= floor + 0.01:
+        return
+    k = (top - floor) / (top - low)
+    for a in axes:
+        p = a.get_position()
+        a.set_position([p.x0, top - (top - p.y0) * k, p.width, p.height * k])
+
+
 def save(fig, name, layout):
+    if layout != "cover":
+        reclaim_bottom(fig)
     if layout in ("wide", "cover"):
         out = IMAGES / f"{SLUG}-{name}.png"
     else:
@@ -355,7 +375,6 @@ def chart_cover(distill):
              color=INK, va="top", linespacing=1.12)
     fig.text(0.06, 0.225, "The student never saw a human label.\n66M parameters, 5 to 15 ms an item on a laptop.",
              fontsize=15.5, color=MUTED, va="top", linespacing=1.4)
-    fig.text(0.06, 0.05, "anth.us", fontsize=15, color="#0389d7", fontweight="bold", va="bottom")
     ax = fig.add_axes([0.62, 0.17, 0.32, 0.70])
     ax.set_facecolor(PANEL)
     for side in ax.spines.values():

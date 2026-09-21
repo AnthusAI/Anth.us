@@ -153,6 +153,8 @@ def headline(fig, layout, title, subtitle):
 
 
 def footer(fig, layout, note):
+    return  # no footers: the article captions carry sources and caveats
+
     k = scale(layout)
     if layout in ("portrait", "square"):
         # Social: re-wrap the note for the narrow canvas and give the URL its own line.
@@ -165,7 +167,30 @@ def footer(fig, layout, note):
     fig.text(0.05, 0.028, note, fontsize=11 * k, color=MUTED, va="bottom", linespacing=1.35)
 
 
+def reclaim_bottom(fig, floor=0.11):
+    """Footers are gone (captions carry sources), so stretch the panels down into that space.
+    A figure-level legend under the panels keeps its place and raises the floor."""
+    axes = [a for a in fig.axes if a.get_visible()]
+    if not axes:
+        return
+    def anchor_y(legend):
+        box = legend.get_bbox_to_anchor().transformed(fig.transFigure.inverted())
+        return box.y0
+    if any(anchor_y(l) < 0.3 for l in fig.legends):
+        floor = max(floor, 0.2)   # a legend under the panels keeps its place
+    top = max(a.get_position().y1 for a in axes)
+    low = min(a.get_position().y0 for a in axes)
+    if low <= floor + 0.01:
+        return
+    k = (top - floor) / (top - low)
+    for a in axes:
+        p = a.get_position()
+        a.set_position([p.x0, top - (top - p.y0) * k, p.width, p.height * k])
+
+
 def save(fig, name, layout):
+    if layout != "cover":
+        reclaim_bottom(fig)
     if layout in ("landscape", "cover"):
         out = IMAGES / f"{SLUG}-{name}.png"
     else:
@@ -210,7 +235,7 @@ def chart_refit_vs_steer(layout):
     ece_ax, acc_ax = axes   # calibration first: it starts improving with the very first refit
     version_bars(acc_ax, versions, "accuracy", k, "{:.3f}", (0.6, 0.93), "Held-out accuracy")
     version_bars(ece_ax, versions, "ece", k, "{:.3f}", (0, 0.185),
-                 "Calibration error (ECE), lower is better")
+                 "Calibration error (lower is better)")
     acc_ax.set_title("Then, accuracy: only the new question moves it",
                      fontsize=15 * k, color=INK, loc="left", pad=12)
     ece_ax.set_title("First, calibration: every refit improves it", fontsize=15 * k, color=INK,
@@ -221,9 +246,7 @@ def chart_refit_vs_steer(layout):
     title = ("87 labels of refitting fixed calibration.\nOne new question fixed accuracy."
              if stacked else
              "87 labels of refitting fixed calibration. One new question fixed accuracy.")
-    headline(fig, layout, title,
-             f"Refits v1 to v3: {refit:+.1f} points of accuracy, ECE {v1['ece']:.3f} to "
-             f"{v3['ece']:.3f}.  Steering v3 to v4: {steer:+.1f} points.")
+    headline(fig, layout, title, "")
     footer(fig, layout, "One recorded run, replayable with `make demo`. Same 600 held-out "
                         "items for every version (about ±1.4 points, 1 s.e.).\n"
                         "Source: Jev-Flywheel studies/laya_paired.jsonl")
@@ -251,12 +274,12 @@ def chart_journey(layout):
     series = [
         (conf_ax, [v["ece"] * 100 for v in versions], "{:.0f} pts", (0, 19),
          "1. Its confidence got trustworthy right away",
-         "How far its stated confidence was from reality\n(points, lower is better)"),
+         "gap between its stated confidence and reality (points, lower is better)", "top"),
         (acc_ax, [v["accuracy"] * 100 for v in versions], "{:.0f}%", (70, 92),
          "2. Its accuracy jumped later, with one new question",
-         "How often it agreed with the reviewers"),
+         "how often it agreed with the reviewers", "bottom"),
     ]
-    for ax, ys, fmt, ylim, title, ylabel in series:
+    for ax, ys, fmt, ylim, title, ylabel, band_label in series:
         ax.axvspan(87, 140, color=BLUE_TINT, alpha=0.45, zorder=1)
         ax.plot(labels, ys, color=BLUE, linewidth=3.2 * k, marker="o", markersize=11 * k,
                 markerfacecolor=PANEL, markeredgewidth=3 * k, zorder=4)
@@ -268,11 +291,19 @@ def chart_journey(layout):
         ax.set_xticks(labels)
         ax.set_xticklabels(["start", "37", "87", "140"], fontsize=13 * k)
         ax.set_xlabel("rounds of agree-or-disagree feedback", fontsize=13.5 * k, color=INK, labelpad=8)
-        ax.set_ylabel(ylabel, fontsize=12.5 * k, color=INK)
         ax.set_yticks([])
         ax.set_title(title, fontsize=16 * k, color=INK, loc="left", pad=12, fontweight="bold")
-        ax.text(113.5, ylim[0] + (ylim[1] - ylim[0]) * 0.04, "the system adds\none new question",
-                ha="center", va="bottom", fontsize=12 * k, color=BLUE, fontweight="bold", zorder=5)
+        span = ylim[1] - ylim[0]
+        if band_label == "top":
+            ax.text(113.5, ylim[1] - span * 0.05, "the system adds\none new question", ha="center",
+                    va="top", fontsize=12 * k, color=BLUE, fontweight="bold", zorder=5)
+            ax.text(-8, ylim[0] + span * 0.05, ylabel, ha="left", va="bottom", fontsize=11.5 * k,
+                    color=MUTED, zorder=5)
+        else:
+            ax.text(113.5, ylim[0] + span * 0.04, "the system adds\none new question", ha="center",
+                    va="bottom", fontsize=12 * k, color=BLUE, fontweight="bold", zorder=5)
+            ax.text(-8, ylim[1] - span * 0.05, ylabel, ha="left", va="top", fontsize=11.5 * k,
+                    color=MUTED, zorder=5)
     title = ("Jev never changed. The system around it\nlearned in two steps."
              if stacked else "Jev never changed. The system around it learned in two steps.")
     headline(fig, layout, title,
@@ -393,7 +424,7 @@ def system_bars(ax, systems, key, k, xlim, xlabel, whiskers):
     ax.grid(axis="x", color=GRID, linewidth=1, zorder=0)
 
 
-LEGEND_Y = {"landscape": 0.085, "portrait": 0.105, "square": 0.12}
+LEGEND_Y = {"landscape": 0.03, "portrait": 0.03, "square": 0.03}
 
 
 def chart_finetune(layout):
@@ -456,7 +487,6 @@ def chart_cover(layout="cover"):
              color=BLUE, fontweight="bold", va="top")
     fig.text(0.06, 0.225, "140 rounds of agree-or-disagree feedback.\nNo fine-tuning. Jev's weights untouched.",
              fontsize=16.5, color=MUTED, va="top", linespacing=1.4)
-    fig.text(0.06, 0.05, "anth.us", fontsize=15, color=BLUE, fontweight="bold", va="bottom")
 
     ax = fig.add_axes([0.61, 0.17, 0.33, 0.70])
     ax.set_facecolor(PANEL)
