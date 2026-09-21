@@ -142,6 +142,7 @@ def scale(layout):
 
 
 def headline(fig, layout, title, subtitle):
+    subtitle = ""   # one line to land on social; captions carry the rest
     k = scale(layout)
     top = {"landscape": 0.945, "portrait": 0.962, "square": 0.955, "cover": 0.93}[layout]
     gap = {"landscape": 0.058, "portrait": 0.058, "square": 0.068, "cover": 0.08}[layout]
@@ -168,24 +169,33 @@ def footer(fig, layout, note):
 
 
 def reclaim_bottom(fig, floor=0.11):
-    """Footers are gone (captions carry sources), so stretch the panels down into that space.
-    A figure-level legend under the panels keeps its place and raises the floor."""
+    """Subtitles and footers are gone (the article captions carry detail), so stretch the panels
+    into that space: up to just under the title block, down to just above the bottom edge.
+    A figure-level legend keeps its place and moves the limit."""
     axes = [a for a in fig.axes if a.get_visible()]
     if not axes:
         return
-    def anchor_y(legend):
-        box = legend.get_bbox_to_anchor().transformed(fig.transFigure.inverted())
-        return box.y0
-    if any(anchor_y(l) < 0.3 for l in fig.legends):
-        floor = max(floor, 0.2)   # a legend under the panels keeps its place
+    fig.canvas.draw()
+    inv = fig.transFigure.inverted()
+    ceiling = 1.0
+    for item in list(fig.texts) + list(fig.legends):
+        if hasattr(item, "get_text") and not item.get_text().strip():
+            continue
+        box = item.get_window_extent().transformed(inv)
+        if box.y0 > 0.5:
+            ceiling = min(ceiling, box.y0)
+        elif box.y1 < 0.3 and item in fig.legends:
+            floor = max(floor, box.y1 + 0.115)   # room for ticks and the axis label above it
+    titled = any(a.get_title(loc=loc) for a in axes for loc in ("left", "center", "right"))
+    ceiling -= 0.075 if titled else 0.04
     top = max(a.get_position().y1 for a in axes)
     low = min(a.get_position().y0 for a in axes)
-    if low <= floor + 0.01:
+    if ceiling <= low + 0.2:
         return
-    k = (top - floor) / (top - low)
+    k = (ceiling - floor) / (top - low)
     for a in axes:
         p = a.get_position()
-        a.set_position([p.x0, top - (top - p.y0) * k, p.width, p.height * k])
+        a.set_position([p.x0, ceiling - (top - p.y0) * k, p.width, p.height * k])
 
 
 def save(fig, name, layout):
@@ -440,12 +450,6 @@ def chart_finetune(layout):
         ece_ax.set_yticklabels([])
     acc_ax.set_title("Accuracy", fontsize=15 * k, color=INK, loc="left", pad=10)
     ece_ax.set_title("Calibration error", fontsize=15 * k, color=INK, loc="left", pad=10)
-    fig.legend(handles=[
-        Patch(facecolor=GRAY_TINT, edgecolor=GRAY, label="engine alone"),
-        Patch(facecolor=GRAY, edgecolor=GRAY, label="with the flywheel layer"),
-        Patch(facecolor=PANEL, edgecolor=GRAY, hatch="///", label="gradient fine-tuned"),
-    ], loc="lower center", bbox_to_anchor=(0.5, LEGEND_Y[layout]), ncol=3, fontsize=12 * k,
-        frameon=False)
     wrap = "\n" if stacked else " "
     headline(fig, layout,
              f"Fine-tuning Laya wins accuracy.{wrap}The layer keeps calibration.",
