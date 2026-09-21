@@ -277,7 +277,9 @@ def chart_tiers(paired, arms, layout):
     size, scale, orient, footer = LAYOUTS[layout]
     a, d = arms[("A", 140)], arms[("D", 140)]
     systems = [
+        ("Jev alone", BLUE, "alone", lambda t: paired[("jev", "alone")]["by_tier"][t]),
         ("Jev with the layer", BLUE, "layer", lambda t: paired[("jev", "layer")]["by_tier"][t]),
+        ("Laya alone", MAGENTA, "alone", lambda t: paired[("laya", "alone")]["by_tier"][t]),
         ("Laya with the layer", MAGENTA, "layer", lambda t: paired[("laya", "layer")]["by_tier"][t]),
         ("Laya, full fine-tune", MAGENTA, "tuned", lambda t: tier_mean(a, t)),
         ("DistilBERT fine-tune", GRAY, "tuned", lambda t: tier_mean(d, t)),
@@ -289,22 +291,23 @@ def chart_tiers(paired, arms, layout):
         "Held-out accuracy by difficulty tier, 600 items (72 strong, 106 medium, 277 weak, 145 neutral). "
         "Fine-tuned systems are 3-seed means. Tier cells are small; read gaps of a few points as noise.")
     ax = axes[0][0]
-    width = 0.2
+    width = 0.84 / len(systems)
+    mid = (len(systems) - 1) / 2
     for si, (name, colour, method, get) in enumerate(systems):
         for ti, tier in enumerate(tiers):
             v = get(tier)
             if orient == "v":
-                x = ti + (si - 1.5) * width
+                x = ti + (si - mid) * width
                 ax.bar(x, v - 0.4, bottom=0.4, width=width * 0.9, zorder=3, **style(colour, method))
-                ax.text(x, v + 0.008, f"{v:.2f}", ha="center", va="bottom", fontsize=11.5 * scale, color=INK)
+                ax.text(x, v + 0.008, f"{v:.2f}", ha="center", va="bottom", fontsize=10 * scale, color=INK)
             else:
-                y = (len(tiers) - 1 - ti) - (si - 1.5) * width
+                y = (len(tiers) - 1 - ti) - (si - mid) * width
                 ax.barh(y, v - 0.4, left=0.4, height=width * 0.9, zorder=3, **style(colour, method))
                 ax.text(v + 0.006, y, f"{v:.2f}", ha="left", va="center", fontsize=12 * scale, color=INK)
     if orient == "v":
         ax.set_xticks(range(len(tiers)))
         ax.set_xticklabels(tiers, fontsize=15 * scale)
-        ax.set_ylim(0.4, 1.06)
+        ax.set_ylim(0.4, 1.12)
         ax.set_ylabel("held-out accuracy", fontsize=14 * scale, color=INK, labelpad=12)
         ax.grid(axis="y", color=GRID, zorder=0)
     else:
