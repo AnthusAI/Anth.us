@@ -366,7 +366,7 @@ def chart_curve(paired, arms, layout):
               "sizes on disk so far; still running: " + ", ".join(f"{n:,}" for n in pending))
     fig, axes, scale, orient, top = new_figure(
         layout,
-        "More labels help, then it flattens near 94%.",
+        "20 labels already beat the layer on Laya.",
         f"Arm C: full fine-tune on random pool draws, 3 seeds per size (dots), mean (line). Held-out accuracy, 600 items. "
         f"Showing {status}.")
     ax = axes[0][0]
@@ -377,9 +377,25 @@ def chart_curve(paired, arms, layout):
                    edgecolor=MAGENTA, linewidth=1.8, zorder=4)
         means.append(statistics.mean(r["paper600_accuracy"] for r in rows))
     ax.plot(sizes, means, color=MAGENTA, linewidth=3, zorder=3)
+    all_sizes = list(sizes)
+    # exploratory small budgets (not pre-registered): lighter marks and a dashed lead-in
+    small = defaultdict(list)
+    for r in read_jsonl(STUDIES / "finetune_laya.jsonl"):
+        if r.get("exploratory") and r["arm"] == "C":
+            small[r["n_labels"]].append(r["paper600_accuracy"])
+    if small:
+        xs = sorted(small)
+        ms = [statistics.mean(small[n]) for n in xs]
+        for n in xs:
+            ax.scatter([n] * len(small[n]), small[n], s=55 * scale, facecolor=PANEL, edgecolor=TINT[MAGENTA],
+                       linewidth=1.8, zorder=4)
+        ax.plot(xs + sizes[:1], ms + means[:1], color=MAGENTA, linewidth=2.2, linestyle=(0, (2, 3)), zorder=3)
+        for n, m in zip(xs, ms):
+            ax.text(n, 0.958, f"{m:.3f}", ha="center", va="center", fontsize=13 * scale, color=MAGENTA)
+        all_sizes = xs + list(sizes)
     for n, m in zip(sizes, means):
         ax.text(n, 0.958, f"{m:.3f}", ha="center", va="center", fontsize=15 * scale, fontweight="bold", color=MAGENTA)
-    ax.text(98, 0.958, "mean", ha="left", va="center", fontsize=12 * scale, color=MUTED)
+    ax.text(min(all_sizes) * 0.72, 0.958, "mean", ha="left", va="center", fontsize=12 * scale, color=MUTED)
     for value, colour, label in ((layer_jev, BLUE, f"Jev with the layer, 140 labels: {layer_jev:.3f}"),
                                  (layer_laya, MAGENTA, f"Laya with the layer, 140 labels: {layer_laya:.3f}")):
         ax.axhline(value, color=colour, linewidth=2, linestyle=(0, (6, 4)), zorder=2)
@@ -388,10 +404,11 @@ def chart_curve(paired, arms, layout):
         ax.axvline(n, color=GRID, linewidth=1.5, linestyle=":", zorder=1)
         ax.text(n, 0.765, "pending", rotation=90, ha="right", va="bottom", fontsize=11.5 * scale, color=MUTED)
     ax.set_xscale("log")
-    ax.set_xticks(PLANNED_C_SIZES)
-    ax.set_xticklabels([f"{n:,}" for n in PLANNED_C_SIZES], fontsize=13 * scale)
+    ticks = sorted(set(all_sizes) | set(PLANNED_C_SIZES))
+    ax.set_xticks(ticks)
+    ax.set_xticklabels([f"{n:,}" for n in ticks], fontsize=13 * scale)
     ax.minorticks_off()
-    ax.set_xlim(95, PLANNED_C_SIZES[-1] * 1.3)
+    ax.set_xlim(min(ticks) * 0.7, PLANNED_C_SIZES[-1] * 1.3)
     ax.set_ylim(0.76, 0.97)
     ax.set_xlabel("training labels (log scale)", fontsize=14 * scale, color=INK, labelpad=10)
     ax.set_ylabel("held-out accuracy", fontsize=14 * scale, color=INK, labelpad=12)
