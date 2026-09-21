@@ -461,6 +461,33 @@ def chart_drift(paired, arms, layout):
     save(fig, "drift", layout)
 
 
+def chart_autoaccept(paired, arms, layout):
+    """Share of verdicts that can be auto-accepted while the accepted set stays 95% accurate."""
+    rows = defaultdict(list)
+    for r in read_jsonl(STUDIES / "selective_prediction.jsonl"):
+        if r["sample"] == "paper-600" and r["neutral_tier"] == "included":
+            rows[r["model"]].append(r["coverage_at_95_coverage"])
+    def item(label, model, colour, method):
+        v = rows[model]
+        return (label, statistics.mean(v), (min(v), max(v)) if len(v) > 1 else None, colour, method)
+    items = sorted([
+        item("Laya\nalone", "laya_alone", MAGENTA, "alone"),
+        item("Jev\nalone", "jev_alone", BLUE, "alone"),
+        item("Laya\nwith the layer", "laya_plus_layer", MAGENTA, "layer"),
+        item("DistilBERT\nfine-tune", "distilbert_arm_D", GRAY, "tuned"),
+        item("Laya full\nfine-tune", "finetuned_laya_arm_A", MAGENTA, "tuned"),
+        item("Jev\nwith the layer", "jev_plus_layer", BLUE, "layer"),
+    ], key=lambda i: i[1])
+    fig, axes, scale, orient, top = new_figure(layout, "How much can you trust without checking?", "")
+    if orient == "h":
+        items = items[::-1]
+    bars(axes[0][0], orient, scale, items, 0, 1.0, fmt="{:.0%}",
+         value_label="share of verdicts you can auto-accept at 95% accuracy")
+    fig.subplots_adjust(left=0.27 if orient == "h" else 0.09, right=0.93, top=top + 0.02,
+                        bottom=0.2 if orient == "v" else 0.19)
+    save(fig, "autoaccept", layout)
+
+
 CHARTS = {
     "paired": chart_paired,
     "calibration": chart_calibration,
@@ -468,6 +495,7 @@ CHARTS = {
     "tiers": chart_tiers,
     "curve": chart_curve,
     "drift": chart_drift,
+    "autoaccept": chart_autoaccept,
 }
 
 
