@@ -438,12 +438,36 @@ def chart_cover(paired, arms, layout="cover"):
     save(fig, "cover", "cover")
 
 
+def chart_drift(paired, arms, layout):
+    """How far fine-tuning on one question moved Laya's answers to the questions it was not trained on."""
+    rows = defaultdict(list)
+    for r in read_jsonl(STUDIES / "finetune_laya_drift.jsonl"):
+        rows[r["question"]].append(r["changed_share"])
+    names = {"sentiment.irony": "Is it ironic?", "sentiment.praise": "Does it praise?",
+             "sentiment.criticism": "Does it criticise?", "sentiment.topic_domain": "What is it about?",
+             "sentiment.recommend": "Does it recommend?", "sentiment.expectation": "Did it meet expectations?",
+             "sentiment.mixed": "Are the feelings mixed?", "sentiment.intensity": "How strong is the emotion?"}
+    items = sorted(((names[q], statistics.mean(v), (min(v), max(v)), MAGENTA, "tuned")
+                    for q, v in rows.items() if q in names), key=lambda i: i[1])
+    fig, axes, scale, orient, top = new_figure(layout, "Retrain one answer, and the others move too.", "")
+    if orient == "h":
+        items = items[::-1]
+    bars(axes[0][0], orient, scale, items, 0, 0.9, fmt="{:.0%}",
+         value_label="share of 600 items whose answer changed after fine-tuning")
+    fig.subplots_adjust(left=0.34 if orient == "h" else 0.09, right=0.93, top=top + 0.02,
+                        bottom=0.24 if orient == "v" else 0.19)
+    if orient == "v":
+        axes[0][0].tick_params(axis="x", labelsize=11.5 * scale)
+    save(fig, "drift", layout)
+
+
 CHARTS = {
     "paired": chart_paired,
     "calibration": chart_calibration,
     "finetune": chart_finetune,
     "tiers": chart_tiers,
     "curve": chart_curve,
+    "drift": chart_drift,
 }
 
 
