@@ -34,6 +34,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+from chart_fonts import headline_font, use_brand_fonts
+
+use_brand_fonts()
+
 
 SLUG = "fine-tuning-jev"
 SITE = Path(__file__).resolve().parents[1]
@@ -146,8 +150,7 @@ def headline(fig, layout, title, subtitle):
     k = scale(layout)
     top = {"landscape": 0.945, "portrait": 0.962, "square": 0.955, "cover": 0.93}[layout]
     gap = {"landscape": 0.058, "portrait": 0.058, "square": 0.068, "cover": 0.08}[layout]
-    fig.text(0.05, top, title, fontsize=25 * k, fontweight="bold", color=INK, va="top",
-             linespacing=1.15)
+    fig.text(0.05, top, title, color=INK, va="top", linespacing=1.05, **headline_font(25 * k))
     lines = title.count("\n") + 1
     fig.text(0.05, top - gap * lines, subtitle, fontsize=13.5 * k, color=MUTED, va="top",
              linespacing=1.35)
@@ -485,8 +488,8 @@ def chart_cover(layout="cover"):
     fig.patch.set_facecolor(BACKGROUND)
     fig.text(0.06, 0.86, "THE MODEL NEVER CHANGED", fontsize=17, fontweight="bold", color=MUTED,
              va="top")
-    fig.text(0.06, 0.74, "We asked it one\nmore question.", fontsize=44, fontweight="bold",
-             color=INK, va="top", linespacing=1.12)
+    fig.text(0.06, 0.76, "We asked it one\nmore question.", color=INK, va="top", linespacing=1.0,
+             **headline_font(50))
     fig.text(0.06, 0.34, f"Accuracy: {before:.0%} to {after:.0%}.", fontsize=30,
              color=BLUE, fontweight="bold", va="top")
     fig.text(0.06, 0.225, "140 rounds of agree-or-disagree feedback.\nNo fine-tuning. Jev's weights untouched.",
