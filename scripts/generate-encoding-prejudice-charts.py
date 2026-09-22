@@ -528,7 +528,7 @@ def chart_cover(d):
     size, scale, orient = LAYOUTS["cover"]
     fig = plt.figure(figsize=size, dpi=DPI)
     fig.patch.set_facecolor(BACKGROUND)
-    fig.text(0.06, 0.9, "We changed one word.\nThe model changed its mind.", color=INK, va="top", ha="left",
+    fig.text(0.06, 0.9, "One pronoun changed.\nThe attorney became the paralegal.", color=INK, va="top", ha="left",
              linespacing=1.02, **headline_font(40))
     ax = fig.add_axes([0.6, 0.14, 0.34, 0.46])
     ax.set_facecolor(BACKGROUND)
@@ -547,7 +547,7 @@ def chart_cover(d):
     ax.set_yticks([])
     ax.set_ylim(0, 27)
     ax.set_xlim(-0.6, 1.6)
-    ax.text(0.5, 26.8, "verdicts that flipped when\nonly the pronouns changed", fontsize=12, color=MUTED,
+    ax.text(0.5, 26.8, "attorneys read as paralegals\nonce \"he\" became \"she\"", fontsize=12, color=MUTED,
             ha="center", va="top", linespacing=1.3)
     fig.text(0.06, 0.2, "2,000 real professional bios. One question:\nparalegal or attorney?", fontsize=15,
              color=MUTED, ha="left", va="bottom", linespacing=1.4)
