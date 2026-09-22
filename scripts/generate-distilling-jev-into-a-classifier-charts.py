@@ -28,6 +28,10 @@ import matplotlib
 matplotlib.use("Agg")
 matplotlib.rcParams["hatch.linewidth"] = 0.6
 import matplotlib.pyplot as plt  # noqa: E402
+from chart_fonts import headline_font, use_brand_fonts  # noqa: E402
+
+use_brand_fonts()
+
 
 SLUG = "distilling-jev-into-a-classifier"
 SITE = Path(__file__).resolve().parents[1]
@@ -87,9 +91,9 @@ def new_figure(layout, title, subtitle, nrows=1, ncols=1, panel_titles=False, **
     points = size[1] * 72
     title_size, sub_size = 26 * scale, 14.5 * scale
     y = 0.955
-    fig.text(0.04, y, title, fontsize=title_size, fontweight="bold", color=INK, va="top",
-             ha="left", linespacing=1.15)
-    y -= (title.count("\n") + 1) * title_size * 1.22 / points + 0.012
+    fig.text(0.04, y, title, color=INK, va="top", ha="left", linespacing=1.05,
+             **headline_font(title_size))
+    y -= (title.count("\n") + 1) * title_size * 1.38 * 1.12 / points + 0.012
     fig.text(0.04, y, subtitle, fontsize=sub_size, color=MUTED, va="top", ha="left",
              linespacing=1.3)
     y -= (0.075 if panel_titles else 0.035)
@@ -376,8 +380,8 @@ def chart_cover(distill):
     fig = plt.figure(figsize=LAYOUTS["cover"][0], dpi=DPI)
     fig.patch.set_facecolor(BACKGROUND)
     fig.text(0.06, 0.86, "DISTILLATION", fontsize=17, fontweight="bold", color=MUTED, va="top")
-    fig.text(0.06, 0.74, "Rent the big model\nto train a small\none you own.", fontsize=40, fontweight="bold",
-             color=INK, va="top", linespacing=1.12)
+    fig.text(0.06, 0.76, "Rent the big model\nto train a small\none you own.", color=INK, va="top", linespacing=1.0,
+             **headline_font(44))
     fig.text(0.06, 0.225, "The student never saw a human label.\n66M parameters, 5 to 15 ms an item on a laptop.",
              fontsize=15.5, color=MUTED, va="top", linespacing=1.4)
     ax = fig.add_axes([0.62, 0.17, 0.32, 0.70])

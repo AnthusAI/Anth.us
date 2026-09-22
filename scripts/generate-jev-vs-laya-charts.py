@@ -32,6 +32,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
+from chart_fonts import headline_font, use_brand_fonts  # noqa: E402
+
+use_brand_fonts()
+
 
 SLUG = "jev-vs-laya"
 STUDIES = Path("/Users/home/Projects/Jev-Flywheel/studies")
@@ -120,15 +124,15 @@ def new_figure(layout, title, subtitle, nrows=1, ncols=1):
         ax.set_axisbelow(True)
     tall = orient == "h"
     wrap_at = 38 if tall else 68
-    fig.text(0.06, 0.965, wrap(title, wrap_at), fontsize=(24 if tall else 26) * scale,
-             fontweight="bold", color=INK, va="top", ha="left", linespacing=1.15)
+    fig.text(0.06, 0.965, wrap(title, wrap_at), color=INK, va="top", ha="left", linespacing=1.05,
+             **headline_font((24 if tall else 26) * scale))
     lines = wrap(title, wrap_at).count("\n") + 1
     fig.text(0.06, 0.965 - lines * (0.036 if tall else 0.058) - 0.008, wrap(subtitle, wrap_at + 24),
              fontsize=13.5 * scale, color=MUTED, va="top", ha="left", linespacing=1.3)
     if footer:
         pass
     sub_lines = 0
-    top = (0.965 - lines * (0.036 if tall else 0.058) - 0.008
+    top = (0.965 - lines * (0.046 if tall else 0.074) - 0.008
            - sub_lines * (0.021 if tall else 0.03) - (0.035 if tall else 0.05))
     return fig, axes, scale, orient, top
 
@@ -395,7 +399,6 @@ def chart_curve(paired, arms, layout):
         all_sizes = xs + list(sizes)
     for n, m in zip(sizes, means):
         ax.text(n, 0.958, f"{m:.3f}", ha="center", va="center", fontsize=15 * scale, fontweight="bold", color=MAGENTA)
-    ax.text(min(all_sizes) * 0.72, 0.958, "mean", ha="left", va="center", fontsize=12 * scale, color=MUTED)
     for value, colour, label in ((layer_jev, BLUE, f"Jev with the layer, 140 labels: {layer_jev:.3f}"),
                                  (layer_laya, MAGENTA, f"Laya with the layer, 140 labels: {layer_laya:.3f}")):
         ax.axhline(value, color=colour, linewidth=2, linestyle=(0, (6, 4)), zorder=2)
@@ -430,8 +433,8 @@ def chart_cover(paired, arms, layout="cover"):
     laya = paired[("laya", "layer")]["accuracy"]
     tuned = stat(arms[("A", 140)], "paper600_accuracy")[0]
     fig.text(0.06, 0.86, "JEV VS LAYA, ONE TEST", fontsize=17, fontweight="bold", color=MUTED, va="top")
-    fig.text(0.06, 0.74, "The open model\ntrailed. Then we\nretrained it.", fontsize=40, fontweight="bold",
-             color=INK, va="top", linespacing=1.12)
+    fig.text(0.06, 0.76, "The open model\ntrailed. Then we\nretrained it.", color=INK, va="top", linespacing=1.0,
+             **headline_font(44))
     fig.text(0.06, 0.27, "Same 140 labels, same questions, same test items.\nOnly Laya's weights are open, so only\nLaya can be retrained.",
              fontsize=15.5, color=MUTED, va="top", linespacing=1.4)
     ax = fig.add_axes([0.58, 0.17, 0.37, 0.70])
