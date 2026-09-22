@@ -528,7 +528,7 @@ def chart_cover(d):
     size, scale, orient = LAYOUTS["cover"]
     fig = plt.figure(figsize=size, dpi=DPI)
     fig.patch.set_facecolor(BACKGROUND)
-    fig.text(0.06, 0.9, "We told the AI she was a woman.\nIt demoted her.", color=INK, va="top", ha="left",
+    fig.text(0.06, 0.9, "One pronoun changed.\nThe attorney became the paralegal.", color=INK, va="top", ha="left",
              linespacing=1.02, **headline_font(40))
     ax = fig.add_axes([0.6, 0.14, 0.34, 0.46])
     ax.set_facecolor(BACKGROUND)
