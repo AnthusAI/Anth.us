@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-cfec8008-479e-4f70-99e7-0cfc75553413",
+  "title": "Analytics owner opt-out via localStorage (?notrack=1)",
+  "description": "",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "5eea7613-7641-4a71-84b0-57f0daa0c35d",
+      "author": "home",
+      "text": "gatsby-ssr onPreRenderHTML injects opt-out script before gtag plugin scripts. Verified built HTML order and script logic (node). PR open, not merged.",
+      "created_at": "2026-09-23T20:56:55.920379Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Sonnet 5",
+        "name": "claude"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T20:56:55.896199Z",
+  "updated_at": "2026-09-23T20:56:55.920392Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Sonnet 5",
+    "name": "claude"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
