@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "6e9b34ec-f2a8-4582-a23f-80fdd6a4136f",
+  "issue_id": "kanbus-f2a05e06-9c30-4e19-a410-4434f5313477",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T20:12:01.538Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "046c02b7-23e5-4a17-9742-011ddc33be75",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Sonnet 5",
+      "name": "claude"
+    }
+  }
+}
