@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "041f0cc9-bc34-4950-a16d-7a165f89c7b8",
+  "issue_id": "kanbus-314f23e8-c5bf-4492-8235-a8eb2bdaf3db",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T19:22:12.194Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "About page: value-prop sentence, key facts, FAQ, Organization JSON-LD",
+    "description": "",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": []
+  }
+}
