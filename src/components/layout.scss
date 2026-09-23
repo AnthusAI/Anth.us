@@ -1254,3 +1254,40 @@ footer {
     margin: auto auto auto auto;
   }
 }
+
+// Below the wide-hero breakpoint the overlay used to be absolutely positioned
+// over a fixed 400px image, so any text that wrapped taller than the image spilled
+// off the top (into the menu bar) or bottom (over the intro paragraph). Stack the
+// image and overlay in one grid cell instead: the hero grows to fit the overlay
+// and the image stretches to fill it.
+@media only screen and (max-width: 940px) {
+  .hero {
+    display: grid;
+
+    .hero-image {
+      grid-area: 1 / 1;
+      height: auto;
+      min-height: 400px;
+    }
+
+    .hero-overlay {
+      grid-area: 1 / 1;
+      align-self: center;
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      transform: none;
+      z-index: 1;
+      margin-left: var(--size-gutter);
+      padding: var(--base-line-height) 0;
+      width: calc(50% - var(--size-gutter));
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hero .hero-overlay {
+    width: 65%;
+  }
+}
