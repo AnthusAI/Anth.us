@@ -584,9 +584,9 @@ def _cover_one_word_test(d):
     ax.set_xticklabels([b[0] for b in bars], fontsize=11, color=INK, linespacing=1.15)
     ax.tick_params(axis="x", length=0, pad=8)
     ax.set_yticks([])
-    ax.set_ylim(0, 21)
+    ax.set_ylim(0, 27)
     ax.set_xlim(-0.6, len(bars) - 0.4)
-    ax.text((len(bars) - 1) / 2, 20.7, "share of verdicts that changed when \"he\" became \"she\"",
+    ax.text((len(bars) - 1) / 2, 26.7, "share of verdicts that changed when \"he\" became \"she\"",
             fontsize=11.5, color=MUTED, ha="center", va="top", linespacing=1.3)
     fig.text(0.06, 0.2, "2,000 real professional bios per job", fontsize=15, color=MUTED, ha="left", va="bottom",
              linespacing=1.4)
