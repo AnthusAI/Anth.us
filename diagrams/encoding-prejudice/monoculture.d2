@@ -1,0 +1,112 @@
+# Correlated-failure diagram: one candidate, four gatekeepers,
+# one rented model behind all of them.
+#
+# Palette:
+#   ink   #333333  (text)
+#   blue  #0389d7  (Jev blue - arrows, person accent)
+#   pink  #d03382  (Laya magenta - the shared model / the mistake)
+#   gray  #8a949c  (neutral institutions)
+#   bg    #f1f9fe  (background)
+
+frame: {
+  label: ""
+  shape: rectangle
+  style: {
+    fill: "#f1f9fe"
+    stroke: "#f1f9fe"
+    shadow: false
+    border-radius: 0
+  }
+
+  title: {
+    label: "The monoculture problem"
+    shape: text
+    style: {
+      font-size: 40
+      bold: true
+      font-color: "#333333"
+    }
+  }
+
+  title -> person: {style: {stroke-width: 0; opacity: 0}}
+
+  person: {
+    shape: person
+    label: "a woman attorney's bio,\nread as \"paralegal\""
+    style: {
+      fill: "#d7ecfb"
+      stroke: "#0389d7"
+      stroke-width: 3
+      font-color: "#333333"
+      font-size: 22
+      bold: true
+    }
+  }
+
+  firm_a: {
+    label: "A law firm's\nhiring screen"
+    style: {
+      fill: "#ffffff"
+      stroke: "#8a949c"
+      stroke-width: 2
+      font-color: "#333333"
+      font-size: 20
+    }
+  }
+
+  firm_b: {
+    label: "A second firm's\nhiring screen"
+    style: {
+      fill: "#ffffff"
+      stroke: "#8a949c"
+      stroke-width: 2
+      font-color: "#333333"
+      font-size: 20
+    }
+  }
+
+  ranking_tool: {
+    label: "A recruiter's\nranking tool"
+    style: {
+      fill: "#ffffff"
+      stroke: "#8a949c"
+      stroke-width: 2
+      font-color: "#333333"
+      font-size: 20
+    }
+  }
+
+  directory: {
+    label: "A bar association's\ndirectory"
+    style: {
+      fill: "#ffffff"
+      stroke: "#8a949c"
+      stroke-width: 2
+      font-color: "#333333"
+      font-size: 20
+    }
+  }
+
+  model: {
+    shape: hexagon
+    label: "One rented model:\nsame weights, same answer,\nsame mistake"
+    style: {
+      fill: "#f6d7e6"
+      stroke: "#d03382"
+      stroke-width: 3
+      font-color: "#333333"
+      font-size: 22
+      bold: true
+    }
+  }
+
+  person -> firm_a: {style: {stroke: "#0389d7"; stroke-width: 2}}
+  person -> firm_b: {style: {stroke: "#0389d7"; stroke-width: 2}}
+  person -> ranking_tool: {style: {stroke: "#0389d7"; stroke-width: 2}}
+  person -> directory: {style: {stroke: "#0389d7"; stroke-width: 2}}
+
+  firm_a -> model: {style: {stroke: "#0389d7"; stroke-width: 2}}
+  firm_b -> model: {style: {stroke: "#0389d7"; stroke-width: 2}}
+  ranking_tool -> model: {style: {stroke: "#0389d7"; stroke-width: 2}}
+  directory -> model: {style: {stroke: "#0389d7"; stroke-width: 2}}
+}
