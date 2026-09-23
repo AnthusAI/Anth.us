@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-314f23e8-c5bf-4492-8235-a8eb2bdaf3db",
+  "title": "About page: value-prop sentence, key facts, FAQ, Organization JSON-LD",
+  "description": "",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "3275098c-68a6-451a-ba29-56da68c42390",
+      "author": "home",
+      "text": "About page drafted (value-prop sentence, Who We Work With, Key Facts dl, FAQ, Organization JSON-LD; no city/HQ per owner). Build verified. Also pinning new post procedural-film in site-content. Not yet merged to main.",
+      "created_at": "2026-09-23T19:55:12.089673Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Sonnet 5",
+        "name": "claude"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T19:22:12.194307Z",
+  "updated_at": "2026-09-23T19:55:12.089701Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Sonnet 5",
+    "name": "claude"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
