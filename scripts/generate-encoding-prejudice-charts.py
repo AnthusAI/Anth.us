@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Charts for "Encoding Prejudice: System 1 Models and the Biases Nobody Measures".
+"""Charts for the "Encoding Prejudice" flagship and its two drill-downs, "The One-Word Test"
+and "Can You Fix It?".
 
 Every number is read from the Jev-Flywheel study records by absolute path:
 
@@ -9,6 +10,8 @@ Every number is read from the Jev-Flywheel study records by absolute path:
   studies/bios_age.jsonl      "At 34/35/61/62," inserted before the first pronoun
   studies/bios_pairs.jsonl    the pronoun swap on four occupation pairs (engines only, 1,000 bios per label)
   studies/bios_shortlist.jsonl the constructed shortlist: rank 2,000 paralegal/attorney bios by P(attorney), cut the top k
+  studies/bios_attorney_shortlist.jsonl   the same shortlist, per learning-loop arm and seed
+  studies/bios_attorney_elements.jsonl    mechanism_separation rows isolating one new question's effect
 
 Two counts are not in any jsonl and are typed in from studies/PREREGISTERED.md, section
 "does the engine read gender, and can the layer refuse to?", Outcome: the number of MALE-origin
@@ -19,15 +22,20 @@ Series encoding, shared by the series: colour is the ENGINE (Jev blue, Laya mage
 neutral marks). Blue and magenta are close in luminance, so every bar is also labelled with its
 engine in text. Floors are drawn as a faint gray bar behind the measured bar.
 
+Covers are per-article: a COVERS table maps each slug ("encoding-prejudice", "one-word-test",
+"can-you-fix-it") to the function that draws it, and --cover-for selects which to render. Body
+charts (the CHARTS registry) stay keyed by name; save() takes the slug to file under (default:
+the flagship's), so a drill-down's own chart, like "gate-shortlist", lands under its filenames.
+
 Run from the Anth.us repo root:
 
   python3 scripts/generate-encoding-prejudice-charts.py            # everything
   python3 scripts/generate-encoding-prejudice-charts.py --only flips --layouts wide
+  python3 scripts/generate-encoding-prejudice-charts.py --only cover --cover-for one-word-test
 """
 
 import argparse
 import json
-import sys
 import textwrap
 from pathlib import Path
 
@@ -37,12 +45,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.patches import Patch  # noqa: E402
 
-try:
-    from chart_fonts import headline_font, use_brand_fonts  # noqa: E402
-except ImportError:  # the develop branch has no scripts/chart_fonts.py; origin/main does
-    sys.path.insert(0, "/private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/"
-                       "ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/articles/encoding-prejudice")
-    from chart_fonts import headline_font, use_brand_fonts  # noqa: E402
+from chart_fonts import headline_font, use_brand_fonts  # noqa: E402
 
 use_brand_fonts()
 
@@ -51,7 +54,7 @@ SLUG = "encoding-prejudice"
 STUDIES = Path("/Users/home/Projects/Jev-Flywheel/studies")
 SITE = Path(__file__).resolve().parents[1]
 IMAGES = SITE / "src/site-content/images"
-SOCIAL = SITE / "social" / SLUG
+SOCIAL_ROOT = SITE / "social"
 DPI = 100
 
 BACKGROUND = "#f1f9fe"
@@ -100,6 +103,12 @@ def load():
         d[("pairs", row["pair"], row["engine"])] = row
     for row in read_jsonl(STUDIES / "bios_shortlist.jsonl"):
         d[("shortlist", row["engine"], row["cut"])] = row
+    for row in read_jsonl(STUDIES / "bios_attorney_shortlist.jsonl"):
+        if row["cut"] == 500:
+            d[("attorney_shortlist", row["arm"], row.get("seed"))] = row
+    for row in read_jsonl(STUDIES / "bios_attorney_elements.jsonl"):
+        if row.get("diagnostic") == "mechanism_separation":
+            d[("attorney_mechanism", row["arm"], row["seed"])] = row
     return d
 
 
@@ -163,13 +172,13 @@ def reclaim_bottom(fig, floor=0.11):
         a.set_position([p.x0, ceiling - (top - p.y0) * k, p.width, p.height * k])
 
 
-def save(fig, name, layout, floor=0.11):
+def save(fig, name, layout, slug=SLUG, floor=0.11):
     if layout != "cover":
         reclaim_bottom(fig, floor)
     if layout in ("wide", "cover"):
-        out = IMAGES / f"{SLUG}-{name}.png"
+        out = IMAGES / f"{slug}-{name}.png"
     else:
-        out = SOCIAL / f"{SLUG}-{name}-{'1080x1350' if layout == 'portrait' else '1080x1080'}.png"
+        out = SOCIAL_ROOT / slug / f"{slug}-{name}-{'1080x1350' if layout == 'portrait' else '1080x1080'}.png"
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, facecolor=BACKGROUND, dpi=DPI)
     plt.close(fig)
@@ -524,17 +533,21 @@ def chart_shortlist(d, layout, cut=500):
     save(fig, "shortlist", layout, floor=0.3 if orient == "v" else 0.17)
 
 
-def chart_cover(d):
-    size, scale, orient = LAYOUTS["cover"]
-    fig = plt.figure(figsize=size, dpi=DPI)
-    fig.patch.set_facecolor(BACKGROUND)
-    fig.text(0.06, 0.9, "One pronoun changed.\nThe attorney became the paralegal.", color=INK, va="top", ha="left",
-             linespacing=1.02, **headline_font(40))
+def _cover_axes(fig):
     ax = fig.add_axes([0.6, 0.14, 0.34, 0.46])
     ax.set_facecolor(BACKGROUND)
     for side in ("top", "right", "left"):
         ax.spines[side].set_visible(False)
     ax.spines["bottom"].set_color(GRID)
+    return ax
+
+
+def _cover_encoding_prejudice(d):
+    fig = plt.figure(figsize=LAYOUTS["cover"][0], dpi=DPI)
+    fig.patch.set_facecolor(BACKGROUND)
+    fig.text(0.06, 0.9, "One pronoun changed.\nThe attorney became the paralegal.", color=INK, va="top", ha="left",
+             linespacing=1.02, **headline_font(40))
+    ax = _cover_axes(fig)
     # the opening example: paralegal or attorney, the most gendered pair in studies/bios_pairs.jsonl
     bars = [("Jev", 100 * d[("pairs", "paralegal_attorney", "jev")]["counterfactual_flip_rate"], BLUE),
             ("Laya", 100 * d[("pairs", "paralegal_attorney", "laya")]["counterfactual_flip_rate"], MAGENTA)]
@@ -551,7 +564,129 @@ def chart_cover(d):
             ha="center", va="top", linespacing=1.3)
     fig.text(0.06, 0.2, "2,000 real professional bios. One question:\nparalegal or attorney?", fontsize=15,
              color=MUTED, ha="left", va="bottom", linespacing=1.4)
-    save(fig, "cover", "cover")
+    save(fig, "cover", "cover", slug="encoding-prejudice")
+
+
+def _cover_one_word_test(d):
+    fig = plt.figure(figsize=LAYOUTS["cover"][0], dpi=DPI)
+    fig.patch.set_facecolor(BACKGROUND)
+    fig.text(0.06, 0.9, "Four jobs, one word changed.\nThe more gendered, the more it moved.", color=INK,
+             va="top", ha="left", linespacing=1.02, **headline_font(34))
+    ax = _cover_axes(fig)
+    # Laya's four-pair flip rates, ordered by how gendered the pair's labels are (bios_pairs.jsonl)
+    pairs = [("teacher /\nprofessor", "teacher_professor"), ("surgeon /\nphysician", "surgeon_physician"),
+             ("nurse /\nphysician", "nurse_physician"), ("paralegal /\nattorney", "paralegal_attorney")]
+    bars = [(label, 100 * d[("pairs", pair, "laya")]["counterfactual_flip_rate"]) for label, pair in pairs]
+    for x, (label, value) in enumerate(bars):
+        ax.bar(x, value, width=0.62, color=MAGENTA, zorder=3)
+        ax.text(x, value + 0.4, f"{value:.1f}%", ha="center", va="bottom", fontsize=15, fontweight="bold", color=MAGENTA)
+    ax.set_xticks(range(len(bars)))
+    ax.set_xticklabels([b[0] for b in bars], fontsize=11, color=INK, linespacing=1.15)
+    ax.tick_params(axis="x", length=0, pad=8)
+    ax.set_yticks([])
+    ax.set_ylim(0, 21)
+    ax.set_xlim(-0.6, len(bars) - 0.4)
+    ax.text((len(bars) - 1) / 2, 20.7, "share of verdicts that changed when \"he\" became \"she\"",
+            fontsize=11.5, color=MUTED, ha="center", va="top", linespacing=1.3)
+    fig.text(0.06, 0.2, "2,000 real professional bios per job", fontsize=15, color=MUTED, ha="left", va="bottom",
+             linespacing=1.4)
+    save(fig, "cover", "cover", slug="one-word-test")
+
+
+def _gate_shortlist_bars(d):
+    """The top-500 four-fifths ratio for paralegal/attorney: the engine alone (arm J0), the
+    gated learning loop (arm J2, seed 1), and that same loop with its one new question's own
+    contribution zeroed out (bios_attorney_elements.jsonl mechanism_separation)."""
+    return [
+        ("engine alone", d[("attorney_shortlist", "J0", None)]["four_fifths_ratio"]),
+        ("gated loop", d[("attorney_shortlist", "J2", 1)]["four_fifths_ratio"]),
+        ("question removed", d[("attorney_mechanism", "J2", 1)]["four_fifths_ratio_top500_new_element_zeroed"]),
+    ]
+
+
+def _cover_can_you_fix_it(d):
+    fig = plt.figure(figsize=LAYOUTS["cover"][0], dpi=DPI)
+    fig.patch.set_facecolor(BACKGROUND)
+    fig.text(0.06, 0.9, "The gate passed the question.\nThe shortlist got worse.", color=INK, va="top",
+             ha="left", linespacing=1.02, **headline_font(40))
+    ax = _cover_axes(fig)
+    bars = _gate_shortlist_bars(d)
+    for x, (label, value) in enumerate(bars):
+        ax.bar(x, value, width=0.62, color=BLUE, zorder=3)
+        ax.text(x, value + 0.02, f"{value:.2f}", ha="center", va="bottom", fontsize=20, fontweight="bold", color=BLUE)
+    ax.set_xticks(range(len(bars)))
+    ax.set_xticklabels([wrap(label, 10) for label, _ in bars], fontsize=12.5, color=INK, linespacing=1.15)
+    ax.tick_params(axis="x", length=0, pad=8)
+    ax.set_yticks([])
+    ax.set_ylim(0, 1.0)
+    ax.set_xlim(-0.6, len(bars) - 0.4 + 0.7)
+    ax.axhline(0.80, color=INK, linewidth=1.6, linestyle=(0, (4, 3)), zorder=2)
+    ax.text(len(bars) - 0.4 + 0.06, 0.80, "four-fifths\nline", ha="left", va="center", fontsize=10.5, color=INK,
+            linespacing=1.2)
+    fig.text(0.06, 0.2, "one question added by the learning loop", fontsize=15, color=MUTED, ha="left",
+             va="bottom", linespacing=1.4)
+    save(fig, "cover", "cover", slug="can-you-fix-it")
+
+
+COVERS = {
+    "encoding-prejudice": _cover_encoding_prejudice,
+    "one-word-test": _cover_one_word_test,
+    "can-you-fix-it": _cover_can_you_fix_it,
+}
+
+
+def chart_cover(d, slug):
+    COVERS[slug](d)
+
+
+def chart_gate_shortlist(d, layout):
+    """The can-you-fix-it story as one body chart: the same three bars as its cover (top-500
+    four-fifths ratio, paralegal/attorney), sized for in-body use and for social. No subtitle,
+    footer or source note; the headline carries the point."""
+    bars = _gate_shortlist_bars(d)
+    n = len(bars)
+    fig, axes, scale, orient, top = new_figure(layout, "The gate passed the question. The shortlist got worse.")
+    ax = axes[0][0]
+    hi = 1.0
+    width = 0.5
+    ticks, labels = [], []
+    for gi, (label, value) in enumerate(bars):
+        base = gi if orient == "v" else (n - 1 - gi)
+        if orient == "v":
+            ax.bar(base, value, width=width, color=BLUE, zorder=3)
+            ax.text(base, value + hi * 0.02, f"{value:.2f}", ha="center", va="bottom",
+                    fontsize=15 * scale, fontweight="bold", color=BLUE)
+        else:
+            ax.barh(base, value, height=width, color=BLUE, zorder=3)
+            ax.text(value + hi * 0.02, base, f"{value:.2f}", ha="left", va="center",
+                    fontsize=15 * scale, fontweight="bold", color=BLUE)
+        ticks.append(base)
+        labels.append(label)
+    if orient == "v":
+        ax.set_xticks(ticks)
+        ax.set_xticklabels(labels, fontsize=13.5 * scale, color=INK, linespacing=1.25)
+        ax.set_xlim(-0.6, n - 1 + 0.9)
+        ax.set_ylim(0, hi)
+        ax.axhline(0.80, color=INK, linewidth=2, linestyle=(0, (4, 3)), zorder=4)
+        ax.text(n - 1 + 0.55, 0.80 + hi * 0.025, "four-fifths line", ha="left", va="bottom",
+                fontsize=11.5 * scale, color=INK)
+        ax.set_ylabel("four-fifths ratio, top 500 of 2,000 (paralegal or attorney)",
+                      fontsize=13.5 * scale, color=INK, labelpad=12)
+        ax.grid(axis="y", color=GRID, linewidth=1, zorder=0)
+    else:
+        ax.set_yticks(ticks)
+        ax.set_yticklabels(labels, fontsize=13 * scale, color=INK, linespacing=1.2)
+        ax.set_ylim(-0.6, n - 1 + 0.9)
+        ax.set_xlim(0, hi)
+        ax.axvline(0.80, color=INK, linewidth=2, linestyle=(0, (4, 3)), zorder=4)
+        ax.text(0.80 + hi * 0.02, n - 1 + 0.55, "four-fifths line", ha="left", va="bottom",
+                fontsize=11.5 * scale, color=INK)
+        ax.set_xlabel("four-fifths ratio, top 500 of 2,000 (paralegal or attorney)",
+                      fontsize=13.5 * scale, color=INK, labelpad=10)
+        ax.grid(axis="x", color=GRID, linewidth=1, zorder=0)
+    fig.subplots_adjust(left=0.32 if orient == "h" else 0.09, right=0.93, top=top + 0.02,
+                        bottom=0.2 if orient == "v" else 0.16)
+    save(fig, "gate-shortlist", layout)
 
 
 CHARTS = {
@@ -561,6 +696,7 @@ CHARTS = {
     "age-shift": chart_age_shift,
     "pairs": chart_pairs,
     "shortlist": chart_shortlist,
+    "gate-shortlist": chart_gate_shortlist,
 }
 
 
@@ -569,12 +705,15 @@ def main():
     parser.add_argument("--only", nargs="*", choices=[*CHARTS, "cover"], help="charts to draw (default: all)")
     parser.add_argument("--layouts", nargs="*", default=["wide", "portrait", "square"],
                         choices=["wide", "portrait", "square"], help="layouts for the body charts")
+    parser.add_argument("--cover-for", nargs="*", default=list(COVERS), choices=list(COVERS),
+                        help="which article cover(s) to render (default: all)")
     args = parser.parse_args()
     d = load()
     wanted = args.only or [*CHARTS, "cover"]
     for name in wanted:
         if name == "cover":
-            chart_cover(d)
+            for slug in args.cover_for:
+                chart_cover(d, slug)
             continue
         for layout in args.layouts:
             CHARTS[name](d, layout)
