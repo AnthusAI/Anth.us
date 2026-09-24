@@ -3,7 +3,7 @@
   "title": "Show short-post excerpt as the posts-list headline",
   "description": "The production ship gate requires /posts/ to show a short post’s excerpt as its visible headline. The current posts-list template renders frontmatter.title in the prominent title element and the excerpt as secondary text. For the LensVLM post, the visible list entry must lead with its standalone excerpt while keeping the permalink and image intact.",
   "type": "bug",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,23 @@
         "model": "gpt-6-sol",
         "name": "Codex"
       }
+    },
+    {
+      "id": "a2eb6c25-dddd-4434-b0dc-11540539a57d",
+      "author": "home",
+      "text": "Released in Anth.us main at f8efebe. Production /posts/ shows the LensVLM excerpt as its prominent headline, with a working permalink and cover; checked 2026-09-24.",
+      "created_at": "2026-09-24T18:04:28.625064Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6-sol",
+        "name": "Codex"
+      }
     }
   ],
   "created_at": "2026-09-24T17:36:20.424535Z",
-  "updated_at": "2026-09-24T17:36:32.134099Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T18:04:28.639598Z",
+  "closed_at": "2026-09-24T18:04:28.639563Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-6-sol",

@@ -3,7 +3,7 @@
   "title": "Make embedded CSS verification accept already-clean HTML",
   "description": "The main-branch build check currently fails after Gatsby succeeds because normalize-gatsby-inline-css.cjs requires at least one BOM to remove. Generated HTML has a global CSS style tag with no BOM, so the check should accept it while still rejecting missing HTML or missing global CSS and still stripping any BOM it encounters. This blocks the LensVLM post release.",
   "type": "bug",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,23 @@
         "model": "gpt-6-sol",
         "name": "Codex"
       }
+    },
+    {
+      "id": "1690bf16-14da-4043-a6a0-71e401eda271",
+      "author": "home",
+      "text": "Released in Anth.us main at f8efebe. Local CSS verifier passed clean, repeated, BOM, and missing-style fixtures, then passed against 241 generated HTML files. The Amplify build, deploy, and verify steps succeeded for that commit.",
+      "created_at": "2026-09-24T18:04:28.653547Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6-sol",
+        "name": "Codex"
+      }
     }
   ],
   "created_at": "2026-09-24T17:54:51.630714Z",
-  "updated_at": "2026-09-24T17:54:58.533631Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T18:04:28.667977Z",
+  "closed_at": "2026-09-24T18:04:28.667941Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-6-sol",
