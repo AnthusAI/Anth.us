@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "354d129a-5f63-4c3d-b2f4-f20cde1f5748",
+  "issue_id": "kanbus-cfec8008-479e-4f70-99e7-0cfc75553413",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T20:56:55.896Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Analytics owner opt-out via localStorage (?notrack=1)",
+    "description": "",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": []
+  }
+}
