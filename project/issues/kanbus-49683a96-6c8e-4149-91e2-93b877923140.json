@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-49683a96-6c8e-4149-91e2-93b877923140",
+  "title": "Show short-post excerpt as the posts-list headline",
+  "description": "The production ship gate requires /posts/ to show a short post’s excerpt as its visible headline. The current posts-list template renders frontmatter.title in the prominent title element and the excerpt as secondary text. For the LensVLM post, the visible list entry must lead with its standalone excerpt while keeping the permalink and image intact.",
+  "type": "bug",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "64bde6a6-461f-412f-82f1-c1f813caa4d6",
+      "author": "home",
+      "text": "Verification plan: build the site, inspect /posts/ HTML to ensure the excerpt is in the headline element and the LensVLM title phrase is searchable there, then check the permalink image metadata. Change scope is the post-list headline rendering.",
+      "created_at": "2026-09-24T17:36:32.134080Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6-sol",
+        "name": "Codex"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T17:36:20.424535Z",
+  "updated_at": "2026-09-24T17:36:32.134099Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6-sol",
+    "name": "Codex"
+  },
+  "right_now_summary": "The team is verifying that /posts/ uses the LensVLM excerpt as the headline while keeping its link and image intact.",
+  "right_now_updated_at": "2026-09-24T17:36:34.928997Z",
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}
