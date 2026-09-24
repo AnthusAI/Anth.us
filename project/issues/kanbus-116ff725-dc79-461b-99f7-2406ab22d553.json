@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-116ff725-dc79-461b-99f7-2406ab22d553",
+  "title": "Make embedded CSS verification accept already-clean HTML",
+  "description": "The main-branch build check currently fails after Gatsby succeeds because normalize-gatsby-inline-css.cjs requires at least one BOM to remove. Generated HTML has a global CSS style tag with no BOM, so the check should accept it while still rejecting missing HTML or missing global CSS and still stripping any BOM it encounters. This blocks the LensVLM post release.",
+  "type": "bug",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "d96040b9-73f1-4e0c-b34c-761f13a78e1c",
+      "author": "home",
+      "text": "Observed local Gatsby build exit 0, but the existing CSS normalization script exited 1 because it found zero BOMs across 241 generated pages. Main-branch GitHub Actions run 36003096158 failed for the same reason on Node 22. Fix: require at least one global CSS style tag, while letting normalizedStyles be zero when every tag is already clean.",
+      "created_at": "2026-09-24T17:54:58.533610Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6-sol",
+        "name": "Codex"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T17:54:51.630714Z",
+  "updated_at": "2026-09-24T17:54:58.533631Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6-sol",
+    "name": "Codex"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}

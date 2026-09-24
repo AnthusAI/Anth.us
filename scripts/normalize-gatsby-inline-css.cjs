@@ -6,6 +6,7 @@ const path = require("node:path")
 const publicDir = path.resolve(process.argv[2] || "public")
 const styleTag = /(<style\b[^>]*data-identity=["']gatsby-global-css["'][^>]*>)([\s\S]*?)(<\/style>)/gi
 let htmlFiles = 0
+let globalStyles = 0
 let normalizedStyles = 0
 const failures = []
 
@@ -20,6 +21,7 @@ function visit(directory) {
       let foundStyle = false
       const normalized = original.replace(styleTag, (_match, open, css, close) => {
         foundStyle = true
+        globalStyles += 1
         if (css.startsWith("\uFEFF")) {
           normalizedStyles += 1
           css = css.slice(1)
@@ -42,12 +44,12 @@ if (!fs.existsSync(publicDir)) {
 
 visit(publicDir)
 
-if (htmlFiles === 0 || normalizedStyles === 0) {
-  failures.push(`Expected BOM-prefixed global CSS in generated HTML; found ${normalizedStyles} normalized styles across ${htmlFiles} HTML files`)
+if (htmlFiles === 0 || globalStyles === 0) {
+  failures.push(`Expected embedded global CSS in generated HTML; found ${globalStyles} styles across ${htmlFiles} HTML files`)
 }
 
 if (failures.length > 0) {
   throw new Error(failures.join("\n"))
 }
 
-console.log(`Normalized the embedded global stylesheet on ${normalizedStyles} pages (${htmlFiles} HTML files checked).`)
+console.log(`Checked ${globalStyles} embedded global styles across ${htmlFiles} HTML files; removed a BOM from ${normalizedStyles}.`)
