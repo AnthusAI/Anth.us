@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-eec92376-afa6-4d48-a6a5-7e557ea7d01a",
+  "title": "Publish RubyHack short post to Anth.us",
+  "description": "Pin the RubyHack content revision in the site repo, release through develop to main, and verify the live permalink, cover, social card, robots.txt, and posts listing. Source date: September 12, 2026.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "d9d8ff78-de00-49d9-a9de-5ab5c4157b07",
+      "author": "home",
+      "text": "Content a411be6 passed a local Gatsby production build. The MDX uses September 12, 2026 and separates RubyHack's agent attribution from RubyGems' confirmed findings. Pinning this exact content revision for release.",
+      "created_at": "2026-09-24T20:35:13.797788Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6-sol",
+        "name": "Codex"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T20:34:02.870051Z",
+  "updated_at": "2026-09-24T20:35:13.797806Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6-sol",
+    "name": "Codex"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}

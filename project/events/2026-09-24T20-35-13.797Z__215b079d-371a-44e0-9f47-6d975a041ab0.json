@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "215b079d-371a-44e0-9f47-6d975a041ab0",
+  "issue_id": "kanbus-eec92376-afa6-4d48-a6a5-7e557ea7d01a",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-24T20:35:13.797Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "d9d8ff78-de00-49d9-a9de-5ab5c4157b07",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6-sol",
+      "name": "Codex"
+    }
+  }
+}

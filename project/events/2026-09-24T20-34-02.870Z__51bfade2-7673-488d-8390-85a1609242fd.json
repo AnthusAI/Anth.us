@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "51bfade2-7673-488d-8390-85a1609242fd",
+  "issue_id": "kanbus-eec92376-afa6-4d48-a6a5-7e557ea7d01a",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-24T20:34:02.870Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Publish RubyHack short post to Anth.us",
+    "description": "Pin the RubyHack content revision in the site repo, release through develop to main, and verify the live permalink, cover, social card, robots.txt, and posts listing. Source date: September 12, 2026.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6-sol",
+      "name": "Codex"
+    }
+  }
+}
