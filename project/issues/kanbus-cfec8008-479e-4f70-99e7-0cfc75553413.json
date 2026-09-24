@@ -3,7 +3,7 @@
   "title": "Analytics owner opt-out via localStorage (?notrack=1)",
   "description": "",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -25,8 +25,8 @@
     }
   ],
   "created_at": "2026-09-23T20:56:55.896199Z",
-  "updated_at": "2026-09-23T20:56:55.920392Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T13:03:03.530260Z",
+  "closed_at": "2026-09-24T13:03:03.529794Z",
   "agent": {
     "platform": "claude_code",
     "model": "Sonnet 5",
