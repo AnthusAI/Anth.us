@@ -3,7 +3,7 @@
   "title": "Publish RubyHack short post to Anth.us",
   "description": "Pin the RubyHack content revision in the site repo, release through develop to main, and verify the live permalink, cover, social card, robots.txt, and posts listing. Source date: September 12, 2026.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,23 @@
         "model": "gpt-6-sol",
         "name": "Codex"
       }
+    },
+    {
+      "id": "06023d52-fa36-441e-8c5d-a83ed555dc5a",
+      "author": "home",
+      "text": "Released via main PR #59 (merge commit a8445ac) and Amplify job 232 succeeded. Live verification passed for https://anth.us/blog/rubygems-agent-data-channel/: permalink 200, 1200x630 PNG cover 200, matching absolute og:image and twitter:image, summary_large_image, robots.txt 200, and /posts/ displays the excerpt and links to the post. Newsroom story ANTH-2ccd35 is published.",
+      "created_at": "2026-09-24T20:42:39.562431Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6-sol",
+        "name": "Codex"
+      }
     }
   ],
   "created_at": "2026-09-24T20:34:02.870051Z",
-  "updated_at": "2026-09-24T20:35:13.797806Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T20:42:39.577735Z",
+  "closed_at": "2026-09-24T20:42:39.577702Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-6-sol",
