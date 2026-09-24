@@ -30,14 +30,8 @@ const PostsListTemplate = ({ data, pageContext }) => {
               >
                 <div>
                   <div className={styles.listItemTitle}>
-                    {node.frontmatter.title}
+                    {node.frontmatter.excerpt?.trim() || node.frontmatter.title}
                   </div>
-                  {node.frontmatter.excerpt?.trim() !==
-                    node.frontmatter.title?.trim() && (
-                    <div className={styles.listItemDescription}>
-                      {node.frontmatter.excerpt}
-                    </div>
-                  )}
                   <div className={styles.listItemRight}>
                     <div className={styles.listItemDate}>
                       {formatPostDate(node.frontmatter.date)}
