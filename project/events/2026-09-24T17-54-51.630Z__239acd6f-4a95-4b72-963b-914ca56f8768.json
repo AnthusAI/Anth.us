@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "239acd6f-4a95-4b72-963b-914ca56f8768",
+  "issue_id": "kanbus-116ff725-dc79-461b-99f7-2406ab22d553",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-24T17:54:51.630Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Make embedded CSS verification accept already-clean HTML",
+    "description": "The main-branch build check currently fails after Gatsby succeeds because normalize-gatsby-inline-css.cjs requires at least one BOM to remove. Generated HTML has a global CSS style tag with no BOM, so the check should accept it while still rejecting missing HTML or missing global CSS and still stripping any BOM it encounters. This blocks the LensVLM post release.",
+    "issue_type": "bug",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6-sol",
+      "name": "Codex"
+    }
+  }
+}
