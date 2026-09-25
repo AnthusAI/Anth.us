@@ -22,10 +22,22 @@
         "model": "gpt-6",
         "name": "Codex desktop"
       }
+    },
+    {
+      "id": "db65d69f-0809-402b-8eca-c81873af7aa2",
+      "author": "home",
+      "text": "Site review PR is AnthusAI/Anth.us#62 targeting develop; content PR is anthus-site-content#16. Local Gatsby production build and social metadata checks passed. No GitHub checks have reported yet. Leave this task in progress until PR review/merge; no deploy requested.",
+      "created_at": "2026-09-25T16:51:02.893077Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6",
+        "name": "Codex desktop"
+      }
     }
   ],
   "created_at": "2026-09-25T16:45:06.778380Z",
-  "updated_at": "2026-09-25T16:48:55.055100Z",
+  "updated_at": "2026-09-25T16:51:02.893099Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
