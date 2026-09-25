@@ -11,10 +11,10 @@ Principle in one line: you pay the pile again every turn. Shrink the pile.
 3. **Name the file. Don’t paste it.** Bare path ≠ `@file`. Anthropic: `@` injects the whole file. A path lets the agent read what it needs. (Anthropic Help habit #3, Continuum)
 4. **Don’t grep the repo blind.** Point at symbols and paths. Exploration is input tokens. (Continuum “prompt precision”)
 5. **Keep always-on rules thin.** `CLAUDE.md`, `.cursor/rules`, Copilot instructions: per-message tax, not a one-time setup. Burns via Willison. Anthropic ~200 lines. Path-scope rules when the app allows it (Cline `paths:`).
-6. **Turn MCP off until you need it.** Tool lists are standing context. Deferred MCP enum can be ~4k tokens/session. Prefer a short CLI call over a always-connected server. (Burns, Tokenminning, Giancini, bokuwalily)
+6. **Turn MCP off until you need it.** Tool lists are standing context. Deferred MCP enum can be ~4k tokens/session. Prefer a short CLI call over a always-connected server. (Burns, Tokenminning, Giancini, bokuwalily). Grok Bot 0.18.0: spill MCP payloads over 12KB to `agent-tools/`; `hasReadPath` refuses the call unless the model Read the file. (Yage 2026-08-27)
 7. **Don’t paste test logs.** Hook or habit: keep failures, drop passing noise. Continuum PreToolUse Bash example. Aider: compress dumps first.
 8. **One agent, one job, one branch.** Split when the shape changes. (Junction, Jon Jones)
-9. **Don’t switch models mid-chat.** Cache miss. New thread if you change tier. Cursor Tokenminning; Copilot Auto only switches at cache boundaries.
+9. **Compact before you change models. That’s a compaction epoch.** Ryan, 2026-09-03: Haiku (cheap) explores and describes what it found → `/compact` → Opus writes a planning document → `/compact` → Sonnet does the work. A model swap invalidates the prefix cache, so don’t pass a large Haiku session to Opus. Always compact first. New chat only if you didn’t compact. Yage Grok Bot 0.18.0 leak (2026-08-27): harnesses freeze the prefix to `compactionEpoch`; compaction increments it. Same idea by hand. https://yage.ai/share/grok-bot-context-engineering-en-20260827.html
 10. **Don’t resume a stale session.** Idle >1h can re-bill the prefix. `/clear` and start. (Anthropic on HN)
 11. **Two strikes, then clear.** Two failed corrections on the same bug → new thread, don’t argue in the junk drawer. (Burns)
 12. **Drop finished files.** Aider `/drop`. Don’t keep the whole refactor in context.
