@@ -1,0 +1,83 @@
+{
+  "id": "kanbus-6d3ad1e2-10e8-4533-953a-7fee8d3d2eba",
+  "title": "Prepare classification-with-confidence article for publication",
+  "description": "Rewrite and verify the draft Fine-Tuned Classification With Confidence article so it can be published as a companion to the live Jev article. Incorporate the historical Freud detector and semantic-text-classification experiments accurately, and repair the article's current status, sources, framing, and links.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a107d8a2-3518-4af8-ac96-376537f073cf",
+      "author": "home",
+      "text": "Dispatching a dedicated editorial rewrite. The live Jev article currently needs this companion article to become a valid public reference rather than a draft-only page.",
+      "created_at": "2026-09-18T16:30:36.672557Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "e2c8e474-5a91-4384-9284-5d421beeca1a",
+      "author": "home",
+      "text": "Starting editorial rewrite of fine-tuned-classification-with-confidence.mdx as the historical companion to the Jev article. Scope: verify the two referenced repositories, preserve only supported claims/assets, set publication-ready frontmatter, validate MDX/build. Agent: Codex subagent.",
+      "created_at": "2026-09-18T16:31:29.419244Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5"
+      }
+    },
+    {
+      "id": "a7401f73-6041-436b-997f-20f1564e0922",
+      "author": "home",
+      "text": "Editorial rewrite complete in src/site-content/fine-tuned-classification-with-confidence.mdx. Renamed to 'From Classifier Probabilities to LLM Confidence,' dated 2026-09-18, and set state: published. Reframed around the verified lineage from embeddings + logistic regression, through Yes/No first-token log-probability extraction, to Jev's typed multi-question decision interface. Retained supported 40-example confusion-matrix results; flagged the original notebook's ROC/calibration scoring bug and the limits of its concentrated confidence values. Added a 1200x630 social preview composed deterministically from the two existing notebook confusion matrices at images/llm-classifiers/freud-detector-comparison.png. Validation: Prettier pass, git diff --check pass, asset dimension/path checks pass; one full Gatsby build passed before the final cover switch. A later clean rebuild was interrupted after hanging under contention with an existing gatsby develop process; unrelated Gatsby warnings remain. No commit or push by this subagent.",
+      "created_at": "2026-09-18T16:42:30.198010Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5"
+      }
+    },
+    {
+      "id": "96a37020-0c6a-41a6-9948-ace027a49303",
+      "author": "home",
+      "text": "Adjusted the published article's opening so 'detecting fraudulent transactions' primes the Freud Detector reveal. Removed every Freud/quotation reference before the  headline, moved the conventional-classifier background later, and renamed the results section . Preserved the top-right cover layout and technical content. Prettier and diff checks pass.",
+      "created_at": "2026-09-18T17:01:40.700992Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5"
+      }
+    },
+    {
+      "id": "1b4058c7-05d5-44b1-8c2c-97f7b83ee7db",
+      "author": "home",
+      "text": "Refined the Freud Detector reveal pacing per Ryan's direction: the H2 remains the punchline, followed by a general paragraph about the binary LLM-classifier experiment and token-score adapter. Sigmund Freud, quotations, and attribution are withheld until the displayed prompt. Verified there are no Freud/quotation references in visible prose before the H2. Prettier and diff checks pass.",
+      "created_at": "2026-09-18T17:05:24.397109Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5"
+      }
+    },
+    {
+      "id": "e6097a98-7da7-4b5b-8619-e242398676ef",
+      "author": "home",
+      "text": "Restructured the article around AnthusAI/Classification-with-Confidence as the primary project and narrative. Covered equivalent Yes/No token aggregation, the 10,000-example dataset and 1,000-sample evaluation, raw reliability, Platt/isotonic calibration, confidence-based routing, and task-specific Llama 3.1-8B LoRA fine-tuning with careful project-specific caveats. Reduced the Freud detector to a short, paced stepping stone and the embedding-plus-logistic-regression work to a brief antecedent. Added three exact charts from the primary repository. Validation: Prettier check passed, git diff --check passed, and all referenced local images exist. No commit or push, per request. — Codex / GPT-5",
+      "created_at": "2026-09-18T17:19:40.407284Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5"
+      }
+    }
+  ],
+  "created_at": "2026-09-18T16:30:31.939835Z",
+  "updated_at": "2026-09-18T17:19:40.407304Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

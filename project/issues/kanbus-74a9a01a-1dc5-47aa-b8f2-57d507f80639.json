@@ -1,0 +1,28 @@
+{
+  "id": "kanbus-74a9a01a-1dc5-47aa-b8f2-57d507f80639",
+  "title": "Route anth.us production through Amplify",
+  "description": "The Amplify main branch build succeeds, but anth.us and www.anth.us still alias the legacy CloudFront distribution E2D59YWXV0QSUJ backed by anthus-site S3. Attach the custom domain to Amplify main, migrate DNS safely, and verify the Jev article update on canonical production.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "c43993e4-7604-4955-9e93-4eec67cb623e",
+      "author": "home",
+      "text": "Root cause: production DNS still pointed at legacy CloudFront distribution E2D59YWXV0QSUJ, and Amplify custom-domain setup initially failed because that distribution still owned anth.us and www.anth.us. Released both aliases; attached anth.us/www to Amplify main; updated Route 53 apex A alias and www CNAME to Amplify target d335lqlgq6ort3.cloudfront.net. Verified both hostnames return HTTP 200 and the updated Jev caption/Jersey 25 styling. Amplify currently reports AWAITING_APP_CNAME for the apex (www verified), even though the Route 53 alias resolves and production requests return the new page; keeping issue in progress to confirm AWS status settles.",
+      "created_at": "2026-09-18T15:51:18.209119Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-18T15:40:38.061522Z",
+  "updated_at": "2026-09-18T15:51:18.209313Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

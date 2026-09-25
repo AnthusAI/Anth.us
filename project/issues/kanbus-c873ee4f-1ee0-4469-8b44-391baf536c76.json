@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-c873ee4f-1ee0-4469-8b44-391baf536c76",
+  "title": "Publish Decision Models Are Not Calculators article",
+  "description": "Widen figures, synchronize the study README with the corrected Anth.us copy, and publish after live ship-gate verification.",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a2e443e5-16b6-4002-8fed-e82bf07c902e",
+      "author": "home",
+      "text": "Published: full-width figures verified at https://anth.us/blog/decision-models-are-not-calculators/. Study README quote removed and copy aligned. Ship gate passed: article 200, image 200 image/png, matching absolute og:image and twitter:image, twitter:card summary_large_image, robots.txt 200. GitHub build and Amplify deployment succeeded.",
+      "created_at": "2026-09-25T20:35:07.257917Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "Codex Desktop"
+      }
+    }
+  ],
+  "created_at": "2026-09-25T20:20:00.885160Z",
+  "updated_at": "2026-09-25T20:35:07.258170Z",
+  "closed_at": "2026-09-25T20:35:01.632270Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "Codex Desktop"
+  },
+  "right_now_summary": "The article is published with updated figures, aligned copy, and verified links and images.",
+  "right_now_updated_at": "2026-09-25T20:35:09.469496Z",
+  "custom": {}
+}

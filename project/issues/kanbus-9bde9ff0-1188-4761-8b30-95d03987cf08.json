@@ -1,0 +1,20 @@
+{
+  "id": "kanbus-9bde9ff0-1188-4761-8b30-95d03987cf08",
+  "title": "Rename Jev article URL and summary",
+  "description": "Update the Jev article’s summary and canonical slug to match its revised title, while preserving a redirect from the published URL.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-18T16:09:20.476853Z",
+  "updated_at": "2026-09-18T16:09:24.709542Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
