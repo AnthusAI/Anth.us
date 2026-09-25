@@ -1,0 +1,58 @@
+{
+  "id": "kanbus-461342fc-e9fe-4581-937e-01437afa39f3",
+  "title": "Draft article: Encoding Prejudice: System 1 Models and the Biases Nobody Measures",
+  "description": "Draft the fourth Jev-series article as src/site-content/encoding-prejudice.mdx (state: draft, date 2026-09-24), with its cover and body charts in src/site-content/images/, the chart script scripts/generate-encoding-prejudice-charts.py, two d2 diagrams, and social variants in social/encoding-prejudice/. Newsroom story: ANTH-3cb9808e-1dd7-4834-881f-c6fb0fdbec1b.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a2124e3f-330e-4a15-8161-8282b993eb43",
+      "author": "home",
+      "text": "Produced, all uncommitted on develop: src/site-content/encoding-prejudice.mdx (state: draft, date 2026-09-24); images encoding-prejudice-{cover,flips,direction,race-shift,age-shift,hygiene,monoculture}.png in src/site-content/images/; scripts/generate-encoding-prejudice-charts.py (reads studies/bios_*.jsonl from Jev-Flywheel by absolute path; imports chart_fonts.py from origin/main); social variants 1080x1350 and 1080x1080 for the four body charts in social/encoding-prejudice/. MDX compiles under @mdx-js/mdx 2.3.0. Pending numbers (mitigation arms) are marked as JSX comments in the MDX; one citation (Reuters, Amazon screener) is unverified and marked. Not built, not published.",
+      "created_at": "2026-09-22T16:49:45.269403Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      }
+    },
+    {
+      "id": "24735200-ad54-4cc3-92d3-19fcc4f014d6",
+      "author": "home",
+      "text": "Added the four-pair chart (encoding-prejudice-pairs.png, plus 1080x1350 and 1080x1080 social variants) and a 'Four decisions, two engines' section; the excerpt and Jev framing now carry the 1 to 4% range. MDX recompiled clean. Still draft; two mitigation TKs (J2, LF) and one citation TK remain as JSX comments.",
+      "created_at": "2026-09-22T18:35:18.621086Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      }
+    },
+    {
+      "id": "ca59d4a4-ca14-4d2d-b5f1-9d4a1a282dcf",
+      "author": "home",
+      "text": "Added the shortlist chart (encoding-prejudice-shortlist.png plus social variants) and a 'The shortlist' section after the opening; research.md and report.md updated. MDX recompiled clean; still draft.",
+      "created_at": "2026-09-22T18:47:10.823191Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      }
+    }
+  ],
+  "created_at": "2026-09-22T16:47:47.411708Z",
+  "updated_at": "2026-09-22T18:47:10.823218Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "The article, charts, and social assets are assembled; three research items remain marked for verification before",
+  "right_now_updated_at": "2026-09-22T18:47:13.512229Z",
+  "custom": {}
+}

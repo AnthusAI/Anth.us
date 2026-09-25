@@ -1,0 +1,39 @@
+{
+  "id": "kanbus-3126fd98-1c81-436a-a744-c7dd093f67eb",
+  "title": "Draft article: Fine-Tuning Jev: You Can't. Here's What Gets You the Same Effect",
+  "description": "Series article A (slug fine-tuning-jev). Covers src/site-content/fine-tuning-jev.mdx (state: draft), its five images in src/site-content/images/fine-tuning-jev-*.png, social variants in social/fine-tuning-jev/, and scripts/generate-fine-tuning-jev-charts.py. Newsroom story ANTH-a099a85f. Not to be published until the TKs are filled and Ryan approves.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "00b1daec-7bed-429f-b2be-bd5930068ce4",
+      "author": "home",
+      "text": "Produced (all uncommitted, no build run): fine-tuning-jev.mdx draft derived from the newsroom article.md; cover 1200x630; flywheel diagram rendered from Jev-Flywheel diagrams/flywheel.d2; three 1600x900 charts (refit-vs-steer, reliability, finetune) plus 1080x1350 and 1080x1080 social variants of each; one chart script reading Jev-Flywheel studies/ by absolute path. Four TKs remain in the MDX, all in the fine-tuning comparison section. The finetune chart's fine-tuned ECE bar depends on the pending calibration diagnosis and must be re-rendered if that number changes. Needs the coordinator's single Gatsby build to confirm the MDX compiles.",
+      "created_at": "2026-09-21T20:17:39.277264Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      }
+    }
+  ],
+  "created_at": "2026-09-21T20:17:25.025746Z",
+  "updated_at": "2026-09-21T20:17:39.277310Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "Draft and assets are ready; four TKs, Ryan’s approval, and a Gatsby build remain, with one chart awaiting data.",
+  "right_now_updated_at": "2026-09-21T20:17:42.192931Z",
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}

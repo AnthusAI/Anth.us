@@ -1,0 +1,39 @@
+{
+  "id": "kanbus-2869fe74-1e35-47d6-9c1a-de3a5fab6db4",
+  "title": "Draft article: Jev vs Laya: Same Labels, Same Questions, One Variable",
+  "description": "Draft of article B in the Jev series. Covers src/site-content/jev-vs-laya.mdx (state: draft), six images src/site-content/images/jev-vs-laya-*.png, the chart script scripts/generate-jev-vs-laya-charts.py, and social variants in social/jev-vs-laya/. Newsroom story ANTH-ed06f558 holds the prose source (article.md).",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "de88ba9b-fee8-441f-bfa0-4e75490a6e7b",
+      "author": "home",
+      "text": "Produced: MDX draft (state: draft, date 2026-09-25, 6 TK markers for results still running in the fine-tune-Laya study), cover 1200x630 plus five 1600x900 body charts, 10 social variants (1080x1350 and 1080x1080), and one chart script that reads the Jev-Flywheel study files directly. The learning-curve chart shows 3 of 6 sizes and must be re-rendered when arm C finishes (python3 scripts/generate-jev-vs-laya-charts.py --only curve). No build was run; MDX was re-read for syntax only. Nothing committed.",
+      "created_at": "2026-09-21T20:11:57.557945Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      }
+    }
+  ],
+  "created_at": "2026-09-21T20:11:42.041893Z",
+  "updated_at": "2026-09-21T20:11:57.558012Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "The article draft is ready, but six result markers await the Laya study and one chart needs rerendering.",
+  "right_now_updated_at": "2026-09-21T20:11:59.903532Z",
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}

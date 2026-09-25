@@ -1,0 +1,20 @@
+{
+  "id": "kanbus-ee8ddf84-9142-47da-a646-3f1e3f6643d6",
+  "title": "Prototype a redesigned Anthus homepage",
+  "description": "Reimagine the Anthus homepage visual design while preserving existing copy, imagery, and fuchsia/pink/blue identity. Add automatic light and dark modes, run a local Gatsby preview, and leave all work uncommitted and unpublished per Ryan's request.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-03T13:46:08.513535Z",
+  "updated_at": "2026-09-03T13:46:11.228033Z",
+  "closed_at": null,
+  "right_now_summary": "The Anthus homepage redesign is being prototyped with light and dark modes in a local Gatsby preview.",
+  "right_now_updated_at": "2026-09-08T16:23:09.027412Z",
+  "custom": {}
+}
