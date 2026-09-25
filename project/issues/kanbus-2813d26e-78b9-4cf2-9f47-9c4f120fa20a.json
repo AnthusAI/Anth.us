@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-2813d26e-78b9-4cf2-9f47-9c4f120fa20a",
+  "title": "Pin Decision Models Are Not Calculators draft content for review",
+  "description": "As an Anth.us editor, I want the Gatsby site to point at the reviewed content revision so that the article and social preview can be built before publication. Scope: pin the anthus-site-content draft commit on a site branch, run the production build, open a pull request against develop, and do not merge or deploy without approval. Given the content PR with state: draft, when the site submodule points to its commit, then the Gatsby build includes the draft article and its 1200x630 cover.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "b66e6e64-8c98-4738-90b8-e8914bc8ddbf",
+      "author": "home",
+      "text": "Pinned anthus-site-content ef6eb77 in isolated site branch. npm run build passed; generated /blog/decision-models-are-not-calculators/ HTML includes the 1200x630 cover asset, absolute og:image and twitter:image, twitter:card summary_large_image, and noindex/nofollow for state: draft. Content review PR: AnthusAI/anthus-site-content#16. Site PR pending; no merge/deploy.",
+      "created_at": "2026-09-25T16:48:55.055083Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6",
+        "name": "Codex desktop"
+      }
+    }
+  ],
+  "created_at": "2026-09-25T16:45:06.778380Z",
+  "updated_at": "2026-09-25T16:48:55.055100Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6",
+    "name": "Codex desktop"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
