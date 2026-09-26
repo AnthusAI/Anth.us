@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "20128ae7-3689-4644-a7d9-6af1754745ca",
+  "issue_id": "kanbus-841ef683-d814-4ccf-8ab0-4c7cbba0857b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T16:08:43.556Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Solutions entry: DataParade",
+    "description": "Ryan, 2026-09-26: add a solutions entry for DataParade.io, a privacy and security product on a semantic knowledge graph with a custom ontology and taxonomy tied to OCSF, which Anthus is developing with them. Position it in the observability-for-delegated-work trend: a prerequisite for operating a software factory, with human-in-the-loop as the control. Placeholder hero image; Ryan to replace.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

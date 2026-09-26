@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "c80b4065-e80d-43c1-9b50-ffa2c1a6a22f",
+  "issue_id": "kanbus-9b4c1a70-37b7-4e42-a846-858de2f7ef9a",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T15:20:14.893Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Hamburger menu: full-viewport panel with section subtitles",
+    "description": "Ryan, 2026-09-26: the pop-up hamburger menu clusters items too tightly. Replace the small popup with a full-viewport panel: each section title in the display face with a one-line subtitle explaining it, generous spacing, dividers. Subtitles live in the menu link config and are hidden in the desktop bar.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
