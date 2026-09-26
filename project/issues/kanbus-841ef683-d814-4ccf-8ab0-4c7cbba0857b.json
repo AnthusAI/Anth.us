@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-841ef683-d814-4ccf-8ab0-4c7cbba0857b",
+  "title": "Solutions entry: DataParade",
+  "description": "Ryan, 2026-09-26: add a solutions entry for DataParade.io, a privacy and security product on a semantic knowledge graph with a custom ontology and taxonomy tied to OCSF, which Anthus is developing with them. Position it in the observability-for-delegated-work trend: a prerequisite for operating a software factory, with human-in-the-loop as the control. Placeholder hero image; Ryan to replace.",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "ef429f6d-b4c5-4183-8d38-4976b2a17ac9",
+      "author": "unknown",
+      "text": "Landed and build-verified; publishing to main.",
+      "created_at": "2026-09-26T16:24:42.294571829Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-26T16:08:43.556639168Z",
+  "updated_at": "2026-09-26T16:24:42.311153519Z",
+  "closed_at": "2026-09-26T16:24:42.311123584Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}
