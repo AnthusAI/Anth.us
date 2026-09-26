@@ -35,7 +35,7 @@ const ArticlesPageTemplate = ({ data, pageContext }) => {
                       <GatsbyImage
                         image={previewImage}
                         alt={node.frontmatter.title}
-                        className="full"
+                        className="featured"
                       />
                       <h3>{node.frontmatter.title}</h3>
                     </Link>
