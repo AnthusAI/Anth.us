@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "a4c6e29e-a8fa-4f92-8bd1-05b50ee9864d",
+  "issue_id": "kanbus-901747a6-a301-4fa2-9b12-2cc552adf395",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T13:35:30.458Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Reading section: short posts about papers and books",
+    "description": "Ryan, 2026-09-26: a simple article section for mentions of papers and books, hand-written, not automated. A reading tag, a /reading listing page in the shape of /research, a Reading entry in the menu, and a short how-to in AGENTS.md. Seed it by tagging the nine published posts that are each about one paper.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
