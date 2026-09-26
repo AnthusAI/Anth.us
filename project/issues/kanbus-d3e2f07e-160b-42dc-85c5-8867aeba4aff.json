@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-d3e2f07e-160b-42dc-85c5-8867aeba4aff",
+  "title": "Featured article images half-width beside the text, not full-width",
+  "description": "Ryan, 2026-09-26: full-width article preview images on the homepage dominate the page. Featured article cards on the homepage and the articles page now float the image right at half width beside the title and excerpt, full width only on phones. Post thumbnails stay smaller at a third.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "c8c2ebf3-7356-483f-abd2-3b118fd3b304",
+      "author": "unknown",
+      "text": "Landed and build-verified; publishing to main.",
+      "created_at": "2026-09-26T15:06:06.792764069Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-26T14:49:04.529628130Z",
+  "updated_at": "2026-09-26T15:06:06.809784339Z",
+  "closed_at": "2026-09-26T15:06:06.809749789Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}
