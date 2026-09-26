@@ -10,9 +10,22 @@
   "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "e9c8fc94-3ce0-4b61-ba39-9d8cea563d46",
+      "author": "unknown",
+      "text": "Ryan, 2026-09-26: each research page needs to be a converting landing page for a social post about it, especially the Jev pieces. Done across nine articles (fine-tuning-jev by hand, then one-word-test, encoding-prejudice, can-you-fix-it, jev-vs-laya, can-you-trust-jev-confidence, distilling-jev-into-a-classifier, jev-useful-decisions, decision-models-are-not-calculators via three parallel passes). Each now has: the finding in the first two paragraphs, the third-way offer adapted to the technique it proves, two or three body tie-ins to the production loop (scorecards, approval gate, per-slice gates, confidence routing, audit trail), and a closing section naming the technique, linking the case study, Plexus, and /engage. Checked: no stale durations, no page self-references, client name only as a link target, one contrast per piece. Content submodule commit e8d52bf. Build running; site pin follows.",
+      "created_at": "2026-09-26T13:15:23.641076680Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
   "created_at": "2026-09-26T12:50:12.462526232Z",
-  "updated_at": "2026-09-26T12:50:18.570752354Z",
+  "updated_at": "2026-09-26T13:15:23.641108189Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
