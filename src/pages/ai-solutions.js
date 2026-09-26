@@ -14,15 +14,15 @@ const AISolutionsPage = ({ data }) => {
   const featuredSolutions = data.solutions.edges.filter(
     ({ node }) =>
       node.frontmatter.tags.includes("featured") &&
-      !node.frontmatter.tags.includes("integrations"),
+      !node.frontmatter.tags.includes("integrations")
   )
   const nonFeaturedSolutions = data.solutions.edges.filter(
     ({ node }) =>
       !node.frontmatter.tags.includes("featured") &&
-      !node.frontmatter.tags.includes("integrations"),
+      !node.frontmatter.tags.includes("integrations")
   )
   const integrations = data.solutions.edges.filter(({ node }) =>
-    node.frontmatter.tags.includes("integrations"),
+    node.frontmatter.tags.includes("integrations")
   )
 
   return (
@@ -39,7 +39,7 @@ const AISolutionsPage = ({ data }) => {
             You're under pressure to deliver AI that works in production, not
             just in a demo. Anthus builds and operates self-aligning AI systems
             — custom models, agent harnesses, and evaluation loops with a human
-            in the loop, grounded in 14 years of production operations. Our Call
+            in the loop, grounded in production operations since 2007. Our Call
             Criteria work is the proof: two years of production RLHF, a data
             flywheel that keeps learning from expert feedback, serving real QA
             at scale.
@@ -171,7 +171,7 @@ export const Head = () => {
   return (
     <Seo
       title="AI Solutions"
-      description="Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in 14 years of production operations."
+      description="Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in production operations since 2007."
       image="serverless-ai-software-solutions.png"
     />
   )

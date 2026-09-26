@@ -32,7 +32,7 @@ const FAQ = [
   },
   {
     q: "How is Anthus different from a typical AI consultancy?",
-    a: "We are operators first. The team ran a revenue-critical platform for over fourteen years, through data center failures and DDoS attacks, before applying the same discipline to AI. We ship systems with human-in-the-loop feedback, not demos.",
+    a: "We are operators first. The team has run a revenue-critical platform since 2007, through data center failures and DDoS attacks, before applying the same discipline to AI. We ship systems with human-in-the-loop feedback, not demos.",
   },
   {
     q: "What is human-in-the-loop AI?",
@@ -73,10 +73,10 @@ const AboutPage = () => {
             <a href="https://en.wikipedia.org/wiki/Kaleidoscope_World_Tour">
               Tiësto world tour
             </a>
-            , sparking a business that generated up to $64 million annually for{" "}
-            <mark>over fourteen years.</mark> We came together as a team as the
-            business expanded, going from a tiny startup to a department within
-            a large multinational corporation,{" "}
+            , sparking a business that generated up to $64 million annually{" "}
+            <mark>since 2007.</mark> We came together as a team as the business
+            expanded, going from a tiny startup to a department within a large
+            multinational corporation,{" "}
             <a href="https://taogroup.com">Tao Group Hospitality</a>. We have
             worked cohesively for more than a decade, safeguarding an impeccable
             record in <mark>reliability and security</mark>.
@@ -96,10 +96,10 @@ const AboutPage = () => {
             maturity and risk management consistently earned approval.
           </p>
           <p>
-            Our endurance over more than fourteen years is a testament to our
-            commitment and capability in preventing business interruptions
-            arising from downtime, software malfunctions, security incidents, or
-            data losses. <mark>The hackers never got us</mark>, despite being a{" "}
+            Our endurance since 2007 is a testament to our commitment and
+            capability in preventing business interruptions arising from
+            downtime, software malfunctions, security incidents, or data losses.{" "}
+            <mark>The hackers never got us</mark>, despite being a{" "}
             <a href="https://twitter.com/RyanAlynPorter/status/890982980721790976">
               prime target
             </a>
@@ -253,7 +253,7 @@ export const Head = () => {
   return (
     <Seo
       title="About Us"
-      description="Anthus builds and operates self-aligning AI systems, grounded in 14 years of production operations — the reliability and security behind a multi-million-dollar platform, now applied to AI."
+      description="Anthus builds and operates self-aligning AI systems, grounded in production operations since 2007 — the reliability and security behind a multi-million-dollar platform, now applied to AI."
       image="serverless-ai-software-solutions.png"
     >
       <script type="application/ld+json">
@@ -263,7 +263,7 @@ export const Head = () => {
           name: "Anthus AI Solutions",
           url: "https://anth.us",
           description:
-            "Anthus builds and operates self-aligning AI systems with a human in the loop, grounded in 14 years of production operations.",
+            "Anthus builds and operates self-aligning AI systems with a human in the loop, grounded in production operations since 2007.",
           founder: {
             "@type": "Person",
             name: "Ryan Porter",
