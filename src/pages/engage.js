@@ -27,11 +27,11 @@ const EngagePage = () => {
                 We take a high-volume judgment call your team already makes — a
                 score, a flag, a routing decision — and turn it into a
                 classifier with confidence gating: the model handles the clear
-                cases and routes the rest to your reviewers. We ran this pattern
-                for Call Criteria across years of production, hundreds of
-                models, and millions of interactions, with expert feedback
-                compounding into a data flywheel the whole time. You get that
-                architecture, sized to your judgment task.
+                cases and routes the rest to your reviewers. We've run this
+                pattern for a call-center QA operation across years of
+                production, hundreds of models, and millions of interactions,
+                with expert feedback compounding into a data flywheel the whole
+                time. You get that architecture, sized to your judgment task.
               </p>
             </div>
             <div className={styles.offerCard}>
