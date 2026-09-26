@@ -26,30 +26,41 @@ export default {
     menuLinks: [
       {
         name: "AI Solutions",
+        description:
+          "What we build and run for clients, with the case studies.",
         link: "/ai-solutions",
       },
       {
         name: "Platform",
+        description:
+          "The components behind the work: Plexus, Kanbus, and the rest.",
         link: "/platform",
       },
       {
         name: "Research",
+        description:
+          "Experiments on how decision models behave, with the numbers.",
         link: "/research",
       },
       {
         name: "Reading",
+        description: "Papers and books we keep coming back to, one note each.",
         link: "/reading",
       },
       {
         name: "About",
+        description: "Who we are, and the track record since 2007.",
         link: "/about",
       },
       {
         name: "Articles",
+        description:
+          "Long-form pieces on classifiers, agents, and the economics of AI.",
         link: "/blog",
       },
       {
         name: "Posts",
+        description: "Short takes on what shipped this week.",
         link: "/posts",
       },
     ],

@@ -21,6 +21,7 @@ const Layout = ({ children, hero }) => {
           menuLinks {
             name
             link
+            description
           }
         }
       }
