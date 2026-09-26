@@ -10,9 +10,22 @@
   "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "b59935da-ba40-4a53-ac94-d375b29bd90f",
+      "author": "unknown",
+      "text": "Built the engagement page and article CTA funnel.\n\nCreated:\n- src/pages/engage.js + src/pages/engage.module.css: /engage landing page. Sections: what an engagement is, three offer blocks (Classifier lab on Plexus / Factory-run software project / Newsroom for a publication), 'What a first month produces', single CTA button using centralised contactUrl.\n- src/components/contact-url.js: centralises contactUrl (same Google Form URL). Imported by engage.js and ai-solutions.js (index.js untouched per instructions).\n- src/components/engage-cta.jsx + engage-cta.module.css: boxed end-of-article CTA linking to /engage.\n\nChanged:\n- src/pages/ai-solutions.js: now imports contactUrl from the new shared module instead of defining it locally.\n- src/templates/blog-post.jsx: added tags to the GraphQL frontmatter query, imports EngageCTA, and renders it after the article body only when frontmatter.tags includes 'client-acquisition'. Confirmed via gatsby-node.js that blog-post.jsx is the only template used for both posts and articles (templates/article.jsx is unused/dead), so this is the single wiring point.\n- src/site-content/distilling-jev-into-a-classifier.mdx: added 'client-acquisition' tag alongside the existing tags (kept the 'research' tag another agent added concurrently).\n\nDid not touch: navigation/header/footer, src/pages/index.js, src/pages/research.js, and did not implement anything from parked 959bf4/1b53c5.\n\nVerification: npx prettier --write/--check on all new/changed JS/JSX files - clean. Did not run npm run build or npm run dev per instructions (parent session builds).\n\nLeft in_progress for parent session review before build/merge.",
+      "created_at": "2026-09-26T10:03:19.441012757Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-sonnet-5",
+        "name": "engagement-funnel"
+      }
+    }
+  ],
   "created_at": "2026-09-26T09:52:43.476564308Z",
-  "updated_at": "2026-09-26T09:52:43.476590731Z",
+  "updated_at": "2026-09-26T10:03:19.441046765Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
