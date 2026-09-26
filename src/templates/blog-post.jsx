@@ -12,6 +12,7 @@ import {
 } from "gatsby-citation-manager"
 import MDXCode from "../components/MDXCode"
 import { formatPostDate } from "../utils/format-post-date"
+import EngageCTA from "../components/engage-cta"
 
 // Define the shortcodes object
 const shortcodes = { BlogImage, Citation, CitationsList, MDXCode }
@@ -62,12 +63,15 @@ const BlogPostTemplate = ({ data, children }) => {
                         {index === array.length - 2 &&
                           (array.length > 2 ? ", and " : " and ")}
                       </React.Fragment>
-                    )
+                    ),
                   )}
                 </div>
               )}
           </div>
           <MDXProvider components={shortcodes}>{children}</MDXProvider>
+          {(post.frontmatter.tags || []).includes("client-acquisition") && (
+            <EngageCTA />
+          )}
         </article>
       </Layout>
     </CitationsProvider>
@@ -103,7 +107,7 @@ export const Head = ({ data }) => {
   // `state` only controls whether a post is listed on the home page. Anything not
   // yet published therefore has a live, shareable URL, which is deliberate for
   // review — but it must not be indexed.
-  const isPublished = post.frontmatter.state === 'published';
+  const isPublished = post.frontmatter.state === "published"
 
   return (
     <Seo
@@ -111,9 +115,7 @@ export const Head = ({ data }) => {
       description={cleanExcerpt}
       imageURL={imageUrl}
     >
-      {!isPublished && (
-        <meta name="robots" content="noindex, nofollow" />
-      )}
+      {!isPublished && <meta name="robots" content="noindex, nofollow" />}
     </Seo>
   )
 }
@@ -132,6 +134,7 @@ export const pageQuery = graphql`
         excerpt
         state
         date
+        tags
         authors {
           author
         }

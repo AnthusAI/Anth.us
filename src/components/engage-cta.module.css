@@ -1,0 +1,12 @@
+.box {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--color-background-secondary);
+  text-align: center;
+}
+
+.text {
+  max-width: 40rem;
+  margin: 0 auto 1rem;
+}
