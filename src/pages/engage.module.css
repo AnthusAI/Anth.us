@@ -67,3 +67,20 @@
     padding: 1.25rem 1rem;
   }
 }
+
+.ctaSection :global(a.button) {
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+  height: auto;
+  min-height: calc(1.6 * var(--font-xl));
+  padding: 0.15em 0.8em;
+  line-height: 1.1;
+}
+
+@media (max-width: 480px) {
+  .ctaSection :global(a.button) {
+    font-size: var(--font-xl);
+  }
+}

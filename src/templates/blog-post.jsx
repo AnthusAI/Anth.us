@@ -63,10 +63,25 @@ const BlogPostTemplate = ({ data, children }) => {
                         {index === array.length - 2 &&
                           (array.length > 2 ? ", and " : " and ")}
                       </React.Fragment>
-                    ),
+                    )
                   )}
                 </div>
               )}
+            {post.frontmatter.repository && (
+              <div className="repository">
+                <span className="byline">code and data at </span>
+                <a
+                  href={post.frontmatter.repository}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {post.frontmatter.repository.replace(
+                    /^https?:\/\/(www\.)?github\.com\//,
+                    ""
+                  )}
+                </a>
+              </div>
+            )}
           </div>
           <MDXProvider components={shortcodes}>{children}</MDXProvider>
           {(post.frontmatter.tags || []).includes("client-acquisition") && (
@@ -135,6 +150,7 @@ export const pageQuery = graphql`
         state
         date
         tags
+        repository
         authors {
           author
         }
