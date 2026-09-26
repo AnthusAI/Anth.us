@@ -19,6 +19,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   })
 }
 
+const legacyCollectionPageRedirects = []
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
 
@@ -37,6 +39,8 @@ exports.createPages = async ({ graphql, actions }) => {
             excerpt
             tags
             content_type
+            state
+            date
             platform_category
             platform_stage
             external_url
@@ -116,99 +120,95 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  const articlesResult = await graphql(`
-    {
-      allMdx(
-        filter: {
-          frontmatter: {
-            state: { eq: "published" }
-            tags: { nin: ["solutions", "posts"] }
-            content_type: { ne: "platform-product" }
-          }
-        }
-      ) {
-        totalCount
-      }
-    }
-  `)
-
-  if (articlesResult.errors) {
-    console.error(articlesResult.errors)
-    throw new Error("Error querying for articles.")
-  }
-
-  const FEATURED_ARTICLES_ON_FIRST_PAGE = 4
-  const GRID_ARTICLES_PER_PAGE = 8
-  const ARTICLES_ON_FIRST_PAGE =
-    FEATURED_ARTICLES_ON_FIRST_PAGE + GRID_ARTICLES_PER_PAGE
-  const articlesCount = articlesResult.data.allMdx.totalCount
-  const articlesAfterFirstPage = Math.max(
-    0,
-    articlesCount - ARTICLES_ON_FIRST_PAGE
+  const listingTemplate = path.resolve(`./src/templates/collection.jsx`)
+  const FEATURED_ON_FIRST_PAGE = 4
+  const GRID_PER_PAGE = 8
+  const publishedNodes = allNodes.filter(
+    node => node.frontmatter.state === "published" && !isPlatformNode(node)
   )
-  const numArticlePages =
-    1 + Math.ceil(articlesAfterFirstPage / GRID_ARTICLES_PER_PAGE)
-  const allBlogsTemplate = path.resolve(`./src/templates/blog.jsx`)
+  const hasTag = (node, tag) => (node.frontmatter.tags || []).includes(tag)
 
-  Array.from({ length: numArticlePages }).forEach((_, index) => {
-    const currentPage = index + 1
-    const pagePath = currentPage === 1 ? `blog/` : `blog/page/${currentPage}/`
-    const skip =
-      currentPage === 1
-        ? 0
-        : ARTICLES_ON_FIRST_PAGE + (currentPage - 2) * GRID_ARTICLES_PER_PAGE
-    const limit =
-      currentPage === 1 ? ARTICLES_ON_FIRST_PAGE : GRID_ARTICLES_PER_PAGE
-    console.log(`Creating page: /${pagePath}`)
-    createPage({
-      path: pagePath,
-      component: allBlogsTemplate,
-      context: {
-        skip,
-        limit,
-        featuredCount: currentPage === 1 ? FEATURED_ARTICLES_ON_FIRST_PAGE : 0,
-        numPages: numArticlePages,
-        currentPage,
-      },
-    })
-  })
-
-  const postsResult = await graphql(`
+  const collections = [
     {
-      allMdx(
-        filter: {
-          frontmatter: { state: { eq: "published" }, tags: { in: ["posts"] } }
-        }
-        sort: { frontmatter: { date: DESC } }
-      ) {
-        totalCount
+      basePath: "blog",
+      title: "Articles",
+      description:
+        "Long-form articles from Anthus on decision models, agent systems, classifiers in production, and the economics of AI-built software.",
+      intro: null,
+      legacyPagePaths: false,
+      nodes: publishedNodes.filter(
+        node => !hasTag(node, "solutions") && !hasTag(node, "posts")
+      ),
+    },
+    {
+      basePath: "research",
+      title: "Research",
+      description:
+        "Experiments on how Jev, Laya and other decision models actually behave in production: bias, calibration, fine-tuning and distillation, with the method and the measurements.",
+      intro:
+        "Jev, Laya and the rest of the field-coverage roster answer millions of bounded questions a day, so we run the experiments that check what they're actually doing: where their verdicts move on a name or a pronoun, how well their confidence tracks reality, and what survives when you fine-tune, distill or gate them. Every piece here comes with the method and the numbers, not just the headline.",
+      legacyPagePaths: false,
+      nodes: publishedNodes.filter(node => hasTag(node, "research")),
+    },
+    {
+      basePath: "reading",
+      title: "Reading",
+      description:
+        "Papers and books behind the work at Anthus, one short note each on what they say and what we checked.",
+      intro:
+        "Papers and books we keep coming back to, one short piece each: what it says, what we checked, and where it changed how we build. New entries land as we read them.",
+      legacyPagePaths: false,
+      nodes: publishedNodes.filter(node => hasTag(node, "reading")),
+    },
+    {
+      basePath: "posts",
+      title: "Posts",
+      description:
+        "Short posts from Anthus on what shipped, what we read, and what changed in AI this week.",
+      intro: null,
+      legacyPagePaths: true,
+      nodes: publishedNodes.filter(node => hasTag(node, "posts")),
+    },
+  ]
+
+  collections.forEach(collection => {
+    const firstPageCount = FEATURED_ON_FIRST_PAGE + GRID_PER_PAGE
+    const remaining = Math.max(0, collection.nodes.length - firstPageCount)
+    const numPages = 1 + Math.ceil(remaining / GRID_PER_PAGE)
+    Array.from({ length: numPages }).forEach((_, index) => {
+      const currentPage = index + 1
+      const pagePath =
+        currentPage === 1
+          ? `${collection.basePath}/`
+          : `${collection.basePath}/page/${currentPage}/`
+      const start =
+        currentPage === 1
+          ? 0
+          : firstPageCount + (currentPage - 2) * GRID_PER_PAGE
+      const count = currentPage === 1 ? firstPageCount : GRID_PER_PAGE
+      const ids = collection.nodes.slice(start, start + count).map(n => n.id)
+      console.log(`Creating collection page: /${pagePath}`)
+      createPage({
+        path: pagePath,
+        component: listingTemplate,
+        context: {
+          ids,
+          basePath: collection.basePath,
+          title: collection.title,
+          description: collection.description,
+          intro: collection.intro,
+          featuredCount: currentPage === 1 ? FEATURED_ON_FIRST_PAGE : 0,
+          numPages,
+          currentPage,
+        },
+      })
+      if (collection.legacyPagePaths && currentPage > 1) {
+        legacyCollectionPageRedirects.push({
+          fromPath: `${collection.basePath}/${currentPage}`,
+          toPath: `/${pagePath}`,
+          title: `${collection.title}, page ${currentPage}`,
+        })
       }
-    }
-  `)
-
-  if (postsResult.errors) {
-    console.error(postsResult.errors)
-    throw new Error("Error querying for posts.")
-  }
-
-  const POSTS_PER_PAGE = 12
-  const postsCount = postsResult.data.allMdx.totalCount
-  const numPages = Math.ceil(postsCount / POSTS_PER_PAGE)
-  const postsListTemplate = path.resolve(`./src/templates/posts-list.jsx`)
-
-  Array.from({ length: numPages }).forEach((_, index) => {
-    const currentPage = index + 1
-    const path = currentPage === 1 ? `posts/` : `posts/${currentPage}/`
-    console.log(`Creating page: /${path}`)
-    createPage({
-      path,
-      component: postsListTemplate,
-      context: {
-        skip: index * POSTS_PER_PAGE,
-        limit: POSTS_PER_PAGE,
-        numPages,
-        currentPage,
-      },
     })
   })
 }
@@ -263,4 +263,28 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
   `
   createTypes(typeDefs)
+}
+
+exports.onPostBuild = async () => {
+  const fs = require("fs")
+  legacyCollectionPageRedirects.forEach(({ fromPath, toPath, title }) => {
+    const directory = path.join("public", fromPath)
+    fs.mkdirSync(directory, { recursive: true })
+    fs.writeFileSync(
+      path.join(directory, "index.html"),
+      `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Moved to ${title}</title>
+<link rel="canonical" href="https://anth.us${toPath}">
+<meta http-equiv="refresh" content="0;url=${toPath}">
+</head>
+<body>
+<p>This page moved to <a href="${toPath}">anth.us${toPath}</a>.</p>
+</body>
+</html>
+`
+    )
+  })
 }

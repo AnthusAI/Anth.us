@@ -16,10 +16,22 @@ const EngagePage = () => {
             the system learns. When the engagement ends, you own what comes out
             of it — the model, the pipeline, the board, the record.
           </p>
+          <p>
+            Bring us any problem you think AI might solve, even if you can't yet
+            say what you need. Working that out is part of the first month, and
+            it's often the most useful part.
+          </p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionHeading}>Three ways to start</h2>
+          <h2 className={styles.sectionHeading}>
+            Three examples of where we start
+          </h2>
+          <p>
+            These are shapes engagements often take. They aren't a menu. Most
+            real problems don't fit one box, and we take on AI solutions work of
+            any kind.
+          </p>
           <div className={styles.offerGrid}>
             <div className={styles.offerCard}>
               <h3>Classifier lab on Plexus</h3>
@@ -63,7 +75,9 @@ const EngagePage = () => {
           <ul className={styles.firstMonthList}>
             <li>
               <strong>A pilot with fixed scope.</strong> One judgment task, one
-              project, or one publication track, scoped before we start.
+              project, or one publication track, scoped before we start. If you
+              don't know what you need yet, the first month is discovery, and it
+              ends with a scoped proposal instead of a guess.
             </li>
             <li>
               <strong>A scorecard or a board you can inspect.</strong> The same
@@ -79,8 +93,8 @@ const EngagePage = () => {
 
         <section className={styles.ctaSection}>
           <p>
-            Tell us the judgment task, the project, or the publication you want
-            running, and we'll scope the first month.
+            Tell us the problem, even if it's half-formed, and we'll scope the
+            first month together.
           </p>
           <a href={contactUrl} className="button">
             Start an engagement
@@ -95,7 +109,7 @@ export const Head = () => {
   return (
     <Seo
       title="Engage Anthus"
-      description="What an Anthus engagement looks like: a classifier lab on Plexus, a factory-run software project, or a Kanbus-governed newsroom on Papyrus — each with a fixed first month and a record you can inspect."
+      description="What an Anthus engagement looks like: bring any problem you think AI might solve, and we scope a first month with a record you can inspect. Classifier labs, factory-run software, and newsrooms are three examples."
     />
   )
 }
