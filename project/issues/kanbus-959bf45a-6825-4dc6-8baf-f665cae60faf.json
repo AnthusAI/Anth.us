@@ -22,10 +22,22 @@
         "model": "claude-fable-5-1",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "7b337c62-c992-4d3a-81e0-8085ed9df0bd",
+      "author": "unknown",
+      "text": "Implemented items 1-4 in src/pages/index.js only (plus src/components/index.module.css):\n\n1. Cut B0rd from homepage: removed the \"SPINOFF\" section and its b0rdSolution GraphQL query. B0rd's own page and blog entry are untouched.\n2. One contact button: removed the \"Contact us\" button in the Approach section, kept \"Read Cybernetic Development\". Removed the now-unused local contactUrl const (not needed elsewhere on the page, so no import was added).\n3. Case cards restructured to 4 scannable lines each (who / what broke / what we did / one number), using only facts already on the cards:\n   - Call Criteria: \"Call center QA, scored by human reviewers.\" / \"Their QA couldn't scale without scaling headcount.\" / \"We built a self-evolving RLHF system: reviewers correct the AI and say why, and it turns the explanation into policy.\" / \"100% of calls reviewed, up from a sample.\"\n   - Venue Driver: \"Ticketing and reservations backbone for Las Vegas nightlife.\" / \"An AWS data center failed catastrophically.\" / \"We relocated the entire system within hours — ticket scanning never stopped.\" / \"16 years of continuous operation.\"\n   Added .caseFacts CSS for the line layout.\n4. Copy cleanup: Seo description now reads \"...grounded in 14 years of production operations.\" (matching about.js/gatsby-config.mjs phrasing) instead of \"In production since 2023.\" Footer line under Recent Posts shortened to \"More in Posts.\" (the Articles footer line was left as-is; only the Posts line was named in the task).\n\nHero button retargeted to /engage per 1b53c5's plan (see that task's comment for the hero copy). H1 unchanged. Ran prettier --write and --check on the touched files; both clean. Did not run build/dev per instructions. Not committed/pushed — leaving that to the parent session.",
+      "created_at": "2026-09-26T10:08:08.315088347Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-sonnet-5",
+        "name": "homepage-hire-path"
+      }
     }
   ],
   "created_at": "2026-08-30T22:19:48.890821Z",
-  "updated_at": "2026-09-26T10:05:13.328388646Z",
+  "updated_at": "2026-09-26T10:08:08.315119191Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
