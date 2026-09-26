@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-9b54c110-c83a-4af9-8438-c91c35bf7150",
+  "title": "Reword Plexus and Call Criteria pages to duration framing",
+  "description": "The Plexus solution page and the Call Criteria case describe the engagement in present tense. Reword both to duration and cumulative framing (years in production, models managed, interactions processed) so every claim is checkable and stays true over time. Also update the two-years wording in AGENTS.md Strategic Marketing Terminology. Small copy change; no new content.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-26T09:52:43.452895699Z",
+  "updated_at": "2026-09-26T09:52:43.452921676Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

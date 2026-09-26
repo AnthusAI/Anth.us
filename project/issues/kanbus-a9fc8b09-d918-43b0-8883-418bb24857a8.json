@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-a9fc8b09-d918-43b0-8883-418bb24857a8",
+  "title": "Run Anth.us editorial fully through Papyrus, Gatsby stays the renderer",
+  "description": "Make the Papyrus newsroom the only authoring path: every story starts on the ANTH board, drafts go through Limatus diagnose and verify, and a human approval on the board publishes. Papyrus commits to the content submodule and pins the revision; the site repo stays the renderer and Amplify deploys as today. Keep this a process-plus-glue change, not a site rebuild. Run it as a public factory project from day one so its board history becomes the record the Papyrus newsroom article (ANTH-6360c2) is written from.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-26T09:52:43.488479089Z",
+  "updated_at": "2026-09-26T09:52:43.488503086Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
