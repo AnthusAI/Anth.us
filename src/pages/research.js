@@ -56,6 +56,16 @@ export const query = graphql`
             slug
             date
             excerpt
+            repository
+            preview_image {
+              childImageSharp {
+                gatsbyImageData(
+                  layout: CONSTRAINED
+                  width: 640
+                  aspectRatio: 1.9
+                )
+              }
+            }
           }
         }
       }

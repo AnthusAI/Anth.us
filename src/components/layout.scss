@@ -638,6 +638,10 @@ article {
     div.assistants {
       opacity: 0.5;
     }
+    div.repository {
+      opacity: 0.7;
+      font-size: var(--font-sm);
+    }
   }
   h1 {
     margin-top: var(--base-line-height);

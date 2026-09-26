@@ -10,3 +10,20 @@
   max-width: 40rem;
   margin: 0 auto 1rem;
 }
+
+.box :global(a.button) {
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+  height: auto;
+  min-height: calc(1.6 * var(--font-xl));
+  padding: 0.15em 0.8em;
+  line-height: 1.1;
+}
+
+@media (max-width: 480px) {
+  .box :global(a.button) {
+    font-size: var(--font-xl);
+  }
+}
