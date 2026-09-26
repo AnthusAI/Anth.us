@@ -720,6 +720,20 @@ article {
 .gatsby-image-wrapper.full {
   margin-bottom: var(--base-line-height);
 }
+.gatsby-image-wrapper.featured {
+  float: right;
+  width: 50%;
+  height: auto;
+  margin-left: calc(2 * var(--base-line-height));
+  margin-bottom: var(--base-line-height);
+  border-radius: 4px;
+
+  @media (max-width: 640px) {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+  }
+}
 .gatsby-image-wrapper.centered {
   display: block;
   width: 66%;

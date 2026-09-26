@@ -326,7 +326,11 @@ const IndexPage = () => {
             : { href: `/blog/${slug}`, isExternal: false }
           const cardMedia = (
             <>
-              <GatsbyImage image={previewImage} alt={title} className="full" />
+              <GatsbyImage
+                image={previewImage}
+                alt={title}
+                className="featured"
+              />
               <h3>{title}</h3>
             </>
           )
