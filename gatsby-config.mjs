@@ -7,9 +7,9 @@
  * remark/unified ecosystem — is published as ESM only.
  */
 
-import path from 'path'
-import { fileURLToPath } from 'url'
-import remarkGfm from 'remark-gfm'
+import path from "path"
+import { fileURLToPath } from "url"
+import remarkGfm from "remark-gfm"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const siteContentPath = `${__dirname}/src/site-content`
@@ -20,31 +20,35 @@ const siteContentPath = `${__dirname}/src/site-content`
 export default {
   siteMetadata: {
     title: `Anthus`,
-    description: `Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in 14 years of production operations.`,
+    description: `Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in production operations since 2007.`,
     author: `Ryan Porter`,
     siteUrl: `https://anth.us`,
-    menuLinks:[
+    menuLinks: [
       {
-        name:'AI Solutions',
-        link:'/ai-solutions'
+        name: "AI Solutions",
+        link: "/ai-solutions",
       },
       {
-        name:'Platform',
-        link:'/platform'
+        name: "Platform",
+        link: "/platform",
       },
       {
-        name:'About',
-        link:'/about'
+        name: "Research",
+        link: "/research",
       },
       {
-        name:'Articles',
-        link:'/blog'
+        name: "About",
+        link: "/about",
       },
       {
-        name:'Posts',
-        link:'/posts'
+        name: "Articles",
+        link: "/blog",
       },
-    ]
+      {
+        name: "Posts",
+        link: "/posts",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -61,8 +65,8 @@ export default {
       options: {
         defaults: {
           quality: 70,
-          formats: ['auto', 'webp', 'avif'],
-          placeholder: 'blurred',
+          formats: ["auto", "webp", "avif"],
+          placeholder: "blurred",
         },
       },
     },
@@ -89,7 +93,7 @@ export default {
           `Geist Mono:400,500`,
           `Montserrat:400,500,600,900`,
         ],
-        display: 'block',
+        display: "block",
       },
     },
     {
@@ -152,11 +156,11 @@ export default {
             options: {
               maxWidth: 940,
             },
-          }
+          },
         ],
       },
     },
-    'gatsby-citation-manager',
+    "gatsby-citation-manager",
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
