@@ -4,9 +4,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Solutions from "../components/solutions"
 import { Link } from "gatsby"
-
-const contactUrl =
-  "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"
+import { contactUrl } from "../components/contact-url"
 
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
@@ -16,15 +14,15 @@ const AISolutionsPage = ({ data }) => {
   const featuredSolutions = data.solutions.edges.filter(
     ({ node }) =>
       node.frontmatter.tags.includes("featured") &&
-      !node.frontmatter.tags.includes("integrations")
+      !node.frontmatter.tags.includes("integrations"),
   )
   const nonFeaturedSolutions = data.solutions.edges.filter(
     ({ node }) =>
       !node.frontmatter.tags.includes("featured") &&
-      !node.frontmatter.tags.includes("integrations")
+      !node.frontmatter.tags.includes("integrations"),
   )
   const integrations = data.solutions.edges.filter(({ node }) =>
-    node.frontmatter.tags.includes("integrations")
+    node.frontmatter.tags.includes("integrations"),
   )
 
   return (
@@ -39,23 +37,23 @@ const AISolutionsPage = ({ data }) => {
           />
           <p>
             You're under pressure to deliver AI that works in production, not
-            just in a demo. Anthus builds and operates self-aligning AI
-            systems — custom models, agent harnesses, and evaluation loops
-            with a human in the loop, grounded in 14 years of production
-            operations. Our Call Criteria work is the proof: two years of
-            production RLHF, a data flywheel that keeps learning from expert
-            feedback, serving real QA at scale.
+            just in a demo. Anthus builds and operates self-aligning AI systems
+            — custom models, agent harnesses, and evaluation loops with a human
+            in the loop, grounded in 14 years of production operations. Our Call
+            Criteria work is the proof: two years of production RLHF, a data
+            flywheel that keeps learning from expert feedback, serving real QA
+            at scale.
           </p>
           <h2>What We Build</h2>
           <ul>
             <li>
-              <strong>Knowledge Bases</strong> — ontologies and taxonomies
-              that learn from your data instead of going stale.{" "}
+              <strong>Knowledge Bases</strong> — ontologies and taxonomies that
+              learn from your data instead of going stale.{" "}
               <a href="https://github.com/AnthusAI/Biblicus">See Biblicus</a>.
             </li>
             <li>
-              <strong>Self-Aligning Automation</strong> — systems that
-              improve from production feedback, with a human in the loop.{" "}
+              <strong>Self-Aligning Automation</strong> — systems that improve
+              from production feedback, with a human in the loop.{" "}
               <Link to="/blog/call-criteria/">
                 See the Call Criteria case study
               </Link>
@@ -67,8 +65,8 @@ const AISolutionsPage = ({ data }) => {
               <Link to="/blog/give-an-agent-a-tool/">See the approach</Link>.
             </li>
             <li>
-              <strong>Machine Learning</strong> — custom models and
-              fine-tuned classifiers aligned to your business.{" "}
+              <strong>Machine Learning</strong> — custom models and fine-tuned
+              classifiers aligned to your business.{" "}
               <Link to="/blog/domain-specific-turn-detection/">
                 See the work
               </Link>

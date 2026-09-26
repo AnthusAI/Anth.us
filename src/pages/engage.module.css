@@ -1,0 +1,69 @@
+.hero {
+  margin: 2rem 0;
+  padding: 1.75rem 1.5rem;
+  background: var(--color-background-secondary);
+  border-radius: 8px;
+}
+
+.lead {
+  font-size: 1.05rem;
+  line-height: var(--line-height-loose);
+  max-width: 60rem;
+}
+
+.section {
+  margin: 2rem 0;
+}
+
+.sectionHeading {
+  margin-bottom: 0.5rem;
+}
+
+.offerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.offerCard {
+  padding: 1.25rem;
+  border-radius: 8px;
+  background: var(--color-background-secondary);
+  display: flex;
+  flex-direction: column;
+}
+
+.offerCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.firstMonthList {
+  margin: 1rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.firstMonthList li {
+  margin-bottom: 0.5rem;
+}
+
+.ctaSection {
+  margin: 2.5rem 0;
+  padding: 1.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--color-background-secondary);
+  text-align: center;
+}
+
+.ctaSection p {
+  max-width: 40rem;
+  margin: 0 auto 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .ctaSection {
+    padding: 1.25rem 1rem;
+  }
+}
