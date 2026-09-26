@@ -3,7 +3,7 @@
   "title": "Research section: tag and listing page for research-oriented articles",
   "description": "Add a research tag and a listing page modelled on the platform page. Move the Jev and Laya bias series, Benford and decision-model pieces, turn detection, and the few-shot draft under it. Purpose: keep the home page for buyer content and give solutions pages somewhere to link for credibility. Research-shaped drafts (Ralph loops, code-based hill-climbing, wiki that only gets bigger) can ship into this section as they are ready.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,35 @@
         "model": "claude-sonnet-5",
         "name": "research-section"
       }
+    },
+    {
+      "id": "dd1f27e0-7cda-432e-a073-5a8ddd99bfac",
+      "author": "unknown",
+      "text": "Build verification completed after my earlier comment: npm run build finished successfully (Done building in 351.9s, exit code 0). Confirmed public/research/index.html exists with <h1>Research</h1> and links to all 11 published research-tagged articles (can-you-fix-it, can-you-trust-jev-confidence, decision-models-are-not-calculators, distilling-jev-into-a-classifier, domain-specific-turn-detection, encoding-prejudice, fine-tuning-jev, jev-vs-laya, making-decisions-instead-of-generating-text [jev-useful-decisions.mdx's actual slug], one-word-test, the-dominance-of-ones). The 'ERROR UNKNOWN' lines seen mid-build were just node punycode deprecation-warning noise from worker processes and pre-existing 'Citation must be used within a CitationsProvider' console.error logs from MDX rendering elsewhere in the site (not thrown, don't fail the build, unrelated to my changes). Confirmed the Research nav link renders on the home page too. This closes out the verification step; task can be closed after commit.",
+      "created_at": "2026-09-26T10:23:04.036872798Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-sonnet-5",
+        "name": "research-section"
+      }
+    },
+    {
+      "id": "bcbc4f75-7cf9-4244-b574-2a2ba777706a",
+      "author": "unknown",
+      "text": "Landed on branch claude/anth-content-strategy-clients-c40o36 (site commits through 0bd6bdb, content submodule 812d847). Production build verified: /research lists the eleven published research articles, /engage renders with the anonymised classifier offer, the hero button links to /engage, the engage box renders on the distillation article. Closing; merge to main deploys it.",
+      "created_at": "2026-09-26T10:23:47.384109112Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
     }
   ],
   "created_at": "2026-09-26T09:52:43.464720317Z",
-  "updated_at": "2026-09-26T10:18:18.915644620Z",
-  "closed_at": null,
+  "updated_at": "2026-09-26T10:23:47.398406713Z",
+  "closed_at": "2026-09-26T10:23:47.398371211Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1",
