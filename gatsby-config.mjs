@@ -37,6 +37,10 @@ export default {
         link: "/research",
       },
       {
+        name: "Reading",
+        link: "/reading",
+      },
+      {
         name: "About",
         link: "/about",
       },

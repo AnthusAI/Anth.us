@@ -121,6 +121,18 @@ import BlogImage from "../../components/blog-image"
 Your post content here...
 ```
 
+### Creating a Reading Entry
+
+Reading entries are short posts about one paper or one book, listed at `/reading`. They are hand-written, one per source. There is no automation behind the section.
+
+**Quick reference**
+
+- **Location**: `src/site-content/posts/your-slug.mdx`, exactly like a post.
+- **Tags**: `posts` and `reading`.
+- **Shape**: the standard post structure. Open with what the paper or book claims, in one or two sentences. Then what we checked or how it changed the way we build. Cite the source with `<Citation>` so it appears in the citations list.
+- **Image**: a single 1200x630 preview image in `src/site-content/images/posts/`, created before the MDX.
+- **Use case**: a paper or book worth a standing mention, not a link dump. One entry, one source, one opinion.
+
 ### Creating a Blog Article
 
 Articles are long-form, comprehensive content with citations and illustrations, located in `src/site-content/*.mdx`.
