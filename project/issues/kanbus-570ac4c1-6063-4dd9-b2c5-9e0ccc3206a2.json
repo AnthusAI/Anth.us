@@ -3,7 +3,7 @@
   "title": "Jev research articles: explicit we-do-this-for-you-at-scale closings",
   "description": "Ryan, 2026-09-26, on /blog/fine-tuning-jev/: articles like this need to be a lot more explicit that Anthus can do this for you, at scale, with years of experience doing it. First pass: a bespoke closing section on fine-tuning-jev that reconciles the small repo demo with the production loop Anthus has run for years on Plexus; a more explicit shared engage box; and the client-acquisition tag on the Jev series so the box renders on each. Follow-up: bespoke closings on the other Jev articles in the same shape.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,23 @@
         "model": "claude-fable-5-1",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "3c2f6ced-f36e-476a-b130-eb41ad75b0a4",
+      "author": "unknown",
+      "text": "Build passes; every one of the nine articles renders its closing section and the engage box. Site pinned to content e8d52bf. Closing.",
+      "created_at": "2026-09-26T13:30:46.662633091Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
     }
   ],
   "created_at": "2026-09-26T12:50:12.462526232Z",
-  "updated_at": "2026-09-26T13:15:23.641108189Z",
-  "closed_at": null,
+  "updated_at": "2026-09-26T13:30:46.677499285Z",
+  "closed_at": "2026-09-26T13:30:46.677428935Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1",
