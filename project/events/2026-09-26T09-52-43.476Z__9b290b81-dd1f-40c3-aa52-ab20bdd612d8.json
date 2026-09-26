@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "9b290b81-dd1f-40c3-aa52-ab20bdd612d8",
+  "issue_id": "kanbus-2d48e141-d5bc-4262-a6f5-8bf457d6c9de",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T09:52:43.476Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Engagement page: single landing for classifier, factory, and newsroom offers",
+    "description": "One page that says what an engagement looks like (pilot scope, what a first month produces, how to start) with one call to action. The Plexus, Kanbus, and Papyrus articles all end here. Replaces the generic contact link to the bio page as the article CTA. Coordinate with 1b53c5 (homepage one job, one CTA) and c6739d (foundational messaging) so the hire path is consistent.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
