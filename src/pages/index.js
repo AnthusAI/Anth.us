@@ -307,7 +307,7 @@ const IndexPage = () => {
               never stopped.
             </li>
             <li>
-              <mark>16 years of continuous operation</mark>.
+              <mark>In continuous operation since 2007</mark>.
             </li>
           </ul>
         </li>
@@ -406,7 +406,7 @@ export const Head = () => {
   return (
     <Seo
       title="Home"
-      description="Anthus builds self-aligning AI systems: custom models, agent harnesses, evaluation loops, and unattended automation with a human in the loop, grounded in 14 years of production operations."
+      description="Anthus builds self-aligning AI systems: custom models, agent harnesses, evaluation loops, and unattended automation with a human in the loop, grounded in production operations since 2007."
       image="serverless-ai-software-solutions.png"
     />
   )
