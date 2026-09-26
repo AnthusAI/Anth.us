@@ -54,6 +54,24 @@
   text-align: center;
 }
 
+.heroProof {
+  font-size: 0.85em;
+}
+
+.caseFacts {
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+}
+
+.caseFacts li {
+  margin: 0.35rem 0;
+}
+
+.caseFacts li:last-child {
+  font-weight: 600;
+}
+
 .intro {
   max-width: none;
   line-height: var(--line-height-loose);
