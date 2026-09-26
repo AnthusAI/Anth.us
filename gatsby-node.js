@@ -71,7 +71,6 @@ exports.createPages = async ({ graphql, actions }) => {
         id: node.id,
       },
     })
-
     ;(node.frontmatter.redirect_from || []).forEach(legacySlug => {
       createRedirect({
         fromPath: `/blog/${legacySlug}`,
@@ -117,11 +116,61 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
+  const articlesResult = await graphql(`
+    {
+      allMdx(
+        filter: {
+          frontmatter: {
+            state: { eq: "published" }
+            tags: { nin: ["solutions", "posts"] }
+            content_type: { ne: "platform-product" }
+          }
+        }
+      ) {
+        totalCount
+      }
+    }
+  `)
+
+  if (articlesResult.errors) {
+    console.error(articlesResult.errors)
+    throw new Error("Error querying for articles.")
+  }
+
+  const FEATURED_ARTICLES_ON_FIRST_PAGE = 4
+  const GRID_ARTICLES_PER_PAGE = 8
+  const ARTICLES_ON_FIRST_PAGE =
+    FEATURED_ARTICLES_ON_FIRST_PAGE + GRID_ARTICLES_PER_PAGE
+  const articlesCount = articlesResult.data.allMdx.totalCount
+  const articlesAfterFirstPage = Math.max(
+    0,
+    articlesCount - ARTICLES_ON_FIRST_PAGE
+  )
+  const numArticlePages =
+    1 + Math.ceil(articlesAfterFirstPage / GRID_ARTICLES_PER_PAGE)
   const allBlogsTemplate = path.resolve(`./src/templates/blog.jsx`)
-  createPage({
-    path: `blog/`,
-    component: allBlogsTemplate,
-    context: {},
+
+  Array.from({ length: numArticlePages }).forEach((_, index) => {
+    const currentPage = index + 1
+    const pagePath = currentPage === 1 ? `blog/` : `blog/page/${currentPage}/`
+    const skip =
+      currentPage === 1
+        ? 0
+        : ARTICLES_ON_FIRST_PAGE + (currentPage - 2) * GRID_ARTICLES_PER_PAGE
+    const limit =
+      currentPage === 1 ? ARTICLES_ON_FIRST_PAGE : GRID_ARTICLES_PER_PAGE
+    console.log(`Creating page: /${pagePath}`)
+    createPage({
+      path: pagePath,
+      component: allBlogsTemplate,
+      context: {
+        skip,
+        limit,
+        featuredCount: currentPage === 1 ? FEATURED_ARTICLES_ON_FIRST_PAGE : 0,
+        numPages: numArticlePages,
+        currentPage,
+      },
+    })
   })
 
   const postsResult = await graphql(`

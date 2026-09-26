@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "cc4545bf-8bbb-40ff-af83-76e770c9707f",
+  "issue_id": "kanbus-2a882d4a-39d3-4a66-ae1f-a4cba841bdcb",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T14:16:43.545Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Homepage: How we work section leads with discipline, case studies before method",
+    "description": "Ryan, 2026-09-26: a prospect may have read the Cybernetic Development section as 'we vibe-code everything'. The first sentence ('AI is an engine for generating code') told an unfamiliar reader what the coined term meant. Fix: heading becomes How we work; opener leads with specs, tests, staged rollout, and a person who can say no, then names cybernetic development as the term for it; case studies move above the section so proof precedes method; article link text becomes How we govern AI-built systems. H1 and hero untouched.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

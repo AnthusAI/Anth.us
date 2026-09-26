@@ -215,66 +215,6 @@ const IndexPage = () => {
         <mark>The work rarely stays in one box.</mark>
       </p>
 
-      <section className={styles.approachSection}>
-        <h2 className={styles.approachHeading}>
-          Our Approach: Cybernetic Development
-        </h2>
-        <div className={styles.approachContent}>
-          <div>
-            <p>
-              AI is an engine for generating code. The differentiator is the
-              governor: the constraints, feedback loops, and judgment that keep
-              systems reliable in production.
-            </p>
-            <p>
-              Modern failures increasingly look less like isolated “bugs” and
-              more like operational, multi-system breakdowns. Great unit tests
-              help—but they don’t cover every emergent scenario. So we build
-              layered defenses and close the loop with real-world feedback.
-            </p>
-            <ul>
-              <li>Specs first: define behavior before implementation.</li>
-              <li>
-                Defense in depth: sandboxed tools, CI gates, staged rollouts,
-                and fast rollback.
-              </li>
-              <li>
-                Operational feedback: telemetry and incident-driven regressions
-                that tighten the loop over time.
-              </li>
-              <li>
-                Simplify and delete: reduce degrees of freedom to eliminate
-                entire classes of failure.
-              </li>
-            </ul>
-            <div className={styles.approachActions}>
-              <Link
-                to="/blog/cybernetic-development"
-                className={styles.approachSecondaryCta}
-              >
-                Read Cybernetic Development
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.plexusFeature}>
-        <span className={styles.eyebrow}>PART OF</span>
-        <h2 className={styles.platformHeader}>The Anthus Platform</h2>
-        <p>
-          Solve complex business problems with AI and ML using a proven,
-          reusable technology stack that grew out of real delivery work —
-          runtime, agent execution, knowledge, observability, and media, with
-          the enterprise controls that matter in production.
-        </p>
-        <div className={styles.approachActions}>
-          <Link to="/platform" className="button">
-            Explore the platform
-          </Link>
-        </div>
-      </section>
-
       <h2>Case studies</h2>
       <ul className={styles.list}>
         <li className={styles.listItem}>
@@ -316,6 +256,66 @@ const IndexPage = () => {
         See our <Link to="/ai-solutions">solution patterns</Link>.
       </div>
 
+      <section className={styles.approachSection}>
+        <h2 className={styles.approachHeading}>How we work</h2>
+        <div className={styles.approachContent}>
+          <div>
+            <p>
+              Everything we ship runs under specs, tests, staged rollout, and a
+              person who can say no. We call that cybernetic development: we use
+              AI to write code the same way we use it to classify calls, inside
+              a governor of constraints, feedback loops, and human judgment that
+              keeps systems reliable in production.
+            </p>
+            <p>
+              Modern failures increasingly look less like isolated “bugs” and
+              more like operational, multi-system breakdowns. Great unit tests
+              help—but they don’t cover every emergent scenario. So we build
+              layered defenses and close the loop with real-world feedback.
+            </p>
+            <ul>
+              <li>Specs first: define behavior before implementation.</li>
+              <li>
+                Defense in depth: sandboxed tools, CI gates, staged rollouts,
+                and fast rollback.
+              </li>
+              <li>
+                Operational feedback: telemetry and incident-driven regressions
+                that tighten the loop over time.
+              </li>
+              <li>
+                Simplify and delete: reduce degrees of freedom to eliminate
+                entire classes of failure.
+              </li>
+            </ul>
+            <div className={styles.approachActions}>
+              <Link
+                to="/blog/cybernetic-development"
+                className={styles.approachSecondaryCta}
+              >
+                How we govern AI-built systems
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.plexusFeature}>
+        <span className={styles.eyebrow}>PART OF</span>
+        <h2 className={styles.platformHeader}>The Anthus Platform</h2>
+        <p>
+          Solve complex business problems with AI and ML using a proven,
+          reusable technology stack that grew out of real delivery work —
+          runtime, agent execution, knowledge, observability, and media, with
+          the enterprise controls that matter in production.
+        </p>
+        <div className={styles.approachActions}>
+          <Link to="/platform" className="button">
+            Explore the platform
+          </Link>
+        </div>
+      </section>
+
       <h2>Recent Articles</h2>
       <ul className="blog">
         {data.recentArticles.edges.map(({ node }) => {
@@ -348,7 +348,7 @@ const IndexPage = () => {
         })}
       </ul>
       <div className={`clear-float ${styles.seeMoreFooter}`}>
-        Please see our <a href="/blog/">Articles</a> for more.
+        More in <a href="/blog/">Articles</a>.
       </div>
 
       <h2>Recent Posts</h2>
