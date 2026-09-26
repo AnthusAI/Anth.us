@@ -4,7 +4,6 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Solutions from "../components/solutions"
 import { Link } from "gatsby"
-import { contactUrl } from "../components/contact-url"
 
 const AISolutionsPage = ({ data }) => {
   useEffect(() => {
@@ -37,12 +36,12 @@ const AISolutionsPage = ({ data }) => {
           />
           <p>
             You're under pressure to deliver AI that works in production, not
-            just in a demo. Anthus builds and operates self-aligning AI systems
-            — custom models, agent harnesses, and evaluation loops with a human
-            in the loop, grounded in production operations since 2007. Our Call
-            Criteria work is the proof: two years of production RLHF, a data
-            flywheel that keeps learning from expert feedback, serving real QA
-            at scale.
+            just in a demo. Anthus builds and operates self-aligning AI systems:
+            custom models, agent harnesses, and evaluation loops with a human in
+            the loop, grounded in production operations since 2007. The proof is
+            years of production RLHF for a call-center QA operation, a data
+            flywheel learning from expert feedback across hundreds of scorecards
+            and millions of interactions.
           </p>
           <h2>What We Build</h2>
           <ul>
@@ -74,12 +73,28 @@ const AISolutionsPage = ({ data }) => {
             </li>
           </ul>
 
-          <h2>Our Approach: Cybernetic Development</h2>
+          <h2>Featured Solutions</h2>
+
           <p>
-            We don’t just build AI features—we build the governors that make
-            them safe to operate: clear specifications, layered verification,
-            staged releases, and feedback loops that incorporate production
-            learnings.
+            Our recent work showcases AI-driven solutions that demonstrate
+            production-ready implementations of agentic AI, RLHF systems, and
+            intelligent automation:
+          </p>
+
+          <Solutions
+            className="smallImageList"
+            solutions={featuredSolutions}
+            showPreviewImage={true}
+            linkToPage={false}
+          />
+
+          <h2>How we work</h2>
+          <p>
+            Everything we ship runs under specs, tests, staged rollout, and a
+            person who can say no. We call that cybernetic development: the
+            governors that make an AI system safe to operate, from clear
+            specifications and layered verification to staged releases and
+            feedback loops that carry production learnings back into the system.
           </p>
           <ul>
             <li>Specs first: define behavior before implementation.</li>
@@ -97,34 +112,13 @@ const AISolutionsPage = ({ data }) => {
             </li>
           </ul>
           <p>
-            Learn more in our article on{" "}
+            Read{" "}
             <Link to="/blog/cybernetic-development">
-              Cybernetic Development
+              how we govern AI-built systems
             </Link>
-            , or <a href={contactUrl}>contact us</a> to talk through your goals
-            and constraints.
-          </p>
-
-          <p>
-            Ready to revolutionize your business?{" "}
-            <a href={contactUrl}>Let's talk about what we can do for you.</a>
+            , or see <Link to="/engage">how an engagement works</Link>.
           </p>
           <div className="clear"></div>
-          <h2>Featured Solutions</h2>
-
-          <p>
-            Our recent work showcases AI-driven solutions that demonstrate
-            production-ready implementations of agentic AI, RLHF systems, and
-            intelligent automation:
-          </p>
-
-          <Solutions
-            className="smallImageList"
-            solutions={featuredSolutions}
-            showPreviewImage={true}
-            linkToPage={false}
-          />
-
           <h2>Portfolio</h2>
 
           <p>
