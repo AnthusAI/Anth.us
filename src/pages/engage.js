@@ -50,9 +50,9 @@ const EngagePage = () => {
               <p>
                 We stand up Papyrus as your editorial pipeline: stories move
                 through Kanbus-governed stages from pitch to draft to published,
-                with a human editor approving each move. Anth.us itself is
-                produced this way — every article you read here came through
-                that pipeline, running the same way for you.
+                with a human editor approving each move. Anth.us runs its own
+                newsroom on it, and the board is public, so you can read the
+                record behind the newest articles before you buy the pipeline.
               </p>
             </div>
           </div>
