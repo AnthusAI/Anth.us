@@ -3,6 +3,8 @@ import React, { useEffect } from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Solutions from "../components/solutions"
+import ResearchCards from "../components/research-cards"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
 
 const AISolutionsPage = ({ data }) => {
@@ -10,18 +12,22 @@ const AISolutionsPage = ({ data }) => {
     document.title = "AI Solutions"
   }, [])
 
-  const featuredSolutions = data.solutions.edges.filter(
-    ({ node }) =>
-      node.frontmatter.tags.includes("featured") &&
-      !node.frontmatter.tags.includes("integrations")
+  const hasTag = (node, tag) => (node.frontmatter.tags || []).includes(tag)
+  const engagements = data.solutions.edges.filter(
+    ({ node }) => hasTag(node, "engagement") && !hasTag(node, "integrations")
   )
-  const nonFeaturedSolutions = data.solutions.edges.filter(
-    ({ node }) =>
-      !node.frontmatter.tags.includes("featured") &&
-      !node.frontmatter.tags.includes("integrations")
+  const projectSolutions = data.solutions.edges.filter(
+    ({ node }) => !hasTag(node, "engagement") && !hasTag(node, "integrations")
+  )
+  const projectsAndExamples = [
+    ...projectSolutions,
+    ...data.projectArticles.edges,
+  ].sort(
+    ({ node: a }, { node: b }) =>
+      new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
   )
   const integrations = data.solutions.edges.filter(({ node }) =>
-    node.frontmatter.tags.includes("integrations")
+    hasTag(node, "integrations")
   )
 
   return (
@@ -73,20 +79,42 @@ const AISolutionsPage = ({ data }) => {
             </li>
           </ul>
 
-          <h2>Featured Solutions</h2>
+          <h2>Engagements</h2>
 
           <p>
-            Our recent work showcases AI-driven solutions that demonstrate
-            production-ready implementations of agentic AI, RLHF systems, and
-            intelligent automation:
+            Long-running client work with a business outcome behind it: the
+            systems we built, ran, and kept improving in production.
           </p>
 
-          <Solutions
-            className="smallImageList"
-            solutions={featuredSolutions}
-            showPreviewImage={true}
-            linkToPage={false}
-          />
+          <ul className="blog">
+            {engagements.map(({ node }) => {
+              const previewImage = getImage(node.frontmatter.preview_image)
+              return (
+                <div className="blog-post-preview" key={node.id}>
+                  <li className="clear-float">
+                    <Link to={`/blog/` + node.frontmatter.slug}>
+                      {previewImage && (
+                        <GatsbyImage
+                          image={previewImage}
+                          alt={node.frontmatter.title}
+                          className="featured"
+                        />
+                      )}
+                      <h3>{node.frontmatter.title}</h3>
+                    </Link>
+                    <div className="date">
+                      {node.frontmatter.display_date || node.frontmatter.date}
+                    </div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: node.frontmatter.excerpt,
+                      }}
+                    ></div>
+                  </li>
+                </div>
+              )
+            })}
+          </ul>
 
           <h2>How we work</h2>
           <p>
@@ -119,19 +147,14 @@ const AISolutionsPage = ({ data }) => {
             , or see <Link to="/engage">how an engagement works</Link>.
           </p>
           <div className="clear"></div>
-          <h2>Portfolio</h2>
+          <h2>Projects and examples</h2>
 
           <p>
-            Our journey spans decades of solving complex business challenges,
-            from serverless architectures to AI-enabled systems:
+            Smaller builds, spinoffs, and worked examples with the code
+            published. The articles do the talking here.
           </p>
 
-          <Solutions
-            className="smallImageList"
-            solutions={nonFeaturedSolutions}
-            showPreviewImage={true}
-            linkToPage={false}
-          />
+          <ResearchCards items={projectsAndExamples} />
 
           <h2>Integrations</h2>
 
@@ -187,6 +210,33 @@ export const query = graphql`
             slug
             excerpt
             state
+            repository
+            preview_image {
+              childImageSharp {
+                gatsbyImageData(layout: CONSTRAINED)
+              }
+            }
+            tags
+          }
+        }
+      }
+    }
+    projectArticles: allMdx(
+      filter: {
+        frontmatter: { state: { eq: "published" }, tags: { in: ["project"] } }
+      }
+      sort: { frontmatter: { date: DESC } }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            date
+            slug
+            excerpt
+            state
+            repository
             preview_image {
               childImageSharp {
                 gatsbyImageData(layout: CONSTRAINED)

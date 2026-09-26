@@ -34,7 +34,7 @@ const ResearchCards = ({ items }) => (
               </span>
             )}
           </div>
-          <p>{node.frontmatter.excerpt}</p>
+          <p dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }} />
           <div className={styles.cardActions}>
             <Link to={articlePath}>Read more</Link>
             {node.frontmatter.repository && (

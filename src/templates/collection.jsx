@@ -5,28 +5,30 @@ import Seo from "../components/seo"
 import ResearchCards from "../components/research-cards"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { formatPostDate } from "../utils/format-post-date"
+import * as styles from "../components/platform.module.css"
 
-const articlesPagePath = page => (page === 1 ? "/blog/" : `/blog/page/${page}/`)
+const collectionPagePath = (basePath, page) =>
+  page === 1 ? `/${basePath}/` : `/${basePath}/page/${page}/`
 
-const ArticlesPageTemplate = ({ data, pageContext }) => {
-  const { currentPage, numPages, featuredCount } = pageContext
-  const articles = data.publishedArticles.edges
-  const featuredArticles = articles.slice(0, featuredCount)
-  const gridArticles = articles.slice(featuredCount)
+const CollectionTemplate = ({ data, pageContext }) => {
+  const { basePath, title, intro, currentPage, numPages, featuredCount } =
+    pageContext
+  const items = data.collectionItems.edges
+  const featuredItems = items.slice(0, featuredCount)
+  const gridItems = items.slice(featuredCount)
 
   const prevPage = currentPage > 1 ? currentPage - 1 : null
   const nextPage = currentPage < numPages ? currentPage + 1 : null
 
   return (
-    <Layout key={currentPage}>
+    <Layout key={`${basePath}-${currentPage}`}>
       <article>
-        <h1>
-          {currentPage === 1 ? "Articles" : `Articles, page ${currentPage}`}
-        </h1>
+        <h1>{currentPage === 1 ? title : `${title}, page ${currentPage}`}</h1>
+        {intro && currentPage === 1 && <p className={styles.lead}>{intro}</p>}
 
-        {featuredArticles.length > 0 && (
+        {featuredItems.length > 0 && (
           <ul className="blog">
-            {featuredArticles.map(({ node }) => {
+            {featuredItems.map(({ node }) => {
               const previewImage = getImage(node.frontmatter.preview_image)
               return (
                 <div className="blog-post-preview" key={node.id}>
@@ -54,10 +56,10 @@ const ArticlesPageTemplate = ({ data, pageContext }) => {
           </ul>
         )}
 
-        {gridArticles.length > 0 && (
+        {gridItems.length > 0 && (
           <>
-            {featuredArticles.length > 0 && <h2>Earlier articles</h2>}
-            <ResearchCards items={gridArticles} />
+            {featuredItems.length > 0 && <h2>Earlier</h2>}
+            <ResearchCards items={gridItems} />
           </>
         )}
 
@@ -70,11 +72,13 @@ const ArticlesPageTemplate = ({ data, pageContext }) => {
               alignItems: "center",
               marginTop: "1.5rem",
             }}
-            aria-label="Articles pagination"
+            aria-label={`${title} pagination`}
           >
             <div>
               {prevPage ? (
-                <Link to={articlesPagePath(prevPage)}>← Previous</Link>
+                <Link to={collectionPagePath(basePath, prevPage)}>
+                  ← Previous
+                </Link>
               ) : (
                 <span />
               )}
@@ -84,7 +88,7 @@ const ArticlesPageTemplate = ({ data, pageContext }) => {
             </div>
             <div>
               {nextPage ? (
-                <Link to={articlesPagePath(nextPage)}>Next →</Link>
+                <Link to={collectionPagePath(basePath, nextPage)}>Next →</Link>
               ) : (
                 <span />
               )}
@@ -97,18 +101,10 @@ const ArticlesPageTemplate = ({ data, pageContext }) => {
 }
 
 export const pageQuery = graphql`
-  query ArticlesPageQuery($skip: Int!, $limit: Int!) {
-    publishedArticles: allMdx(
-      filter: {
-        frontmatter: {
-          state: { eq: "published" }
-          tags: { nin: ["solutions", "posts"] }
-          content_type: { ne: "platform-product" }
-        }
-      }
+  query CollectionPageQuery($ids: [String]!) {
+    collectionItems: allMdx(
+      filter: { id: { in: $ids } }
       sort: { frontmatter: { date: DESC } }
-      skip: $skip
-      limit: $limit
     ) {
       edges {
         node {
@@ -135,15 +131,15 @@ export const pageQuery = graphql`
 export const Head = ({ pageContext }) => {
   const title =
     pageContext.currentPage > 1
-      ? `Articles, page ${pageContext.currentPage}`
-      : "Articles"
+      ? `${pageContext.title}, page ${pageContext.currentPage}`
+      : pageContext.title
   return (
     <Seo
       title={title}
-      description="Long-form articles from Anthus on decision models, agent systems, classifiers in production, and the economics of AI-built software."
+      description={pageContext.description}
       image="serverless-ai-software-solutions.png"
     />
   )
 }
 
-export default ArticlesPageTemplate
+export default CollectionTemplate
