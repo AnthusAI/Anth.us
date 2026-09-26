@@ -326,7 +326,7 @@ const IndexPage = () => {
             : { href: `/blog/${slug}`, isExternal: false }
           const cardMedia = (
             <>
-              <GatsbyImage image={previewImage} alt={title} className="right" />
+              <GatsbyImage image={previewImage} alt={title} className="full" />
               <h3>{title}</h3>
             </>
           )
@@ -362,6 +362,11 @@ const IndexPage = () => {
               >
                 {/* Was a <p> wrapping <div>s, which is invalid nesting and threw a
                     validateDOMNesting warning on every render. */}
+                <GatsbyImage
+                  image={getImage(node.frontmatter.preview_image)}
+                  alt={node.frontmatter.title}
+                  className={styles.postsListThumbnail}
+                />
                 <div>
                   <div className={styles.listItemTitle}>
                     {node.frontmatter.title}
@@ -381,10 +386,6 @@ const IndexPage = () => {
                     </div>
                   </div>
                 </div>
-                <GatsbyImage
-                  image={getImage(node.frontmatter.preview_image)}
-                  alt={node.frontmatter.title}
-                />
               </Link>
             </div>
           </li>

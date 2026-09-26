@@ -127,6 +127,20 @@
   color: var(--color-primary);
 }
 
+.postsListThumbnail {
+  float: right;
+  width: 32%;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.postsListItemLink::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
 .listItemDate {
   color: var(--color-text-light);
   font-size: 0.9em;
