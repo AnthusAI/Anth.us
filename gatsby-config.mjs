@@ -43,7 +43,7 @@ export default {
         link: "/research",
       },
       {
-        name: "Reading",
+        name: "Reading List",
         description: "Papers and books we keep coming back to, one note each.",
         link: "/reading",
       },
