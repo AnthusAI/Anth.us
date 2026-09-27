@@ -149,11 +149,11 @@ const IndexPage = () => {
     },
     {
       text: "Machine Learning",
-      url: "/blog/domain-specific-turn-detection/",
+      url: "/decision-models/",
       image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       alt: "Custom and fine-tuned machine learning models",
       description:
-        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS—training, serving, and evaluation included.",
+        "Custom classifiers, fine-tuned models, decision models like Jev, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS—training, serving, and evaluation included.",
     },
   ]
 
@@ -262,12 +262,16 @@ const IndexPage = () => {
           <div>
             <p>
               You might be wondering whether AI-built means nobody checked. For
-              us it means the opposite. Everything we ship runs under specs,
-              tests, staged rollout, and a person who can say no. We call that
-              cybernetic development: we use AI to write code the same way we
-              use it to classify calls, inside a governor of constraints,
-              feedback loops, and human judgment that keeps systems reliable in
-              production.
+              us it means the opposite, and we learned it the hard way: in
+              February 2026 the nightly routine was pasting "Continue." into
+              four Codex sessions before bed, because nothing else kept the
+              agents going or told us what they'd done.{" "}
+              <Link to="/about">That night is on the record.</Link> Everything
+              we ship now runs under specs, tests, staged rollout, and a person
+              who can say no. We call that cybernetic development: we use AI to
+              write code the same way we use it to classify calls, inside a
+              governor of constraints, feedback loops, and human judgment that
+              keeps systems reliable in production.
             </p>
             <p>
               Modern failures increasingly look less like isolated “bugs” and

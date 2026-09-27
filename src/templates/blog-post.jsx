@@ -124,11 +124,29 @@ export const Head = ({ data }) => {
   // review — but it must not be indexed.
   const isPublished = post.frontmatter.state === "published"
 
+  const articleUrl = `${siteUrl}/blog/${post.frontmatter.slug}/`
+  const authorNames = (post.frontmatter.authors || []).map(entry =>
+    removeHTMLTags(entry.author)
+  )
+  const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.frontmatter.title,
+    description: cleanExcerpt,
+    datePublished: post.frontmatter.date,
+    author: authorNames.map(name => ({ "@type": "Person", name })),
+    publisher: { "@type": "Organization", name: "Anthus AI Solutions" },
+    mainEntityOfPage: articleUrl,
+    ...(imageUrl ? { image: imageUrl } : {}),
+  }
+
   return (
     <Seo
       title={post.frontmatter.title}
       description={cleanExcerpt}
       imageURL={imageUrl}
+      type="article"
+      structuredData={isPublished ? articleStructuredData : undefined}
     >
       {!isPublished && <meta name="robots" content="noindex, nofollow" />}
     </Seo>
@@ -146,6 +164,7 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        slug
         excerpt
         state
         date

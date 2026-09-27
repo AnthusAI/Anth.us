@@ -70,8 +70,9 @@ const AISolutionsPage = ({ data }) => {
               <Link to="/blog/give-an-agent-a-tool/">See the approach</Link>.
             </li>
             <li>
-              <strong>Machine Learning</strong> — custom models and fine-tuned
-              classifiers aligned to your business.{" "}
+              <strong>Machine Learning and Decision Models</strong> — custom
+              models, fine-tuned classifiers, and hosted decision models like
+              Jev, aligned to your business.{" "}
               <Link to="/blog/domain-specific-turn-detection/">
                 See the work
               </Link>
