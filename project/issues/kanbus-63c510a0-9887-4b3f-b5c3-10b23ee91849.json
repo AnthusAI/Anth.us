@@ -22,10 +22,22 @@
         "model": "claude-fable-5-1",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "534b6e0c-910b-4560-88c5-ad984df70152",
+      "author": "unknown",
+      "text": "About page now carries the February 5 tweet as the turning point with the choice told through Tactus, Kanbus, and Plexus; How we work answers the concern with that night and links to it. Decision model now sits beside machine learning on the homepage box, the AI Solutions list, and the Plexus page. Chatticus stays out until it has done real work.",
+      "created_at": "2026-09-27T17:16:17.178811330Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
     }
   ],
   "created_at": "2026-09-27T15:16:58.681432193Z",
-  "updated_at": "2026-09-27T15:52:46.344167920Z",
+  "updated_at": "2026-09-27T17:16:17.178833578Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
