@@ -34,10 +34,22 @@
         "model": "claude-fable-5-1",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "485545b0-8287-4c7d-889d-b558b6fdf9e2",
+      "author": "unknown",
+      "text": "Values in action: the Call Criteria case study is now a story (a working system they didn't own; the choice to bring the lab in-house on Plexus in their own AWS account; the loop; what it produced; the reviewers didn't go away by design). Homepage card matches. The false full-coverage claim is gone from both. Sitemap now excludes unpublished content.",
+      "created_at": "2026-09-27T17:53:47.832068067Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
     }
   ],
   "created_at": "2026-09-27T15:16:58.681432193Z",
-  "updated_at": "2026-09-27T17:16:17.178833578Z",
+  "updated_at": "2026-09-27T17:53:47.832104342Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
