@@ -167,12 +167,49 @@ const AboutPage = () => {
             ))}
           </ul>
 
+          <h2>The night we stopped being the loop</h2>
+          <p>
+            When we started using AI to write the code and make the decisions,
+            the chat way of working broke under the volume. A person had to sit
+            there keeping the agents going or the whole process stopped, and a
+            person had to hold in their head what was happening across every
+            parallel session in every project for every client, because nothing
+            else did. The low point is on the record, like everything else we
+            do.
+          </p>
+          <blockquote className="twitter-tweet" data-dnt="true">
+            <p lang="en" dir="ltr">
+              Stupid new nightly routine that I never wanted: Pasting
+              &quot;Continue.&quot; into Codex 20 times in a row before I go to
+              bed, in four different sessions. I will look back at this like
+              black and white television. Rotary phone dials.
+            </p>
+            &mdash; Ryan Porter (@RyanAlynPorter){" "}
+            <a href="https://x.com/RyanAlynPorter/status/2019302489011696010">
+              February 5, 2026, 1:50 AM
+            </a>
+          </blockquote>
+          <p>
+            So we stopped being the loop. <a href="/platform/tactus">Tactus</a>{" "}
+            names the three ways a person can be in the loop, supervised,
+            unattended, and asynchronous, and makes the third one something you
+            can program, so an agent runs on its own and interrupts a human only
+            at a decision point. <a href="/platform/kanbus">Kanbus</a> is the
+            memory that lets work move between Claude Code, Codex, or whatever
+            comes next, because we've held since 2023 that{" "}
+            <a href="/blog/a-world-with-no-moats">models are commodities</a>.{" "}
+            <a href="/platform/plexus">Plexus</a> is the scorecard where
+            reviewers correct a decision model's verdicts and their explanations
+            become policy. We ran all of it on our own work first, in public.
+          </p>
+
           <h2>How We Build Today</h2>
           <p>
             The AI era doesn’t remove the need for operational excellence—it
             raises the stakes. We use a cybernetic approach: clear intent,
             layered safeguards, and production feedback loops that continuously
-            harden the system. Read more in{" "}
+            harden the system. Delegating the work turned out to be easy;
+            observing it is the whole job. Read more in{" "}
             <a href="/blog/cybernetic-development">Cybernetic Development</a>.
           </p>
 
@@ -256,6 +293,7 @@ export const Head = () => {
       description="Anthus builds and operates self-aligning AI systems, grounded in production operations since 2007 — the reliability and security behind a multi-million-dollar platform, now applied to AI."
       image="serverless-ai-software-solutions.png"
     >
+      <script async src="https://platform.twitter.com/widgets.js"></script>
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
