@@ -226,7 +226,7 @@ const IndexPage = () => {
               Call-center QA, scored by an outside service's fine-tuned
               classifiers.
             </li>
-            <li>They couldn't scale what they didn't own.</li>
+            <li>Too expensive and too slow to scale to every new scorecard.</li>
             <li>
               We built their classifier lab on Plexus in their own AWS account
               and ran it for years.
