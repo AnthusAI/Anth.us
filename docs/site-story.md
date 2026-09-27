@@ -4,19 +4,20 @@ One paragraph, in the shape the writing-effective-stories skill asks for: situat
 
 ## The story
 
-For sixteen years we ran a revenue-critical platform for Las Vegas nightlife, from an on-premises reservation system in 2007 through a data-center failure we relocated around in hours to a serverless system that processed a quarter of a billion dollars at nearly full uptime. Then the work changed under us. We started using AI to write code and to make decisions at volume, and within a year the bottleneck moved from writing the code to knowing whether what the agents did was right. The instruments we'd relied on, reading the diff and sitting in the standup, stopped scaling the day we had more agents than people. We chose to build the instruments instead of trusting the output: a scorecard system where reviewers correct a model's verdicts and their explanations become policy, a project record that lives in the repository so every agent decision is in the pull request, and a newsroom that runs the same way. We ran them on our own work first, in public, on hundreds of scorecards and millions of interactions for a call-center QA operation and on the boards behind this site. Not all of it worked. Some of what we built we measured, found wanting, and threw away, and the measurements are published alongside the wins. What we learned is that delegating the work is easy and observing it is the whole job. A pile of agents becomes a factory when a human reviewer can reject any change, and has a record in front of them showing what changed and whether it helped. Bring us the judgment task or the project, even if you can't yet say what you need, and you get the same record we run on ourselves.
+We ran a revenue-critical platform for Las Vegas nightlife from 2007, from an on-premises reservation system through a data-center failure we relocated around in hours to a serverless system that processed a quarter of a billion dollars at nearly full uptime. Then we started using AI to write the code and make the decisions, and the chat paradigm broke under the volume. At 1:50 in the morning on February 5, 2026, Ryan posted that his new nightly routine was pasting "Continue." into Codex twenty times in a row, in four different sessions, before he could go to bed. That's what the work had become: a human had to sit there cracking the whip or the whole process stopped, and a human had to hold in their head what was happening across every parallel session in every project for every client, because nothing else did. It was burnout, and it was documented in public like everything else we do. So we stopped being the loop. Tactus named the three ways a person can be in the loop, supervised, unattended, and asynchronous, and made the third one something you can program, so an agent runs on its own and interrupts a human only at a decision point. Kanbus became the memory that lets work move between Claude Code, Codex, or whatever comes next, because we've held since 2023 that models are commodities and there are no moats. Plexus became the scorecard where reviewers correct a decision model's verdicts and their explanations become policy. We ran all of it on our own work first, in public: hundreds of scorecards and millions of interactions for a call-center QA operation, and the boards behind this site. Not all of it worked, and the measurements are published alongside the wins. What we learned is that delegating the work is easy and observing it is the whole job. A pile of agents becomes a factory when a human reviewer can reject any change and has a record in front of them showing what changed and whether it helped. Bring us the judgment task or the project, even if you can't yet say what you need, and you get the same record we run on ourselves.
 
 ## Which sentence each page serves
 
 | Page or surface | Sentence | Story job |
 | --- | --- | --- |
-| Homepage hero and proof line | Sixteen years, a quarter billion, nearly full uptime | Who I am |
-| How we work | The bottleneck moved; the instruments stopped scaling; a reviewer who can reject any change | I know what you're thinking |
-| Solutions engagements | We ran them on our own work first, in public, at scale | Values in action |
-| Research and the Jev series | Not all of it worked; the measurements are published alongside the wins | Teaching |
-| Kanbus observability series | The instruments stopped scaling the day we had more agents than people | Why I'm here |
-| Engagement page | Bring us the judgment task; you get the same record | Vision |
-| Platform page | The instruments we built | Supporting detail, not a story |
+| Homepage hero and proof line | Since 2007, a quarter billion, nearly full uptime | Who I am |
+| How we work | Pasting "Continue." at 1:50 AM; so we stopped being the loop | I know what you're thinking |
+| Platform page (Tactus, Kanbus, Plexus) | The three ways to be in the loop; the memory that moves work between tools; the scorecard | The choice, told as what we built |
+| Solutions engagements | We ran all of it on our own work first, in public, at scale | Values in action |
+| Research and the Jev series | Not all of it worked; the measurements are published | Teaching |
+| Kanbus observability series | A human had to hold in their head what was happening across every session | Why I'm here |
+| Engagement page | Bring us the task; you get the same record | Vision |
+| About page | The tweet, quoted, as the turning point | Who I am, in full |
 | Reading list | What we read while working it out | Supporting detail |
 
 ## Rules the paragraph implies
@@ -27,11 +28,15 @@ For sixteen years we ran a revenue-critical platform for Las Vegas nightlife, fr
 - The vision is stated as what the reader gets, in the reader's terms. Not what we sell.
 - The hero keeps its one job. It does not try to tell the whole paragraph.
 
+## Facts behind the paragraph
+
+- Tweet: https://x.com/RyanAlynPorter/status/2019302489011696010, posted 2026-02-05 06:50 UTC, which is 1:50 AM Eastern. Text: "Stupid new nightly routine that I never wanted: Pasting \"Continue.\" into Codex 20 times in a row before I go to bed, in four different sessions. I will look back at this like black and white television. Rotary phone dials."
+- The three patterns: https://tactus.anth.us names supervised (chat), unattended, and asynchronous human-in-the-loop.
+- Commodity models: https://anth.us/blog/a-world-with-no-moats/ (2023).
+- Scale figures: the Plexus and Call Criteria solution pages.
+
 ## Open questions for Ryan
 
-The paragraph is told in your voice about your history, and the skill's first rule is that the moments have to be yours, not mine. The one I most need from you is the choice moment: the day, the decision, or the conversation in the last two years when you decided to build the instruments rather than trust the output. I've written it as a summary because I don't have the scene.
-
-
-1. Is "sixteen years" the right count from 2007, or should the paragraph use the year and let the reader do the arithmetic, as the site now does?
-2. Is the data-center relocation the moment to open on, or is there a sharper one from the last two years?
-3. Should the newsroom sentence stay in the core paragraph, or move to the Papyrus page's own version?
+1. The tweet is quoted with the time and date. Is it also the opening scene for the About page, and do you want the whole tweet on the page or the paraphrase?
+2. "Decision model" is now used for what Plexus scores. Should the homepage's Machine Learning box and the Plexus platform page adopt the phrase too?
+3. Chatticus is named nowhere in the paragraph, on purpose, until it has done real work. Confirm.
