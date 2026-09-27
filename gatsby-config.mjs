@@ -100,7 +100,45 @@ export default {
       },
     },
     `gatsby-plugin-sass`,
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+            unpublishedContent: allMdx(
+              filter: { frontmatter: { state: { ne: "published" } } }
+            ) {
+              nodes {
+                frontmatter {
+                  slug
+                }
+              }
+            }
+          }
+        `,
+        resolvePages: ({ allSitePage, unpublishedContent }) => {
+          const unpublishedPaths = new Set(
+            unpublishedContent.nodes
+              .filter(node => node.frontmatter.slug)
+              .map(node => `/blog/${node.frontmatter.slug}/`)
+          )
+          return allSitePage.nodes.filter(
+            page => !unpublishedPaths.has(page.path)
+          )
+        },
+        serialize: ({ path }) => ({ url: path }),
+      },
+    },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {

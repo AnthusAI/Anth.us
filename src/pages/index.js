@@ -222,14 +222,17 @@ const IndexPage = () => {
             <h3>Call Criteria</h3>
           </Link>
           <ul className={styles.caseFacts}>
-            <li>Call center QA, scored by human reviewers.</li>
-            <li>Their QA couldn't scale without scaling headcount.</li>
             <li>
-              We built a self-evolving RLHF system: reviewers correct the AI and
-              say why, and it turns the explanation into policy.
+              Call-center QA, scored by an outside service's fine-tuned
+              classifiers.
+            </li>
+            <li>They couldn't scale what they didn't own.</li>
+            <li>
+              We built their classifier lab on Plexus in their own AWS account
+              and ran it for years.
             </li>
             <li>
-              <mark>100% of calls reviewed</mark>, up from a sample.
+              <mark>Hundreds of scorecards, millions of calls scored</mark>.
             </li>
           </ul>
         </li>
