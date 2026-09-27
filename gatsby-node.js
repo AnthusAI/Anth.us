@@ -152,11 +152,10 @@ exports.createPages = async ({ graphql, actions }) => {
     },
     {
       basePath: "reading",
-      title: "Reading",
+      title: "Reading List",
       description:
         "Papers and books behind the work at Anthus, one short note each on what they say and what we checked.",
-      intro:
-        "Papers and books we keep coming back to, one short piece each: what it says, what we checked, and where it changed how we build. New entries land as we read them.",
+      intro: null,
       legacyPagePaths: false,
       nodes: publishedNodes.filter(node => hasTag(node, "reading")),
     },
