@@ -827,6 +827,7 @@ mark {
 ul.blog {
   margin-left: 0;
   li {
+    display: flow-root;
     list-style-type: none;
     margin-bottom: var(--base-line-height);
 
