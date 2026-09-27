@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "b87fd539-5112-4fc7-b1c6-c8d5217a9538",
+  "issue_id": "kanbus-63c510a0-9887-4b3f-b5c3-10b23ee91849",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T15:16:58.681Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Audit site surfaces against their story jobs",
+    "description": "Ryan, 2026-09-27: apply the Limatus writing-effective-stories skill to the site. Each surface has a job: hero and proof line (who I am), How we work (I know what you're thinking), solutions engagements (values in action), research and the Jev series (teaching), engagement page (vision), Kanbus observability series (why I'm here). Audit each for a clear job, a real sourced moment, a visible turning point, and a proportionate takeaway. First: the engagement page's vision story should make month six observable, what a client can do, avoid, notice, or feel differently. Second: the values-in-action gap, since the Call Criteria story can't be told by name; DataParade and the public Kanbus boards are the replacement and need telling as moments with a choice in them.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
