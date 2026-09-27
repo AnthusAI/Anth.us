@@ -91,6 +91,21 @@ const EngagePage = () => {
           </ul>
         </section>
 
+        <section className={styles.section}>
+          <h2 className={styles.sectionHeading}>What month six looks like</h2>
+          <p>
+            Picture the same judgment task half a year in. Your reviewers still
+            see cases, but only the ones the system can't clear on its own, and
+            that queue has been shrinking each month as the scorecard fills in.
+            A correction one of them made in week two is now a written policy
+            line the system applies every time. When someone asks why a verdict
+            changed, you open the record and point at the version, the numbers
+            it cleared, and the person who approved it. Nothing runs on a guess,
+            and nothing runs on us: the model, the pipeline, the board, and the
+            record are yours.
+          </p>
+        </section>
+
         <section className={styles.ctaSection}>
           <p>
             Tell us the problem, even if it's half-formed, and we'll scope the

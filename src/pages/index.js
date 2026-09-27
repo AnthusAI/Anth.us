@@ -261,11 +261,13 @@ const IndexPage = () => {
         <div className={styles.approachContent}>
           <div>
             <p>
-              Everything we ship runs under specs, tests, staged rollout, and a
-              person who can say no. We call that cybernetic development: we use
-              AI to write code the same way we use it to classify calls, inside
-              a governor of constraints, feedback loops, and human judgment that
-              keeps systems reliable in production.
+              You might be wondering whether AI-built means nobody checked. For
+              us it means the opposite. Everything we ship runs under specs,
+              tests, staged rollout, and a person who can say no. We call that
+              cybernetic development: we use AI to write code the same way we
+              use it to classify calls, inside a governor of constraints,
+              feedback loops, and human judgment that keeps systems reliable in
+              production.
             </p>
             <p>
               Modern failures increasingly look less like isolated “bugs” and
