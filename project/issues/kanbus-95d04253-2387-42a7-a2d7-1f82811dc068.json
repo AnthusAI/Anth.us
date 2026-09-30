@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-95d04253-2387-42a7-a2d7-1f82811dc068",
+  "title": "Publish decision-model accountability article to develop",
+  "description": "Publish the newsroom draft “Who Is Responsible After You Deploy a Decision Model?” as Anth.us long-form content, including a 1200x630 cover image and primary-source citations. Integrate it with the existing `codex/decision-models-are-not-calculators-site` branch into `develop`.\n\nAcceptance criteria:\n- Given the approved newsroom draft, when it becomes MDX in the content submodule, then frontmatter, images, citations, and internal links are valid.\n- Given the old decision-models site branch, when both changes are integrated, then `develop` contains both without overwriting unrelated work.\n- Given content and site pins are changed, when checks finish, then changes are committed, validated, and pushed.",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "cdd53456-cb48-428f-80bd-13e6b82e0b55",
+      "author": "home",
+      "text": "Published AnthusAI/anthus-site-content commit fcce36e and advanced Anth.us develop to 71639d4. Verification: image is valid PNG at 1200x630; Git whitespace checks passed. Gatsby build initializes but fails before MDX parsing with existing gatsby-plugin-mdx LMDB cache-key error (#11321, key size 1978).",
+      "created_at": "2026-09-30T13:27:14.048987Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex_desktop",
+        "model": "gpt-5",
+        "name": "Codex"
+      }
+    }
+  ],
+  "created_at": "2026-09-30T13:19:57.156646Z",
+  "updated_at": "2026-09-30T13:27:39.508350Z",
+  "closed_at": "2026-09-30T13:27:39.508320Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "Codex desktop"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
