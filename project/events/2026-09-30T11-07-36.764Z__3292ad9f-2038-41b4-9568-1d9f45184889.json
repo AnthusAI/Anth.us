@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "3292ad9f-2038-41b4-9568-1d9f45184889",
+  "issue_id": "kanbus-622e2a34-82b5-43df-b3f0-25c522bd52af",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-30T11:07:36.764Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Voice rule: plain statements on first read (no riddle phrasing)",
+    "description": "Encode a professional version of the Pilobolus rule against insider/riddle phrasing in the Anth.us voice guide and as regex bannedPatterns in the Papyrus style profile so Limatus flags it.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
