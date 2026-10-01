@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-af3c143c-5149-45a5-9085-52391a10b273",
+  "title": "One collection layout for Articles, Research, Reading, and Posts",
+  "description": "Ryan, 2026-09-26: apply the Articles layout (newest few large with the image beside the text, then a card grid, then pagination) to Research, Reading, and Posts. One shared collection template driven from a config table in gatsby-node.js; the separate research, reading, blog, and posts-list pages and templates are removed. Old /posts/N/ URLs redirect to /posts/page/N/.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "26033c5d-2a98-4773-8e4b-46e319db5b83",
+      "author": "unknown",
+      "text": "Landed and build-verified; publishing to main.",
+      "created_at": "2026-09-26T17:42:51.543445561Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-26T16:41:17.080311195Z",
+  "updated_at": "2026-09-26T17:42:51.560499970Z",
+  "closed_at": "2026-09-26T17:42:51.560432333Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}

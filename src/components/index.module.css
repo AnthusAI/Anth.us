@@ -54,6 +54,24 @@
   text-align: center;
 }
 
+.heroProof {
+  font-size: 0.85em;
+}
+
+.caseFacts {
+  list-style: none;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+}
+
+.caseFacts li {
+  margin: 0.35rem 0;
+}
+
+.caseFacts li:last-child {
+  font-weight: 600;
+}
+
 .intro {
   max-width: none;
   line-height: var(--line-height-loose);
@@ -107,6 +125,20 @@
 
 .postsListItemLink:hover {
   color: var(--color-primary);
+}
+
+.postsListThumbnail {
+  float: right;
+  width: 32%;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.postsListItemLink::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .listItemDate {

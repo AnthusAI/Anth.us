@@ -7,9 +7,9 @@
  * remark/unified ecosystem — is published as ESM only.
  */
 
-import path from 'path'
-import { fileURLToPath } from 'url'
-import remarkGfm from 'remark-gfm'
+import path from "path"
+import { fileURLToPath } from "url"
+import remarkGfm from "remark-gfm"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const siteContentPath = `${__dirname}/src/site-content`
@@ -20,31 +20,50 @@ const siteContentPath = `${__dirname}/src/site-content`
 export default {
   siteMetadata: {
     title: `Anthus`,
-    description: `Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in 14 years of production operations.`,
+    description: `Anthus builds and operates self-aligning AI systems — custom models, agent harnesses, and evaluation loops with a human in the loop, grounded in production operations since 2007.`,
     author: `Ryan Porter`,
     siteUrl: `https://anth.us`,
-    menuLinks:[
+    menuLinks: [
       {
-        name:'AI Solutions',
-        link:'/ai-solutions'
+        name: "AI Solutions",
+        description:
+          "What we build and run for clients, with the case studies.",
+        link: "/ai-solutions",
       },
       {
-        name:'Platform',
-        link:'/platform'
+        name: "Platform",
+        description:
+          "The components behind the work: Plexus, Kanbus, and the rest.",
+        link: "/platform",
       },
       {
-        name:'About',
-        link:'/about'
+        name: "Research",
+        description:
+          "Experiments on how decision models behave, with the numbers.",
+        link: "/research",
       },
       {
-        name:'Articles',
-        link:'/blog'
+        name: "Reading List",
+        description: "Papers and books we keep coming back to, one note each.",
+        link: "/reading",
       },
       {
-        name:'Posts',
-        link:'/posts'
+        name: "About",
+        description: "Who we are, and the track record since 2007.",
+        link: "/about",
       },
-    ]
+      {
+        name: "Articles",
+        description:
+          "Long-form pieces on classifiers, agents, and the economics of AI.",
+        link: "/blog",
+      },
+      {
+        name: "Posts",
+        description: "Short takes on what shipped this week.",
+        link: "/posts",
+      },
+    ],
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -61,8 +80,8 @@ export default {
       options: {
         defaults: {
           quality: 70,
-          formats: ['auto', 'webp', 'avif'],
-          placeholder: 'blurred',
+          formats: ["auto", "webp", "avif"],
+          placeholder: "blurred",
         },
       },
     },
@@ -82,14 +101,53 @@ export default {
     },
     `gatsby-plugin-sass`,
     {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+            unpublishedContent: allMdx(
+              filter: { frontmatter: { state: { ne: "published" } } }
+            ) {
+              nodes {
+                frontmatter {
+                  slug
+                }
+              }
+            }
+          }
+        `,
+        resolvePages: ({ allSitePage, unpublishedContent }) => {
+          const unpublishedPaths = new Set(
+            unpublishedContent.nodes
+              .filter(node => node.frontmatter.slug)
+              .map(node => `/blog/${node.frontmatter.slug}/`)
+          )
+          return allSitePage.nodes.filter(
+            page => !unpublishedPaths.has(page.path)
+          )
+        },
+        serialize: ({ path }) => ({ url: path }),
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `Jersey 10:400`,
+          `Jersey 25:400`,
           `Geist Mono:400,500`,
           `Montserrat:400,500,600,900`,
         ],
-        display: 'block',
+        display: "block",
       },
     },
     {
@@ -152,11 +210,11 @@ export default {
             options: {
               maxWidth: 940,
             },
-          }
+          },
         ],
       },
     },
-    'gatsby-citation-manager',
+    "gatsby-citation-manager",
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
