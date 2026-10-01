@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "a4bed550-a0d9-44a1-8d1f-5683439c48f6",
+  "issue_id": "kanbus-5c542887-f587-4fc2-9d35-984bd7046160",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-01T10:36:11.268Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "333a8abf-beab-4890-acaa-6f28d6a48d9b",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-opus-5-5",
+      "name": "Chatticus"
+    }
+  }
+}
