@@ -22,10 +22,11 @@ GITHUB_DEPLOY_ROLE_NAME="${GITHUB_DEPLOY_ROLE_NAME:-anthus-deploy}"
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
 echo "=== Finding or creating the Amplify app ${NEW_AMPLIFY_APP_NAME} (no Git connection) ==="
-NEW_AMPLIFY_APP_ID=$(aws amplify list-apps --region "$AWS_REGION" \
-  --query "apps[?name=='${NEW_AMPLIFY_APP_NAME}' && (repository==null || repository=='')].appId" --output text \
-  | tr -s '[:space:]' '\n' | grep -v '^$' | head -n 1 || true)
-if [ -z "$NEW_AMPLIFY_APP_ID" ] || [ "$NEW_AMPLIFY_APP_ID" = "None" ]; then
+NEW_AMPLIFY_APP_ID_CANDIDATES=$(aws amplify list-apps --region "$AWS_REGION" \
+  --query "apps[?name=='${NEW_AMPLIFY_APP_NAME}' && (repository==null || repository=='')].appId" --output text)
+NEW_AMPLIFY_APP_ID=$(printf '%s\n' "$NEW_AMPLIFY_APP_ID_CANDIDATES" | tr -s '[:space:]' '\n' \
+  | { grep -v '^$' || true; } | head -n 1)
+if [ -z "$NEW_AMPLIFY_APP_ID" ]; then
   NEW_AMPLIFY_APP_ID=$(aws amplify create-app --region "$AWS_REGION" --name "$NEW_AMPLIFY_APP_NAME" \
     --platform WEB --query 'app.appId' --output text)
   echo "Created app ${NEW_AMPLIFY_APP_ID}"
