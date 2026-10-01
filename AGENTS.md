@@ -475,9 +475,9 @@ Review changes on the development address before promoting `develop` to `main`.
 
 Amplify only accepts uploaded builds on an app that is not connected to Git. The deploy job targets that app through repository variables: `AMPLIFY_APP_ID`, `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN` (the GitHub OIDC role), and optionally `AMPLIFY_PRODUCTION_BRANCH` and `AMPLIFY_DEVELOPMENT_BRANCH`, which default to `main` and `develop`. Until `AMPLIFY_APP_ID` is set the deploy job is skipped, and the original Git-connected Amplify app keeps building `main` itself from [`amplify.yml`](amplify.yml). [`scripts/setup-amplify-github-deploy.sh`](scripts/setup-amplify-github-deploy.sh) creates the app, copies the Git-connected app's redirects and headers, grants the role permission to deploy, and prints the variables and the custom-domain move. After the domain moves, delete the Git-connected app and `amplify.yml`.
 
-Content changes are committed in `AnthusAI/anthus-site-content` and reach the development address when a site-repository commit pins that content revision on `develop`, and production when that pin is promoted to `main`. The content repository's own workflow should only check that content builds against `develop`. Until [anthus-site-content#17](https://github.com/AnthusAI/anthus-site-content/pull/17) merges, it still builds against `main` and syncs to the retired S3 bucket on every content push and every five days.
+Content changes are committed in `AnthusAI/anthus-site-content` and reach the development address when a site-repository commit pins that content revision on `develop`, and production when that pin is promoted to `main`. The content repository's own workflow only checks that content builds against `develop`. It never deploys.
 
-The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired and no longer serve anth.us. Delete them once the content repository's sync is gone.
+The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired, no longer serve anth.us, and receive no uploads. Delete them.
 
 Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-content`. Clone with `git clone --recurse-submodules`. The newsroom board lives in `AnthusAI/anthus-semantic-knowledge-base` (separate checkout or via Papyrus `pods/anthus-blog`).
 
