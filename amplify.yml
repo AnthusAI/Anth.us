@@ -1,0 +1,29 @@
+version: 1
+env:
+  variables:
+    # Amplify's Standard build machine has four vCPUs; Gatsby otherwise defaults
+    # to a smaller physical-core count when generating static image derivatives.
+    GATSBY_CPU_COUNT: "4"
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm use 22
+        - npm ci --cache .npm --prefer-offline
+        # Keep the cache input limited to content-addressed image derivatives.
+        # Gatsby's build state includes source-directory-specific static-query IDs.
+        - rm -rf .cache
+        - find public -mindepth 1 -maxdepth 1 ! -name static -exec rm -rf {} +
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: public
+    files:
+      - "**/*"
+  cache:
+    paths:
+      # Gatsby's state and page-data caches are not portable between Amplify
+      # build directories. Its content-addressed image derivatives are.
+      - public/static/**/*
+      - .npm/**/*

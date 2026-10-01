@@ -66,10 +66,11 @@ const RyansPage = ({ data }) => {
             <ul>
               <li>
                 <strong>Pioneering Technical Strategy:</strong> Developed and
-                operated a critical ticketing system evolving over{" "}
-                <mark>14 years</mark> into a comprehensive platform encompassing
-                reservation, guest list, and artist booking management, pivotal
-                for business operations across various stakeholder domains.
+                operated a critical ticketing system evolving{" "}
+                <mark>since 2007</mark> into a comprehensive platform
+                encompassing reservation, guest list, and artist booking
+                management, pivotal for business operations across various
+                stakeholder domains.
               </li>
               <li>
                 <strong>Seamless Transition and Growth:</strong> Managed the

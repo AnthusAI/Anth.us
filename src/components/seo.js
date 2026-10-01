@@ -9,7 +9,15 @@ import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { getImage } from "gatsby-plugin-image"
 
-function Seo({ description, title, children, image, imageURL }) {
+function Seo({
+  description,
+  title,
+  children,
+  image,
+  imageURL,
+  type = "website",
+  structuredData,
+}) {
   const { site, allFile } = useStaticQuery(
     graphql`
       query {
@@ -68,7 +76,7 @@ function Seo({ description, title, children, image, imageURL }) {
       <meta name="image" content={imageURL} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={type} />
       {imageURL && <meta property="og:image" content={imageURL} />}
       <meta
         name="twitter:card"
@@ -78,6 +86,11 @@ function Seo({ description, title, children, image, imageURL }) {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={imageURL} />
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      )}
       {children}
     </>
   )

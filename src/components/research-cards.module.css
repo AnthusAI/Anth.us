@@ -1,0 +1,11 @@
+.imageLink {
+  display: block;
+  margin: -1.25rem -1.25rem 1rem;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.headlineImage {
+  display: block;
+  width: 100%;
+}

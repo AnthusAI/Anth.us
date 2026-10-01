@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-901747a6-a301-4fa2-9b12-2cc552adf395",
+  "title": "Reading section: short posts about papers and books",
+  "description": "Ryan, 2026-09-26: a simple article section for mentions of papers and books, hand-written, not automated. A reading tag, a /reading listing page in the shape of /research, a Reading entry in the menu, and a short how-to in AGENTS.md. Seed it by tagging the nine published posts that are each about one paper.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "07493d3d-a1fd-4705-9d21-45474d45827f",
+      "author": "unknown",
+      "text": "Landed: /reading page lists the nine tagged paper posts, Reading in the menu, AGENTS.md how-to added. Build verified. Closing.",
+      "created_at": "2026-09-26T13:52:24.553426329Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-26T13:35:30.458914095Z",
+  "updated_at": "2026-09-26T13:52:24.567631457Z",
+  "closed_at": "2026-09-26T13:52:24.567591492Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

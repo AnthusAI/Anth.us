@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "af4d0184-5a4a-417a-9ed1-220905ffadfe",
+  "issue_id": "kanbus-689f03dd-231b-4f90-88fe-43212713332f",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T14:10:53.327Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Paginate the Articles page with featured articles on top and a grid below",
+    "description": "Ryan, 2026-09-26: /blog is one long list of 37 published articles. Paginate it. Page one features the newest articles large at the top (full headline image, like the homepage), then the older articles that still fit on page one in a smaller card grid, then pagination to further pages which use the grid. Follow the existing posts pagination pattern in gatsby-node.js and posts-list.jsx.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

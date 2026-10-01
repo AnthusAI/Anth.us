@@ -1,27 +1,21 @@
-name: Deploy site to S3 + CloudFront
+name: Verify Gatsby build
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-# Overlapping s3 sync --delete races delete pages that a newer deploy just uploaded.
+# Amplify deploys `main`; this workflow is a non-deploying build check.
 concurrency:
-  group: deploy-s3-cloudfront
+  group: verify-gatsby-build
   cancel-in-progress: true
 
 permissions:
-  id-token: write
   contents: read
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    env:
-      AWS_REGION: ${{ vars.AWS_REGION }}
-      S3_BUCKET: ${{ vars.S3_BUCKET }}
-      CLOUDFRONT_DIST_ID: ${{ vars.CLOUDFRONT_DIST_ID }}
-      AWS_DEPLOY_ROLE_ARN: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
     steps:
     - name: Checkout site repo with submodules
       uses: actions/checkout@v4
@@ -31,7 +25,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 22
         cache: npm
 
     - name: Restore Gatsby cache
@@ -67,21 +61,3 @@ jobs:
           .cache
           public
         key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
-
-    - name: Configure AWS credentials via OIDC
-      if: env.AWS_DEPLOY_ROLE_ARN != ''
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Sync to S3
-      if: env.AWS_DEPLOY_ROLE_ARN != ''
-      run: aws s3 sync public/ s3://${S3_BUCKET} --delete --no-progress
-
-    - name: Invalidate CloudFront
-      if: env.AWS_DEPLOY_ROLE_ARN != ''
-      run: |
-        aws cloudfront create-invalidation \
-          --distribution-id ${CLOUDFRONT_DIST_ID} \
-          --paths "/*"

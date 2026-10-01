@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-889c2c1e-1ada-46fb-8b43-925356618fe3",
+  "title": "Copy-edit: Who Is Responsible After You Deploy a Decision Model",
+  "description": "Apply the plain-statement voice rules to Ryan's new decision-model accountability article and set it up as a client page (client-acquisition tag, repository, engagement close), then publish on main.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "87bddad0-b6d9-4084-9986-e1a41f1950a2",
+      "author": "unknown",
+      "text": "Edited per plain-statement rules; Limatus scan before: 26 uncontracted, 1 punchline, 4 voice_mismatch, 2 attribution; after: 0/0/3/2 (remaining passives are natural; attribution is in the next sentence with link). Facts and sources unchanged. Added client-acquisition tag, Biased-Decisions repository, closing client section. Build green; page renders EngageCTA, repository, Article JSON-LD; in sitemap. Published: content main + site main pin. Ryan's site develop branch (based on Sept 25 main) is superseded by this pin. Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-09-30T14:39:34.172841474Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-30T14:19:00.389749538Z",
+  "updated_at": "2026-09-30T14:39:34.191901178Z",
+  "closed_at": "2026-09-30T14:39:34.191863233Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-opus-5-5",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

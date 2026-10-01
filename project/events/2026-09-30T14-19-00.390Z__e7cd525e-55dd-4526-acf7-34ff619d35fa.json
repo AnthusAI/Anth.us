@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "e7cd525e-55dd-4526-acf7-34ff619d35fa",
+  "issue_id": "kanbus-889c2c1e-1ada-46fb-8b43-925356618fe3",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-30T14:19:00.390Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Copy-edit: Who Is Responsible After You Deploy a Decision Model",
+    "description": "Apply the plain-statement voice rules to Ryan's new decision-model accountability article and set it up as a client page (client-acquisition tag, repository, engagement close), then publish on main.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-opus-5-5",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

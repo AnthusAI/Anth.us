@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "0b478314-181e-48bb-99c0-99f037e61664",
+  "issue_id": "kanbus-0cdd5bb0-8694-456e-a00e-57b479fa6b6d",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T17:27:12.566Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Engagement page: the three offers are examples, not a menu",
+    "description": "Ryan, 2026-09-26: /engage made it look like Anthus only does three things. Reframed: intro invites any problem AI might solve even when the client can't say what they need; the three become 'examples of where we start' with a line saying they aren't a menu; the first-month pilot includes a discovery month that ends with a scoped proposal; the closing line asks for the problem even if half-formed.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

@@ -9,8 +9,6 @@ import * as styles from "../components/index.module.css"
 import { formatPostDate } from "../utils/format-post-date"
 
 // const utmParameters = `?utm_source=anthus&utm_medium=footer`
-const contactUrl =
-  "https://docs.google.com/forms/d/e/1FAIpQLSdWlt4KpwPSBHzg3o8fikHcfrzxo5rCcV-0-zDt815NZ1tcyg/viewform?usp=sf_link"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -108,28 +106,6 @@ const IndexPage = () => {
           }
         }
       }
-
-      b0rdSolution: allMdx(
-        filter: {
-          frontmatter: { slug: { eq: "b0rd" }, state: { eq: "published" } }
-        }
-        limit: 1
-      ) {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              slug
-              preview_image {
-                childImageSharp {
-                  gatsbyImageData(layout: CONSTRAINED)
-                }
-              }
-            }
-          }
-        }
-      }
     }
   `)
 
@@ -173,11 +149,11 @@ const IndexPage = () => {
     },
     {
       text: "Machine Learning",
-      url: "/blog/domain-specific-turn-detection/",
+      url: "/decision-models/",
       image: getImage(data.aiSoftwareFeature.childImageSharp.gatsbyImageData),
       alt: "Custom and fine-tuned machine learning models",
       description:
-        "Custom classifiers, fine-tuned models, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS—training, serving, and evaluation included.",
+        "Custom classifiers, fine-tuned models, decision models like Jev, and <mark>calibrated confidence</mark> that tells you which decisions to trust and which to escalate.  We find the cheapest model that clears your bar, prove that it clears it, and run it in production on AWS—training, serving, and evaluation included.",
     },
   ]
 
@@ -197,21 +173,24 @@ const IndexPage = () => {
         <div className="hero-overlay">
           <h1>Depend on proven experts</h1>
           <p>
-            We solve your business problems with AI, then run it securely in
-            production.
+            We build the system, run it in production, and your experts keep it
+            aligned.
           </p>
-          <a href={contactUrl} className="button">
+          <p className={styles.heroProof}>
+            <mark>A quarter billion dollars</mark> processed in production, at
+            nearly 100% uptime.
+          </p>
+          <Link to="/engage" className="button">
             Tell us the problem
-          </a>
+          </Link>
         </div>
       </Hero>
 
       {/* Dates rather than durations: "two years of continuous operation" was written
           against a March 2024 start and had quietly gone stale. A start date never rots. */}
       <p className={styles.intro}>
-        <mark>A quarter billion dollars</mark> in revenue processed at scale, at
-        nearly 100% uptime. <mark>180 billion tokens</mark> of production LLM
-        workload. AI in production, not just in demos.
+        <mark>180 billion tokens</mark> of production LLM workload. AI in
+        production, not just in demos.
       </p>
 
       <h2>What We Do</h2>
@@ -236,16 +215,66 @@ const IndexPage = () => {
         <mark>The work rarely stays in one box.</mark>
       </p>
 
+      <h2>Case studies</h2>
+      <ul className={styles.list}>
+        <li className={styles.listItem}>
+          <Link className={styles.listItemLink} to="/blog/call-criteria/">
+            <h3>Call Criteria</h3>
+          </Link>
+          <ul className={styles.caseFacts}>
+            <li>
+              Call-center QA, scored by an outside service's fine-tuned
+              classifiers.
+            </li>
+            <li>Too expensive and too slow to scale to every new scorecard.</li>
+            <li>
+              We built their classifier lab on Plexus in their own AWS account
+              and ran it for years.
+            </li>
+            <li>
+              <mark>Hundreds of scorecards, millions of calls scored</mark>.
+            </li>
+          </ul>
+        </li>
+        <li className={styles.listItem}>
+          <Link className={styles.listItemLink} to="/blog/venue-driver/">
+            <h3>Venue Driver</h3>
+          </Link>
+          <ul className={styles.caseFacts}>
+            <li>
+              Ticketing and reservations backbone for Las Vegas nightlife.
+            </li>
+            <li>An AWS data center failed catastrophically.</li>
+            <li>
+              We relocated the entire system within hours — ticket scanning
+              never stopped.
+            </li>
+            <li>
+              <mark>In continuous operation since 2007</mark>.
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div className="clear-float">
+        See our <Link to="/ai-solutions">solution patterns</Link>.
+      </div>
+
       <section className={styles.approachSection}>
-        <h2 className={styles.approachHeading}>
-          Our Approach: Cybernetic Development
-        </h2>
+        <h2 className={styles.approachHeading}>How we work</h2>
         <div className={styles.approachContent}>
           <div>
             <p>
-              AI is an engine for generating code. The differentiator is the
-              governor: the constraints, feedback loops, and judgment that keep
-              systems reliable in production.
+              You might be wondering whether AI-built means nobody checked. For
+              us it means the opposite, and we learned it the hard way: in
+              February 2026 the nightly routine was pasting "Continue." into
+              four Codex sessions before bed, because nothing else kept the
+              agents going or told us what they'd done.{" "}
+              <Link to="/about">That night is on the record.</Link> Everything
+              we ship now runs under specs, tests, staged rollout, and a person
+              who can say no. We call that cybernetic development: we use AI to
+              write code the same way we use it to classify calls, inside a
+              governor of constraints, feedback loops, and human judgment that
+              keeps systems reliable in production.
             </p>
             <p>
               Modern failures increasingly look less like isolated “bugs” and
@@ -269,14 +298,11 @@ const IndexPage = () => {
               </li>
             </ul>
             <div className={styles.approachActions}>
-              <a href={contactUrl} className="button">
-                Contact us
-              </a>
               <Link
                 to="/blog/cybernetic-development"
                 className={styles.approachSecondaryCta}
               >
-                Read Cybernetic Development
+                How we govern AI-built systems
               </Link>
             </div>
           </div>
@@ -299,92 +325,6 @@ const IndexPage = () => {
         </div>
       </section>
 
-      {data.b0rdSolution.edges.length > 0 && (
-        <section className={styles.plexusFeature}>
-          <span className={styles.eyebrow}>SPINOFF</span>
-          <h2 className={styles.platformHeader}>
-            B0rd — desk displays for agent monitoring
-          </h2>
-          <ul className="blog">
-            <div className="blog-post-preview">
-              <li className="clear-float">
-                <Link to="/blog/b0rd">
-                  <GatsbyImage
-                    image={getImage(
-                      data.b0rdSolution.edges[0].node.frontmatter.preview_image
-                    )}
-                    alt="B0rd LED matrix desk display"
-                    className="right"
-                  />
-                  <h3>Glanceable signal when agents run all day</h3>
-                </Link>
-                <p>
-                  <strong>Anthus Microelectronics</strong> grew out of the same
-                  workflow problem: when coding agents run for hours, the
-                  bottleneck moves to monitoring and steering them. B0rd is a
-                  standalone LED-matrix desk display — launch countdowns, agent
-                  status, notifications, an idle clock — readable from across
-                  the room. Handbuilt hardware running a handbuilt (AI-assisted)
-                  OS. Matching units stay in sync without pairing or a hub.
-                </p>
-                <ul className="branded">
-                  <li>Standalone appliance — browser setup, no app store</li>
-                  <li>Glanceable cues for long-running agent sessions</li>
-                  <li>In sync by design across matching units</li>
-                </ul>
-                <Link to="/blog/b0rd" className="button">
-                  Read the B0rd story
-                </Link>
-                <a
-                  href="https://b0rd.info"
-                  className={styles.approachSecondaryCta}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  b0rd.info
-                </a>
-                <a
-                  href="https://www.etsy.com/shop/AnthusMicronics"
-                  className={styles.approachSecondaryCta}
-                  style={{ marginLeft: "1rem" }}
-                >
-                  Etsy shop
-                </a>
-              </li>
-            </div>
-          </ul>
-        </section>
-      )}
-
-      <h2>Case studies</h2>
-      <ul className={styles.list}>
-        <li className={styles.listItem}>
-          <Link className={styles.listItemLink} to="/blog/call-criteria/">
-            <h3>Call Criteria</h3>
-          </Link>
-          <p className={styles.listItemDescription}>
-            <mark>100% of calls reviewed</mark>, up from a sample. Call
-            Criteria's human QA couldn't scale without scaling headcount, so we
-            built a self-evolving RLHF system: reviewers correct the AI and say
-            why, and the system turns the explanation into policy it applies
-            from then on.
-          </p>
-        </li>
-        <li className={styles.listItem}>
-          <Link className={styles.listItemLink} to="/blog/venue-driver/">
-            <h3>Venue Driver</h3>
-          </Link>
-          <p className={styles.listItemDescription}>
-            <mark>16 years of continuous operation</mark> across Las Vegas
-            nightlife. When an AWS data center failed catastrophically, we
-            relocated the entire system within hours — ticket scanning at the
-            nightclubs never stopped.
-          </p>
-        </li>
-      </ul>
-      <div className="clear-float">
-        See our <Link to="/ai-solutions">solution patterns</Link>.
-      </div>
-
       <h2>Recent Articles</h2>
       <ul className="blog">
         {data.recentArticles.edges.map(({ node }) => {
@@ -398,7 +338,7 @@ const IndexPage = () => {
               <GatsbyImage
                 image={previewImage}
                 alt={title}
-                className="right"
+                className="featured"
               />
               <h3>{title}</h3>
             </>
@@ -421,7 +361,7 @@ const IndexPage = () => {
         })}
       </ul>
       <div className={`clear-float ${styles.seeMoreFooter}`}>
-        Please see our <a href="/blog/">Articles</a> for more.
+        More in <a href="/blog/">Articles</a>.
       </div>
 
       <h2>Recent Posts</h2>
@@ -435,6 +375,11 @@ const IndexPage = () => {
               >
                 {/* Was a <p> wrapping <div>s, which is invalid nesting and threw a
                     validateDOMNesting warning on every render. */}
+                <GatsbyImage
+                  image={getImage(node.frontmatter.preview_image)}
+                  alt={node.frontmatter.title}
+                  className={styles.postsListThumbnail}
+                />
                 <div>
                   <div className={styles.listItemTitle}>
                     {node.frontmatter.title}
@@ -454,17 +399,13 @@ const IndexPage = () => {
                     </div>
                   </div>
                 </div>
-                <GatsbyImage
-                  image={getImage(node.frontmatter.preview_image)}
-                  alt={node.frontmatter.title}
-                />
               </Link>
             </div>
           </li>
         ))}
       </ul>
       <div className={`clear-float ${styles.seeMoreFooter}`}>
-        Please see our <a href="/posts/">Posts</a> for more.
+        More in <a href="/posts/">Posts</a>.
       </div>
     </Layout>
   )
@@ -479,7 +420,7 @@ export const Head = () => {
   return (
     <Seo
       title="Home"
-      description="Anthus builds self-aligning AI systems: custom models, agent harnesses, evaluation loops, and unattended automation with a human in the loop. In production since 2023."
+      description="Anthus builds self-aligning AI systems: custom models, agent harnesses, evaluation loops, and unattended automation with a human in the loop, grounded in production operations since 2007."
       image="serverless-ai-software-solutions.png"
     />
   )

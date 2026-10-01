@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "3c684c3e-299f-4bc9-b9d2-e90415ba81b0",
+  "issue_id": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T09:52:43.441Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Client-acquisition content program: Plexus lab, Kanbus factory record, Papyrus newsroom",
+    "description": "Purpose: make Anth.us win clients by writing about using Plexus, Kanbus, and Papyrus for real work, with each piece ending on one engagement page. Articles themselves live on the newsroom board (ANTH, label client-acquisition): Plexus classifier lab (ANTH-f7e800), Kanbus governance walkthrough (ANTH-864e95), Papyrus newsroom (ANTH-6360c2), Call Criteria retrospective (ANTH-1b484e). This epic holds the site-side work those pieces need. Chatticus stays out of the content plan until it has done real work; no coming-soon framing. Done when: research section live, engagement page live and linked from the three articles, Plexus and Call Criteria pages reworded, Anth.us editorial running through Papyrus with Gatsby as renderer.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

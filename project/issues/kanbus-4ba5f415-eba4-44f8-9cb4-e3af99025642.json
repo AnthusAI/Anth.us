@@ -1,0 +1,41 @@
+{
+  "id": "kanbus-4ba5f415-eba4-44f8-9cb4-e3af99025642",
+  "title": "SEO for aligning Jev and decision models: sitemap, article schema, hub page",
+  "description": "Ryan, 2026-09-27: win search for 'fine-tune Jev', 'fine-tune decision model', 'align Jev to your data'. Added: gatsby-plugin-sitemap with robots.txt pointing at the index; Article JSON-LD and og:type article on every published article; a hub page at /decision-models with FAQPage JSON-LD answering the six questions people search with, each answered from published figures and linked to its article; 'decision model' added to seven Jev article descriptions and one title; research intro and the homepage machine-learning box link to the hub. No body-text stuffing.",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a56836f1-ee0a-4686-859e-9e9b135c8b7b",
+      "author": "unknown",
+      "text": "Landed and build-verified: sitemap index and robots line, Article JSON-LD and og:type article on posts, /decision-models hub with FAQPage schema (six questions), descriptions and internal links. Publishing to main.",
+      "created_at": "2026-09-27T17:16:17.147333795Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-27T17:00:15.485681633Z",
+  "updated_at": "2026-09-27T17:16:17.163893518Z",
+  "closed_at": "2026-09-27T17:16:17.163849441Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "kanbus",
+    "source": "shared"
+  }
+}
