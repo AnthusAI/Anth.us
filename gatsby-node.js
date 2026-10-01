@@ -268,6 +268,18 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.onPostBuild = async () => {
   const fs = require("fs")
+  const contentRepositoryRedirectPagesDirectory = path.join(
+    "src",
+    "site-content",
+    "redirects"
+  )
+  if (fs.existsSync(contentRepositoryRedirectPagesDirectory)) {
+    fs.cpSync(
+      contentRepositoryRedirectPagesDirectory,
+      path.join("public", "blog"),
+      { recursive: true, force: false, errorOnExist: false }
+    )
+  }
   legacyCollectionPageRedirects.forEach(({ fromPath, toPath, title }) => {
     const directory = path.join("public", fromPath)
     fs.mkdirSync(directory, { recursive: true })
