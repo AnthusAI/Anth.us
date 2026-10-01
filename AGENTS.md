@@ -452,15 +452,32 @@ This repository uses Kanbus, not Beads. Do not run `bd` or create/update Beads r
 
 ## Git workflow
 
-`develop` is the integration branch. Open product and site-operation pull requests against `develop`, and merge accepted changes there after required checks pass.
+`develop` is the integration branch, and `main` is the release branch. A merge to `develop` is not a production release.
 
-`main` is the release branch and the only branch that deploys to production. Promote `develop` to `main` when releasing; do not merge routine work directly into `main`. A merge to `develop` is not a production release.
+Product and site changes go through a pull request against `develop`. Agents open the pull request, run a reviewer sub-agent against `develop` as the merge gate, treat its requested changes as blocking, and merge into `develop` as soon as review is addressed and CI is green. Don't park finished work on feature branches. Don't merge routine work directly into `main`.
+
+Promote `develop` to `main` through a pull request when Ryan wants a release. "Publish this" or "deploy this" from Ryan means that promotion, followed by watching the deploy run to completion.
+
+Kanbus board changes are project management, not product. After `kbs` create, update, comment, or close, commit the `project/` files on `develop` with a `pm:` subject and push `origin develop`. Don't open a pull request for board changes, and don't bundle board files into a product pull request.
 
 ## Deployment
 
-The site deploys through AWS Amplify, which automatically builds and publishes on each push to the site repository's `main` branch. The versioned [`amplify.yml`](amplify.yml) selects the Amplify AL2023 image's supported default Node.js 22 runtime and retains `node_modules`, Gatsby's `.cache`, and `public` between builds for incremental deployment performance.
+The site is an AWS Amplify app. GitHub Actions does all of the building and checking, and Amplify only hosts what passed.
 
-The GitHub Actions workflow is a build-only verification check. It must not receive AWS deployment credentials or publish site artifacts. Content changes must be committed in `AnthusAI/anthus-site-content` and then pinned by a site-repository commit to trigger the Amplify deployment of that exact content revision.
+The workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) builds the Gatsby site and runs the CSS and posts-cache verifications on every pull request to `develop` or `main` and on every push to them. On a push to `develop` or `main`, and only if that build passed, a deploy job uploads the verified `public/` folder to Amplify with `create-deployment` and `start-deployment`, then waits for the Amplify job to succeed. Amplify never runs `npm ci` or `gatsby build`, so a deploy costs no Amplify build minutes.
+
+| Git branch | GitHub environment | Amplify branch | Address |
+| --- | --- | --- | --- |
+| `develop` | development | `develop` | `https://develop.<app id>.amplifyapp.com/` |
+| `main` | production | `main` | `https://anth.us/` |
+
+Review changes on the development address before promoting `develop` to `main`.
+
+Amplify only accepts uploaded builds on an app that is not connected to Git. The deploy job targets that app through repository variables: `AMPLIFY_APP_ID`, `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN` (the GitHub OIDC role), and optionally `AMPLIFY_PRODUCTION_BRANCH` and `AMPLIFY_DEVELOPMENT_BRANCH`, which default to `main` and `develop`. Until `AMPLIFY_APP_ID` is set the deploy job is skipped, and the original Git-connected Amplify app keeps building `main` itself from [`amplify.yml`](amplify.yml). [`scripts/setup-amplify-github-deploy.sh`](scripts/setup-amplify-github-deploy.sh) creates the app, copies the Git-connected app's redirects and headers, grants the role permission to deploy, and prints the variables and the custom-domain move. After the domain moves, delete the Git-connected app and `amplify.yml`.
+
+Content changes are committed in `AnthusAI/anthus-site-content` and reach the development address when a site-repository commit pins that content revision on `develop`, and production when that pin is promoted to `main`. The content repository's own workflow should only check that content builds against `develop`. Until [anthus-site-content#17](https://github.com/AnthusAI/anthus-site-content/pull/17) merges, it still builds against `main` and syncs to the retired S3 bucket on every content push and every five days.
+
+The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired and no longer serve anth.us. Delete them once the content repository's sync is gone.
 
 Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-content`. Clone with `git clone --recurse-submodules`. The newsroom board lives in `AnthusAI/anthus-semantic-knowledge-base` (separate checkout or via Papyrus `pods/anthus-blog`).
 
