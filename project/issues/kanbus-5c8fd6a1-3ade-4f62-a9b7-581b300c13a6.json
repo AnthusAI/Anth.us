@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-5c8fd6a1-3ade-4f62-a9b7-581b300c13a6",
+  "title": "Fix hero CTA truncated on mobile",
+  "description": "",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 0,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "fad8eea1-3519-4116-b443-397e3f87838e",
+      "author": "home",
+      "text": "Verified in browser at 320/375/414/desktop: CTA wraps, fully visible, no horizontal overflow; desktop unchanged. Root cause: a.button white-space:nowrap + fixed height inside hero-overlay (right:50%) overflowed. Fix in layout.scss .hero .button. (Claude Code, Sonnet 5)",
+      "created_at": "2026-09-23T19:26:32.374531Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Sonnet 5",
+        "name": "claude"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T19:23:32.008033Z",
+  "updated_at": "2026-09-23T19:26:32.374549Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Sonnet 5",
+    "name": "claude"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

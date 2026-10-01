@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "bca25a95-0fd1-4757-ba85-dce6bd071408",
+  "issue_id": "kanbus-42d81e69-0050-4938-82e8-ecab94da493f",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T12:29:19.446Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Research cards: headline images and repository links",
+    "description": "Ryan, 2026-09-26: research articles all have headline images; show them on the /research cards. Add a repository frontmatter field (GitHub URL) to each research article whose own project is public, and show that link on the research card and in the article header. Third-party repos an article merely cites do not count.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

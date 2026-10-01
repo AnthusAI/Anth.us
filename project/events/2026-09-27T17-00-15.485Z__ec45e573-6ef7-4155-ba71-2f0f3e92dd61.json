@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "ec45e573-6ef7-4155-ba71-2f0f3e92dd61",
+  "issue_id": "kanbus-4ba5f415-eba4-44f8-9cb4-e3af99025642",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T17:00:15.485Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "SEO for aligning Jev and decision models: sitemap, article schema, hub page",
+    "description": "Ryan, 2026-09-27: win search for 'fine-tune Jev', 'fine-tune decision model', 'align Jev to your data'. Added: gatsby-plugin-sitemap with robots.txt pointing at the index; Article JSON-LD and og:type article on every published article; a hub page at /decision-models with FAQPage JSON-LD answering the six questions people search with, each answered from published figures and linked to its article; 'decision model' added to seven Jev article descriptions and one title; research intro and the homepage machine-learning box link to the hub. No body-text stuffing.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

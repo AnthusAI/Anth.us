@@ -12,6 +12,7 @@ import {
 } from "gatsby-citation-manager"
 import MDXCode from "../components/MDXCode"
 import { formatPostDate } from "../utils/format-post-date"
+import EngageCTA from "../components/engage-cta"
 
 // Define the shortcodes object
 const shortcodes = { BlogImage, Citation, CitationsList, MDXCode }
@@ -66,8 +67,26 @@ const BlogPostTemplate = ({ data, children }) => {
                   )}
                 </div>
               )}
+            {post.frontmatter.repository && (
+              <div className="repository">
+                <span className="byline">code and data at </span>
+                <a
+                  href={post.frontmatter.repository}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {post.frontmatter.repository.replace(
+                    /^https?:\/\/(www\.)?github\.com\//,
+                    ""
+                  )}
+                </a>
+              </div>
+            )}
           </div>
           <MDXProvider components={shortcodes}>{children}</MDXProvider>
+          {(post.frontmatter.tags || []).includes("client-acquisition") && (
+            <EngageCTA />
+          )}
         </article>
       </Layout>
     </CitationsProvider>
@@ -103,17 +122,33 @@ export const Head = ({ data }) => {
   // `state` only controls whether a post is listed on the home page. Anything not
   // yet published therefore has a live, shareable URL, which is deliberate for
   // review — but it must not be indexed.
-  const isPublished = post.frontmatter.state === 'published';
+  const isPublished = post.frontmatter.state === "published"
+
+  const articleUrl = `${siteUrl}/blog/${post.frontmatter.slug}/`
+  const authorNames = (post.frontmatter.authors || []).map(entry =>
+    removeHTMLTags(entry.author)
+  )
+  const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.frontmatter.title,
+    description: cleanExcerpt,
+    datePublished: post.frontmatter.date,
+    author: authorNames.map(name => ({ "@type": "Person", name })),
+    publisher: { "@type": "Organization", name: "Anthus AI Solutions" },
+    mainEntityOfPage: articleUrl,
+    ...(imageUrl ? { image: imageUrl } : {}),
+  }
 
   return (
     <Seo
       title={post.frontmatter.title}
       description={cleanExcerpt}
       imageURL={imageUrl}
+      type="article"
+      structuredData={isPublished ? articleStructuredData : undefined}
     >
-      {!isPublished && (
-        <meta name="robots" content="noindex, nofollow" />
-      )}
+      {!isPublished && <meta name="robots" content="noindex, nofollow" />}
     </Seo>
   )
 }
@@ -129,9 +164,12 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        slug
         excerpt
         state
         date
+        tags
+        repository
         authors {
           author
         }

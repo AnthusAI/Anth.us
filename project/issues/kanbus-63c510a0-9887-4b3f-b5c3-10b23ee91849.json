@@ -1,0 +1,62 @@
+{
+  "id": "kanbus-63c510a0-9887-4b3f-b5c3-10b23ee91849",
+  "title": "Audit site surfaces against their story jobs",
+  "description": "Ryan, 2026-09-27: apply the Limatus writing-effective-stories skill to the site. Each surface has a job: hero and proof line (who I am), How we work (I know what you're thinking), solutions engagements (values in action), research and the Jev series (teaching), engagement page (vision), Kanbus observability series (why I'm here). Audit each for a clear job, a real sourced moment, a visible turning point, and a proportionate takeaway. First: the engagement page's vision story should make month six observable, what a client can do, avoid, notice, or feel differently. Second: the values-in-action gap, since the Call Criteria story can't be told by name; DataParade and the public Kanbus boards are the replacement and need telling as moments with a choice in them.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "3273fe27-a145-4a0e-86a3-6bd0f06459ff",
+      "author": "unknown",
+      "text": "First two surfaces done: the engagement page has a month-six vision section in the reader's terms, and How we work opens by stating the vibe-coding concern before answering it. Stage gate for the newsroom is PR 2 on the newsroom repo. Remaining: the values-in-action gap on the solutions engagements, which needs Ryan's choice moment (docs/site-story.md, open question 1), and the hero and research checks.",
+      "created_at": "2026-09-27T15:52:46.344122801Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "534b6e0c-910b-4560-88c5-ad984df70152",
+      "author": "unknown",
+      "text": "About page now carries the February 5 tweet as the turning point with the choice told through Tactus, Kanbus, and Plexus; How we work answers the concern with that night and links to it. Decision model now sits beside machine learning on the homepage box, the AI Solutions list, and the Plexus page. Chatticus stays out until it has done real work.",
+      "created_at": "2026-09-27T17:16:17.178811330Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "485545b0-8287-4c7d-889d-b558b6fdf9e2",
+      "author": "unknown",
+      "text": "Values in action: the Call Criteria case study is now a story (a working system they didn't own; the choice to bring the lab in-house on Plexus in their own AWS account; the loop; what it produced; the reviewers didn't go away by design). Homepage card matches. The false full-coverage claim is gone from both. Sitemap now excludes unpublished content.",
+      "created_at": "2026-09-27T17:53:47.832068067Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-09-27T15:16:58.681432193Z",
+  "updated_at": "2026-09-27T17:53:47.832104342Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

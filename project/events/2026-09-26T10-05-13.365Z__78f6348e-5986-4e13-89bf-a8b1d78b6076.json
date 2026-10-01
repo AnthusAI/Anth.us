@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "event_id": "78f6348e-5986-4e13-89bf-a8b1d78b6076",
+  "issue_id": "kanbus-1b53c584-4463-41a1-ba97-30d493af2ed3",
+  "event_type": "field_updated",
+  "occurred_at": "2026-09-26T10:05:13.365Z",
+  "actor_id": "unknown",
+  "payload": {
+    "changes": {
+      "parent": {
+        "from": null,
+        "to": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747"
+      }
+    }
+  }
+}

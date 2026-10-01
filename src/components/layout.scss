@@ -355,9 +355,10 @@ header {
   align-items: center;
   background: linear-gradient(174deg, var(--color-gradient-start) 0%, var(--color-gradient-start) 45%, var(--color-gradient-end) 88%, #85CEFA 97%, #fff 100%);
   color: var(--color-inverted-text);
-  font-family: 'Jersey 10', serif;
+  font-family: 'Jersey 25', serif;
   font-size: calc(7 * var(--base-unit));
   position: relative;
+  z-index: 50;
 
   .content {
     margin: 0 auto;
@@ -373,7 +374,7 @@ header {
       text-decoration: none;
       flex-grow: 0;
       flex-shrink: 0;
-      font-family: 'Jersey 10', serif;
+      font-family: 'Jersey 25', serif;
       font-weight: 900;
 
       .logo {
@@ -385,6 +386,9 @@ header {
 
     .p-plus {
       z-index: 1;
+    }
+    .p-plus--is-showing-overflow {
+      z-index: 100;
     }
   }
 
@@ -410,13 +414,51 @@ header {
           padding-right: 0;
         }
       }
+      .menu-subtitle {
+        display: none;
+      }
+
       ul.p-plus__overflow {
         position: fixed;
         top: calc(2 * var(--base-line-height));
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 20;
+        overflow-y: auto;
         background: linear-gradient(174deg, var(--color-gradient-end) 0%, var(--color-gradient-end) 50%, var(--color-gradient-start) 85%, var(--color-gradient-mid) 100%);
         margin: 0;
-        padding: 1.5em 1.5em 1.5em 1.5em;
+        padding: 1.5em var(--size-gutter) 3em;
         list-style-type: none;
+
+        li {
+          padding: 0;
+          margin: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+          text-align: left;
+        }
+        li:last-child {
+          border-bottom: none;
+        }
+        a {
+          display: block;
+          padding: 1.1em 0.5em;
+        }
+        .menu-title {
+          display: block;
+          font-family: 'Jersey 25', serif;
+          font-size: calc(1.9 * var(--font-size));
+          line-height: 1.1;
+        }
+        .menu-subtitle {
+          display: block;
+          margin-top: 0.4em;
+          font-family: var(--font-sans);
+          font-size: 0.72em;
+          font-weight: 400;
+          line-height: 1.4;
+          opacity: 0.85;
+        }
       }
 
       a {
@@ -509,7 +551,7 @@ a.button {
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 0.5em;
-  font-family: 'Jersey 10', serif;
+  font-family: 'Jersey 25', serif;
   font-size: calc(1.4 * var(--font-xl));
   font-weight: 500;
   white-space: nowrap;
@@ -578,6 +620,18 @@ a.button:active {
 
   .button {
     margin-top: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    text-align: center;
+    height: auto;
+    min-height: calc(1.6 * var(--font-xl));
+    padding: 0.15em 0.8em;
+    line-height: 1.1;
+
+    @media (max-width: 480px) {
+      font-size: var(--font-xl);
+    }
   }
 }
 
@@ -625,6 +679,10 @@ article {
     }
     div.assistants {
       opacity: 0.5;
+    }
+    div.repository {
+      opacity: 0.7;
+      font-size: var(--font-sm);
     }
   }
   h1 {
@@ -704,6 +762,20 @@ article {
 .gatsby-image-wrapper.full {
   margin-bottom: var(--base-line-height);
 }
+.gatsby-image-wrapper.featured {
+  float: right;
+  width: 50%;
+  height: auto;
+  margin-left: calc(2 * var(--base-line-height));
+  margin-bottom: var(--base-line-height);
+  border-radius: 4px;
+
+  @media (max-width: 640px) {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+  }
+}
 .gatsby-image-wrapper.centered {
   display: block;
   width: 66%;
@@ -711,6 +783,14 @@ article {
 }
 .center-full-image {
   text-align: center;
+}
+.image-caption {
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--font-sm);
+  line-height: 1.4;
+  margin: calc(-0.5 * var(--base-line-height)) auto var(--base-line-height) auto;
+  max-width: 70ch;
 }
 .center-medium-image {
   text-align: center;
@@ -747,6 +827,7 @@ mark {
 ul.blog {
   margin-left: 0;
   li {
+    display: flow-root;
     list-style-type: none;
     margin-bottom: var(--base-line-height);
 
@@ -1232,5 +1313,42 @@ footer {
   .center-small-image {
     width: 60%;
     margin: auto auto auto auto;
+  }
+}
+
+// Below the wide-hero breakpoint the overlay used to be absolutely positioned
+// over a fixed 400px image, so any text that wrapped taller than the image spilled
+// off the top (into the menu bar) or bottom (over the intro paragraph). Stack the
+// image and overlay in one grid cell instead: the hero grows to fit the overlay
+// and the image stretches to fill it.
+@media only screen and (max-width: 940px) {
+  .hero {
+    display: grid;
+
+    .hero-image {
+      grid-area: 1 / 1;
+      height: auto;
+      min-height: 400px;
+    }
+
+    .hero-overlay {
+      grid-area: 1 / 1;
+      align-self: center;
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      transform: none;
+      z-index: 1;
+      margin-left: var(--size-gutter);
+      padding: var(--base-line-height) 0;
+      width: calc(50% - var(--size-gutter));
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hero .hero-overlay {
+    width: 65%;
   }
 }

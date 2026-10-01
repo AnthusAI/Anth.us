@@ -1,0 +1,45 @@
+{
+  "id": "kanbus-622e2a34-82b5-43df-b3f0-25c522bd52af",
+  "title": "Voice rule: plain statements on first read (no riddle phrasing)",
+  "description": "Encode a professional version of the Pilobolus rule against insider/riddle phrasing in the Anth.us voice guide and as regex bannedPatterns in the Papyrus style profile so Limatus flags it.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "4c4c7b99-46bb-41d5-a3c3-ae0fc71d2c46",
+      "author": "unknown",
+      "text": "Landed: README voice bullet 'Plain statements on first read'; four bannedPatterns in publications/anthus/style-profile.yml (announced point, fragment pair, concrete-equals-abstraction aphorism, shared-shorthand idiom). Verified with limatus scan: all four fire on a test file; corpus sweep hits only plexus-classifier-lab (fixed), ralph-loops, wiki-that-only-gets-bigger. Provenance: claude-code / claude-fable-5-1.",
+      "created_at": "2026-09-30T11:07:36.806446062Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "9ab485d5-b4e3-4b28-a0ed-4ff66ad98e1b",
+      "author": "unknown",
+      "text": "Ryan flagged 'its confidence got honest' as the exact tell the rule exists for; my review had called it borderline because a fact followed. Tightened: no metaphor in opening paragraph, title, or excerpt regardless of what follows; new bullet and regex for character traits applied to measurements. Sweep: 9 hits across plexus-classifier-lab, can-you-trust-jev-confidence, distilling-jev-into-a-classifier, jev-vs-laya. No article edits yet (Ryan's instruction). Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-09-30T11:39:34.353829615Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-30T11:07:36.764467158Z",
+  "updated_at": "2026-09-30T11:39:34.354376724Z",
+  "closed_at": "2026-09-30T11:07:36.827490971Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

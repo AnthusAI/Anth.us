@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "93306e0b-17ed-43bc-9101-588d7da7779d",
+  "issue_id": "kanbus-fe1ad64a-4b9d-4ed2-970a-08aaba6feaef",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T16:57:56.493Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "AI Solutions: engagements large, projects and examples in a grid",
+    "description": "Ryan, 2026-09-26: the solutions page mixed small examples with serious long-term engagements. Solutions tagged engagement (Call Criteria, DataParade, Venue Driver, Vault) render large with the image beside the text; every other non-integration solution plus articles tagged project render in the small card grid below, sorted by date. Integrations unchanged. Move an item between tiers by changing its tag.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
