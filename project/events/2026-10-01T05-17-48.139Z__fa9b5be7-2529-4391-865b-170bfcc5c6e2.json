@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "fa9b5be7-2529-4391-865b-170bfcc5c6e2",
+  "issue_id": "kanbus-5c542887-f587-4fc2-9d35-984bd7046160",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-01T05:17:48.139Z",
+  "actor_id": "unknown",
+  "payload": {
+    "comment_id": "3bb0c2eb-bd81-4d21-93a7-3f7b4d6b80ea",
+    "comment_author": "unknown",
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-opus-5-5",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
