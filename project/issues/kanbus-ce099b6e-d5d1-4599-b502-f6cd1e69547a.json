@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-ce099b6e-d5d1-4599-b502-f6cd1e69547a",
+  "title": "Triage 2026 drafts: ship research-shaped ones, drop dated commentary",
+  "description": "Eight 2026 drafts are unpublished. Ralph loops, code-based hill-climbing, and wiki that only gets bigger are research-shaped and can ship into the research section. Thrifty tokenmaxxing and coding agents went remote are dated commentary; decide to cut or fold into other pieces. Kanbus project management as code is being reframed on the newsroom board (ANTH-864e95).",
+  "type": "task",
+  "status": "open",
+  "priority": 3,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-26T09:52:43.499925060Z",
+  "updated_at": "2026-09-26T09:52:43.499947861Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

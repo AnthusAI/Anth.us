@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "f3fe86f8-750a-4c3c-9fc7-2d1b246a615f",
+  "issue_id": "kanbus-af3c143c-5149-45a5-9085-52391a10b273",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-26T16:41:17.080Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "One collection layout for Articles, Research, Reading, and Posts",
+    "description": "Ryan, 2026-09-26: apply the Articles layout (newest few large with the image beside the text, then a card grid, then pagination) to Research, Reading, and Posts. One shared collection template driven from a config table in gatsby-node.js; the separate research, reading, blog, and posts-list pages and templates are removed. Old /posts/N/ URLs redirect to /posts/page/N/.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

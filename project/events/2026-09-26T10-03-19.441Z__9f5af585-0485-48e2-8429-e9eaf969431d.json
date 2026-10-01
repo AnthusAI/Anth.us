@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "9f5af585-0485-48e2-8429-e9eaf969431d",
+  "issue_id": "kanbus-2d48e141-d5bc-4262-a6f5-8bf457d6c9de",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-26T10:03:19.441Z",
+  "actor_id": "unknown",
+  "payload": {
+    "comment_id": "b59935da-ba40-4a53-ac94-d375b29bd90f",
+    "comment_author": "unknown",
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-sonnet-5",
+      "name": "engagement-funnel"
+    }
+  }
+}

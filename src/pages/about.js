@@ -3,6 +3,47 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
+const KEY_FACTS = [
+  ["Company name", "Anthus AI Solutions"],
+  ["Type", "AI engineering and operations company"],
+  ["Founder", "Ryan Porter"],
+  ["Website", "https://anth.us"],
+  [
+    "Core offering",
+    "Self-aligning AI systems: custom models, agent harnesses, and evaluation loops with a human in the loop",
+  ],
+  [
+    "Services",
+    "LLM fine-tuning, agentic AI, MLOps and LLMOps, serverless architecture, AI-assisted operations",
+  ],
+  [
+    "Track record",
+    "Team together for over a decade; production platforms operated for 14+ years; Call Criteria in production with RLHF for two years",
+  ],
+  ["Platform", "Plexus, an MLOps platform"],
+  ["Spinoff", "Anthus Microelectronics (B0rd LED-matrix desk display)"],
+  ["Contact", "https://anth.us/ryan"],
+]
+
+const FAQ = [
+  {
+    q: "What does Anthus build?",
+    a: "Production AI systems that improve from feedback: fine-tuned classifiers, agent systems, and the evaluation and MLOps infrastructure around them. We also operate what we build.",
+  },
+  {
+    q: "How is Anthus different from a typical AI consultancy?",
+    a: "We are operators first. The team has run a revenue-critical platform since 2007, through data center failures and DDoS attacks, before applying the same discipline to AI. We ship systems with human-in-the-loop feedback, not demos.",
+  },
+  {
+    q: "What is human-in-the-loop AI?",
+    a: "Experts review and correct the AI's judgments, and those corrections become training signal. In Call Criteria, QA specialists guide the models this way, and the system has improved through reinforcement learning from human feedback (RLHF) for two years.",
+  },
+  {
+    q: "Do you only work with one model provider?",
+    a: "No. We treat models as replaceable components and design systems so a model can be swapped without rebuilding the business logic.",
+  },
+]
+
 const AboutPage = () => {
   useEffect(() => {
     document.title = "About"
@@ -14,6 +55,14 @@ const AboutPage = () => {
         <div>
           <h1>About us</h1>
           <p>
+            <strong>
+              Anthus is an AI engineering company that builds and operates
+              self-aligning AI systems — custom models, agent harnesses, and
+              evaluation loops with a human in the loop — for teams that need
+              them to keep working in production.
+            </strong>
+          </p>
+          <p>
             <img
               src="/assets/images/ryan-porter.png"
               alt="About Anthus"
@@ -24,10 +73,10 @@ const AboutPage = () => {
             <a href="https://en.wikipedia.org/wiki/Kaleidoscope_World_Tour">
               Tiësto world tour
             </a>
-            , sparking a business that generated up to $64 million annually for{" "}
-            <mark>over fourteen years.</mark> We came together as a team as the
-            business expanded, going from a tiny startup to a department within
-            a large multinational corporation,{" "}
+            , sparking a business that generated up to $64 million annually{" "}
+            <mark>since 2007.</mark> We came together as a team as the business
+            expanded, going from a tiny startup to a department within a large
+            multinational corporation,{" "}
             <a href="https://taogroup.com">Tao Group Hospitality</a>. We have
             worked cohesively for more than a decade, safeguarding an impeccable
             record in <mark>reliability and security</mark>.
@@ -47,10 +96,10 @@ const AboutPage = () => {
             maturity and risk management consistently earned approval.
           </p>
           <p>
-            Our endurance over more than fourteen years is a testament to our
-            commitment and capability in preventing business interruptions
-            arising from downtime, software malfunctions, security incidents, or
-            data losses. <mark>The hackers never got us</mark>, despite being a{" "}
+            Our endurance since 2007 is a testament to our commitment and
+            capability in preventing business interruptions arising from
+            downtime, software malfunctions, security incidents, or data losses.{" "}
+            <mark>The hackers never got us</mark>, despite being a{" "}
             <a href="https://twitter.com/RyanAlynPorter/status/890982980721790976">
               prime target
             </a>
@@ -113,19 +162,54 @@ const AboutPage = () => {
                 <p style={{ fontWeight: "bold", marginBottom: "0.25em" }}>
                   {value.text}
                 </p>
-                <p
-                  dangerouslySetInnerHTML={{ __html: value.description }}
-                ></p>
+                <p dangerouslySetInnerHTML={{ __html: value.description }}></p>
               </li>
             ))}
           </ul>
+
+          <h2>The night we stopped being the loop</h2>
+          <p>
+            When we started using AI to write the code and make the decisions,
+            the chat way of working broke under the volume. A person had to sit
+            there keeping the agents going or the whole process stopped, and a
+            person had to hold in their head what was happening across every
+            parallel session in every project for every client, because nothing
+            else did. The low point is on the record, like everything else we
+            do.
+          </p>
+          <blockquote className="twitter-tweet" data-dnt="true">
+            <p lang="en" dir="ltr">
+              Stupid new nightly routine that I never wanted: Pasting
+              &quot;Continue.&quot; into Codex 20 times in a row before I go to
+              bed, in four different sessions. I will look back at this like
+              black and white television. Rotary phone dials.
+            </p>
+            &mdash; Ryan Porter (@RyanAlynPorter){" "}
+            <a href="https://x.com/RyanAlynPorter/status/2019302489011696010">
+              February 5, 2026, 1:50 AM
+            </a>
+          </blockquote>
+          <p>
+            So we stopped being the loop. <a href="/platform/tactus">Tactus</a>{" "}
+            names the three ways a person can be in the loop, supervised,
+            unattended, and asynchronous, and makes the third one something you
+            can program, so an agent runs on its own and interrupts a human only
+            at a decision point. <a href="/platform/kanbus">Kanbus</a> is the
+            memory that lets work move between Claude Code, Codex, or whatever
+            comes next, because we've held since 2023 that{" "}
+            <a href="/blog/a-world-with-no-moats">models are commodities</a>.{" "}
+            <a href="/platform/plexus">Plexus</a> is the scorecard where
+            reviewers correct a decision model's verdicts and their explanations
+            become policy. We ran all of it on our own work first, in public.
+          </p>
 
           <h2>How We Build Today</h2>
           <p>
             The AI era doesn’t remove the need for operational excellence—it
             raises the stakes. We use a cybernetic approach: clear intent,
             layered safeguards, and production feedback loops that continuously
-            harden the system. Read more in{" "}
+            harden the system. Delegating the work turned out to be easy;
+            observing it is the whole job. Read more in{" "}
             <a href="/blog/cybernetic-development">Cybernetic Development</a>.
           </p>
 
@@ -152,6 +236,41 @@ const AboutPage = () => {
             <a href="https://www.etsy.com/shop/AnthusMicronics">Etsy shop</a>.
           </p>
 
+          <h2>Who We Work With</h2>
+          <ul>
+            <li>
+              Product and engineering teams putting LLM agents or classifiers
+              into production, not just prototypes
+            </li>
+            <li>
+              Operations and QA organizations that need AI to make judgments at
+              scale while experts stay in control (the{" "}
+              <Link to="/blog/call-criteria/">Call Criteria</Link> pattern)
+            </li>
+            <li>
+              Businesses with revenue-critical systems where downtime, security
+              incidents, and silent failures are unacceptable
+            </li>
+          </ul>
+
+          <h2>Key Facts</h2>
+          <dl className="key-facts">
+            {KEY_FACTS.map(([term, definition]) => (
+              <React.Fragment key={term}>
+                <dt>{term}</dt>
+                <dd>{definition}</dd>
+              </React.Fragment>
+            ))}
+          </dl>
+
+          <h2>Frequently Asked Questions</h2>
+          {FAQ.map(({ q, a }) => (
+            <React.Fragment key={q}>
+              <h3>{q}</h3>
+              <p>{a}</p>
+            </React.Fragment>
+          ))}
+
           <p>
             Now, we bring our depth of experience and technical agility to your
             projects. <mark>What can we develop and operate for you?</mark>
@@ -171,9 +290,33 @@ export const Head = () => {
   return (
     <Seo
       title="About Us"
-      description="Anthus builds and operates self-aligning AI systems, grounded in 14 years of production operations — the reliability and security behind a multi-million-dollar platform, now applied to AI."
+      description="Anthus builds and operates self-aligning AI systems, grounded in production operations since 2007 — the reliability and security behind a multi-million-dollar platform, now applied to AI."
       image="serverless-ai-software-solutions.png"
-    />
+    >
+      <script async src="https://platform.twitter.com/widgets.js"></script>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Anthus AI Solutions",
+          url: "https://anth.us",
+          description:
+            "Anthus builds and operates self-aligning AI systems with a human in the loop, grounded in production operations since 2007.",
+          founder: {
+            "@type": "Person",
+            name: "Ryan Porter",
+            url: "https://anth.us/ryan",
+          },
+          knowsAbout: [
+            "Agentic AI",
+            "Reinforcement learning from human feedback",
+            "LLM fine-tuning",
+            "MLOps",
+            "Serverless architecture",
+          ],
+        })}
+      </script>
+    </Seo>
   )
 }
 

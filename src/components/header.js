@@ -33,7 +33,10 @@ const Header = ({ siteTitle, menuLinks }) => {
               {menuLinks.map(link => (
                 <li key={link.name}>
                   <Link to={link.link} activeClassName="active">
-                    {link.name}
+                    <span className="menu-title">{link.name}</span>
+                    {link.description && (
+                      <span className="menu-subtitle">{link.description}</span>
+                    )}
                   </Link>
                 </li>
               ))}
