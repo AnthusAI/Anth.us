@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "7d490db1-cc2e-49ac-ae96-a4826aa6cb1e",
+  "issue_id": "kanbus-5c542887-f587-4fc2-9d35-984bd7046160",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-01T05:17:31.785Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "CI in GitHub, deploy verified build to Amplify; reconcile develop",
+    "description": "develop kept the retired S3/CloudFront workflow while main moved to Amplify on Sept 18; the content repo still builds and syncs every content push to the retired S3 bucket; Amplify still runs the full Gatsby build on every main push. Goal: GitHub Actions builds and verifies on PRs and pushes; on main, only after a green build, upload the verified public/ to Amplify (manual-deploy app) so Amplify spends no build minutes. Also: merge main into develop (Git Flow), restore /posts/ excerpt headlines, restore content-repo redirect pages that 404 in production.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-opus-5-5",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
