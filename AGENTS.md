@@ -477,7 +477,7 @@ Amplify only accepts uploaded builds on an app that is not connected to Git. The
 
 Content changes are committed in `AnthusAI/anthus-site-content` and reach the development address when a site-repository commit pins that content revision on `develop`, and production when that pin is promoted to `main`. The content repository's own workflow only checks that content builds against `develop`. It never deploys.
 
-The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired, no longer serve anth.us, and receive no uploads. Delete them.
+The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired, no longer serve anth.us, and receive no uploads. Ryan deletes them in AWS; agents do not.
 
 Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-content`. Clone with `git clone --recurse-submodules`. The newsroom board lives in `AnthusAI/anthus-semantic-knowledge-base` (separate checkout or via Papyrus `pods/anthus-blog`).
 
