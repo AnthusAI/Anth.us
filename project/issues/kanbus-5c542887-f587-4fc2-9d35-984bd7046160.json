@@ -1,0 +1,62 @@
+{
+  "id": "kanbus-5c542887-f587-4fc2-9d35-984bd7046160",
+  "title": "CI in GitHub, deploy verified build to Amplify; reconcile develop",
+  "description": "develop kept the retired S3/CloudFront workflow while main moved to Amplify on Sept 18; the content repo still builds and syncs every content push to the retired S3 bucket; Amplify still runs the full Gatsby build on every main push. Goal: GitHub Actions builds and verifies on PRs and pushes; on main, only after a green build, upload the verified public/ to Amplify (manual-deploy app) so Amplify spends no build minutes. Also: merge main into develop (Git Flow), restore /posts/ excerpt headlines, restore content-repo redirect pages that 404 in production.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "3bb0c2eb-bd81-4d21-93a7-3f7b4d6b80ea",
+      "author": "unknown",
+      "text": "Done in branches: chore/merge-main-into-develop (merge; content pin and posts-list conflicts resolved; build plus both verification scripts green; /posts/ headlines are excerpts again) and feature/github-ci-amplify-deploy (ci.yml build/verify/deploy; setup-amplify-github-deploy.sh; AGENTS deployment section; post-build copy of content redirect pages, which 404 in production). actionlint clean; deploy shell simulated with stand-in aws/curl for SUCCEED and FAILED. Content repo: feature/content-ci-check-only replaces the S3 deploy with a build check against develop. Needs Ryan (no AWS access here): run the setup script, set repo variables, move the custom domain, delete the Git-connected app and the retired S3 bucket and distribution. Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-10-01T05:17:48.139434010Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "969f3882-40fc-4fdc-b389-6cde5a8fc9c3",
+      "author": "unknown",
+      "text": "Adopted the Chatticus Git Flow rules. PR #66 (main into develop) approved by a reviewer sub-agent: no blocking findings; develop's 39 commits intact; posts excerpt-headline port complete. The agent's merge of #66 was refused by the session's permission check, so #66 awaits Ryan's merge. PR #67 restructured: develop deploys to the Amplify development branch and GitHub environment, main to production; board files removed from the PR and committed here on develop; AGENTS.md Git workflow now states the Chatticus rules. Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-10-01T05:22:00.142475636Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "3d22c62f-7ee4-4ea2-9cb4-b6127d3abac2",
+      "author": "unknown",
+      "text": "Reviewer sub-agent verdicts: #66 APPROVE; #67 REQUEST_CHANGES then APPROVE after 1439480 (redirect pages overwrite stale cached copies and skip slugs built this run; AGENTS states the content S3 sync is live until content#17 merges); content#17 APPROVE, its new check green on GitHub. Merge order #66, #67, content#17. Agent merges are refused by the session permission check, so merges are Ryan's. Non-blocking: anthus-deploy trust allows any branch of both repos to deploy to production; consider requiring environment:production. Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-10-01T05:25:13.733528941Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-10-01T05:17:31.785109426Z",
+  "updated_at": "2026-10-01T05:25:13.733554299Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-opus-5-5",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
