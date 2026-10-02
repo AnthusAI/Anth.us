@@ -17,6 +17,7 @@ frontend:
     build:
       commands:
         - npm run build
+        - node scripts/build-benchmark-sites.mjs
   artifacts:
     baseDirectory: public
     files:

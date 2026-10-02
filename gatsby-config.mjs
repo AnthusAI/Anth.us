@@ -45,7 +45,7 @@ export default {
       {
         name: "Benchmarks",
         description:
-          "Public leaderboards for decision models: bias, and reasoning depth.",
+          "Public leaderboards for decision models: bias and reasoning depth.",
         link: "/benchmarks",
       },
       {
