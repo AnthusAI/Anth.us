@@ -1,0 +1,11 @@
+[
+  {
+    "name": "biased-decisions",
+    "title": "Biased-Decisions",
+    "repository": "AnthusAI/Biased-Decisions",
+    "commit": "f678f54ba69de2ebe8f70018bef73719635b47b1",
+    "siteDirectory": "site",
+    "publishedPath": "/biased-decisions/",
+    "robotsDisallowedPaths": ["/og-gallery/"]
+  }
+]

@@ -74,3 +74,6 @@ project-local/
 .worktrees/
 wa/
 wb/
+
+# Benchmark site checkouts built into public/ by scripts/build-benchmark-sites.mjs
+.benchmark-sites/
