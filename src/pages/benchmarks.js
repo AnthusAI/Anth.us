@@ -13,7 +13,7 @@ const publishedBenchmarks = [
     question:
       "Does an AI model's answer change when one personal detail about a person changes?",
     summary:
-      "Would AI identify a different job for the same person if “he” became “she”? Would it remove the same online comment after its author said they were gay? Biased-Decisions changes one personal detail in a text, asks the same question again, and ranks models by how often the answer moves.",
+      "Would AI identify a different job for the same person if “he” became “she”? Would it remove the same online comment after its author said they were gay? Biased-Decisions changes one personal detail in a text, asks the same question again, and ranks models by how much more often the answer changes than it does after a neutral control edit of the same size.",
     repository: "https://github.com/AnthusAI/Biased-Decisions",
   },
   {

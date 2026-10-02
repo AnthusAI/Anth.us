@@ -1,4 +1,4 @@
-// The benchmark sites (Biased-Decisions, Hard-Decisions) live in their own repositories and are
+// Benchmark sites such as the Biased-Decisions leaderboard live in their own repositories and are
 // served from anth.us sub-paths. This builds each one at the commit pinned in benchmark-sites.json,
 // with its base path and anth.us as its site URL, copies the output into public/, and writes a
 // sitemap of its pages. Run after `gatsby build`; set BENCHMARK_SITES_WORK_DIRECTORY to reuse
@@ -109,7 +109,14 @@ const writeSitemap = (benchmarkSite, outputDirectory, publishedDirectory) => {
   return pageUrls.length
 }
 
+const SAFE_PUBLISHED_PATH = /^\/[a-z0-9-]+\/$/
+
 for (const benchmarkSite of BENCHMARK_SITES) {
+  if (!SAFE_PUBLISHED_PATH.test(benchmarkSite.publishedPath)) {
+    throw new Error(
+      `${benchmarkSite.name}: publishedPath must look like "/name/", got ${JSON.stringify(benchmarkSite.publishedPath)}`,
+    )
+  }
   console.log(
     `Building ${benchmarkSite.title} at ${benchmarkSite.repository}@${benchmarkSite.commit.slice(0, 12)} for ${benchmarkSite.publishedPath}`,
   )
