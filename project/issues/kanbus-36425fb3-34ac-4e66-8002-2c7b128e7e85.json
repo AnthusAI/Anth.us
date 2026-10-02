@@ -3,7 +3,7 @@
   "title": "Bring the Biased-Decisions and Hard-Decisions sites onto anth.us",
   "description": "Serve the Biased-Decisions leaderboard and the Hard-Decisions benchmark from anth.us (/biased-decisions/, /hard-decisions/) instead of their own subdomains, built from their repos at pinned commits by the Anth.us CI, with a benchmarks page and menu entry, sitemap and robots entries, and the subdomains redirecting to the new paths (AWS side). Hard-Decisions source repo is not reachable from this session yet.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-10-02T19:45:26.568539094Z",
-  "updated_at": "2026-10-02T19:45:26.568585478Z",
+  "updated_at": "2026-10-02T19:45:47.953492517Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
