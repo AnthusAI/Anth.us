@@ -43,6 +43,12 @@ export default {
         link: "/research",
       },
       {
+        name: "Benchmarks",
+        description:
+          "Public leaderboards for decision models: bias and reasoning depth.",
+        link: "/benchmarks",
+      },
+      {
         name: "Reading List",
         description: "Papers and books we keep coming back to, one note each.",
         link: "/reading",
