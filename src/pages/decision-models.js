@@ -120,7 +120,8 @@ const DecisionModelsPage = () => (
         </ol>
         <p>
           Every step above is a published experiment on the{" "}
-          <Link to="/research/">research page</Link>, and{" "}
+          <Link to="/research/">research page</Link>, the public leaderboards
+          are on the <Link to="/benchmarks/">benchmarks page</Link>, and{" "}
           <Link to="/platform/plexus/">Plexus</Link> is where we run the loop in
           production.
         </p>
