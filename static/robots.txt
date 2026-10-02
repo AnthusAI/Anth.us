@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /biased-decisions/og-gallery/
 Sitemap: https://anth.us/sitemap-index.xml
+Sitemap: https://anth.us/biased-decisions/sitemap.xml

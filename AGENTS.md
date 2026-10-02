@@ -475,6 +475,13 @@ Review changes on the development address before promoting `develop` to `main`.
 
 Amplify only accepts uploaded builds on an app that is not connected to Git. The deploy job targets that app through repository variables: `AMPLIFY_APP_ID`, `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN` (the GitHub OIDC role), and optionally `AMPLIFY_PRODUCTION_BRANCH` and `AMPLIFY_DEVELOPMENT_BRANCH`, which default to `main` and `develop`. Until `AMPLIFY_APP_ID` is set the deploy job is skipped, and the original Git-connected Amplify app keeps building `main` itself from [`amplify.yml`](amplify.yml). [`scripts/setup-amplify-github-deploy.sh`](scripts/setup-amplify-github-deploy.sh) creates the app, copies the Git-connected app's redirects and headers, grants the role permission to deploy, and prints the variables and the custom-domain move. After the domain moves, delete the Git-connected app and `amplify.yml`.
 
+The benchmark sites are built into the same deploy. [`benchmark-sites.json`](benchmark-sites.json) lists each one with its repository, the commit to build, and its path on anth.us; [`scripts/build-benchmark-sites.mjs`](scripts/build-benchmark-sites.mjs) checks out that commit, builds the site with its `BASE_PATH` and `SITE_URL=https://anth.us`, copies it into `public/`, and writes its sitemap. The workflow runs it after the Gatsby build, so a pull request checks it too. A benchmark release reaches anth.us when a site-repository commit moves its pinned commit, exactly like a content pin.
+
+| Benchmark | Repository | Path on anth.us |
+| --- | --- | --- |
+| Biased-Decisions | `AnthusAI/Biased-Decisions` | `/biased-decisions/` |
+| Hard-Decisions | not yet connected | still served at `https://hard-decisions.anth.us/` |
+
 Content changes are committed in `AnthusAI/anthus-site-content` and reach the development address when a site-repository commit pins that content revision on `develop`, and production when that pin is promoted to `main`. The content repository's own workflow only checks that content builds against `develop`. It never deploys.
 
 The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired, no longer serve anth.us, and receive no uploads. Ryan deletes them in AWS; agents do not.

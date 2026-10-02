@@ -62,6 +62,9 @@ jobs:
           public
         key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
 
+    - name: Build the benchmark sites into their anth.us paths
+      run: node scripts/build-benchmark-sites.mjs
+
     - name: Package the verified site for Amplify
       if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
       run: cd public && zip -q -r -X ../verified-site.zip .
