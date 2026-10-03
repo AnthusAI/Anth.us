@@ -63,8 +63,8 @@ const DecisionModelsPage = () => (
           and a confidence, in a fraction of a second, for a fraction of a cent.
           It arrives frozen: you can't fine-tune it, and it doesn't know your
           reviewers' rules. Everything that makes it fit your business lives in
-          the loop around it. This is that loop, with the published measurements
-          behind each step and the offer to run it on your judgment task.
+          the loop around it. Each step of that loop has a published measurement
+          behind it, and we run the loop on client judgment tasks.
         </p>
       </section>
 
@@ -97,8 +97,8 @@ const DecisionModelsPage = () => (
           </li>
           <li>
             <strong>Review and label the disagreements.</strong> Reviewers agree
-            or disagree with verdicts as they happen. That is the whole
-            labelling effort.
+            or disagree with verdicts as they happen, and those calls are all
+            the labelling the loop needs.
           </li>
           <li>
             <strong>Calibrate the confidence.</strong> Fit the stated confidence
@@ -119,7 +119,7 @@ const DecisionModelsPage = () => (
           </li>
         </ol>
         <p>
-          Every step above is a published experiment on the{" "}
+          Every step is a published experiment on the{" "}
           <Link to="/research/">research page</Link>, the public leaderboards
           are on the <Link to="/benchmarks/">benchmarks page</Link>, and{" "}
           <Link to="/platform/plexus/">Plexus</Link> is where we run the loop in
