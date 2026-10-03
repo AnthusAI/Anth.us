@@ -10,9 +10,22 @@
   "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "ea0d4e5e-17e1-4cfb-a3c9-0fadfb407af2",
+      "author": "unknown",
+      "text": "Landed in anthus-site-content PR 19 (merged, 677d87d): eight 'honest' trait uses replaced with measurement wording, two full-coverage sentences reworded, and each of the six Jev articles now links to /decision-models/. Limatus rescans of the edited files: zero trait findings. Reaches the site through Anth.us PR 74 (pin).",
+      "created_at": "2026-10-03T17:02:34.801256848Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anthus-content-review"
+      }
+    }
+  ],
   "created_at": "2026-10-03T15:49:15.681038613Z",
-  "updated_at": "2026-10-03T15:49:31.491393503Z",
+  "updated_at": "2026-10-03T17:02:34.801286480Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",

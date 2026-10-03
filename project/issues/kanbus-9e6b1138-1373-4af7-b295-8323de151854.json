@@ -10,9 +10,22 @@
   "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "67ac575a-1b69-460b-b00a-be2e6f7d16c8",
+      "author": "unknown",
+      "text": "Limatus PR 43 (merged by Ryan into the new develop branch) fixed the intent and numeric-closer defects. Two review rounds produced PR 44 into develop (inline-tag openers, wordless closers, digits in markup, comma clauses, image captions, quotes); gate approved, waiting on CI. Corpus check: 102 scans, no intent starting on markup, punch-line findings 75 to 68. Residual low items filed as LIM-ebcfa7 and LIM-fd0dca.",
+      "created_at": "2026-10-03T17:02:34.864335073Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anthus-content-review"
+      }
+    }
+  ],
   "created_at": "2026-10-03T15:49:15.714327172Z",
-  "updated_at": "2026-10-03T15:49:31.526119383Z",
+  "updated_at": "2026-10-03T17:02:34.864386975Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
