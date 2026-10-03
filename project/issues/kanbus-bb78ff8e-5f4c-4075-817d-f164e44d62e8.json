@@ -3,7 +3,7 @@
   "title": "Content review memo 2026-10: goals, tone, gaps, SEO, product ad readiness",
   "description": "Site-wide content review for client acquisition, product ad readiness (Auritus, Chatticus, Papyrus) and SEO on fine-tune/align Jev phrases. Deliverable: docs/content-review-2026-10.md in the site repo with inventory, Limatus scan patterns, page-by-page story jobs, gaps per audience, SEO ownership map, per-product pre-campaign checklist, and a prioritized work list. Done when the memo is merged to develop and the top items are filed on this board.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,18 @@
         "model": "claude-fable-5-1",
         "name": "anthus-content-review"
       }
+    },
+    {
+      "id": "0bdc8db8-e34d-4e71-86dc-7cfa2124c9fc",
+      "author": "unknown",
+      "text": "Merged to develop in Anth.us PR 74 after two reviewer rounds and green CI. Memo at docs/content-review-2026-10.md.",
+      "created_at": "2026-10-03T17:19:20.007467466Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-10-03T15:49:15.665013273Z",
-  "updated_at": "2026-10-03T17:02:34.779248541Z",
-  "closed_at": null,
+  "updated_at": "2026-10-03T17:19:20.021699585Z",
+  "closed_at": "2026-10-03T17:19:20.021472053Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1",
