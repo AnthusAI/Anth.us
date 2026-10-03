@@ -2,7 +2,7 @@
 
 A review of anth.us against three goals Ryan set: win clients, work, partners and investors; get Auritus, Chatticus and Papyrus ready for ad campaigns; and own search on "fine-tune decision model", "fine-tune Jev" and "align Jev to your data", where a decision model is a fast AI model that answers a bounded question with a verdict and a confidence. It covers what the site is for, who each page serves, where the story breaks, what each product needs before an ad can point at it, and a prioritized list of work. The small fixes found along the way were done during the review and are listed at the end with their Kanbus IDs.
 
-Facts in this memo come from the content repo at commit 4b80f02, the site at develop 2a9d78d, the product repos' READMEs, and the live sites on 2026-10-03.
+Facts in this memo were gathered from the content repo at commit 4b80f02 and re-checked at b17e5f6 (the commit this site change pins), the site at develop 2a9d78d, the product repos' READMEs, and the live sites on 2026-10-03.
 
 ## What the site is for
 
@@ -110,6 +110,7 @@ An ad needs one page with the one-sentence promise, the proof, and a call to act
 
 ## Done during this review
 
+- Content PR #20 (anthus-site-content): the Plexus solution page in present perfect, so nothing on it reads as a finished engagement. kanbus-9b54c1.
 - Content PR #19 (anthus-site-content): measurement wording in the Jev series, full-coverage claims removed, hub links from all six Jev articles, Plexus solution page in cumulative framing with the unverifiable "SOC 2 Type II" bullet removed, Venue Driver "since 2007", README voice section stated as the source. kanbus-fb8503, kanbus-9b54c1, kanbus-c409e2.
 - Site (this PR): About Key Facts and FAQ without "14+ years" and "two years"; AGENTS.md without "two years"; decision-models hub phrasing; this memo. kanbus-bb78ff, kanbus-f3b48d, kanbus-9b54c1.
 - Limatus PR #43: document intent from the first prose paragraph; numeric closers exempt from punch-line cadence. kanbus-9e6b11, LIM-61499a.
