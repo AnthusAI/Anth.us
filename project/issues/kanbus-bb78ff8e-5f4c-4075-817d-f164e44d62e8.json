@@ -10,9 +10,22 @@
   "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "8a896354-413b-485f-8e96-593561318d5c",
+      "author": "unknown",
+      "text": "Memo written at docs/content-review-2026-10.md on branch content-review-2026-10, site PR https://github.com/AnthusAI/Anth.us/pull/74 into develop. Reviewer gate: one medium (inventory counts), fixed; counts are now 41 published articles, 15 drafts, 42 posts, 19 solutions, 11 platform pages, 128 files. Gatsby build exit 0 against the pinned content. Follow-ups filed: 095926, 173d5e, 2723ef, 8ad3e2, ef31d1, 199d7c, f441f5.",
+      "created_at": "2026-10-03T17:02:34.779221550Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anthus-content-review"
+      }
+    }
+  ],
   "created_at": "2026-10-03T15:49:15.665013273Z",
-  "updated_at": "2026-10-03T15:49:31.473911081Z",
+  "updated_at": "2026-10-03T17:02:34.779248541Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
