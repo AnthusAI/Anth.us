@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-c409e2a2-e0e7-449b-ba3c-d455aa000a05",
+  "title": "Voice guide and style profile: single source, measurement-trait wording",
+  "description": "src/site-content/README.md Voice says the house voice lives in the parent AGENTS.md; AGENTS.md says it lives in README.md. Make README the source and say so in both. Add one line distinguishing 'honest' as an author's stance ('the honest reading') from 'honest' as a measurement trait, since Limatus flags only the second. In the Papyrus style profile (branch anthus-voice-plain-statements) extend the measurement-trait pattern to 'the model knows / admits / tells the truth' phrasing found in jev-vs-laya.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-03T15:49:15.729644928Z",
+  "updated_at": "2026-10-03T15:49:31.541906636Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

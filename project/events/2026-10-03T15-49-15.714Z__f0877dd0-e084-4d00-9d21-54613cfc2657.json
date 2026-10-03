@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "f0877dd0-e084-4d00-9d21-54613cfc2657",
+  "issue_id": "kanbus-9e6b1138-1373-4af7-b295-8323de151854",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-03T15:49:15.714Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Limatus: intent from first prose paragraph; numeric closers are not punch lines",
+    "description": "Two Limatus defects found scanning 102 published Anth.us pieces with the Anthus profile on branch plain-statement-checks. (1) document_intent is the MDX import line in 84 of 102 scans because intent takes the first sentence of any paragraph; it should take the first prose paragraph, which _prose_paragraph_spans already identifies. (2) Punch-line cadence flags short closing sentences that state a number ('A coin flip gets 0.5.', 'Jev's output is free.' is fine to flag, but a numeric statement is a measurement, not a riddle). Exempt sentences containing a digit or percent. Specs first (features/), then code, then behave + pytest green. PR into Limatus main (no develop branch there) with a LIM board issue.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anthus-content-review"
+    }
+  }
+}

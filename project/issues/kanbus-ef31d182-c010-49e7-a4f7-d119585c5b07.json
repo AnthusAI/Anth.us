@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-ef31d182-c010-49e7-a4f7-d119585c5b07",
+  "title": "Platform pages for Auritus and Papyrus",
+  "description": "The platform page lists eleven components but not Auritus (live at aurit.us, open-source TTS embed) or Papyrus (the newsroom the engage page already sells). Both are ad-campaign products. Add platform/auritus.mdx and platform/papyrus.mdx with real preview images, one-sentence promise, what is live today from each repo README, and an engage or product-site call to action. Facts: Auritus CLI is not on PyPI yet; Papyrus runs the Anth.us newsroom. Needs real images, so not done in the 2026-10 review.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-03T15:49:15.744178945Z",
+  "updated_at": "2026-10-03T15:49:15.744204518Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

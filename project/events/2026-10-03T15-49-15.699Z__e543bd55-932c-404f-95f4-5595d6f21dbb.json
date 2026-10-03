@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "e543bd55-932c-404f-95f4-5595d6f21dbb",
+  "issue_id": "kanbus-f3b48d5b-afa0-423d-94d7-10495b9d10aa",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-03T15:49:15.699Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Decision-models hub copy: drop self-reference and riddle closer",
+    "description": "The decision-models hub lead says 'This is that loop' (page refers to itself) and the loop list closes a step with 'That is the whole labelling effort.' (riddle closer). Reword both as plain statements. Small copy change in src/pages/decision-models.js; no structure change.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anthus-content-review"
+    }
+  }
+}
