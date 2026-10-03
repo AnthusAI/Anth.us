@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "026f5fa5-467d-4659-868b-b1a8ae1444b2",
+  "issue_id": "kanbus-f441f59f-d542-4af4-980a-c6bb846f4f3a",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-03T15:49:15.773Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Benchmarks card: match Hard-Decisions headline figures",
+    "description": "Benchmarks page summarizes Hard-Decisions as 'Jev still answers 89.3% correctly at that depth' while hard-decisions.anth.us leads with 'Jev leads the open-world task at 83.8%, ahead of GLiDE at 82.9%' across 9 models. Both may be true (depth-5 vs overall) but a reader comparing the two pages sees different headline numbers. Align the benchmarks card with the live site's headline figure and model count, and re-check whenever the leaderboard reruns.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anthus-content-review"
+    }
+  }
+}

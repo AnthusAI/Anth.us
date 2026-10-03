@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-199d7ca0-7cbd-4bac-968e-2b7ec14e6562",
+  "title": "Product landing pages for ad campaigns: Auritus, Chatticus, Papyrus",
+  "description": "Before an ad can point at a product, each needs one page with the promise, proof, and a call to action. Auritus: live product, link to aurit.us and the GitHub repo; proof is the example pages playing six TTS backends. Chatticus: pre-launch, chattic.us already has a waitlist; anth.us copy must say early access, never live or in use by customers. Papyrus: no public product site found; the anth.us engage card is the only surface, and the proof is the public ANTH newsroom board. Decide per product whether the landing page lives on anth.us or the product domain, then write it. Depends on the platform pages task.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-03T15:49:15.758518212Z",
+  "updated_at": "2026-10-03T15:49:15.758547450Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

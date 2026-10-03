@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-fb850376-2393-446c-a413-37f1784a140a",
+  "title": "Jev series copy edit: measurement wording for confidence, no full-coverage claims",
+  "description": "Limatus flags 'honest' used as a character trait for a measurement in the Jev series: plexus-classifier-lab, can-you-trust-jev-confidence (3), distilling-jev-into-a-classifier (2), jev-vs-laya (2). Rewrite each to name the measurement (calibrated, matches observed accuracy). Two sentences also imply a QA operation reviews every call (jev-vs-laya auto-accept paragraph, can-you-trust step 4); reword to 'far more calls than a sampled audit' since full coverage is not a claim we make. Every number stays. Content repo PR into main, then pin PR into develop. Rescan with Limatus after.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-03T15:49:15.681038613Z",
+  "updated_at": "2026-10-03T15:49:31.491393503Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
