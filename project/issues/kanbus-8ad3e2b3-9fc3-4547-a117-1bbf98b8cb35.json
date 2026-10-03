@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-8ad3e2b3-9fc3-4547-a117-1bbf98b8cb35",
+  "title": "AGENTS.md: replace marketing terminology with provable terms and their proof",
+  "description": "AGENTS.md's Strategic Marketing Terminology section tells writers to emphasize Hyperautomation, Cybernetic Systems and Self-Evolving AI Agents, which contradicts the voice guide's lexicon and plain-statement rule, and it was the source of the 'two years' claim that kept resurfacing (removed in the 2026-10 review). Cut it to the terms we can prove (RLHF in production, data flywheel, human in the loop, decision model, calibrated confidence) with the proof page beside each, and point at src/site-content/README.md Voice for everything else.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-03T15:59:13.842095140Z",
+  "updated_at": "2026-10-03T15:59:13.842121693Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
