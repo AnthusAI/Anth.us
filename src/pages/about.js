@@ -36,7 +36,7 @@ const FAQ = [
   },
   {
     q: "What is human-in-the-loop AI?",
-    a: "Experts review and correct the AI's judgments, and those corrections become training signal. In the Call Criteria classifier lab, QA specialists guided the models this way, and the scorecards improved through reinforcement learning from human feedback (RLHF) over years of production, across hundreds of scorecards and millions of interactions.",
+    a: "Experts review and correct the AI's judgments, and those corrections become training signal. In the Call Criteria classifier lab, QA specialists guide the models this way, and the scorecards have improved through reinforcement learning from human feedback (RLHF) over years of production, across hundreds of scorecards and millions of interactions.",
   },
   {
     q: "Do you only work with one model provider?",
