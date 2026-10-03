@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "1bb32726-d760-4709-a615-83f416db68dc",
+  "issue_id": "kanbus-c409e2a2-e0e7-449b-ba3c-d455aa000a05",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-03T17:02:34.892Z",
+  "actor_id": "unknown",
+  "payload": {
+    "comment_id": "af7caac2-1787-4810-a205-522be2cceeef",
+    "comment_author": "unknown",
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anthus-content-review"
+    }
+  }
+}

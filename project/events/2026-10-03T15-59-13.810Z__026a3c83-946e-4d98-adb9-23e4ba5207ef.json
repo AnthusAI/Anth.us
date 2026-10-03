@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "026a3c83-946e-4d98-adb9-23e4ba5207ef",
+  "issue_id": "kanbus-173d5ec0-27df-4379-8013-ba3480862d7d",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-03T15:59:13.810Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Decision-models hub: own fine-tune decision model, lead with align",
+    "description": "Search ownership from docs/content-review-2026-10.md. 'align Jev to your data' is owned by /decision-models/ and is fine. 'fine-tune Jev' is owned by /blog/fine-tuning-jev/, but the hub's meta description opens with the article's first sentence ('You can't fine-tune Jev'), so both compete. 'fine-tune decision model' appears in no title or H2 anywhere. Changes in src/pages/decision-models.js: FAQ question becomes 'Can you fine-tune a decision model?' with Jev as the example; meta description leads with 'align'. Add the hub to the menu in gatsby-config.mjs or to the Research page header (Ryan's call on the menu). The six Jev articles now link to the hub (content PR 19).",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1",
+      "name": "anthus-content-review"
+    }
+  }
+}

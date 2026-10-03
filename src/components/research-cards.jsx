@@ -2,13 +2,14 @@ import React from "react"
 import { Link } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { formatPostDate } from "../utils/format-post-date"
+import { headlineFromExcerptOrTitle } from "../utils/headline-from-excerpt-or-title"
 import * as styles from "./platform.module.css"
 import * as researchStyles from "./research-cards.module.css"
 
 const repositoryLabel = url =>
   url.replace(/^https?:\/\/(www\.)?github\.com\//, "")
 
-const ResearchCards = ({ items }) => (
+const ResearchCards = ({ items, showsExcerptAsHeadline = false }) => (
   <ul className={styles.grid}>
     {items.map(({ node }) => {
       const articlePath = `/blog/${node.frontmatter.slug}`
@@ -25,7 +26,11 @@ const ResearchCards = ({ items }) => (
             </Link>
           )}
           <Link to={articlePath} className={styles.cardTitleLink}>
-            <h3>{node.frontmatter.title}</h3>
+            <h3>
+              {showsExcerptAsHeadline
+                ? headlineFromExcerptOrTitle(node.frontmatter)
+                : node.frontmatter.title}
+            </h3>
           </Link>
           <div className={styles.metaRow}>
             {node.frontmatter.date && (
@@ -34,7 +39,9 @@ const ResearchCards = ({ items }) => (
               </span>
             )}
           </div>
-          <p dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }} />
+          {!showsExcerptAsHeadline && (
+            <p dangerouslySetInnerHTML={{ __html: node.frontmatter.excerpt }} />
+          )}
           <div className={styles.cardActions}>
             <Link to={articlePath}>Read more</Link>
             {node.frontmatter.repository && (

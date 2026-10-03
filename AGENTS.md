@@ -172,7 +172,7 @@ When asked to create a post from an external article URL, follow this workflow:
    - Source link in the opening paragraph (`[Title](URL)`).
    - Two sections: `## Why it matters` and `## Key technical notes` (rename if necessary) summarizing the findings and Anth.us perspective.
 7. **Source attribution**: Link back to the original URL in-body and mention any quoted figures. If multiple sources, add bullet list of references at the bottom.
-8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free.
+8. **Final check**: Ensure tags include only `posts`, paths resolve, and excerpt remains emoji-free. Before saying a post is live or sharing its URL, pass the [production ship gate](#ship-gate-production-preview).
 
 ## Image Guidelines
 
@@ -216,6 +216,20 @@ import BlogImage from "../../components/blog-image"
 />
 ```
 
+## Ship gate (production preview)
+
+**Do not ship a post, call it live, or hand a URL to Publicist/X until the production URL has a working cover and a working social preview card.** Git is not live. A successful push or Actions run is not enough.
+
+Check `https://anth.us/blog/{slug}/` (and `https://anth.us/posts/` for short posts). Fail closed:
+
+1. Permalink HTTP 200 (not 403/404).
+2. Cover image URLs return HTTP 200 with an image content-type. Use 1200×630. No blank placeholders, clipped logos, or 403s.
+3. Live HTML includes `og:image` (absolute `https://anth.us/...` URL), `twitter:card` = `summary_large_image` (not `summary`), and `twitter:image` with the same absolute URL.
+4. `https://anth.us/robots.txt` is HTTP 200, not S3/CloudFront 403. Twitterbot fetches robots.txt first; a 403 can kill the card.
+5. Short posts: `/posts/` lists **excerpt** as the visible title, not `title`. Excerpt must be recognizable (usually the essay title). Searching the list for the title must find it.
+
+If any check fails, fix it, wait for production to match, and re-check. Only then say it is live or shareable.
+
 ## Editorial Guidelines
 
 House voice lives in one place: [`src/site-content/README.md`](src/site-content/README.md#voice)
@@ -240,7 +254,7 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 **RLHF (Reinforcement Learning from Human Feedback)**
 
 - Production-scale RLHF is rare and highly valued in the AI industry
-- This is a key competitive advantage - emphasize our two years of production operation
+- This is a key competitive advantage - emphasize years of production operation across hundreds of scorecards and millions of interactions (never a fixed number of years; it rots)
 - Use when describing how our systems learn from human expert feedback
 - Context: Powers the continuous improvement in our Call Criteria work
 
@@ -303,7 +317,7 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 
 **Production-Scale AI**
 
-- Emphasize two years of continuous operation, not just research or prototypes
+- Emphasize years of continuous operation and cumulative scale, not just research or prototypes
 - Distinguishes us from vendors with only demos or POCs
 - Use when establishing credibility and proven track record
 - Context: Our Call Criteria deployment serving real business needs at scale
@@ -335,7 +349,7 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 **Strategic Focus:**
 Our Call Criteria work provides concrete proof of these capabilities. When creating content, use this case study as the anchor for demonstrating:
 
-- RLHF at production scale (two years of continuous operation)
+- RLHF at production scale (years of continuous operation, hundreds of scorecards, millions of interactions)
 - Data flywheel creating compounding value
 - Self-evolving agentic AI in real-world deployment
 - Enterprise MLOps platform (Plexus) managing complexity
@@ -402,6 +416,7 @@ If you see import errors for CSS classes:
 - Ensure links work (internal and external)
 - Validate MDX syntax compiles without errors
 - Confirm tags are correct for content type
+- After deployment, pass the [production ship gate](#ship-gate-production-preview); Git alone does not make content live.
 
 ## Board names (Ryan)
 
@@ -435,11 +450,41 @@ This repository uses Kanbus, not Beads. Do not run `bd` or create/update Beads r
 - Never edit `project/issues/` or `project/events/` directly.
 - Run `kbs validate` before committing Kanbus changes.
 
+## Git workflow
+
+`develop` is the integration branch, and `main` is the release branch. A merge to `develop` is not a production release.
+
+Product and site changes go through a pull request against `develop`. Agents open the pull request, run a reviewer sub-agent against `develop` as the merge gate, treat its requested changes as blocking, and merge into `develop` as soon as review is addressed and CI is green. Don't park finished work on feature branches. Don't merge routine work directly into `main`.
+
+Promote `develop` to `main` through a pull request when Ryan wants a release. "Publish this" or "deploy this" from Ryan means that promotion, followed by watching the deploy run to completion.
+
+Kanbus board changes are project management, not product. After `kbs` create, update, comment, or close, commit the `project/` files on `develop` with a `pm:` subject and push `origin develop`. Don't open a pull request for board changes, and don't bundle board files into a product pull request.
+
 ## Deployment
 
-The site deploys through AWS Amplify, which automatically builds and publishes on each push to the site repository's `main` branch. The versioned [`amplify.yml`](amplify.yml) selects the Amplify AL2023 image's supported default Node.js 22 runtime and retains `node_modules`, Gatsby's `.cache`, and `public` between builds for incremental deployment performance.
+The site is an AWS Amplify app. GitHub Actions does all of the building and checking, and Amplify only hosts what passed.
 
-The GitHub Actions workflow is a build-only verification check. It must not receive AWS deployment credentials or publish site artifacts. Content changes must be committed in `AnthusAI/anthus-site-content` and then pinned by a site-repository commit to trigger the Amplify deployment of that exact content revision.
+The workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml) builds the Gatsby site and runs the CSS and posts-cache verifications on every pull request to `develop` or `main` and on every push to them. On a push to `develop` or `main`, and only if that build passed, a deploy job uploads the verified `public/` folder to Amplify with `create-deployment` and `start-deployment`, then waits for the Amplify job to succeed. Amplify never runs `npm ci` or `gatsby build`, so a deploy costs no Amplify build minutes.
+
+| Git branch | GitHub environment | Amplify branch | Address |
+| --- | --- | --- | --- |
+| `develop` | development | `develop` | `https://develop.<app id>.amplifyapp.com/` |
+| `main` | production | `main` | `https://anth.us/` |
+
+Review changes on the development address before promoting `develop` to `main`.
+
+Amplify only accepts uploaded builds on an app that is not connected to Git. The deploy job targets that app through repository variables: `AMPLIFY_APP_ID`, `AWS_REGION`, `AWS_DEPLOY_ROLE_ARN` (the GitHub OIDC role), and optionally `AMPLIFY_PRODUCTION_BRANCH` and `AMPLIFY_DEVELOPMENT_BRANCH`, which default to `main` and `develop`. Until `AMPLIFY_APP_ID` is set the deploy job is skipped, and the original Git-connected Amplify app keeps building `main` itself from [`amplify.yml`](amplify.yml). [`scripts/setup-amplify-github-deploy.sh`](scripts/setup-amplify-github-deploy.sh) creates the app, copies the Git-connected app's redirects and headers, grants the role permission to deploy, and prints the variables and the custom-domain move. After the domain moves, delete the Git-connected app and `amplify.yml`.
+
+The benchmark sites are built into the same deploy. [`benchmark-sites.json`](benchmark-sites.json) lists each one with its repository, the commit to build, and its path on anth.us; [`scripts/build-benchmark-sites.mjs`](scripts/build-benchmark-sites.mjs) checks out that commit, builds the site with its `BASE_PATH` and `SITE_URL=https://anth.us`, copies it into `public/`, and writes its sitemap. The workflow runs it after the Gatsby build, so a pull request checks it too, and `amplify.yml` runs it for the Git-connected app until that app is retired. A benchmark release reaches anth.us when a site-repository commit moves its pinned commit, exactly like a content pin.
+
+| Benchmark | Repository | Path on anth.us |
+| --- | --- | --- |
+| Biased-Decisions | `AnthusAI/Biased-Decisions` | `/biased-decisions/` |
+| Hard-Decisions | not yet connected | still served at `https://hard-decisions.anth.us/` |
+
+Content changes are committed in `AnthusAI/anthus-site-content` and reach the development address when a site-repository commit pins that content revision on `develop`, and production when that pin is promoted to `main`. The content repository's own workflow only checks that content builds against `develop`. It never deploys.
+
+The S3 bucket and CloudFront distribution created by `scripts/setup-aws-publish.sh` in August are retired, no longer serve anth.us, and receive no uploads. Ryan deletes them in AWS; agents do not.
 
 Content lives in `AnthusAI/anthus-site-content` as a git submodule at `src/site-content`. Clone with `git clone --recurse-submodules`. The newsroom board lives in `AnthusAI/anthus-semantic-knowledge-base` (separate checkout or via Papyrus `pods/anthus-blog`).
 

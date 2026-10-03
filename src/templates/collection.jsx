@@ -5,14 +5,22 @@ import Seo from "../components/seo"
 import ResearchCards from "../components/research-cards"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { formatPostDate } from "../utils/format-post-date"
+import { headlineFromExcerptOrTitle } from "../utils/headline-from-excerpt-or-title"
 import * as styles from "../components/platform.module.css"
 
 const collectionPagePath = (basePath, page) =>
   page === 1 ? `/${basePath}/` : `/${basePath}/page/${page}/`
 
 const CollectionTemplate = ({ data, pageContext }) => {
-  const { basePath, title, intro, currentPage, numPages, featuredCount } =
-    pageContext
+  const {
+    basePath,
+    title,
+    intro,
+    currentPage,
+    numPages,
+    featuredCount,
+    showsExcerptAsHeadline,
+  } = pageContext
   const items = data.collectionItems.edges
   const featuredItems = items.slice(0, featuredCount)
   const gridItems = items.slice(featuredCount)
@@ -39,16 +47,22 @@ const CollectionTemplate = ({ data, pageContext }) => {
                         alt={node.frontmatter.title}
                         className="featured"
                       />
-                      <h3>{node.frontmatter.title}</h3>
+                      <h3>
+                        {showsExcerptAsHeadline
+                          ? headlineFromExcerptOrTitle(node.frontmatter)
+                          : node.frontmatter.title}
+                      </h3>
                     </Link>
                     <div className="date">
                       {formatPostDate(node.frontmatter.date)}
                     </div>
-                    <p
-                      dangerouslySetInnerHTML={{
-                        __html: node.frontmatter.excerpt,
-                      }}
-                    ></p>
+                    {!showsExcerptAsHeadline && (
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: node.frontmatter.excerpt,
+                        }}
+                      ></p>
+                    )}
                   </li>
                 </div>
               )
@@ -59,7 +73,10 @@ const CollectionTemplate = ({ data, pageContext }) => {
         {gridItems.length > 0 && (
           <>
             {featuredItems.length > 0 && <h2>Earlier</h2>}
-            <ResearchCards items={gridItems} />
+            <ResearchCards
+              items={gridItems}
+              showsExcerptAsHeadline={showsExcerptAsHeadline}
+            />
           </>
         )}
 

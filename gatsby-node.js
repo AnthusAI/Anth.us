@@ -20,6 +20,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
 }
 
 const legacyCollectionPageRedirects = []
+const blogPageSlugsCreatedThisBuild = new Set()
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions
@@ -68,6 +69,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const postTemplate = path.resolve(`./src/templates/blog-post.jsx`)
   blogNodes.forEach(node => {
     console.log(`Creating page: /blog/${node.frontmatter.slug}`)
+    blogPageSlugsCreatedThisBuild.add(node.frontmatter.slug)
     createPage({
       path: `blog/` + node.frontmatter.slug,
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
@@ -110,6 +112,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const collectionTemplate = path.resolve(`./src/templates/blog-tag.jsx`)
   tagsByName.forEach((ids, tag) => {
     console.log(`Creating tag collection page: /blog/${tag}`)
+    blogPageSlugsCreatedThisBuild.add(tag)
     createPage({
       path: `blog/${tag}`,
       component: collectionTemplate,
@@ -166,6 +169,7 @@ exports.createPages = async ({ graphql, actions }) => {
         "Short posts from Anthus on what shipped, what we read, and what changed in AI this week.",
       intro: null,
       legacyPagePaths: true,
+      showsExcerptAsHeadline: true,
       nodes: publishedNodes.filter(node => hasTag(node, "posts")),
     },
   ]
@@ -196,6 +200,7 @@ exports.createPages = async ({ graphql, actions }) => {
           title: collection.title,
           description: collection.description,
           intro: collection.intro,
+          showsExcerptAsHeadline: Boolean(collection.showsExcerptAsHeadline),
           featuredCount: currentPage === 1 ? FEATURED_ON_FIRST_PAGE : 0,
           numPages,
           currentPage,
@@ -266,6 +271,28 @@ exports.createSchemaCustomization = ({ actions }) => {
 
 exports.onPostBuild = async () => {
   const fs = require("fs")
+  const contentRepositoryRedirectPagesDirectory = path.join(
+    "src",
+    "site-content",
+    "redirects"
+  )
+  if (fs.existsSync(contentRepositoryRedirectPagesDirectory)) {
+    fs.readdirSync(contentRepositoryRedirectPagesDirectory).forEach(
+      redirectSlug => {
+        if (blogPageSlugsCreatedThisBuild.has(redirectSlug)) {
+          console.warn(
+            `Skipping content redirect /blog/${redirectSlug}/: a page with that path was built`
+          )
+          return
+        }
+        fs.cpSync(
+          path.join(contentRepositoryRedirectPagesDirectory, redirectSlug),
+          path.join("public", "blog", redirectSlug),
+          { recursive: true, force: true }
+        )
+      }
+    )
+  }
   legacyCollectionPageRedirects.forEach(({ fromPath, toPath, title }) => {
     const directory = path.join("public", fromPath)
     fs.mkdirSync(directory, { recursive: true })

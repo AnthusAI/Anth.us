@@ -1,0 +1,45 @@
+{
+  "id": "kanbus-9e6b1138-1373-4af7-b295-8323de151854",
+  "title": "Limatus: intent from first prose paragraph; numeric closers are not punch lines",
+  "description": "Two Limatus defects found scanning 102 published Anth.us pieces with the Anthus profile on branch plain-statement-checks. (1) document_intent is the MDX import line in 84 of 102 scans because intent takes the first sentence of any paragraph; it should take the first prose paragraph, which _prose_paragraph_spans already identifies. (2) Punch-line cadence flags short closing sentences that state a number ('A coin flip gets 0.5.', 'Jev's output is free.' is fine to flag, but a numeric statement is a measurement, not a riddle). Exempt sentences containing a digit or percent. Specs first (features/), then code, then behave + pytest green. PR into Limatus main (no develop branch there) with a LIM board issue.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "67ac575a-1b69-460b-b00a-be2e6f7d16c8",
+      "author": "unknown",
+      "text": "Limatus PR 43 (merged by Ryan into the new develop branch) fixed the intent and numeric-closer defects. Two review rounds produced PR 44 into develop (inline-tag openers, wordless closers, digits in markup, comma clauses, image captions, quotes); gate approved, waiting on CI. Corpus check: 102 scans, no intent starting on markup, punch-line findings 75 to 68. Residual low items filed as LIM-ebcfa7 and LIM-fd0dca.",
+      "created_at": "2026-10-03T17:02:34.864335073Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anthus-content-review"
+      }
+    },
+    {
+      "id": "82e10ae9-a089-46cf-8ad4-1183ab26f4c3",
+      "author": "unknown",
+      "text": "Limatus PRs 43 and 44 merged into Limatus develop; LIM-61499a closed. Residual low items: LIM-ebcfa7, LIM-fd0dca.",
+      "created_at": "2026-10-03T17:19:20.094967714Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-10-03T15:49:15.714327172Z",
+  "updated_at": "2026-10-03T17:19:20.104415694Z",
+  "closed_at": "2026-10-03T17:19:20.104389866Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,45 @@
+{
+  "id": "kanbus-c409e2a2-e0e7-449b-ba3c-d455aa000a05",
+  "title": "Voice guide and style profile: single source, measurement-trait wording",
+  "description": "src/site-content/README.md Voice says the house voice lives in the parent AGENTS.md; AGENTS.md says it lives in README.md. Make README the source and say so in both. Add one line distinguishing 'honest' as an author's stance ('the honest reading') from 'honest' as a measurement trait, since Limatus flags only the second. In the Papyrus style profile (branch anthus-voice-plain-statements) extend the measurement-trait pattern to 'the model knows / admits / tells the truth' phrasing found in jev-vs-laya.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "af7caac2-1787-4810-a205-522be2cceeef",
+      "author": "unknown",
+      "text": "README voice section is now the source (content PR 19) with the 'honest' stance note. Papyrus style profile on anthus-voice-plain-statements (e89952d) gained a pattern for 'the model knows when / admits / tells the truth', verified on the jev-vs-laya sentence and clean on 'want to know whether'. Branch pushed, still unmerged; AGENTS.md pointer to README is unchanged because it already points there.",
+      "created_at": "2026-10-03T17:02:34.892796088Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anthus-content-review"
+      }
+    },
+    {
+      "id": "97aa6fe1-6c19-44e9-aaba-1508070270ca",
+      "author": "unknown",
+      "text": "README voice section landed through content PR 19 and the Anth.us PR 74 pin. Papyrus profile change is pushed on anthus-voice-plain-statements (e89952d), which Ryan still needs to merge.",
+      "created_at": "2026-10-03T17:19:20.121989926Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-10-03T15:49:15.729644928Z",
+  "updated_at": "2026-10-03T17:19:20.131066077Z",
+  "closed_at": "2026-10-03T17:19:20.131045238Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
