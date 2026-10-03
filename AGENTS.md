@@ -254,7 +254,7 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 **RLHF (Reinforcement Learning from Human Feedback)**
 
 - Production-scale RLHF is rare and highly valued in the AI industry
-- This is a key competitive advantage - emphasize our two years of production operation
+- This is a key competitive advantage - emphasize years of production operation across hundreds of scorecards and millions of interactions (never a fixed number of years; it rots)
 - Use when describing how our systems learn from human expert feedback
 - Context: Powers the continuous improvement in our Call Criteria work
 
@@ -317,7 +317,7 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 
 **Production-Scale AI**
 
-- Emphasize two years of continuous operation, not just research or prototypes
+- Emphasize years of continuous operation and cumulative scale, not just research or prototypes
 - Distinguishes us from vendors with only demos or POCs
 - Use when establishing credibility and proven track record
 - Context: Our Call Criteria deployment serving real business needs at scale
@@ -349,7 +349,7 @@ When creating content about our AI/ML capabilities, emphasize these high-value t
 **Strategic Focus:**
 Our Call Criteria work provides concrete proof of these capabilities. When creating content, use this case study as the anchor for demonstrating:
 
-- RLHF at production scale (two years of continuous operation)
+- RLHF at production scale (years of continuous operation, hundreds of scorecards, millions of interactions)
 - Data flywheel creating compounding value
 - Self-evolving agentic AI in real-world deployment
 - Enterprise MLOps platform (Plexus) managing complexity
