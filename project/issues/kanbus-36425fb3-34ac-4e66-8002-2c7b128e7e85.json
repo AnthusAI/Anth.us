@@ -34,10 +34,22 @@
         "model": "claude-opus-5-5",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "08903b19-f26a-4988-9620-95dd2d7885ea",
+      "author": "unknown",
+      "text": "Launch prep: Anth.us-Papyrus PR #6 merged feature/anthus-integration into develop (f9016d7), carrying all content and site updates (content pin 0cf89c7). Reviewer sub-agent approved; 11 tests pass; guarded build clean over 195 pages. Gatsby develop content pin bumped to fa96be3 in Anth.us PR #75. Open for Ryan: the responsibility article is still state: draft.",
+      "created_at": "2026-10-04T16:42:48.135382742Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
     }
   ],
   "created_at": "2026-10-02T19:45:26.568539094Z",
-  "updated_at": "2026-10-04T10:29:52.864467647Z",
+  "updated_at": "2026-10-04T16:42:48.135415139Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
