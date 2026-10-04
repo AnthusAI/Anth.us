@@ -3,7 +3,7 @@
   "title": "Remove ElevenLabs AudioNative from Anth.us pages",
   "description": "",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -17,11 +17,18 @@
       "text": "Removed the site-wide AudioNative injection from article pages and removed its shortcode wiring from platform-product pages; deleted both unused ElevenLabs AudioNative component implementations. Content scan found no remaining page-authored embeds. Gatsby production build completed and all page HTML plus JS bundles referenced from generated HTML are free of AudioNative.",
       "created_at": "2026-09-18T12:17:10.218169Z",
       "comment_type": "default"
+    },
+    {
+      "id": "cc4b0aec-0604-44c7-b08b-d317ed2f3356",
+      "author": "home",
+      "text": "Verified production after the manual S3 sync and CloudFront invalidation: homepage, articles index, and Jev article return 200; no AudioNative widget, placeholder, or loader remains; global CSS is also normalized. The main-branch GitHub deploy and an older content deploy were cancelled before AWS sync to prevent conflicting output.",
+      "created_at": "2026-09-18T12:28:03.623626Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-18T12:15:08.216029Z",
-  "updated_at": "2026-09-18T12:17:10.218184Z",
-  "closed_at": null,
+  "updated_at": "2026-09-18T12:28:07.435756Z",
+  "closed_at": "2026-09-18T12:28:07.435739Z",
   "right_now_summary": null,
   "right_now_updated_at": null,
   "custom": {}
