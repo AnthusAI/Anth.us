@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "f5ddf8e2-a9ac-4121-b0a1-8e40846e5299",
+  "issue_id": "kanbus-49683a96-6c8e-4149-91e2-93b877923140",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-24T17:36:20.424Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Show short-post excerpt as the posts-list headline",
+    "description": "The production ship gate requires /posts/ to show a short post’s excerpt as its visible headline. The current posts-list template renders frontmatter.title in the prominent title element and the excerpt as secondary text. For the LensVLM post, the visible list entry must lead with its standalone excerpt while keeping the permalink and image intact.",
+    "issue_type": "bug",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6-sol",
+      "name": "Codex"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "e8642896-8e09-4d47-8fd6-940f23f8d6c7",
+  "issue_id": "kanbus-2869fe74-1e35-47d6-9c1a-de3a5fab6db4",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-21T20:11:42.042Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Draft article: Jev vs Laya: Same Labels, Same Questions, One Variable",
+    "description": "Draft of article B in the Jev series. Covers src/site-content/jev-vs-laya.mdx (state: draft), six images src/site-content/images/jev-vs-laya-*.png, the chart script scripts/generate-jev-vs-laya-charts.py, and social variants in social/jev-vs-laya/. Newsroom story ANTH-ed06f558 holds the prose source (article.md).",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

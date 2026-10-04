@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "d50d364b-a05a-4f29-9dff-0695a2b8823d",
+  "issue_id": "kanbus-3126fd98-1c81-436a-a744-c7dd093f67eb",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-21T20:17:25.025Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Draft article: Fine-Tuning Jev: You Can't. Here's What Gets You the Same Effect",
+    "description": "Series article A (slug fine-tuning-jev). Covers src/site-content/fine-tuning-jev.mdx (state: draft), its five images in src/site-content/images/fine-tuning-jev-*.png, social variants in social/fine-tuning-jev/, and scripts/generate-fine-tuning-jev-charts.py. Newsroom story ANTH-a099a85f. Not to be published until the TKs are filled and Ryan approves.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

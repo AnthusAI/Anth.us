@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "d3a6251a-ad21-4663-9906-f9b1f714bffd",
+  "issue_id": "kanbus-ee8ddf84-9142-47da-a646-3f1e3f6643d6",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-03T13:46:08.513Z",
+  "actor_id": "home",
+  "payload": {
+    "assignee": null,
+    "description": "Reimagine the Anthus homepage visual design while preserving existing copy, imagery, and fuchsia/pink/blue identity. Add automatic light and dark modes, run a local Gatsby preview, and leave all work uncommitted and unpublished per Ryan's request.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Prototype a redesigned Anthus homepage"
+  }
+}

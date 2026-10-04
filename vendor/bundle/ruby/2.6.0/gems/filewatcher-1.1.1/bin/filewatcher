@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/filewatcher'
+require_relative '../lib/filewatcher/env'
+require_relative '../lib/filewatcher/runner'
+require_relative '../lib/filewatcher/version'
+
+require 'optimist'
+
+options = Optimist.options do
+  version "filewatcher, version #{Filewatcher::VERSION} by Thomas Flemming 2016"
+  banner File.read File.join(__dir__, 'banner.txt')
+
+  opt :immediate, 'Immediately execute a command',
+      short: 'I', type: :boolean, default: false
+  opt :every, 'Run command for every updated file in one filesystem check',
+      short: 'E', type: :boolean, default: false
+  opt :daemon, 'Run in the background as system daemon',
+      short: 'D', type: :boolean, default: false
+  opt :restart, 'Restart process when filesystem is updated',
+      short: 'r', type: :boolean, default: false
+  opt :list, 'Print name of files being watched'
+  opt :exec, 'Execute file as a script when file is updated',
+      short: 'e', type: :boolean, default: false
+  opt :include, 'Include files',
+      type: :string, default: File.join('**', '*')
+  opt :exclude, 'Exclude file(s) matching',
+      type: :string, default: nil
+  opt :interval, 'Interval to scan filesystem',
+      short: 'i', type: :float, default: 0.5
+  opt :spinner, 'Show an ascii spinner',
+      short: 's', type: :boolean, default: false
+end
+
+Optimist.die Optimist.educate if ARGV.empty?
+
+files = ARGV[0..-2]
+
+files << ARGV.first if files.empty?
+
+def split_files_void_escaped_whitespace(files)
+  files
+    .map { |name| name.gsub(/\\\s/, '_ESCAPED_WHITESPACE_').split(/\s/) }
+    .flatten
+    .uniq
+    .map { |name| name.gsub('_ESCAPED_WHITESPACE_', '\ ') }
+end
+
+files = split_files_void_escaped_whitespace(files)
+child_pid = nil
+
+def restart(pid, env, cmd)
+  begin
+    raise Errno::ESRCH unless pid
+    Process.kill(9, pid)
+    Process.wait(pid)
+  rescue Errno::ESRCH
+    nil # already killed
+  end
+  Process.spawn(env, cmd)
+end
+
+if options[:exclude].to_s != ''
+  options[:exclude] = split_files_void_escaped_whitespace(
+    options[:exclude].split(' ')
+  )
+end
+
+begin
+  fw = Filewatcher.new(files, options)
+
+  if options[:list]
+    puts 'Watching:'
+    fw.last_found_filenames.each do |filename|
+      puts " #{filename}"
+    end
+  end
+
+  Process.daemon(true, true) if options[:daemon]
+
+  fw.watch do |filename, event|
+    cmd =
+      if options[:exec] && File.exist?(filename)
+        Filewatcher::Runner.new(filename).command
+      elsif ARGV.length > 1
+        ARGV[-1]
+      end
+
+    next puts "file #{event}: #{filename}" unless cmd
+
+    env = Filewatcher::Env.new(filename, event).to_h
+    if options[:restart]
+      child_pid = restart(child_pid, env, cmd)
+    else
+      begin
+        Process.spawn(env, cmd)
+        Process.wait
+      rescue SystemExit, Interrupt
+        exit(0)
+      end
+    end
+  end
+rescue SystemExit, Interrupt
+  fw.finalize
+end
