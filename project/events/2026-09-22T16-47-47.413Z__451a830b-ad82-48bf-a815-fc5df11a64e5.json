@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "451a830b-ad82-48bf-a815-fc5df11a64e5",
+  "issue_id": "kanbus-461342fc-e9fe-4581-937e-01437afa39f3",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-22T16:47:47.413Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Draft article: Encoding Prejudice: System 1 Models and the Biases Nobody Measures",
+    "description": "Draft the fourth Jev-series article as src/site-content/encoding-prejudice.mdx (state: draft, date 2026-09-24), with its cover and body charts in src/site-content/images/, the chart script scripts/generate-encoding-prejudice-charts.py, two d2 diagrams, and social variants in social/encoding-prejudice/. Newsroom story: ANTH-3cb9808e-1dd7-4834-881f-c6fb0fdbec1b.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

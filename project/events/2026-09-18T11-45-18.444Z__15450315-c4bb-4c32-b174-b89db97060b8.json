@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "15450315-c4bb-4c32-b174-b89db97060b8",
+  "issue_id": "kanbus-6b332ef8-f66d-4954-a411-58f5ff0d13e7",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-18T11:45:18.444Z",
+  "actor_id": "home",
+  "payload": {
+    "agent": {
+      "model": "gpt-6",
+      "name": "jev-deploy-investigation",
+      "platform": "codex"
+    },
+    "comment_author": "home",
+    "comment_id": "807113bf-0467-43fc-af51-de5e699594c1"
+  }
+}

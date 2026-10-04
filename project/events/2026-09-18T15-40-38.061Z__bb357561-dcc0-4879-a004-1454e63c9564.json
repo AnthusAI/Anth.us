@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "bb357561-dcc0-4879-a004-1454e63c9564",
+  "issue_id": "kanbus-74a9a01a-1dc5-47aa-b8f2-57d507f80639",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-18T15:40:38.061Z",
+  "actor_id": "home",
+  "payload": {
+    "assignee": null,
+    "description": "The Amplify main branch build succeeds, but anth.us and www.anth.us still alias the legacy CloudFront distribution E2D59YWXV0QSUJ backed by anthus-site S3. Attach the custom domain to Amplify main, migrate DNS safely, and verify the Jev article update on canonical production.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 1,
+    "status": "open",
+    "title": "Route anth.us production through Amplify"
+  }
+}

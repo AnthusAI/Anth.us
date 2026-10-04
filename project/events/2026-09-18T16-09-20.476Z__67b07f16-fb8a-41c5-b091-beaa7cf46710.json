@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "67b07f16-fb8a-41c5-b091-beaa7cf46710",
+  "issue_id": "kanbus-9bde9ff0-1188-4761-8b30-95d03987cf08",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-18T16:09:20.476Z",
+  "actor_id": "home",
+  "payload": {
+    "assignee": null,
+    "description": "Update the Jev article’s summary and canonical slug to match its revised title, while preserving a redirect from the published URL.",
+    "issue_type": "task",
+    "labels": [],
+    "parent": null,
+    "priority": 2,
+    "status": "open",
+    "title": "Rename Jev article URL and summary"
+  }
+}
