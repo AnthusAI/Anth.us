@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "41cd982d-f25d-4393-aab1-078cc6de9d0f",
+  "issue_id": "kanbus-be144add-75f4-4cd1-8632-72c740f27066",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-04T03:22:33.014Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Carry Gatsby develop improvements into the Papyrus port before launch",
+    "description": "Anth.us launches on the Papyrus port (AnthusAI/Anth.us-Papyrus, branch feature/anthus-integration) on 2026-10-05. Carry every improvement that exists only on Gatsby develop into the port before launch: content-review and session copy edits (content/markus-native-markup synced with content main), About and decision-models copy, platform additions, Benchmarks page and menu entry, /posts/ excerpt headlines, content redirect pages, robots/sitemap entries, and the Biased-Decisions leaderboard at /biased-decisions/.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 0,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-opus-5-5",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}
