@@ -3,7 +3,7 @@
   "title": "Carry Gatsby develop improvements into the Papyrus port before launch",
   "description": "Anth.us launches on the Papyrus port (AnthusAI/Anth.us-Papyrus, branch feature/anthus-integration) on 2026-10-05. Carry every improvement that exists only on Gatsby develop into the port before launch: content-review and session copy edits (content/markus-native-markup synced with content main), About and decision-models copy, platform additions, Benchmarks page and menu entry, /posts/ excerpt headlines, content redirect pages, robots/sitemap entries, and the Biased-Decisions leaderboard at /biased-decisions/.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 0,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-10-04T03:22:33.014478048Z",
-  "updated_at": "2026-10-04T03:22:33.014721579Z",
+  "updated_at": "2026-10-04T03:23:05.276976602Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
