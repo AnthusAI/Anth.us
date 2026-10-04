@@ -22,10 +22,22 @@
         "model": "claude-opus-5-5",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "3496e62d-bbbc-4bc7-8155-35f4e9daf35b",
+      "author": "unknown",
+      "text": "Analytics parity: the leaderboard uses the main site's GA4 property G-31SC26SDGX. Anth.us-Papyrus PR #5 (merged at d76e9b1 into feature/anthus-integration) strips the leaderboard's GA scripts in guarded (staging) builds to match the port's production-only analytics. Checked on 1,532 pages: 1,114 cleaned, other scripts unchanged. Reviewer sub-agent approved.",
+      "created_at": "2026-10-04T10:29:52.863719062Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
     }
   ],
   "created_at": "2026-10-02T19:45:26.568539094Z",
-  "updated_at": "2026-10-02T20:16:23.936372056Z",
+  "updated_at": "2026-10-04T10:29:52.864467647Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
