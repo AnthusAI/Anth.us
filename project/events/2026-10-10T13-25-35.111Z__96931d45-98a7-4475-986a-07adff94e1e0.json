@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "96931d45-98a7-4475-986a-07adff94e1e0",
+  "issue_id": "kanbus-b72acaa8-a4b7-43fb-a6df-daac4c270ba1",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-10T13:25:35.111Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "935ef76c-b845-4421-b4f7-cf937df779f6",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "Codex"
+    }
+  }
+}
