@@ -5,8 +5,8 @@ uses the native authoring constructs `::image{}`, `[@citation-key]`, and
 `::citations{}`. Gatsby does not parse those constructs directly.
 
 `plugins/gatsby-stage-native-content/` creates an ignored staging view for
-Gatsby. It leaves canonical files untouched, symlinks assets rather than
-duplicating them, and converts only those three constructs to the existing
+Gatsby. It leaves canonical files untouched, hard-links assets rather than
+duplicating their bytes, and converts only those three constructs to the existing
 `BlogImage`, `Citation`, and `CitationsList` component contract.
 
 The converter is deliberately fail-closed: unsupported directives, image
@@ -21,7 +21,7 @@ JavaScript expression.
 
 - Fixture suite: `npm run test:native-content` (image, citation, bibliography,
   front matter, code-fence preservation, unknown-directive failure, and asset
-  symlink staging).
+  hard-link staging).
 - Corpus preflight: convert every source MD/MDX file without writing canonical
   content. This must pass before a Gatsby build.
 - Full Gatsby build: **not yet run**. Do not claim the approved responsibility
