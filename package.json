@@ -24,6 +24,7 @@
     "gatsby-source-filesystem": "^5.12.1",
     "gatsby-transformer-remark": "^6.12.3",
     "gatsby-transformer-sharp": "^5.12.0",
+    "js-yaml": "^3.14.2",
     "markdown-to-jsx": "^7.3.2",
     "priority-plus": "^1.5.1",
     "prism-react-renderer": "^2.3.1",
@@ -56,6 +57,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
     "start": "gatsby develop",
     "serve": "gatsby serve",
+    "test:native-content": "node --test test/native-content.test.cjs",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "postinstall": "node scripts/patch_ordered_binary.js"
