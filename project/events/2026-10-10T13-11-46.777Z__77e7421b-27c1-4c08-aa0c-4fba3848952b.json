@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "77e7421b-27c1-4c08-aa0c-4fba3848952b",
+  "issue_id": "kanbus-b72acaa8-a4b7-43fb-a6df-daac4c270ba1",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-10T13:11:46.777Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Replace responsibility article cover with a decision-system pictogram",
+    "description": "",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "Codex"
+    }
+  }
+}
