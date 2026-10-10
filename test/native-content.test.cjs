@@ -35,7 +35,7 @@ test("fails loudly for unsupported native directives", () => {
   )
 })
 
-test("stages transformed markdown and symlinks non-markdown assets", () => {
+test("stages transformed markdown and hard-links non-markdown assets", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "native-content-test-"))
   const source = path.join(root, "source")
   const output = path.join(root, "staged")
@@ -44,6 +44,8 @@ test("stages transformed markdown and symlinks non-markdown assets", () => {
   fs.writeFileSync(path.join(source, "images", "chart.png"), "fixture")
   stageNativeContent({ sourceDir: source, outputDir: output, projectRoot })
   assert.match(fs.readFileSync(path.join(output, "article.mdx"), "utf8"), /<BlogImage/)
-  assert.equal(fs.lstatSync(path.join(output, "images", "chart.png")).isSymbolicLink(), true)
+  const sourceImage = fs.statSync(path.join(source, "images", "chart.png"))
+  const stagedImage = fs.statSync(path.join(output, "images", "chart.png"))
+  assert.equal(stagedImage.ino, sourceImage.ino)
   fs.rmSync(root, { recursive: true, force: true })
 })

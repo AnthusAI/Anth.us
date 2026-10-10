@@ -215,8 +215,13 @@ function stageNativeContent({ sourceDir, outputDir, projectRoot }) {
       } else if (entry.isFile() && /\.mdx?$/i.test(entry.name)) {
         const text = fs.readFileSync(sourcePath, "utf8")
         fs.writeFileSync(outputPath, convertNativeContent({ text, inputFile: sourcePath, outputFile: outputPath, projectRoot }), "utf8")
-      } else if (entry.isFile() || entry.isSymbolicLink()) {
-        fs.symlinkSync(sourcePath, outputPath)
+      } else if (entry.isFile()) {
+        // Gatsby query extraction follows symlinks as components rather than
+        // as source files. Hard links keep one set of bytes on this volume
+        // while retaining the original filename and extension for Gatsby.
+        fs.linkSync(sourcePath, outputPath)
+      } else if (entry.isSymbolicLink()) {
+        fs.symlinkSync(fs.readlinkSync(sourcePath), outputPath)
       }
     }
   }
