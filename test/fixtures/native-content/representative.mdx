@@ -1,0 +1,27 @@
+---
+title: "Native content fixture"
+images:
+  - ./images/chart.png
+citations:
+  source-2026:
+    type: webpage
+    title: "Source <title>"
+    URL: https://example.test/source
+    issued: {date-parts: [[2026, 10, 10]]}
+---
+
+::image{
+  src="images/chart.png"
+  layout="full"
+  alt="A chart about & benefits"
+}
+
+The original prose stays here.[@source-2026]
+
+## References
+
+::citations{format="apa"}
+
+```md
+::image{src="not-an-image.png"}
+```

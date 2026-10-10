@@ -12,7 +12,12 @@ import { fileURLToPath } from "url"
 import remarkGfm from "remark-gfm"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const siteContentPath = `${__dirname}/src/site-content`
+// The canonical content repository uses the native Papyrus authoring syntax.
+// Gatsby consumes a generated, ignored view that translates only the three
+// native constructs it does not understand. The source repository is never
+// rewritten by this site build.
+const canonicalSiteContentPath = `${__dirname}/src/site-content`
+const siteContentPath = `${__dirname}/.native-content-staging`
 
 /**
  * @type {import('gatsby').GatsbyConfig}
@@ -72,6 +77,13 @@ export default {
     ],
   },
   plugins: [
+    {
+      resolve: path.resolve(__dirname, "plugins/gatsby-stage-native-content"),
+      options: {
+        sourceDir: canonicalSiteContentPath,
+        outputDir: siteContentPath,
+      },
+    },
     `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
