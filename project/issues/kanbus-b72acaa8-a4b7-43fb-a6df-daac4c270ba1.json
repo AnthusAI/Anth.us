@@ -1,0 +1,38 @@
+{
+  "id": "kanbus-b72acaa8-a4b7-43fb-a6df-daac4c270ba1",
+  "title": "Replace responsibility article cover with a decision-system pictogram",
+  "description": "",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "d3d525f6-441b-4b4c-a2ed-24006a7d6b72",
+      "author": "home",
+      "text": "Codex / GPT-5: Current production anth.us is the Papyrus static port on Amplify d2hbn1ig6nqyhy main (domain mapping confirmed read-only). Scoped cover change in anthus-site-content PR 25; same change on native-markup integration line in PR 26, preserving the unrelated Primus rename. Publication release pin in Anth.us-Papyrus PR 18. Legacy Gatsby content CI fails on unchanged ai-project-planning.mdx native markup; no change to that file. Actual production Papyrus build running, 8 publication tests pass. Cyclotron cover deployed and public dimensions/metadata/routes checked.",
+      "created_at": "2026-10-10T13:20:58.253997Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex"
+      }
+    }
+  ],
+  "created_at": "2026-10-10T13:11:46.776771Z",
+  "updated_at": "2026-10-10T13:20:58.254372Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "Codex"
+  },
+  "right_now_summary": "The decision-system cover is deployed, and the production build is running with eight tests passing.",
+  "right_now_updated_at": "2026-10-10T13:21:00.354065Z",
+  "custom": {}
+}
