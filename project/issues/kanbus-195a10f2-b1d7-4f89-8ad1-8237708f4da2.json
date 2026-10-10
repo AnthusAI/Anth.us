@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-195a10f2-b1d7-4f89-8ad1-8237708f4da2",
+  "title": "Retarget content CI to the active Papyrus publication",
+  "description": "The content repo main now uses native Papyrus markup, but its build check still uses the older Gatsby integration branch and fails on unchanged ai-project-planning.mdx. Replace or supplement that legacy check with the active Anth.us-Papyrus production build. Current cover-only release was verified with the actual Papyrus production build (195 pages), 8 tests, and live image/social-preview checks.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-10T13:25:39.038350Z",
+  "updated_at": "2026-10-10T13:25:39.038391Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "Codex"
+  },
+  "right_now_summary": "CI is being retargeted from the old Gatsby check to the active Papyrus production build.",
+  "right_now_updated_at": "2026-10-10T13:25:40.787991Z",
+  "custom": {}
+}

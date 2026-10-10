@@ -3,7 +3,7 @@
   "title": "Replace responsibility article cover with a decision-system pictogram",
   "description": "",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,17 +22,29 @@
         "model": "GPT-5",
         "name": "Codex"
       }
+    },
+    {
+      "id": "935ef76c-b845-4421-b4f7-cf937df779f6",
+      "author": "home",
+      "text": "Codex / GPT-5: Complete. Artwork and source changes merged in content PRs 25/26. Current production publication pin merged in Anth.us-Papyrus PR 18; integration pin in PR 19. Amplify d2hbn1ig6nqyhy main deployment job 5 SUCCEED. Verified article HTTP 200, new cover image/png 1200x630, responsive derivative 200, matching absolute OG/Twitter image URLs and summary_large_image; robots 200, production indexing guards and custom real-404 checks pass. Updated only the existing legacy responsibility-cover redirect, leaving all other app rules intact. The older Gatsby repo was not deployed.",
+      "created_at": "2026-10-10T13:25:35.111878Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex"
+      }
     }
   ],
   "created_at": "2026-10-10T13:11:46.776771Z",
-  "updated_at": "2026-10-10T13:20:58.254372Z",
-  "closed_at": null,
+  "updated_at": "2026-10-10T13:25:37.295831Z",
+  "closed_at": "2026-10-10T13:25:37.295781Z",
   "agent": {
     "platform": "codex",
     "model": "GPT-5",
     "name": "Codex"
   },
-  "right_now_summary": "The decision-system cover is deployed, and the production build is running with eight tests passing.",
-  "right_now_updated_at": "2026-10-10T13:21:00.354065Z",
+  "right_now_summary": "The new responsibility cover is live in production, with image metadata, redirects, and indexing checks verified.",
+  "right_now_updated_at": "2026-10-10T13:25:39.021810Z",
   "custom": {}
 }
