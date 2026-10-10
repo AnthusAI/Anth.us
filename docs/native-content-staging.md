@@ -11,9 +11,11 @@ duplicating them, and converts only those three constructs to the existing
 
 The converter is deliberately fail-closed: unsupported directives, image
 attributes Gatsby cannot represent, malformed attributes, and missing citation
-keys stop the build with a named error. It preserves front matter and embeds a
-safely serialized copy of the citation mapping for the existing citation
-component.
+keys stop the build with a named error. It preserves front-matter values and
+embeds a safely serialized copy of the citation mapping for the existing
+citation component. In the staged copy only, CSL citation flow maps are
+normalized to block YAML because Gatsby MDX otherwise parses `date-parts` as a
+JavaScript expression.
 
 ## Verification status
 

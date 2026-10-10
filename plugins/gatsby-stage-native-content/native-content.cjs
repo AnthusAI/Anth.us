@@ -96,6 +96,18 @@ function importPath(fromFile, targetFile) {
   return relative
 }
 
+function normalizeCitationFrontMatter(frontMatter, citations, filePath) {
+  const block = /^citations:\r?\n(?:(?:[ \t].*|\r?\n)*)/m
+  if (!block.test(frontMatter)) {
+    throw new NativeContentError("Could not locate the front-matter citations block", filePath)
+  }
+  // MDX's front-matter parser treats CSL flow maps such as
+  // `{date-parts: [[2024, 12, 1]]}` as an expression. Re-emitting only the
+  // citations block keeps all front-matter values while using block YAML.
+  const normalized = yaml.safeDump({ citations }, { lineWidth: -1, noRefs: true }).trimEnd()
+  return frontMatter.replace(block, normalized)
+}
+
 function convertNativeContent({ text, inputFile, outputFile = inputFile, projectRoot }) {
   const { frontMatter, body, prefix } = splitFrontMatter(text)
   const masked = maskCode(body)
@@ -104,6 +116,7 @@ function convertNativeContent({ text, inputFile, outputFile = inputFile, project
   let hasCitation = false
   let hasBibliography = false
   let citations = {}
+  let stagedFrontMatter = frontMatter
 
   converted = converted.replace(IMAGE_DIRECTIVE, (_, rawAttributes) => {
     const attributes = parseAttributes(rawAttributes, "::image", inputFile)
@@ -166,6 +179,9 @@ function convertNativeContent({ text, inputFile, outputFile = inputFile, project
   converted = masked.restore(converted)
 
   if (!hasImage && !hasCitation && !hasBibliography) return text
+  if (Object.keys(citations).length) {
+    stagedFrontMatter = normalizeCitationFrontMatter(frontMatter, citations, inputFile)
+  }
   const imports = []
   if (hasImage && !/import\s+BlogImage\s+from\s+/.test(text)) {
     imports.push(`import BlogImage from ${jsonExpression(importPath(outputFile, path.join(projectRoot, "src", "components", "blog-image")))}`)
@@ -173,8 +189,10 @@ function convertNativeContent({ text, inputFile, outputFile = inputFile, project
   if ((hasCitation || hasBibliography) && !/from\s+["']gatsby-citation-manager["']/.test(text)) {
     imports.push(`import { Citation, CitationsList } from "gatsby-citation-manager"`)
   }
-  const declarations = hasCitation ? `export const __nativeCitations = ${jsonExpression(citations)}\n` : ""
-  return `${prefix}${imports.join("\n")}${imports.length ? "\n" : ""}${declarations}${converted}`
+  const declarations = hasCitation ? `export const __nativeCitations = ${jsonExpression(citations)}` : ""
+  const stagedPrefix = prefix ? `---\n${stagedFrontMatter}\n---\n` : ""
+  const modulePreamble = [...imports, declarations].filter(Boolean).join("\n")
+  return `${stagedPrefix}${modulePreamble}\n\n${converted}`
 }
 
 function stageNativeContent({ sourceDir, outputDir, projectRoot }) {
