@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-095926cd-bae1-42d5-939b-77e988729f22",
+  "title": "About page: rewrite the top half in the house voice",
+  "description": "The About page is two pages stitched together. From the tweet onward it is in the house voice and is the best writing on the site. Above it is 2023 brochure copy: the Tiesto tour, the Marketo/Paytronix/Salesforce integrations list, 'innovative', 'impeccable record', 'harnessing serverless architectures', 'Leverage DevOps' (a banned intensifier). Rewrite the top half in the voice guide's register: one sentence per fact with a number, since-2007 framing, no intensifiers. Keep the tweet section, the Key Facts list and the FAQ (already corrected). See docs/content-review-2026-10.md, Page by page.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-03T15:59:13.794245027Z",
+  "updated_at": "2026-10-03T15:59:13.794273154Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

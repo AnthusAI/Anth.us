@@ -18,7 +18,7 @@ const KEY_FACTS = [
   ],
   [
     "Track record",
-    "Team together for over a decade; production platforms operated for 14+ years; Call Criteria in production with RLHF for two years",
+    "Team together for over a decade; revenue-critical platforms in continuous operation since 2007; a call-center QA classifier lab run on Plexus for years, across hundreds of scorecards and millions of interactions",
   ],
   ["Platform", "Plexus, an MLOps platform"],
   ["Spinoff", "Anthus Microelectronics (B0rd LED-matrix desk display)"],
@@ -36,7 +36,7 @@ const FAQ = [
   },
   {
     q: "What is human-in-the-loop AI?",
-    a: "Experts review and correct the AI's judgments, and those corrections become training signal. In Call Criteria, QA specialists guide the models this way, and the system has improved through reinforcement learning from human feedback (RLHF) for two years.",
+    a: "Experts review and correct the AI's judgments, and those corrections become training signal. In the Call Criteria classifier lab, QA specialists guide the models this way, and the scorecards have improved through reinforcement learning from human feedback (RLHF) over years of production, across hundreds of scorecards and millions of interactions.",
   },
   {
     q: "Do you only work with one model provider?",

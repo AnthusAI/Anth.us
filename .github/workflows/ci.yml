@@ -1,0 +1,139 @@
+name: Build, verify, and deploy
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: build-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+    - name: Checkout site repo with submodules
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+
+    - name: Restore Gatsby cache
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          .cache
+          public
+        key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+        restore-keys: |
+          gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+          gatsby-site-${{ runner.os }}-
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Gatsby site
+      run: npm run build
+      env:
+        CI: true
+
+    - name: Normalize and verify embedded global CSS
+      run: node scripts/normalize-gatsby-inline-css.cjs
+
+    - name: Verify rendered posts match cached query data
+      run: node scripts/verify-gatsby-posts-cache.cjs
+
+    - name: Save Gatsby cache
+      if: success()
+      uses: actions/cache/save@v4
+      with:
+        path: |
+          .cache
+          public
+        key: gatsby-site-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.sha }}
+
+    - name: Build the benchmark sites into their anth.us paths
+      run: node scripts/build-benchmark-sites.mjs
+
+    - name: Package the verified site for Amplify
+      if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+      run: cd public && zip -q -r -X ../verified-site.zip .
+
+    - name: Keep the verified site for the deploy job
+      if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+      uses: actions/upload-artifact@v4
+      with:
+        name: verified-site
+        path: verified-site.zip
+        retention-days: 7
+        if-no-files-found: error
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop') && vars.AMPLIFY_APP_ID != ''
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+      url: ${{ github.ref == 'refs/heads/main' && 'https://anth.us/' || format('https://{0}.{1}.amplifyapp.com/', vars.AMPLIFY_DEVELOPMENT_BRANCH || 'develop', vars.AMPLIFY_APP_ID) }}
+    concurrency:
+      group: amplify-deploy-${{ github.ref }}
+      cancel-in-progress: false
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AMPLIFY_APP_ID: ${{ vars.AMPLIFY_APP_ID }}
+      AMPLIFY_BRANCH: ${{ github.ref == 'refs/heads/main' && (vars.AMPLIFY_PRODUCTION_BRANCH || 'main') || (vars.AMPLIFY_DEVELOPMENT_BRANCH || 'develop') }}
+    steps:
+    - name: Download the verified site
+      uses: actions/download-artifact@v4
+      with:
+        name: verified-site
+
+    - name: Configure AWS credentials via OIDC
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Upload the verified site to Amplify and start the deployment
+      id: amplify_deployment
+      run: |
+        deployment_response=$(aws amplify create-deployment \
+          --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH" --output json)
+        amplify_job_id=$(jq -r '.jobId' <<<"$deployment_response")
+        zip_upload_url=$(jq -r '.zipUploadUrl' <<<"$deployment_response")
+        curl --fail --silent --show-error --request PUT \
+          --header "Content-Type: application/zip" \
+          --upload-file verified-site.zip "$zip_upload_url"
+        aws amplify start-deployment \
+          --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH" --job-id "$amplify_job_id" >/dev/null
+        echo "amplify_job_id=$amplify_job_id" >> "$GITHUB_OUTPUT"
+        echo "Started Amplify job $amplify_job_id for commit $GITHUB_SHA"
+
+    - name: Wait for Amplify to finish the deployment
+      env:
+        AMPLIFY_JOB_ID: ${{ steps.amplify_deployment.outputs.amplify_job_id }}
+      run: |
+        for attempt in $(seq 1 90); do
+          job_status=$(aws amplify get-job --app-id "$AMPLIFY_APP_ID" --branch-name "$AMPLIFY_BRANCH" \
+            --job-id "$AMPLIFY_JOB_ID" --query 'job.summary.status' --output text)
+          case "$job_status" in
+            SUCCEED) echo "Amplify job $AMPLIFY_JOB_ID succeeded"; exit 0 ;;
+            FAILED|CANCELLED) echo "Amplify job $AMPLIFY_JOB_ID ended with $job_status"; exit 1 ;;
+          esac
+          sleep 10
+        done
+        echo "Amplify job $AMPLIFY_JOB_ID did not finish within 15 minutes"
+        exit 1

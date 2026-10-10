@@ -1,0 +1,45 @@
+{
+  "id": "kanbus-fb850376-2393-446c-a413-37f1784a140a",
+  "title": "Jev series copy edit: measurement wording for confidence, no full-coverage claims",
+  "description": "Limatus flags 'honest' used as a character trait for a measurement in the Jev series: plexus-classifier-lab, can-you-trust-jev-confidence (3), distilling-jev-into-a-classifier (2), jev-vs-laya (2). Rewrite each to name the measurement (calibrated, matches observed accuracy). Two sentences also imply a QA operation reviews every call (jev-vs-laya auto-accept paragraph, can-you-trust step 4); reword to 'far more calls than a sampled audit' since full coverage is not a claim we make. Every number stays. Content repo PR into main, then pin PR into develop. Rescan with Limatus after.",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "ea0d4e5e-17e1-4cfb-a3c9-0fadfb407af2",
+      "author": "unknown",
+      "text": "Landed in anthus-site-content PR 19 (merged, 677d87d): eight 'honest' trait uses replaced with measurement wording, two full-coverage sentences reworded, and each of the six Jev articles now links to /decision-models/. Limatus rescans of the edited files: zero trait findings. Reaches the site through Anth.us PR 74 (pin).",
+      "created_at": "2026-10-03T17:02:34.801256848Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "anthus-content-review"
+      }
+    },
+    {
+      "id": "2141c4cc-23c7-402b-a80a-d6a52dc2f2a5",
+      "author": "unknown",
+      "text": "On develop via the pin in Anth.us PR 74 (content PR 19 merged at 677d87d). Production gets it on the next develop to main release.",
+      "created_at": "2026-10-03T17:19:20.038176294Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-10-03T15:49:15.681038613Z",
+  "updated_at": "2026-10-03T17:19:20.046877751Z",
+  "closed_at": "2026-10-03T17:19:20.046852816Z",
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "anthus-content-review"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

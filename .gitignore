@@ -57,6 +57,7 @@ typings/
 # gatsby files
 .cache/
 public
+.native-content-staging/
 
 # Mac files
 .DS_Store
@@ -74,3 +75,6 @@ project-local/
 .worktrees/
 wa/
 wb/
+
+# Benchmark site checkouts built into public/ by scripts/build-benchmark-sites.mjs
+.benchmark-sites/

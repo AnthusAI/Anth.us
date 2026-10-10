@@ -1,0 +1,62 @@
+{
+  "id": "kanbus-36425fb3-34ac-4e66-8002-2c7b128e7e85",
+  "title": "Bring the Biased-Decisions and Hard-Decisions sites onto anth.us",
+  "description": "Serve the Biased-Decisions leaderboard and the Hard-Decisions benchmark from anth.us (/biased-decisions/, /hard-decisions/) instead of their own subdomains, built from their repos at pinned commits by the Anth.us CI, with a benchmarks page and menu entry, sitemap and robots entries, and the subdomains redirecting to the new paths (AWS side). Hard-Decisions source repo is not reachable from this session yet.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "2b70a629-419c-46f5-a63d-22100feee9f7",
+      "author": "unknown",
+      "text": "Biased-Decisions half merged to develop as PR #72 (561816e), with Biased-Decisions PR #130 (redirect stubs honor BASE_PATH) merged upstream and pinned at f678f54. CI builds the leaderboard into /biased-decisions/ with a 1,112-page sitemap; amplify.yml builds it too for the Git-connected app. /benchmarks/ page and menu entry added. Reviewer: REQUEST_CHANGES (amplify.yml) then APPROVE. Remaining: Hard-Decisions repo access (not visible to the Claude GitHub app); promote develop to main and run the ship gate on https://anth.us/biased-decisions/; 301 biased-decisions.anth.us to anth.us/biased-decisions/ (AWS); Biased-Decisions promotes its develop to main so the pin can move to a released commit. Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-10-02T20:16:23.936346877Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "3496e62d-bbbc-4bc7-8155-35f4e9daf35b",
+      "author": "unknown",
+      "text": "Analytics parity: the leaderboard uses the main site's GA4 property G-31SC26SDGX. Anth.us-Papyrus PR #5 (merged at d76e9b1 into feature/anthus-integration) strips the leaderboard's GA scripts in guarded (staging) builds to match the port's production-only analytics. Checked on 1,532 pages: 1,114 cleaned, other scripts unchanged. Reviewer sub-agent approved.",
+      "created_at": "2026-10-04T10:29:52.863719062Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    },
+    {
+      "id": "08903b19-f26a-4988-9620-95dd2d7885ea",
+      "author": "unknown",
+      "text": "Launch prep: Anth.us-Papyrus PR #6 merged feature/anthus-integration into develop (f9016d7), carrying all content and site updates (content pin 0cf89c7). Reviewer sub-agent approved; 11 tests pass; guarded build clean over 195 pages. Gatsby develop content pin bumped to fa96be3 in Anth.us PR #75. Open for Ryan: the responsibility article is still state: draft.",
+      "created_at": "2026-10-04T16:42:48.135382742Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
+  "created_at": "2026-10-02T19:45:26.568539094Z",
+  "updated_at": "2026-10-04T16:42:48.135415139Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-opus-5-5",
+    "name": "anth-content-strategy-clients"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
