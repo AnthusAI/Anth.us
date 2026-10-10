@@ -1,0 +1,6 @@
+{
+  "name": "gatsby-stage-native-content",
+  "private": true,
+  "version": "1.0.0",
+  "main": "gatsby-node.js"
+}
