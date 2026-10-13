@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "event_id": "d5c9a55b-1275-4a89-957a-23477897cbc3",
+  "issue_id": "kanbus-63c510a0-9887-4b3f-b5c3-10b23ee91849",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-13T14:36:19.249Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "8e7ab084-e3d4-495f-b910-32383ebdefd1",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6"
+    }
+  }
+}
