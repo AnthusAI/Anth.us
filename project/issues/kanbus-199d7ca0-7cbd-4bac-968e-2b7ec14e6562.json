@@ -10,16 +10,29 @@
   "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "cb659db5-8437-476c-ad8f-4ee42282a5aa",
+      "author": "home",
+      "text": "2026-10-13 audit after the arcade launch: Anth.us now prominently links Cyclotron, Chatticus, Papyrus and Primus. Immediate acquisition gap: p.apyr.us presents a waitlist but explicitly says submissions are not connected. Cyclotron pricing and services enquiries lead to the generic Google form; Primus remains an AI Agent Incubator with Request Early Access. Align each product destination with a working next step and actual availability before campaigns. Preserve product/plan/campaign intent and measure successful booking, signup, activation and paid retention. Do not implement until Ryan chooses the offer/funnel direction.",
+      "created_at": "2026-10-13T14:45:41.119331Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6",
+        "name": "marketing-review"
+      }
+    }
+  ],
   "created_at": "2026-10-03T15:49:15.758518212Z",
-  "updated_at": "2026-10-03T15:49:15.758547450Z",
+  "updated_at": "2026-10-13T14:45:41.119359Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1",
     "name": "anthus-content-review"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "Ryan must choose each product’s offer and funnel before landing pages are written.",
+  "right_now_updated_at": "2026-10-13T14:45:42.786774Z",
   "custom": {}
 }

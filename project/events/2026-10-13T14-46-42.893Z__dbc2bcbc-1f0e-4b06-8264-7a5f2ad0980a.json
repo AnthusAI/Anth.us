@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "dbc2bcbc-1f0e-4b06-8264-7a5f2ad0980a",
+  "issue_id": "kanbus-63c510a0-9887-4b3f-b5c3-10b23ee91849",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-13T14:46:42.893Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "baf50878-6eea-405c-bcb0-f8d15ae8767b",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6",
+      "name": "marketing-review"
+    }
+  }
+}

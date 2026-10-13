@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "4abf3db7-33db-40cd-a718-50801ebdd03e",
+  "issue_id": "kanbus-86be3336-865b-458b-9e57-b02673b4b2d2",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-13T14:46:46.805Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Reconcile launch proof claims, social cards and draft indexing policy",
+    "description": "Follow-up proposal from the 2026-10-13 read-only review of Anth.us-Papyrus main 0fce81b and newly deployed production. Confirm annual versus monthly revenue; scope the claim that site commits are public while the new repo is private; attach public newsroom/process evidence; clarify ownership and experimental proof context; choose intentional draft indexing policy; replace generic and low-resolution commercial social cards; correct CTA contrast and remaining broken links. Evidence and source references are in audit task 63c510. No automatic source edits, repo visibility changes or releases are authorized by this review.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6",
+      "name": "marketing-review"
+    }
+  }
+}

@@ -3,7 +3,7 @@
   "title": "Audit site surfaces against their story jobs",
   "description": "Ryan, 2026-09-27: apply the Limatus writing-effective-stories skill to the site. Each surface has a job: hero and proof line (who I am), How we work (I know what you're thinking), solutions engagements (values in action), research and the Jev series (teaching), engagement page (vision), Kanbus observability series (why I'm here). Audit each for a clear job, a real sourced moment, a visible turning point, and a proportionate takeaway. First: the engagement page's vision story should make month six observable, what a client can do, avoid, notice, or feel differently. Second: the values-in-action gap, since the Call Criteria story can't be told by name; DataParade and the public Kanbus boards are the replacement and need telling as moments with a choice in them.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -46,17 +46,52 @@
         "model": "claude-fable-5-1",
         "name": "anth-content-strategy-clients"
       }
+    },
+    {
+      "id": "8e7ab084-e3d4-495f-b910-32383ebdefd1",
+      "author": "home",
+      "text": "Review underway at Ryan’s request on 2026-10-13: assess the entire live Anthus site and linked product funnels before making changes. Scope expands the story-job audit to recurring Cyclotron SaaS, customer-owned AWS deployment, setup-only and managed services, open development proof, SEO, social cards, and cross-device conversion paths. Separate attached worktree codex/marketing-site-review starts at origin/develop eba7b42; production reference origin/main 130f586. No product or editorial changes authorized in this review. Findings will distinguish live behavior from pending branch changes and record proposed follow-up work.",
+      "created_at": "2026-10-13T14:36:19.249191Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6"
+      }
+    },
+    {
+      "id": "6ca4969e-1526-49ed-ae8c-71b3da12e3d8",
+      "author": "home",
+      "text": "Scope correction from Ryan: the new launch source is AnthusAI/Anth.us-Papyrus. The Gatsby checkout is reference only. Review moved to /Users/home/Projects/Anth.us-Papyrus-marketing on feature/marketing-review, based on Papyrus origin/main 0fce81b (arcade redesign). Production is mid-rollout, so findings from the earlier live layout must be separated from the new main/local review. No product changes have been made. This existing Anthus acquisition audit record is retained as the task record; earlier source assumptions are withdrawn.",
+      "created_at": "2026-10-13T14:39:06.469047Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6",
+        "name": "marketing-review"
+      }
+    },
+    {
+      "id": "baf50878-6eea-405c-bcb0-f8d15ae8767b",
+      "author": "home",
+      "text": "## Review basis\n\n2026-10-13. Correct site source is AnthusAI/Anth.us-Papyrus, main 0fce81b, reviewed in separate worktree /Users/home/Projects/Anth.us-Papyrus-marketing on feature/marketing-review. Main and develop currently diverge (11 develop-only / 26 main-only commits); no reconciliation attempted during read-only review. The arcade design reached production during the review and was rechecked there. No website, content, product configuration, repository visibility or deployment changes made.\n\n## Marketing assessment\n\nThe arcade system and four flagship products improve recognition and explain the mechanism. The site still primarily acquires custom-services enquiries. Hosted Cyclotron subscriptions need a distinct offer and functioning activation/retention path. Proposed commercial architecture: free self-operation with optional setup, hosted pooled credit subscription, customer-owned AWS with setup-only or ongoing management, and one custom services umbrella. Credit prices and support economics remain decisions, not approved offers. A one-hour SLA needs an accepted-job definition, payload/rate limits, deadline handling and separate human-review/training timings.\n\n## Verified concerns on new source/live pages\n\n- Engage claims this site's commits are public, but Anth.us-Papyrus is private. Scope the claim accurately or deliberately publish selected receipts; do not change visibility automatically. Public newsroom evidence should be directly linked.\n- Papyrus product page has a waitlist form explicitly marked disconnected. Cyclotron and Anthus enquiries end in a general Google form. Primus's early-access incubator framing differs from the classifier-lab proposition.\n- About says $64 million annually; Ryan says per month. Homepage AI engineering since 2007 and unscoped ~100% uptime need accurate attribution/period. Research examples need their experimental context attached when reused commercially.\n- Engage promises ownership of model/pipeline/board/record; Cyclotron services leaves IP/access/exit unresolved. Monthly shrinking reviewer queues are not a support guarantee.\n- New launch crawl: 190/190 sitemap URLs HTTP200; all have descriptions, canonical and matching absolute OG/Twitter large-image metadata. 113/113 unique social images work. Fifteen draft pages remain indexable/in sitemap. Seventy-six pages use the old generic image; Venue Driver uses a 126x126 logo. Two article links still 404: /solutions/sqlbot/ and /articles/automated-scientific-discovery/arxiv.org.\n- Desktop/tablet/mobile samples showed working layout and mobile navigation. White button text at 21.6px normal weight on light pink computes 3.65:1, below the 4.5:1 normal-text threshold; dark pink token computes 2.89:1. This is not a full accessibility audit.\n- Homepage SEO title remains Home | Anthus. Search intent should connect System One models, decision-model fine-tuning, Jev alignment and customer-owned distillation to offers. No Search Console, conversion, field performance or revenue data was inspected.\n\n## Proposed next steps, awaiting direction\n\nOffer definitions first; working hosted-access and enterprise booking paths second; claim/preview/indexing consistency and campaign attribution next; then a shared customer lifecycle starting with Cyclotron and reusing Chatticus waitlist/invitation work. Build Anthus-specific deployment, credit, service and evaluation coordination; reuse payment, identity, calendar and email infrastructure. A new open CRM should emerge from this proven workflow rather than precede it.\n\nRead-only Limatus scans used the existing Anthus profile against seven new-source page generators. These were deterministic checks without a configured judge, not an approval or automatic rewrite. Evidence snapshots and scan outputs are in /tmp/anthus-marketing-audit. Followups cf5138 (offers), 0ce956 (lifecycle), and existing 199d7c (campaign paths).\n",
+      "created_at": "2026-10-13T14:46:42.893692Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6",
+        "name": "marketing-review"
+      }
     }
   ],
   "created_at": "2026-09-27T15:16:58.681432193Z",
-  "updated_at": "2026-09-27T17:53:47.832104342Z",
+  "updated_at": "2026-10-13T14:46:42.893723Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1",
     "name": "anth-content-strategy-clients"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "The site audit is clarifying each surface’s story, starting with the engagement vision and values-in-action examples.",
+  "right_now_updated_at": "2026-10-13T14:46:45.206859Z",
   "custom": {}
 }

@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-86be3336-865b-458b-9e57-b02673b4b2d2",
+  "title": "Reconcile launch proof claims, social cards and draft indexing policy",
+  "description": "Follow-up proposal from the 2026-10-13 read-only review of Anth.us-Papyrus main 0fce81b and newly deployed production. Confirm annual versus monthly revenue; scope the claim that site commits are public while the new repo is private; attach public newsroom/process evidence; clarify ownership and experimental proof context; choose intentional draft indexing policy; replace generic and low-resolution commercial social cards; correct CTA contrast and remaining broken links. Evidence and source references are in audit task 63c510. No automatic source edits, repo visibility changes or releases are authorized by this review.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-13T14:46:46.805496Z",
+  "updated_at": "2026-10-13T14:46:46.805525Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6",
+    "name": "marketing-review"
+  },
+  "right_now_summary": "The team is reconciling launch claims, evidence, indexing, social cards, contrast, and broken links.",
+  "right_now_updated_at": "2026-10-13T14:46:49.153820Z",
+  "custom": {}
+}

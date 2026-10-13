@@ -1,0 +1,25 @@
+{
+  "id": "kanbus-cf51385f-be5f-4f01-b476-3621fc57ad84",
+  "title": "Define hosted, dedicated and services offers for the Anthus portfolio",
+  "description": "Proposal from the 2026-10-13 marketing audit, awaiting Ryan’s direction before implementation. Define free self-operation and optional setup; shared Cyclotron subscription with credits and an explicit async one-hour eligible-job contract; customer-owned AWS with setup-and-handoff or ongoing management; one custom services route consolidating overlapping integrated/custom/beyond enquiries. Specify ownership, costs, usage limits, support cadence and migration path consistently across Anth.us-Papyrus and product sites. Measure support/unit economics before setting a pooled price. Preserve current published pricing as evidence, not as an approved future plan.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-13T14:44:26.065288Z",
+  "updated_at": "2026-10-13T14:44:26.065487Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6",
+    "name": "marketing-review"
+  },
+  "right_now_summary": "The team is awaiting Ryan’s direction before defining Anthus hosting, dedicated, and services offers.",
+  "right_now_updated_at": "2026-10-13T14:44:28.271578Z",
+  "custom": {}
+}

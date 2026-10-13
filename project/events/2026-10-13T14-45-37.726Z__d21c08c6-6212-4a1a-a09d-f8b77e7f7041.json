@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "d21c08c6-6212-4a1a-a09d-f8b77e7f7041",
+  "issue_id": "kanbus-0ce95645-5b17-4a2b-aa86-3b03755e136f",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-13T14:45:37.726Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Design a shared customer lifecycle for hosted products and dedicated accounts",
+    "description": "Discovery proposal only; no implementation authorized yet. Use Cyclotron as the first hosted product and inspect Chatticus waitlist, email-confirmation and invite APIs for reuse. Separate contacts/opportunities from organizations, subscriptions, deployments and entitlements. Define acquisition attribution, booking, account activation, credit ledger, accepted-job deadlines, usage alerts, check-ins, renewal, export and cancellation. Reuse established identity/payment/calendar/email services; build only Anthus-specific orchestration and reusable UI. Extract an open package after a second working consumer; keep customer records private. Primary metric: activated, retained paying accounts and qualified dedicated engagements.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "kanbus-a65429f7-ead6-48ee-aa3a-d4805dc87747",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6",
+      "name": "marketing-review"
+    }
+  }
+}
