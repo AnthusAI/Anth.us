@@ -1,0 +1,20 @@
+{
+  "id": "kanbus-ae1b8e1d-8cd8-4522-8a12-dff046ab325f",
+  "title": "Homepage 'How we work': our methods for overcoming cognitive debt from AI-speed development",
+  "description": "The homepage \"How we work\" section (\"AI-built, and checked harder because of it.\") is hidden as of 2026-10-13: SHOW_HOW_WE_WORK = False in Anth.us-Papyrus web/anthus_pages.py, so it can be switched back on. Ryan: we're not ready to publish it yet.\n\nRewrite it around one theme: cognitive debt. Moving faster and faster with AI assistance means the people steering understand less and less of what's being built. We'll address that gap directly, with the new tools and techniques we're using to overcome it:\n- Pudicus: layers of automatic safeguards, such as a commit gate that stops agents and people committing secrets, with a receipt the deploy can check.\n- Kanbus \"right now\" reports and automated standup reports: knowing what happened and what's in flight without reading every diff.\n- DataParade's new tools: seeing what agents are doing across a project once you've stepped back from writing the code.\n\nKeep the true parts of the current section (the February 2026 \"Continue.\" night, specs, tests, staged rollout, a person who can say no) where they still fit, and link each tool to its repository or site.\n\nDone when the rewritten section is approved by Ryan and switched back on.",
+  "type": "epic",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-14T01:45:03.065055Z",
+  "updated_at": "2026-10-14T01:45:03.065303Z",
+  "closed_at": null,
+  "right_now_summary": "The section is hidden while Ryan reviews a rewrite focused on managing cognitive debt from AI-driven development.",
+  "right_now_updated_at": "2026-10-14T01:45:06.059077Z",
+  "custom": {}
+}
