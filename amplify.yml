@@ -10,6 +10,7 @@ frontend:
       commands:
         - nvm use 22
         - npm ci --cache .npm --prefer-offline
+        - npm update anthus-footer --cache .npm --prefer-offline
         # Keep the cache input limited to content-addressed image derivatives.
         # Gatsby's build state includes source-directory-specific static-query IDs.
         - rm -rf .cache
