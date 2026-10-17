@@ -1,0 +1,27 @@
+{
+  "id": "kanbus-0d2422eb-7498-4eb1-9749-e972e2a1a3f5",
+  "title": "Correct Anth.us production ownership and recoverably retire M1 Gatsby clone",
+  "description": "Fix actual Papyrus production renderer and ownership documentation. Preserve fallback while Prospectus real-contact intake remains gated. Verify tests, merge-driven deployment and public site. Preserve Gatsby clone dirty files, all refs and worktrees before recoverable removal outside active clones.",
+  "type": "sub-task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "kanbus-e28f0d4d-4e97-4911-994c-c3ad86f6ca1f",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-10-17T15:40:50.137970Z",
+  "updated_at": "2026-10-17T15:40:57.898386Z",
+  "closed_at": null,
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {},
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6.1-sol",
+    "name": null,
+    "settings": {}
+  },
+  "agent_assignment": null
+}
