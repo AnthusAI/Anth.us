@@ -8,7 +8,7 @@
     "@mdx-js/mdx": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@parcel/watcher": "^2.3.0",
-    "anthus-footer": "github:AnthusAI/anthus-footer#main",
+    "anthus-footer": "github:AnthusAI/anthus-footer#01c5e8c46b7d4e2f3145d0bd9af1a1587fff481e",
     "gatsby": "^5.12.4",
     "gatsby-citation-manager": "^1.0.2",
     "gatsby-plugin-google-fonts": "^1.0.1",
