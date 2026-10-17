@@ -81,15 +81,27 @@ Don't paste a screenshot "for vibe." Downscale. Crop. Don't re-attach. Codex vis
 
 ### 7. Tame the tool-result tax.
 
-Verbose traces, giant JSON, screenshots in the tool log: that's how windows die. Ask for diffs, not full files. Keep test failures, drop passing noise. Rein in MCP that returns novels.
+Verbose traces, giant JSON, screenshots in the tool log: that's how windows die. Ask for diffs, not full files. Keep test failures, drop passing noise. Rein in MCP that returns novels. If the payload is huge, spill it to a file and leave a path — Grok Bot writes MCP results over 12KB to `agent-tools/` and refuses the call unless the model actually Read the file. Restorable compression, not an irreversible drop.
 
 ### 8. Two strikes, then clear.
 
 If the agent fails the same build twice, stop arguing in the junk drawer. Write a two-sentence constraint. New worker. Same window after a few loops is how models fixate on their own leftover mistakes.
 
-### 9. Don't switch models mid-chat. Keep the prefix stable.
+### 9. Compact before you change models. That's a compaction epoch.
 
-Cache discounts want a byte-identical prefix. Invariant stuff first: system, tools, rules. Volatile user last. Don't reshuffle rules mid-session. Don't switch tiers in the same thread — that's a cache miss. New chat if you change models.
+A model swap busts the prefix cache. Don't hand a flagship a fat explore window.
+
+Use a cheap model — Haiku, Luna, Composer, Flash — to find the files and describe what it found. Then `/compact`. Then swap to Opus (or Sol) for a planning document. Compact again. Then pass the thin plan to Sonnet (or Terra, Composer) to do the work. The expensive model starts by thinking, not by hunting.
+
+Always compact first. Those boundaries are compaction epochs. Change models on a small summary, not on the transcript that produced it. If you didn't compact, start a new chat — don't pass the junk drawer across a cache miss.
+
+Cache discounts want a byte-identical prefix. Invariant stuff first: system, tools, rules. Volatile user last. Don't reshuffle rules mid-session.
+
+Grok Bot's leaked 0.18.0 harness names the invalidation boundary. [Yage's writeup](https://yage.ai/share/grok-bot-context-engineering-en-20260827.html) of the August 2026 leak: `FrozenMemorySnapshot` stores the rendered memory string plus an integer `compactionEpoch`. Same epoch, same bytes — it returns the cache and doesn't re-query memory. Compaction increments the epoch, then it re-renders. Profile identity changes don't rewrite the frozen section; they append an update snippet.
+
+That's prefix stability as production code, not a slogan. The system prompt sits at the front of the token stream. One changed token busts KV cache from there on, and cached input is billed at a steep discount to uncached — Anthropic's published Sonnet gap is about 10×. Agent loops are input-heavy, roughly 100:1 input to output in that writeup. A second-accurate timestamp at the top of the system prompt is the canonical anti-pattern. Manus said it in 2025: keep the prompt prefix stable. Grok Bot implemented the freeze a year later.
+
+Don't freeze everything. Grok Bot still injects per-turn `mcp_status` when discovery fails. Freeze the cacheable prefix. Let live guards move. And don't mutate the tools array mid-session — providers serialize that even earlier than the system prompt, so one schema edit invalidates everything after it. You can run the same discipline by hand: `/compact`, then change models.
 
 ### 10. Don't resume a stale session.
 
@@ -105,7 +117,7 @@ When the refactor of `foo.ts` is done, drop it. Don't keep the whole tour in con
 
 ### 13. Pin worker models. Route by phase.
 
-Mechanical edits, lint, search: cheap/fast models (Haiku, Luna, Composer, Flash). Hard reasoning: flagship, and only then. Resist staying on Opus or Sol out of habit. Pin workers explicitly. Sub-agents that inherit the parent will spend like the parent.
+Mechanical edits, lint, search: cheap/fast models (Haiku, Luna, Composer, Flash). Hard reasoning: flagship, and only then. Resist staying on Opus or Sol out of habit. Pin workers explicitly. Sub-agents that inherit the parent will spend like the parent. Compact between phases — don't promote a fat Haiku thread to Opus.
 
 ### 14. Local for mechanical work. Cap unattended runs.
 
@@ -137,7 +149,7 @@ Live leftover: CodexBar (`steipete/CodexBar`). Don't treat tiny one-off bars as 
 
 ### Claude Code
 
-Included weekly, then Extra Usage. `/context` and `/compact` are first-party. `/clear` between jobs. `CLAUDE.md` every turn except Explore/Plan. Fork copies parent; non-fork is brief-only. Effort / fast mode is a product flag, not "the included pool." Pin cheap models on sub-agents. Hooks that keep test failures and drop passing noise. `isolation: worktree` when you're paralleling. `ccusage` for historical logs.
+Included weekly, then Extra Usage. `/context` and `/compact` are first-party. `/clear` between jobs. Compact before `/model` — Haiku explores, Opus plans, Sonnet implements. `CLAUDE.md` every turn except Explore/Plan. Fork copies parent; non-fork is brief-only. Effort / fast mode is a product flag, not "the included pool." Pin cheap models on sub-agents. Hooks that keep test failures and drop passing noise. `isolation: worktree` when you're paralleling. `ccusage` for historical logs.
 
 ### Antigravity
 
@@ -145,7 +157,9 @@ Included weekly, then Extra Usage. `/context` and `/compact` are first-party. `/
 
 ### Grok Bot
 
-Grok 4 Fast vs Grok 4.1. SuperGrok vs Heavy. Context window is a billed shape — don't treat max context as free headroom. On paid Cursor plans, Grok Bot has had its own weekly pool; unused dies. Recheck before publish. Don't invent X.ai seat prices here. Product review lives on another card.
+Grok 4 Fast vs Grok 4.1. SuperGrok vs Heavy. Context window is a billed shape — don't treat max context as free headroom. On paid Cursor plans, Grok Bot has had its own weekly pool; unused dies. Recheck before publish. Don't invent X.ai seat prices here.
+
+The interesting thrift isn't the model picker. After the 0.18.0 leak, the context layer is public: freeze memory and profile to `compactionEpoch`, append identity updates, spill MCP payloads over 12KB, keep the serialized tool surface stable. That's [why the system prompt has to stay frozen](https://yage.ai/share/grok-bot-context-engineering-en-20260827.html). Product review is still `629b47` / [Grok Bot Gave My Coding Agents a Boss](/blog/grok-bot-gave-my-coding-agents-a-boss/).
 
 ### Copilot, only as the Auto exception
 
@@ -173,7 +187,7 @@ Don't build Chattic or Kanbus from this article. That's a later card.
 
 Vendors will keep making the premium default feel like a gift. Just say no.
 
-Turn Fast off, and check that it stayed off. Pin cheap workers. Compact the manager; give each worker only the brief. Follow CodexBar and ccusage. Empty included buckets before they die. Spend leftover on interruptible chores, not on a latency lane nobody asked for.
+Turn Fast off, and check that it stayed off. Pin cheap workers. Compact the manager; give each worker only the brief. Compact before you change models. Don't reshuffle a frozen prefix between compaction epochs. Follow CodexBar and ccusage. Empty included buckets before they die. Spend leftover on interruptible chores, not on a latency lane nobody asked for.
 
 Context hygiene is ordinary engineering applied to agent windows. Manage the pile the way you already manage memory leaks. The models get sharper. The bill gets quieter.
 
