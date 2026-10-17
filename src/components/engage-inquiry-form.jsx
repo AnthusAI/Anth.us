@@ -141,7 +141,7 @@ const EngageInquiryForm = () => {
       <p className={styles.privacyNotice}>
         We use these details only to reply to you about this inquiry and to keep
         a record of our conversation. We don't sell them or add you to a mailing
-        list.
+        list, and we keep them until you ask us to delete them.
       </p>
       <button type="submit" className={styles.sendButton} disabled={sending}>
         {sending ? "Sending…" : "Start an engagement"}
