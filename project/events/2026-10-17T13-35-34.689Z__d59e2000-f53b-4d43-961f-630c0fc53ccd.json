@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "d59e2000-f53b-4d43-961f-630c0fc53ccd",
+  "issue_id": "kanbus-e28f0d4d-4e97-4911-994c-c3ad86f6ca1f",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-17T13:35:34.689Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Engagement page: send inquiries to Prospectus instead of the Google Form",
+    "description": "Ryan, 2026-10-17 portfolio review: the anth.us contact path is a Google Form, which undercuts the Prospectus pitch. The engage page gets an inline inquiry form that posts to Prospectus intake (Prospectus kanbus-47dc15ae). The form appears only when GATSBY_PROSPECTUS_INTAKE_URL is set for the build; until then the page keeps the Google Form link, so nothing changes in production before Prospectus real-contact intake is deployed.\n\nFeature: Engagement inquiries reach Prospectus\n  Scenario: Intake configured\n    Given GATSBY_PROSPECTUS_INTAKE_URL points at Prospectus intake\n    When a visitor sends the engage form\n    Then they see a receipt and the inquiry lands in Prospectus\n  Scenario: Intake not configured\n    Given no intake URL\n    Then the page keeps the existing contact link",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude",
+      "name": "portfolio-review-thread"
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import * as styles from "./engage.module.css"
-import { contactUrl } from "../components/contact-url"
+import EngageInquiryForm from "../components/engage-inquiry-form"
 
 const EngagePage = () => {
   return (
@@ -111,9 +111,7 @@ const EngagePage = () => {
             Tell us the problem, even if it's half-formed, and we'll scope the
             first month together.
           </p>
-          <a href={contactUrl} className="button">
-            Start an engagement
-          </a>
+          <EngageInquiryForm />
         </section>
       </article>
     </Layout>
