@@ -1,3 +1,14 @@
+> **SUPERSEDED — this Gatsby repository does not serve anth.us.**
+> Current website source: [AnthusAI/Anth.us-Papyrus](https://github.com/AnthusAI/Anth.us-Papyrus/tree/main).
+> Start with its production `main` branch and AGENTS.md. The public site uses
+> Papyrus/Markus S3 projection behind CloudFront `E3UMOOJRMY7FK7`; CMS/backend
+> deployment is Amplify `d7s858igkyct5` in account `712236451410`, `us-east-1`.
+> Gatsby Amplify `d1ffh6ny5rvtl` is historical and has no anth.us custom domain.
+> A successful Gatsby build does not update the public website. Do current
+> website fixes, including engagement intake, in Anth.us-Papyrus.
+> Keep this repository and its cloud apps for recovery; do not change DNS or
+> delete infrastructure. The sections below describe historical Gatsby workflows.
+
 # AGENTS.md
 
 This file provides instructions for AI coding agents working on the Anth.us Gatsby website project.
