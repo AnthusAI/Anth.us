@@ -3,17 +3,46 @@
   "title": "Correct Anth.us production ownership and recoverably retire M1 Gatsby clone",
   "description": "Fix actual Papyrus production renderer and ownership documentation. Preserve fallback while Prospectus real-contact intake remains gated. Verify tests, merge-driven deployment and public site. Preserve Gatsby clone dirty files, all refs and worktrees before recoverable removal outside active clones.",
   "type": "sub-task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "kanbus-e28f0d4d-4e97-4911-994c-c3ad86f6ca1f",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c273c114-098a-4d14-9af5-7c6c68cf149a",
+      "author": "home",
+      "text": "2026-10-17 production correction and clone-retirement receipts:\n\n- Actual website: AnthusAI/Anth.us-Papyrus main; CMS/backend Amplify d7s858igkyct5; S3 projection through CloudFront E3UMOOJRMY7FK7 with anth.us/www.anth.us aliases. Verified via CLI API, not AWS console.\n- Production PR52 merged at 9b2a57c5c460d602ccf427c8264c325af52bcf63, implementation 5f605180646c05a6ae009c4d403ad38de7d9b76b. PR54 native-POST follow-up merged at fa510d4edb1bb6ffc071d8bc7d59f71b9105ed2b. Default develop README/AGENTS repair PR53 merged at 45db6aa6c098b1e977f5e72008e7d21bf8000214; no unrelated develop promotion. Gatsby superseded notices PR85 merged at 02f4d5b1aaabdbac1606c1977d96cef548303720.\n- Ported behavior: bundled web/inquiry-config.json reaches the Python projector Lambda; GATSBY_PROSPECTUS_INTAKE_URL cannot. Form requires HTTPS endpoint plus approved notice/version together, stays disabled in this deployment, preserves Google Form in all states, reuses IDs for retries, filters campaign metadata, omits credentials/marketing enrollment, and only acknowledges server receipts. Native fallback uses POST so inquiry data cannot become query strings.\n- Tests: initial new spec failed for missing inquiry module; final 3 rendering, 3 JS submission, 4 page-generation, 5 environment and 13 edge tests pass (28 total). Whitespace checks pass. Full build/backend and synchronous re-render are the existing Amplify pipeline; job26 running and job27 queued at the time of this progress note. Final deployment/public receipts follow.\n- Upstream blocker: Prospectus PR19 remains OPEN at 76f5eb47f52995498cfcdb9e06efe23ff340614a (CI green), tracking Prospectus kanbus-47dc15ae. Real-contact intake activation, approved privacy/retention and grants are outside this Anth.us-only exception. No Prospectus writes or real inquiry submissions performed. Do not close the parent or call the disabled form live/complete.\n- Original M1 Gatsby clone moved intact from /Users/home/Projects/Anth.us to /Users/home/Backups/retired-projects/Anth.us-20261017. All 159,904 entries preserved, move manifest zero differences; all seven worktree HEAD/status snapshots, refs, and two stashes match before/after. Idle root Kanbus daemon stopped; linked worktree and submodule Git paths repaired. External worktrees retained in place. Anth.us-Papyrus local clone untouched. No permanent deletion or cloud/DNS/IAM/OAuth changes.\n- Recovery sidecar: /Users/home/Backups/retired-projects/Anth.us-20261017-RECOVERY.md. All-refs bundle verified complete, 123 refs, 495 MB, at /Users/home/Documents/Codex/2026-10-17/task-3/recovery/Anth.us-all-refs.bundle. SHA256 6299b2dbc1d4f00ffa479e93596b2ca59745a873fa61358c0aba11a0bf213d0a. Before/after states, manifest, relocation scripts and verification are in that recovery directory.\n",
+      "created_at": "2026-10-17T15:48:30.148956Z",
+      "comment_type": "default",
+      "data": {},
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6.1-sol",
+        "name": "anthus-production-correction",
+        "settings": {}
+      }
+    },
+    {
+      "id": "aba8290c-4c43-4614-9e4e-9ef78a08f646",
+      "author": "home",
+      "text": "Final deployment/public verification receipts (UTC):\n\nAmplify d7s858igkyct5 main job26 SUCCEED at 2026-10-17T15:52:56.346000+00:00, commit 9b2a57c5c460d602ccf427c8264c325af52bcf63. Existing merge-triggered backend/build/deploy pipeline completed; no manual AWS deployment.\n\nAmplify d7s858igkyct5 main job27 SUCCEED at 2026-10-17T16:02:04.566000+00:00, commit fa510d4edb1bb6ffc071d8bc7d59f71b9105ed2b. Existing merge-triggered backend/build/deploy pipeline completed; no manual AWS deployment.\n\nPublic verification at 2026-10-17T16:02:18.183530+00:00: https://anth.us/engage/ HTTP200 with production canonical; inline intake remains disabled and Google fallback is present. The fallback itself loads HTTP200 as the public 'Anthus AI Solutions' Google Form; no inquiry was submitted.\n\nPublic /engage-inquiry.js HTTP200 text/javascript, byte-identical to merged source, SHA256 36f67c3cb272c6c1a88a385e35cba8c05a257bd9a257a33d53860d4aa61c7463.\n\nProduction robots/canonical/noindex/header/sitemap checks pass (159 sitemap URLs); a random missing URL returns custom HTTP404.\n\nScoped ownership correction and recoverable Gatsby retirement are complete. Child kanbus-0d24 can close. Parent kanbus-e28f stays BLOCKED on separately authorized Prospectus PR19 merge/deployment and production endpoint/notice configuration. Do not call the disabled inline form a completed live intake.\n\nRecovery and verification evidence: /Users/home/Documents/Codex/2026-10-17/task-3/recovery/. Original clone remains preserved at /Users/home/Backups/retired-projects/Anth.us-20261017; original active path is absent. Papyrus local clone untouched.\n\nRecords delivered in https://github.com/AnthusAI/Anth.us/pull/86; code/docs PR52/53/54 and historical Gatsby notice PR85 already merged. No unrelated projects changed.",
+      "created_at": "2026-10-17T16:02:21.446019Z",
+      "comment_type": "default",
+      "data": {},
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-6.1-sol",
+        "name": "anthus-production-correction",
+        "settings": {}
+      }
+    }
+  ],
   "created_at": "2026-10-17T15:40:50.137970Z",
-  "updated_at": "2026-10-17T15:40:57.898386Z",
-  "closed_at": null,
+  "updated_at": "2026-10-17T16:02:21.757724Z",
+  "closed_at": "2026-10-17T16:02:21.757635Z",
   "right_now_summary": null,
   "right_now_updated_at": null,
   "custom": {},
