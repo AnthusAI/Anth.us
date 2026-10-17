@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "c752f4d4-e481-40bf-bbab-2e5e8141664c",
+  "issue_id": "kanbus-e28f0d4d-4e97-4911-994c-c3ad86f6ca1f",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-17T16:02:21.129Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "bb685f6b-15fe-401a-b245-ddeb5afadd42",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6.1-sol",
+      "name": "anthus-production-correction"
+    }
+  }
+}
