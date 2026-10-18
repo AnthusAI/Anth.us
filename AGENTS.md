@@ -1,13 +1,10 @@
-> **SUPERSEDED — this Gatsby repository does not serve anth.us.**
-> Current website source: [AnthusAI/Anth.us-Papyrus](https://github.com/AnthusAI/Anth.us-Papyrus/tree/main).
-> Start with its production `main` branch and AGENTS.md. The public site uses
-> Papyrus/Markus S3 projection behind CloudFront `DISTRIBUTION_ID`; CMS/backend
-> deployment is Amplify `AMPLIFY_APP_ID` in account `000000000000`, `us-east-1`.
-> Gatsby Amplify `AMPLIFY_APP_ID` is historical and has no anth.us custom domain.
-> A successful Gatsby build does not update the public website. Do current
-> website fixes, including engagement intake, in Anth.us-Papyrus.
-> Keep this repository and its cloud apps for recovery; do not change DNS or
-> delete infrastructure. The sections below describe historical Gatsby workflows.
+> **LEGACY — this Gatsby repository does not serve anth.us.**
+> The anth.us website is now powered by [Papyrus](https://github.com/AnthusAI/Papyrus)
+> and its source lives in [AnthusAI/Anth.us-web](https://github.com/AnthusAI/Anth.us-web).
+> A successful Gatsby build here does not update the public website. Make all
+> current website changes, including engagement intake, in Anth.us-web.
+> This repository is kept for historical reference and recovery only.
+> The sections below describe historical Gatsby workflows.
 
 # AGENTS.md
 
