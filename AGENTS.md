@@ -228,11 +228,11 @@ import BlogImage from "../../components/blog-image"
 
 House voice lives in one place: [`src/site-content/README.md`](src/site-content/README.md#voice)
 (prose) and `publications/anthus/style-profile.yml` in the Papyrus repo
-(the same rules, structured so [Limatus](https://github.com/AnthusAI/Limatus)
+(the same rules, structured so [Humanus](https://github.com/AnthusAI/Humanus)
 can check a draft against them automatically). Read both before writing —
 don't restate them here, since a second copy of the rules is exactly how
 this section drifted out of date before. That YAML is also the single
-source Limatus's `diagnose`/`options`/`verify` commands read; a copyediting
+source Humanus imports as a policy pack (`humanus pack import`) for `humanus check` and `humanus suggest`; a copyediting
 agent and a copywriting agent should be reading the same file.
 
 Excerpts follow the same voice, with one addition: they're standalone,
